@@ -7,6 +7,7 @@ import android.view.View;
 
 import vn.loitp.app.activity.demo.alarmdemoapp.activity.AlarmMeActivity;
 import vn.loitp.app.activity.demo.gallery.GalleryDemoSplashActivity;
+import vn.loitp.app.activity.demo.video.VideoActivity;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -28,6 +29,14 @@ public class MenuDemoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, GalleryDemoSplashActivity.class);
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(activity);
+            }
+        });
+        findViewById(R.id.bt_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, VideoActivity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
             }
