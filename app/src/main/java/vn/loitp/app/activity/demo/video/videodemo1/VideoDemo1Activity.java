@@ -6,27 +6,18 @@ import android.os.Bundle;
 import android.view.Surface;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
-import com.google.android.exoplayer2.LoadControl;
-import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
-import com.google.android.exoplayer2.source.LoopingMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.source.hls.HlsMediaSource;
+import com.google.android.exoplayer2.source.dash.DashMediaSource;
+import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -46,6 +37,7 @@ public class VideoDemo1Activity extends BaseActivity implements VideoRendererEve
         super.onCreate(savedInstanceState);
 
         resolutionTextView = (TextView) findViewById(R.id.resolution_textView);
+/*
 
         // 1. Create a default TrackSelector
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
@@ -75,6 +67,13 @@ public class VideoDemo1Activity extends BaseActivity implements VideoRendererEve
         //Uri mp4VideoUri = Uri.parse("http://54.255.155.24:1935//Live/_definst_/amlst:sweetbcha1novD235L240P/playlist.m3u8"); //Radnom 540p indian channel
         Uri mp4VideoUri = Uri.parse("http://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8");
         //Uri mp4VideoUri = Uri.parse("http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd");
+
+
+        //BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        //TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+        //SimpleExoPlayer simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+        //exoPlayerView.setPlayer(simpleExoPlayer);
+        //simpleExoPlayer.prepare(dashMediaSource);
 
 
         //VIDEO FROM SD CARD: (2 steps. set up file and path, then change videoSource to get the file)
@@ -149,6 +148,22 @@ public class VideoDemo1Activity extends BaseActivity implements VideoRendererEve
 
         player.setPlayWhenReady(true); //run file/link when ready to play.
         player.setVideoDebugListener(this); //for listening to resolution change and  outputing the resolution
+*/
+
+
+        //MPD
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "ExoPlayer"));
+        Uri uri = Uri.parse("http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd");
+        DashMediaSource dashMediaSource = new DashMediaSource(uri, dataSourceFactory, new DefaultDashChunkSource.Factory(dataSourceFactory), null, null);
+
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+
+        SimpleExoPlayer simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+
+        simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
+        simpleExoPlayerView.setPlayer(simpleExoPlayer);
+        simpleExoPlayer.prepare(dashMediaSource);
     }
 
     @Override
