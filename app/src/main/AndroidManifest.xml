@@ -159,7 +159,13 @@
             android:name="vn.loitp.app.activity.customviews.googleplusbutton.GooglePlusButtonActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vn.loitp.app.activity.demo.video.VideoActivity"
+            android:name="vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="vn.loitp.app.activity.demo.video.videodemo2.VideoDemo2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="vn.loitp.app.activity.demo.video.VideoMenuActivity"
             android:screenOrientation="portrait" />
         <!--FOR ALARM DEMO APP-->
         <activity
