@@ -41,6 +41,7 @@ import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.DefaultDataSource;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 import com.uiza.demo.R;
 
 import java.io.IOException;
@@ -106,6 +107,8 @@ public class SampleChooserActivity extends Activity {
     }
 
     private void onSampleSelected(Sample sample) {
+        Gson gson = new Gson();
+        Log.d("loitp", ">>>sample: " + gson.toJson(sample));
         startActivity(sample.buildIntent(this));
     }
 
