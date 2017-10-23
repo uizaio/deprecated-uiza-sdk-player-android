@@ -35,6 +35,10 @@ public class VideoMenuActivity extends BaseActivity {
                 String js = "{\"uri\":\"http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd\",\"drmLicenseUrl\":\"https://proxy.uat.widevine.com/proxy?video_id\\u003dd286538032258a1c\\u0026provider\\u003dwidevine_test\",\"drmSchemeUuid\":\"edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\",\"name\":\"WV: HDCP not specified\",\"preferExtensionDecoders\":false}";
                 UriSample sample = LSApplication.getInstance().getGson().fromJson(js, UriSample.class);
                 startActivity(sample.buildIntent(activity));
+
+                //Intent intent = new Intent(activity, VideoDemo2Activity.class);
+                //startActivity(intent);
+                //LUIUtil.transActivityFadeIn(activity);
             }
         });
     }

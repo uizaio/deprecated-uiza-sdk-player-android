@@ -67,6 +67,7 @@ import java.util.UUID;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class VideoDemo2Activity extends BaseActivity implements View.OnClickListener, Player.EventListener,
@@ -311,6 +312,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
             uris = new Uri[]{intent.getData()};
+            LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
             extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
