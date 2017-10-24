@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
 import vn.loitp.app.activity.demo.video.videodemo2.VideoDemo2Activity;
+import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
@@ -41,6 +42,15 @@ public class VideoMenuActivity extends BaseActivity {
                 //LUIUtil.transActivityFadeIn(activity);
             }
         });
+        findViewById(R.id.bt_3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, VideoDemo3Activity.class);
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(activity);
+            }
+        });
+
     }
 
     @Override
