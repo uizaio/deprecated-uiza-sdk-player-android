@@ -72,18 +72,9 @@ import vn.loitp.livestar.R;
 
 public class UizaVideoView extends RelativeLayout implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
     private final String TAG = getClass().getSimpleName();
-    public static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";
-    public static final String DRM_LICENSE_URL = "drm_license_url";
-    public static final String DRM_KEY_REQUEST_PROPERTIES = "drm_key_request_properties";
-    public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
-    public static final String EXTENSION_EXTRA = "extension";
-
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
-    public static final String URI_LIST_EXTRA = "uri_list";
-    public static final String EXTENSION_LIST_EXTRA = "extension_list";
-    public static final String AD_TAG_URI_EXTRA = "ad_tag_uri";
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
@@ -113,7 +104,6 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     private long resumePosition;
 
     // Fields used only for ad playback. The ads loader is loaded via reflection.
-
     private Object imaAdsLoader; // com.google.android.exoplayer2.ext.ima.ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
@@ -152,8 +142,6 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
         simpleExoPlayerView.requestFocus();
     }
 
-    // PlaybackControlView.VisibilityListener implementation
-
     @Override
     public void onVisibilityChange(int visibility) {
         debugRootView.setVisibility(visibility);
@@ -164,11 +152,14 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     public void setInputModel(InputModel inputModel, boolean reloadData) {
         this.inputModel = inputModel;
         if (reloadData) {
+            releasePlayer();
+            shouldAutoPlay = true;
+            clearResumePosition();
+
             initializePlayer();
         }
     }
 
-    // Internal methods
     public void initializePlayer() {
         if (inputModel == null) {
             ToastUtils.showShort("You must init InputModel first");
@@ -282,20 +273,16 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
-        int type = TextUtils.isEmpty(overrideExtension) ? Util.inferContentType(uri)
-                : Util.inferContentType("." + overrideExtension);
+        int type = TextUtils.isEmpty(overrideExtension) ? Util.inferContentType(uri) : Util.inferContentType("." + overrideExtension);
         switch (type) {
             case C.TYPE_SS:
-                return new SsMediaSource(uri, buildDataSourceFactory(false),
-                        new DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
+                return new SsMediaSource(uri, buildDataSourceFactory(false), new DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
             case C.TYPE_DASH:
-                return new DashMediaSource(uri, buildDataSourceFactory(false),
-                        new DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
+                return new DashMediaSource(uri, buildDataSourceFactory(false), new DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
             case C.TYPE_HLS:
                 return new HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger);
             case C.TYPE_OTHER:
-                return new ExtractorMediaSource(uri, mediaDataSourceFactory, new DefaultExtractorsFactory(),
-                        mainHandler, eventLogger);
+                return new ExtractorMediaSource(uri, mediaDataSourceFactory, new DefaultExtractorsFactory(), mainHandler, eventLogger);
             default: {
                 throw new IllegalStateException("Unsupported type: " + type);
             }
@@ -303,16 +290,13 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     }
 
     private DrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(UUID uuid, String licenseUrl, String[] keyRequestPropertiesArray) throws UnsupportedDrmException {
-        HttpMediaDrmCallback drmCallback = new HttpMediaDrmCallback(licenseUrl,
-                buildHttpDataSourceFactory(false));
+        HttpMediaDrmCallback drmCallback = new HttpMediaDrmCallback(licenseUrl, buildHttpDataSourceFactory(false));
         if (keyRequestPropertiesArray != null) {
             for (int i = 0; i < keyRequestPropertiesArray.length - 1; i += 2) {
-                drmCallback.setKeyRequestProperty(keyRequestPropertiesArray[i],
-                        keyRequestPropertiesArray[i + 1]);
+                drmCallback.setKeyRequestProperty(keyRequestPropertiesArray[i], keyRequestPropertiesArray[i + 1]);
             }
         }
-        return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback,
-                null, mainHandler, eventLogger);
+        return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback, null, mainHandler, eventLogger);
     }
 
     public void releasePlayer() {
@@ -347,8 +331,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
      * @return A new DataSource factory.
      */
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
-        return ((LSApplication) ((Activity) getContext()).getApplication())
-                .buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+        return ((LSApplication) ((Activity) getContext()).getApplication()).buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
     /**
@@ -359,8 +342,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
      * @return A new HttpDataSource factory.
      */
     private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
-        return ((LSApplication) ((Activity) getContext()).getApplication())
-                .buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+        return ((LSApplication) ((Activity) getContext()).getApplication()).buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
     /**
@@ -374,18 +356,14 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
         Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
-            imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class)
-                    .newInstance(this, adTagUri);
+            imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
             adOverlayViewGroup = new FrameLayout(getContext());
             // The demo app has a non-null overlay frame layout.
             simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
         }
-        Class<?> sourceClass =
-                Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
-        Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class,
-                DataSource.Factory.class, loaderClass, ViewGroup.class);
-        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader,
-                adOverlayViewGroup);
+        Class<?> sourceClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
+        Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);
+        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
     }
 
     private void releaseAdsLoader() {
@@ -395,7 +373,6 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
                 Method releaseMethod = loaderClass.getMethod("release");
                 releaseMethod.invoke(imaAdsLoader);
             } catch (Exception e) {
-                // Should never happen.
                 throw new IllegalStateException(e);
             }
             imaAdsLoader = null;
@@ -405,7 +382,6 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     }
 
     // Player.EventListener implementation
-
     @Override
     public void onLoadingChanged(boolean isLoading) {
         // Do nothing.
@@ -500,7 +476,6 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     }
 
     // User controls
-
     private void updateButtonVisibilities() {
         debugRootView.removeAllViews();
 
