@@ -2,7 +2,6 @@ package vn.loitp.app.activity.demo.video.videodemo3.lib;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -14,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -63,6 +61,7 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.UUID;
 
+import loitp.utils.util.ToastUtils;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
@@ -160,9 +159,23 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
         debugRootView.setVisibility(visibility);
     }
 
+    private InputModel inputModel;
+
+    public void setInputModel(InputModel inputModel, boolean reloadData) {
+        this.inputModel = inputModel;
+        if (reloadData) {
+            initializePlayer();
+        }
+    }
+
     // Internal methods
     public void initializePlayer() {
-        Intent intent = ((Activity) getContext()).getIntent();
+        if (inputModel == null) {
+            ToastUtils.showShort("You must init InputModel first");
+            return;
+        }
+
+        //Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
@@ -171,18 +184,17 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
             lastSeenTrackGroupArray = null;
             eventLogger = new EventLogger(trackSelector);
 
-            UUID drmSchemeUuid = intent.hasExtra(DRM_SCHEME_UUID_EXTRA) ? UUID.fromString(intent.getStringExtra(DRM_SCHEME_UUID_EXTRA)) : null;
+            UUID drmSchemeUuid = inputModel.getDrmSchemeUuid();
             DrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
             if (drmSchemeUuid != null) {
-                String drmLicenseUrl = intent.getStringExtra(DRM_LICENSE_URL);
-                String[] keyRequestPropertiesArray = intent.getStringArrayExtra(DRM_KEY_REQUEST_PROPERTIES);
+                String drmLicenseUrl = inputModel.getDrmLicenseUrl();
+                String[] keyRequestPropertiesArray = inputModel.getKeyRequestPropertiesArray();
                 int errorStringId = R.string.error_drm_unknown;
                 if (Util.SDK_INT < 18) {
                     errorStringId = R.string.error_drm_not_supported;
                 } else {
                     try {
-                        drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl,
-                                keyRequestPropertiesArray);
+                        drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl, keyRequestPropertiesArray);
                     } catch (UnsupportedDrmException e) {
                         errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME
                                 ? R.string.error_drm_unsupported_scheme : R.string.error_drm_unknown;
@@ -194,7 +206,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
                 }
             }
 
-            boolean preferExtensionDecoders = intent.getBooleanExtra(PREFER_EXTENSION_DECODERS, false);
+            boolean preferExtensionDecoders = inputModel.getPreferExtensionDecoders();
             @DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode =
                     ((LSApplication) ((Activity) getContext()).getApplication()).useExtensionRenderers()
                             ? (preferExtensionDecoders ? DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
@@ -214,20 +226,20 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
             debugViewHelper = new DebugTextViewHelper(player, debugTextView);
             debugViewHelper.start();
         }
-        String action = intent.getAction();
+        String action = inputModel.getAction();
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{intent.getData()};
+            uris = new Uri[]{inputModel.getUri()};
             LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
-            extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
+            extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
-            String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
+            String[] uriStrings = inputModel.getUriStrings();
             uris = new Uri[uriStrings.length];
             for (int i = 0; i < uriStrings.length; i++) {
                 uris[i] = Uri.parse(uriStrings[i]);
             }
-            extensions = intent.getStringArrayExtra(EXTENSION_LIST_EXTRA);
+            extensions = inputModel.getExtensionList();
             if (extensions == null) {
                 extensions = new String[uriStrings.length];
             }
@@ -245,7 +257,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
         }
         MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0]
                 : new ConcatenatingMediaSource(mediaSources);
-        String adTagUriString = intent.getStringExtra(AD_TAG_URI_EXTRA);
+        String adTagUriString = inputModel.getAdTagUri();
         if (adTagUriString != null) {
             Uri adTagUri = Uri.parse(adTagUriString);
             if (!adTagUri.equals(loadedAdTagUri)) {
@@ -290,8 +302,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
         }
     }
 
-    private DrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(UUID uuid,
-                                                                              String licenseUrl, String[] keyRequestPropertiesArray) throws UnsupportedDrmException {
+    private DrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(UUID uuid, String licenseUrl, String[] keyRequestPropertiesArray) throws UnsupportedDrmException {
         HttpMediaDrmCallback drmCallback = new HttpMediaDrmCallback(licenseUrl,
                 buildHttpDataSourceFactory(false));
         if (keyRequestPropertiesArray != null) {
@@ -536,11 +547,11 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     }
 
     private void showToast(int messageId) {
-        showToast(getContext().getString(messageId));
+        ToastUtils.showShort(messageId);
     }
 
     private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        ToastUtils.showShort(message);
     }
 
     private static boolean isBehindLiveWindow(ExoPlaybackException e) {
