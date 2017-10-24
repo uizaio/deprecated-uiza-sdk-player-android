@@ -24,7 +24,7 @@ public class UizaVideoView extends RelativeLayout {
     }
 
     private void init() {
-        inflate(getContext(), R.layout.view_l_action_bar, this);
+        inflate(getContext(), R.layout.uiza_video_view, this);
 
         //this.ivIconBack = (ImageView) findViewById(R.id.iv_icon_back);
 
