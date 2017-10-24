@@ -159,11 +159,11 @@ public class VideoDemo1Activity extends BaseActivity implements VideoRendererEve
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
 
-        SimpleExoPlayer simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
 
         simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
-        simpleExoPlayerView.setPlayer(simpleExoPlayer);
-        simpleExoPlayer.prepare(dashMediaSource);
+        simpleExoPlayerView.setPlayer(player);
+        player.prepare(dashMediaSource);
     }
 
     @Override
