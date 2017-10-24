@@ -161,7 +161,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     }
 
     // Internal methods
-    private void initializePlayer() {
+    public void initializePlayer() {
         Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
@@ -305,7 +305,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
                 null, mainHandler, eventLogger);
     }
 
-    private void releasePlayer() {
+    public void releasePlayer() {
         if (player != null) {
             debugViewHelper.stop();
             debugViewHelper = null;
@@ -568,5 +568,44 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
                 trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
             }
         }
+    }
+
+    public void onNewIntent(Intent intent) {
+        releasePlayer();
+        shouldAutoPlay = true;
+        clearResumePosition();
+        ((Activity) getContext()).setIntent(intent);
+    }
+
+    public void onStart() {
+        if (Util.SDK_INT > 23) {
+            initializePlayer();
+        }
+    }
+
+    public void onResume() {
+        if ((Util.SDK_INT <= 23 || player == null)) {
+            initializePlayer();
+        }
+    }
+
+    public void onPause() {
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    public void onStop() {
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+    public void onDestroy() {
+        releaseAdsLoader();
+    }
+
+    public SimpleExoPlayerView getPlayerView() {
+        return simpleExoPlayerView;
     }
 }
