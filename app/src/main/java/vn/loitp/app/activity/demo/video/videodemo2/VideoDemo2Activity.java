@@ -70,9 +70,7 @@ import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 
-public class VideoDemo2Activity extends BaseActivity implements View.OnClickListener, Player.EventListener,
-        PlaybackControlView.VisibilityListener {
-
+public class VideoDemo2Activity extends BaseActivity implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
     public static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";
     public static final String DRM_LICENSE_URL = "drm_license_url";
     public static final String DRM_KEY_REQUEST_PROPERTIES = "drm_key_request_properties";
@@ -209,8 +207,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             initializePlayer();
         } else {
@@ -236,8 +233,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
         } else if (view.getParent() == debugRootView) {
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog(this, ((Button) view).getText(),
-                        trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
+                trackSelectionHelper.showSelectionDialog(this, ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
             }
         }
     }

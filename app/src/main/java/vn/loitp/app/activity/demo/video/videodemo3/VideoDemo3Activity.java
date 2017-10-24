@@ -3,14 +3,18 @@ package vn.loitp.app.activity.demo.video.videodemo3;
 import android.app.Activity;
 import android.os.Bundle;
 
+import vn.loitp.app.activity.demo.video.videodemo3.lib.UizaVideoView;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.livestar.R;
 
 public class VideoDemo3Activity extends BaseActivity {
 
+    private UizaVideoView uizaVideoView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        uizaVideoView = (UizaVideoView) findViewById(R.id.uiza_video_view);
     }
 
     @Override

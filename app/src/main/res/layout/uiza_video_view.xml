@@ -1,56 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
-    android:id="@+id/root_view">
+    android:keepScreenOn="true">
 
-    <Button
-        android:id="@+id/bt_1"
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get Photoset List" />
-
-    <Button
-        android:id="@+id/bt_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_1"
-        android:text="Get Photo List In Photoset"
-        android:visibility="gone" />
-
-    <ScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bt_demo"
-        android:layout_below="@+id/bt_2"
-        android:fillViewport="true">
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv"
+            android:id="@+id/debug_text_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/padding_5"
-            android:textColor="@color/grey"
-            android:textSize="@dimen/txt_10" />
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
 
-    <Button
-        android:id="@+id/bt_demo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Run Demo" />
+        <LinearLayout
+            android:id="@+id/controls_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-    <vn.loitp.app.activity.customviews.progress_loadingview.avloading_indicator_view._lib.avi.AVLoadingIndicatorView
-        android:id="@+id/avi"
-        style="@style/AVLoadingIndicatorView.Large"
-        android:layout_width="@dimen/w_50"
-        android:layout_height="@dimen/w_50"
-        android:layout_centerInParent="true"
-        app:indicatorColor="@color/colorPrimary"
-        app:indicatorName="PacmanIndicator" />
+            <Button
+                android:id="@+id/retry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RETRY"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>
