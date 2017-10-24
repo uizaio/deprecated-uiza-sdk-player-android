@@ -38,10 +38,6 @@ public class VideoMenuActivity extends BaseActivity {
                 UriSample sample = LSApplication.getInstance().getGson().fromJson(js, UriSample.class);
                 LLog.d(TAG, ">>>>>>>>" + LSApplication.getInstance().getGson().toJson(sample));
                 startActivity(sample.buildIntent(activity));
-
-                //Intent intent = new Intent(activity, VideoDemo2Activity.class);
-                //startActivity(intent);
-                //LUIUtil.transActivityFadeIn(activity);
             }
         });
         findViewById(R.id.bt_3).setOnClickListener(new View.OnClickListener() {
@@ -88,18 +84,7 @@ public class VideoMenuActivity extends BaseActivity {
         public final String drmLicenseUrl;
         public final String[] drmKeyRequestProperties;
 
-        private boolean isSwitchToVideoDemo3Activity;
-
-        public boolean isSwitchToVideoDemo3Activity() {
-            return isSwitchToVideoDemo3Activity;
-        }
-
-        public void setSwitchToVideoDemo3Activity(boolean switchToVideoDemo3Activity) {
-            isSwitchToVideoDemo3Activity = switchToVideoDemo3Activity;
-        }
-
-        public Sample(String name, UUID drmSchemeUuid, String drmLicenseUrl,
-                      String[] drmKeyRequestProperties, boolean preferExtensionDecoders) {
+        public Sample(String name, UUID drmSchemeUuid, String drmLicenseUrl, String[] drmKeyRequestProperties, boolean preferExtensionDecoders) {
             this.name = name;
             this.drmSchemeUuid = drmSchemeUuid;
             this.drmLicenseUrl = drmLicenseUrl;
@@ -108,8 +93,7 @@ public class VideoMenuActivity extends BaseActivity {
         }
 
         public Intent buildIntent(Context context) {
-            //Intent intent = new Intent(context, isSwitchToVideoDemo3Activity ? VideoDemo3Activity.class : VideoDemo2Activity.class);
-            Intent intent = new Intent(context, VideoDemo3Activity.class);
+            Intent intent = new Intent(context, VideoDemo2Activity.class);
             intent.putExtra(VideoDemo2Activity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders);
             if (drmSchemeUuid != null) {
                 intent.putExtra(VideoDemo2Activity.DRM_SCHEME_UUID_EXTRA, drmSchemeUuid.toString());
