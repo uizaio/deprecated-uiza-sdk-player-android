@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.UizaVideoView;
 import vn.loitp.app.base.BaseActivity;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class VideoDemo3Activity extends BaseActivity {
@@ -18,6 +19,7 @@ public class VideoDemo3Activity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LLog.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         uizaVideoView = (UizaVideoView) findViewById(R.id.uiza_video_view);
     }
@@ -40,11 +42,6 @@ public class VideoDemo3Activity extends BaseActivity {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.activity_video_demo_3;
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        uizaVideoView.onNewIntent(intent);
     }
 
     @Override
@@ -87,11 +84,8 @@ public class VideoDemo3Activity extends BaseActivity {
         }
     }
 
-    // Activity input
-
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        // If the event was not handled then see if the player view can handle it.
         return super.dispatchKeyEvent(event) || uizaVideoView.getPlayerView().dispatchKeyEvent(event);
     }
 }
