@@ -19,7 +19,7 @@ public class VideoDemo3Activity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        LLog.d(TAG, "onCreate");
+        LLog.d(TAG, ">>>>>>>onCreate");
         super.onCreate(savedInstanceState);
         uizaVideoView = (UizaVideoView) findViewById(R.id.uiza_video_view);
     }

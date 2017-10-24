@@ -171,8 +171,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
             lastSeenTrackGroupArray = null;
             eventLogger = new EventLogger(trackSelector);
 
-            UUID drmSchemeUuid = intent.hasExtra(DRM_SCHEME_UUID_EXTRA)
-                    ? UUID.fromString(intent.getStringExtra(DRM_SCHEME_UUID_EXTRA)) : null;
+            UUID drmSchemeUuid = intent.hasExtra(DRM_SCHEME_UUID_EXTRA) ? UUID.fromString(intent.getStringExtra(DRM_SCHEME_UUID_EXTRA)) : null;
             DrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
             if (drmSchemeUuid != null) {
                 String drmLicenseUrl = intent.getStringExtra(DRM_LICENSE_URL);
@@ -570,12 +569,12 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
         }
     }
 
-    public void onNewIntent(Intent intent) {
+    /*public void onNewIntent(Intent intent) {
         releasePlayer();
         shouldAutoPlay = true;
         clearResumePosition();
         ((Activity) getContext()).setIntent(intent);
-    }
+    }*/
 
     public void onStart() {
         if (Util.SDK_INT > 23) {
