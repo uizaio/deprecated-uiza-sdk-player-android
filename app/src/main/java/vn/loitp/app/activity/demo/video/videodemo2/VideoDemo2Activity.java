@@ -332,9 +332,9 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
         for (int i = 0; i < uris.length; i++) {
             mediaSources[i] = buildMediaSource(uris[i], extensions[i]);
         }
-        MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0]
-                : new ConcatenatingMediaSource(mediaSources);
-        String adTagUriString = intent.getStringExtra(AD_TAG_URI_EXTRA);
+        MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0] : new ConcatenatingMediaSource(mediaSources);
+        //String adTagUriString = intent.getStringExtra(AD_TAG_URI_EXTRA);
+        String adTagUriString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=";
         if (adTagUriString != null) {
             Uri adTagUri = Uri.parse(adTagUriString);
             if (!adTagUri.equals(loadedAdTagUri)) {
@@ -344,6 +344,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
             try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
+                LLog.d(TAG, "Exception " + e.toString());
                 showToast(R.string.ima_not_loaded);
             }
         } else {

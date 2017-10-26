@@ -34,7 +34,7 @@
                 android:id="@+id/bt_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Video Demo 2 (Source from GG)" />
+                android:text="Video Demo 2 (GG)" />
 
             <Button
                 android:id="@+id/bt_3"
