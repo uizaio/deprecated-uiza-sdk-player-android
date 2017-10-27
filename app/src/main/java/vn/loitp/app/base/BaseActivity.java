@@ -44,11 +44,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         activity = setActivity();
         TAG = setTag();
-        /*if (setFullScreen()) {
+        if (setFullScreen()) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setCustomStatusBar(true);*/
+        setCustomStatusBar(true);
         super.onCreate(savedInstanceState);
         setContentView(setLayoutResourceId());
         ScrollView scrollView = (ScrollView) activity.findViewById(R.id.scroll_view);
