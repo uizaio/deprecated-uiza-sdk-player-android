@@ -65,6 +65,8 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.UUID;
 
+import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.EventLogger;
+import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.TrackSelectionHelper;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
@@ -334,7 +336,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
         }
         MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0] : new ConcatenatingMediaSource(mediaSources);
         //String adTagUriString = intent.getStringExtra(AD_TAG_URI_EXTRA);
-        String adTagUriString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=";
+        String adTagUriString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator=";
         if (adTagUriString != null) {
             Uri adTagUri = Uri.parse(adTagUriString);
             if (!adTagUri.equals(loadedAdTagUri)) {

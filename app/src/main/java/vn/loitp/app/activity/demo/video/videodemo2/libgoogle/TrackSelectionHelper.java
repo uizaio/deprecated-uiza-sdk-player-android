@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vn.loitp.app.activity.demo.video.videodemo2;
+package vn.loitp.app.activity.demo.video.videodemo2.libgoogle;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -44,7 +44,7 @@ import vn.loitp.livestar.R;
 /**
  * Helper class for displaying track selection dialogs.
  */
-/* package */ final class TrackSelectionHelper implements View.OnClickListener,
+/* package */public final class TrackSelectionHelper implements View.OnClickListener,
         DialogInterface.OnClickListener {
 
     private static final TrackSelection.Factory FIXED_FACTORY = new FixedTrackSelection.Factory();
