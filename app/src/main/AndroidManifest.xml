@@ -168,6 +168,9 @@
             android:name="vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="vn.loitp.app.activity.demo.video.videodemo3.TestVideoDemo3Activity"
+            android:screenOrientation="sensor" />
+        <activity
             android:name="vn.loitp.app.activity.demo.video.VideoMenuActivity"
             android:screenOrientation="portrait" />
         <!--FOR ALARM DEMO APP-->
