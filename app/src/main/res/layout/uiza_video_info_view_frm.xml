@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/Red">
+    android:layout_height="match_parent">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Info Video"
-        android:textColor="@color/White"
+        android:text="Info Video Here"
+        android:textColor="@color/Black"
         android:textSize="@dimen/txt_32" />
 
 </RelativeLayout>

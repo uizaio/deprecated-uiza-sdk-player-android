@@ -18,7 +18,7 @@
 
             <fragment
                 android:id="@+id/uiza_video"
-                class="vn.loitp.app.activity.demo.video.videodemo3.lib.UizaVideo"
+                class="vn.loitp.app.activity.demo.video.videodemo3.lib.frm.UizaVideo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
@@ -26,7 +26,7 @@
 
             <fragment
                 android:id="@+id/uiza_video_info"
-                class="vn.loitp.app.activity.demo.video.videodemo3.lib.UizaInfoVideo"
+                class="vn.loitp.app.activity.demo.video.videodemo3.lib.frm.UizaInfoVideo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="6"

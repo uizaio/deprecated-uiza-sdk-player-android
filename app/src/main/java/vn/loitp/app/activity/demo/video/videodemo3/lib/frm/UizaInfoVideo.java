@@ -1,4 +1,4 @@
-package vn.loitp.app.activity.demo.video.videodemo3.lib;
+package vn.loitp.app.activity.demo.video.videodemo3.lib.frm;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import vn.loitp.livestar.R;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class UizaVideo extends BaseFragment {
+public class UizaInfoVideo extends BaseFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class UizaVideo extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_video_frm, container, false);
+        View view = inflater.inflate(R.layout.uiza_video_info_view_frm, container, false);
         //TextView tv = (TextView) view.findViewById(R.id.tv);
         return view;
     }
