@@ -26,19 +26,19 @@ public class TestVideoDemo3Activity extends BaseActivity {
     private void orientVideoDescriptionFragment(int orientation) {
         // Hide the extra content when in landscape so the video is as large as possible.
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment extraContentFragment = fragmentManager.findFragmentById(R.id.uiza_video_info);
+        Fragment infoVideoFrm = fragmentManager.findFragmentById(R.id.uiza_video_info);
 
-        if (extraContentFragment != null) {
+        if (infoVideoFrm != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                fragmentTransaction.hide(extraContentFragment);
+                fragmentTransaction.hide(infoVideoFrm);
             } else {
-                fragmentTransaction.show(extraContentFragment);
+                fragmentTransaction.show(infoVideoFrm);
             }
             fragmentTransaction.commit();
         }
     }
-    
+
     @Override
     protected boolean setFullScreen() {
         return false;
