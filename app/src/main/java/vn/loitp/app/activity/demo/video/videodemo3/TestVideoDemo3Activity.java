@@ -38,8 +38,7 @@ public class TestVideoDemo3Activity extends BaseActivity {
             fragmentTransaction.commit();
         }
     }
-
-
+    
     @Override
     protected boolean setFullScreen() {
         return false;
