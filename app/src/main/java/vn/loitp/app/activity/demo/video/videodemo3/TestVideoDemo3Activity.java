@@ -1,12 +1,18 @@
 package vn.loitp.app.activity.demo.video.videodemo3;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+
+import vn.loitp.app.activity.demo.video.videodemo3.lib.frm.UizaVideo;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.livestar.R;
 
@@ -57,5 +63,36 @@ public class TestVideoDemo3Activity extends BaseActivity {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.activity_test_video_demo_3;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
+        //super.onNewIntent(intent);
+        if (frmUizaVideo != null) {
+            if (frmUizaVideo instanceof UizaVideo) {
+                ((UizaVideo) frmUizaVideo).onNewInten(intent);
+            }
+        }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
+
+        SimpleExoPlayerView simpleExoPlayerView = null;
+        if (frmUizaVideo != null) {
+            if (frmUizaVideo instanceof UizaVideo) {
+                simpleExoPlayerView = ((UizaVideo) frmUizaVideo).getSimpleExoPlayerView();
+            }
+        }
+        if (simpleExoPlayerView == null) {
+            return super.dispatchKeyEvent(event);
+        }
+
+        // If the event was not handled then see if the player view can handle it.
+        return super.dispatchKeyEvent(event) || simpleExoPlayerView.dispatchKeyEvent(event);
     }
 }

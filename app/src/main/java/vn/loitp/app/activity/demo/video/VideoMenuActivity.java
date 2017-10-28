@@ -44,14 +44,13 @@ public class VideoMenuActivity extends BaseActivity {
         findViewById(R.id.bt_3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, TestVideoDemo3Activity.class);
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                //Intent intent = new Intent(activity, TestVideoDemo3Activity.class);
+                //startActivity(intent);
+                //LUIUtil.transActivityFadeIn(activity);
 
-                //String js = "{\"uri\":\"http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd\",\"drmLicenseUrl\":\"https://proxy.uat.widevine.com/proxy?video_id\\u003dd286538032258a1c\\u0026provider\\u003dwidevine_test\",\"drmSchemeUuid\":\"edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\",\"name\":\"WV: HDCP not specified\",\"preferExtensionDecoders\":false}";
-                //UriSample sample = LSApplication.getInstance().getGson().fromJson(js, UriSample.class);
-                //sample.setSwitchToVideoDemo3Activity(true);
-                //startActivity(sample.buildIntent(activity));
+                String js = "{\"name\": \"Single inline linear\",\"uri\": \"https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv\",\"ad_tag_uri\": \"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=\"}";
+                UriSample sample = LSApplication.getInstance().getGson().fromJson(js, UriSample.class);
+                startActivity(sample.buildIntent(activity));
             }
         });
     }
@@ -94,7 +93,8 @@ public class VideoMenuActivity extends BaseActivity {
         }
 
         public Intent buildIntent(Context context) {
-            Intent intent = new Intent(context, VideoDemo2Activity.class);
+            //Intent intent = new Intent(context, VideoDemo2Activity.class);
+            Intent intent = new Intent(context, TestVideoDemo3Activity.class);
             intent.putExtra(VideoDemo2Activity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders);
             if (drmSchemeUuid != null) {
                 intent.putExtra(VideoDemo2Activity.DRM_SCHEME_UUID_EXTRA, drmSchemeUuid.toString());
