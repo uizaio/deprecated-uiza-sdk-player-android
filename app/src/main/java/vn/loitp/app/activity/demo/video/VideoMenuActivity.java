@@ -1,17 +1,13 @@
 package vn.loitp.app.activity.demo.video;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.UUID;
-
 import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
-import vn.loitp.app.activity.demo.video.videodemo2.VideoDemo2Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
+import vn.loitp.app.activity.demo.video.videodemo3.lib.model.UriSample;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
@@ -76,7 +72,7 @@ public class VideoMenuActivity extends BaseActivity {
     }
 
 
-    private abstract static class Sample {
+    /*private abstract static class Sample {
 
         public final String name;
         public final boolean preferExtensionDecoders;
@@ -104,9 +100,9 @@ public class VideoMenuActivity extends BaseActivity {
             return intent;
         }
 
-    }
+    }*/
 
-    private static final class UriSample extends Sample {
+    /*private static final class UriSample extends Sample {
 
         public final String uri;
         public final String extension;
@@ -130,9 +126,9 @@ public class VideoMenuActivity extends BaseActivity {
                     .setAction(VideoDemo2Activity.ACTION_VIEW);
         }
 
-    }
+    }*/
 
-    private static final class PlaylistSample extends Sample {
+    /*private static final class PlaylistSample extends Sample {
 
         public final UriSample[] children;
 
@@ -157,5 +153,5 @@ public class VideoMenuActivity extends BaseActivity {
                     .setAction(VideoDemo2Activity.ACTION_VIEW_LIST);
         }
 
-    }
+    }*/
 }
