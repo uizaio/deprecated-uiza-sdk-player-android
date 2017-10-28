@@ -1,4 +1,4 @@
-package vn.loitp.app.activity.demo.video.videodemo3.lib;
+package vn.loitp.app.activity.demo.video.videodemo3.lib.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -56,7 +56,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -64,6 +63,9 @@ import java.net.CookiePolicy;
 import java.util.UUID;
 
 import loitp.utils.util.ToastUtils;
+import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.EventLogger;
+import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
+import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.TrackSelectionHelper;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;

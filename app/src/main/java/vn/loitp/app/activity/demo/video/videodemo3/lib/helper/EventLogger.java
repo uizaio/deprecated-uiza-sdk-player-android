@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vn.loitp.app.activity.demo.video.videodemo3.lib;
+package vn.loitp.app.activity.demo.video.videodemo3.lib.helper;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -57,7 +57,7 @@ import java.util.Locale;
 /**
  * Logs player events using {@link Log}.
  */
-/* package */ final class EventLogger implements Player.EventListener, AudioRendererEventListener,
+/* package */public final class EventLogger implements Player.EventListener, AudioRendererEventListener,
         VideoRendererEventListener, AdaptiveMediaSourceEventListener,
         ExtractorMediaSource.EventListener, DefaultDrmSessionManager.EventListener,
         MetadataRenderer.Output {

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <vn.loitp.app.activity.demo.video.videodemo3.lib.UizaVideoView
+    <vn.loitp.app.activity.demo.video.videodemo3.lib.view.UizaVideoView
         android:id="@+id/uiza_video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

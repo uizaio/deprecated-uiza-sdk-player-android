@@ -1,4 +1,4 @@
-package vn.loitp.app.activity.demo.video.videodemo3.lib;
+package vn.loitp.app.activity.demo.video.videodemo3.lib.helper;
 
 import android.net.Uri;
 

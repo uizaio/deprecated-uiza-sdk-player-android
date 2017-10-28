@@ -11,7 +11,6 @@ import java.util.UUID;
 
 import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
 import vn.loitp.app.activity.demo.video.videodemo2.VideoDemo2Activity;
-import vn.loitp.app.activity.demo.video.videodemo3.TestVideoDemo3Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
