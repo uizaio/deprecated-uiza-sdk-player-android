@@ -1,5 +1,6 @@
 package vn.loitp.app.activity.demo.video.videodemo3.lib.frm;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -66,8 +67,10 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.UUID;
 
+import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.EventLogger;
 import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.TrackSelectionHelper;
+import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.utilities.LLog;
@@ -77,20 +80,10 @@ import vn.loitp.livestar.R;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class UizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
+public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
     private final String TAG = getClass().getSimpleName();
-    public static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";
-    public static final String DRM_LICENSE_URL = "drm_license_url";
-    public static final String DRM_KEY_REQUEST_PROPERTIES = "drm_key_request_properties";
-    public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
-
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
-    public static final String EXTENSION_EXTRA = "extension";
-
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
-    public static final String URI_LIST_EXTRA = "uri_list";
-    public static final String EXTENSION_LIST_EXTRA = "extension_list";
-    public static final String AD_TAG_URI_EXTRA = "ad_tag_uri";
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
@@ -101,7 +94,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     }
 
     private Handler mainHandler;
-    private EventLogger eventLogger;
+    private vn.loitp.app.activity.demo.video.videodemo3.lib.helper.EventLogger eventLogger;
     private SimpleExoPlayerView simpleExoPlayerView;
     private LinearLayout debugRootView;
     private TextView debugTextView;
@@ -110,7 +103,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     private DataSource.Factory mediaDataSourceFactory;
     private SimpleExoPlayer player;
     private DefaultTrackSelector trackSelector;
-    private TrackSelectionHelper trackSelectionHelper;
+    private vn.loitp.app.activity.demo.video.videodemo3.lib.helper.TrackSelectionHelper trackSelectionHelper;
     private DebugTextViewHelper debugViewHelper;
     private boolean inErrorState;
     private TrackGroupArray lastSeenTrackGroupArray;
@@ -120,7 +113,6 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     private long resumePosition;
 
     // Fields used only for ad playback. The ads loader is loaded via reflection.
-
     private Object imaAdsLoader; // com.google.android.exoplayer2.ext.ima.ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
@@ -159,124 +151,50 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
         return view;
     }
 
-    /*@Override
-    public void onNewIntent(Intent intent) {
-        releasePlayer();
-        shouldAutoPlay = true;
-        clearResumePosition();
-        setIntent(intent);
-    }*/
-
-    public void onNewInten(Intent intent) {
-        releasePlayer();
-        shouldAutoPlay = true;
-        clearResumePosition();
-        getActivity().setIntent(intent);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (Util.SDK_INT > 23) {
-            initializePlayer();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if ((Util.SDK_INT <= 23 || player == null)) {
-            initializePlayer();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (Util.SDK_INT <= 23) {
-            releasePlayer();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Util.SDK_INT > 23) {
-            releasePlayer();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        releaseAdsLoader();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            initializePlayer();
-        } else {
-            showToast(R.string.storage_permission_denied);
-            getActivity().onBackPressed();
-        }
-    }
-
-    // Activity input
-
-    /*@Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        // If the event was not handled then see if the player view can handle it.
-        return super.dispatchKeyEvent(event) || simpleExoPlayerView.dispatchKeyEvent(event);
-    }*/
-
-    public SimpleExoPlayerView getSimpleExoPlayerView() {
-        return simpleExoPlayerView;
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view == retryButton) {
-            initializePlayer();
-        } else if (view.getParent() == debugRootView) {
-            MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
-            if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog(getActivity(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
-            }
-        }
-    }
-
-    // PlaybackControlView.VisibilityListener implementation
-
     @Override
     public void onVisibilityChange(int visibility) {
         debugRootView.setVisibility(visibility);
     }
 
-    // Internal methods
+    private InputModel inputModel;
 
-    private void initializePlayer() {
-        Intent intent = getActivity().getIntent();
+    public void setInputModel(InputModel inputModel, boolean reloadData) {
+        this.inputModel = inputModel;
+        if (reloadData) {
+            releasePlayer();
+            shouldAutoPlay = true;
+            clearResumePosition();
+
+            initializePlayer();
+        }
+    }
+
+    public void initializePlayer() {
+        if (inputModel == null) {
+            ToastUtils.showShort("You must init InputModel first");
+            return;
+        }
+
+        //Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
             trackSelector = new DefaultTrackSelector(adaptiveTrackSelectionFactory);
-            trackSelectionHelper = new TrackSelectionHelper(trackSelector, adaptiveTrackSelectionFactory);
+            trackSelectionHelper = new vn.loitp.app.activity.demo.video.videodemo3.lib.helper.TrackSelectionHelper(trackSelector, adaptiveTrackSelectionFactory);
             lastSeenTrackGroupArray = null;
-            eventLogger = new EventLogger(trackSelector);
+            eventLogger = new vn.loitp.app.activity.demo.video.videodemo3.lib.helper.EventLogger(trackSelector);
 
-            UUID drmSchemeUuid = intent.hasExtra(DRM_SCHEME_UUID_EXTRA) ? UUID.fromString(intent.getStringExtra(DRM_SCHEME_UUID_EXTRA)) : null;
+            UUID drmSchemeUuid = inputModel.getDrmSchemeUuid();
             DrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
             if (drmSchemeUuid != null) {
-                String drmLicenseUrl = intent.getStringExtra(DRM_LICENSE_URL);
-                String[] keyRequestPropertiesArray = intent.getStringArrayExtra(DRM_KEY_REQUEST_PROPERTIES);
+                String drmLicenseUrl = inputModel.getDrmLicenseUrl();
+                String[] keyRequestPropertiesArray = inputModel.getKeyRequestPropertiesArray();
                 int errorStringId = R.string.error_drm_unknown;
                 if (Util.SDK_INT < 18) {
                     errorStringId = R.string.error_drm_not_supported;
                 } else {
                     try {
-                        drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl,
-                                keyRequestPropertiesArray);
+                        drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl, keyRequestPropertiesArray);
                     } catch (UnsupportedDrmException e) {
                         errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME
                                 ? R.string.error_drm_unsupported_scheme : R.string.error_drm_unknown;
@@ -288,13 +206,13 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
                 }
             }
 
-            boolean preferExtensionDecoders = intent.getBooleanExtra(PREFER_EXTENSION_DECODERS, false);
+            boolean preferExtensionDecoders = inputModel.getPreferExtensionDecoders();
             @DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode =
-                    ((LSApplication) getActivity().getApplication()).useExtensionRenderers()
+                    ((LSApplication) ((Activity) getContext()).getApplication()).useExtensionRenderers()
                             ? (preferExtensionDecoders ? DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
                             : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
                             : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF;
-            DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(getActivity(), drmSessionManager, extensionRendererMode);
+            DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(getContext(), drmSessionManager, extensionRendererMode);
 
             player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector);
             player.addListener(this);
@@ -308,28 +226,28 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
             debugViewHelper = new DebugTextViewHelper(player, debugTextView);
             debugViewHelper.start();
         }
-        String action = intent.getAction();
+        String action = inputModel.getAction();
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{intent.getData()};
+            uris = new Uri[]{inputModel.getUri()};
             LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
-            extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
+            extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
-            String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
+            String[] uriStrings = inputModel.getUriStrings();
             uris = new Uri[uriStrings.length];
             for (int i = 0; i < uriStrings.length; i++) {
                 uris[i] = Uri.parse(uriStrings[i]);
             }
-            extensions = intent.getStringArrayExtra(EXTENSION_LIST_EXTRA);
+            extensions = inputModel.getExtensionList();
             if (extensions == null) {
                 extensions = new String[uriStrings.length];
             }
         } else {
-            showToast(getString(R.string.unexpected_intent_action, action));
+            showToast(getContext().getString(R.string.unexpected_intent_action, action));
             return;
         }
-        if (Util.maybeRequestReadExternalStoragePermission(getActivity(), uris)) {
+        if (Util.maybeRequestReadExternalStoragePermission((Activity) getContext(), uris)) {
             // The player will be reinitialized if the permission is granted.
             return;
         }
@@ -338,9 +256,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
             mediaSources[i] = buildMediaSource(uris[i], extensions[i]);
         }
         MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0] : new ConcatenatingMediaSource(mediaSources);
-        //String adTagUriString = intent.getStringExtra(AD_TAG_URI_EXTRA);
-        String adTagUriString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator=";
-        LLog.d(TAG, "adTagUriString " + adTagUriString);
+        String adTagUriString = inputModel.getAdTagUri();
         if (adTagUriString != null) {
             Uri adTagUri = Uri.parse(adTagUriString);
             if (!adTagUri.equals(loadedAdTagUri)) {
@@ -350,7 +266,6 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
             try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
-                LLog.d(TAG, "Exception " + e.toString());
                 showToast(R.string.ima_not_loaded);
             }
         } else {
@@ -366,41 +281,33 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
-        int type = TextUtils.isEmpty(overrideExtension) ? Util.inferContentType(uri)
-                : Util.inferContentType("." + overrideExtension);
+        int type = TextUtils.isEmpty(overrideExtension) ? Util.inferContentType(uri) : Util.inferContentType("." + overrideExtension);
         switch (type) {
             case C.TYPE_SS:
-                return new SsMediaSource(uri, buildDataSourceFactory(false),
-                        new DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
+                return new SsMediaSource(uri, buildDataSourceFactory(false), new DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
             case C.TYPE_DASH:
-                return new DashMediaSource(uri, buildDataSourceFactory(false),
-                        new DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
+                return new DashMediaSource(uri, buildDataSourceFactory(false), new DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
             case C.TYPE_HLS:
                 return new HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger);
             case C.TYPE_OTHER:
-                return new ExtractorMediaSource(uri, mediaDataSourceFactory, new DefaultExtractorsFactory(),
-                        mainHandler, eventLogger);
+                return new ExtractorMediaSource(uri, mediaDataSourceFactory, new DefaultExtractorsFactory(), mainHandler, eventLogger);
             default: {
                 throw new IllegalStateException("Unsupported type: " + type);
             }
         }
     }
 
-    private DrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(UUID uuid,
-                                                                              String licenseUrl, String[] keyRequestPropertiesArray) throws UnsupportedDrmException {
-        HttpMediaDrmCallback drmCallback = new HttpMediaDrmCallback(licenseUrl,
-                buildHttpDataSourceFactory(false));
+    private DrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(UUID uuid, String licenseUrl, String[] keyRequestPropertiesArray) throws UnsupportedDrmException {
+        HttpMediaDrmCallback drmCallback = new HttpMediaDrmCallback(licenseUrl, buildHttpDataSourceFactory(false));
         if (keyRequestPropertiesArray != null) {
             for (int i = 0; i < keyRequestPropertiesArray.length - 1; i += 2) {
-                drmCallback.setKeyRequestProperty(keyRequestPropertiesArray[i],
-                        keyRequestPropertiesArray[i + 1]);
+                drmCallback.setKeyRequestProperty(keyRequestPropertiesArray[i], keyRequestPropertiesArray[i + 1]);
             }
         }
-        return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback,
-                null, mainHandler, eventLogger);
+        return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback, null, mainHandler, eventLogger);
     }
 
-    private void releasePlayer() {
+    public void releasePlayer() {
         if (player != null) {
             debugViewHelper.stop();
             debugViewHelper = null;
@@ -432,7 +339,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
      * @return A new DataSource factory.
      */
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
-        return ((LSApplication) getActivity().getApplication()).buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+        return ((LSApplication) ((Activity) getContext()).getApplication()).buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
     /**
@@ -443,7 +350,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
      * @return A new HttpDataSource factory.
      */
     private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
-        return ((LSApplication) getActivity().getApplication()).buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+        return ((LSApplication) ((Activity) getContext()).getApplication()).buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
     /**
@@ -458,7 +365,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
         /*Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
-            adOverlayViewGroup = new FrameLayout(getActivity());
+            adOverlayViewGroup = new FrameLayout(getContext());
             // The demo app has a non-null overlay frame layout.
             simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
         }
@@ -481,7 +388,6 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
                 Method releaseMethod = loaderClass.getMethod("release");
                 releaseMethod.invoke(imaAdsLoader);
             } catch (Exception e) {
-                // Should never happen.
                 throw new IllegalStateException(e);
             }
             imaAdsLoader = null;
@@ -491,7 +397,6 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     }
 
     // Player.EventListener implementation
-
     @Override
     public void onLoadingChanged(boolean isLoading) {
         // Do nothing.
@@ -540,16 +445,14 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
                 MediaCodecRenderer.DecoderInitializationException decoderInitializationException = (MediaCodecRenderer.DecoderInitializationException) cause;
                 if (decoderInitializationException.decoderName == null) {
                     if (decoderInitializationException.getCause() instanceof MediaCodecUtil.DecoderQueryException) {
-                        errorString = getString(R.string.error_querying_decoders);
+                        errorString = getContext().getString(R.string.error_querying_decoders);
                     } else if (decoderInitializationException.secureDecoderRequired) {
-                        errorString = getString(R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
+                        errorString = getContext().getString(R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
                     } else {
-                        errorString = getString(R.string.error_no_decoder,
-                                decoderInitializationException.mimeType);
+                        errorString = getContext().getString(R.string.error_no_decoder, decoderInitializationException.mimeType);
                     }
                 } else {
-                    errorString = getString(R.string.error_instantiating_decoder,
-                            decoderInitializationException.decoderName);
+                    errorString = getContext().getString(R.string.error_instantiating_decoder, decoderInitializationException.decoderName);
                 }
             }
         }
@@ -588,7 +491,6 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     }
 
     // User controls
-
     private void updateButtonVisibilities() {
         debugRootView.removeAllViews();
 
@@ -607,7 +509,7 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
         for (int i = 0; i < mappedTrackInfo.length; i++) {
             TrackGroupArray trackGroups = mappedTrackInfo.getTrackGroups(i);
             if (trackGroups.length != 0) {
-                Button button = new Button(getActivity());
+                Button button = new Button(getContext());
                 int label;
                 switch (player.getRendererType(i)) {
                     case C.TRACK_TYPE_AUDIO:
@@ -635,11 +537,11 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
     }
 
     private void showToast(int messageId) {
-        showToast(getString(messageId));
+        ToastUtils.showShort(messageId);
     }
 
     private void showToast(String message) {
-        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        ToastUtils.showShort(message);
     }
 
     private static boolean isBehindLiveWindow(ExoPlaybackException e) {
@@ -654,5 +556,56 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
             cause = cause.getCause();
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == retryButton) {
+            initializePlayer();
+        } else if (view.getParent() == debugRootView) {
+            MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
+            if (mappedTrackInfo != null) {
+                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
+            }
+        }
+    }
+
+    /*public void onNewIntent(Intent intent) {
+        releasePlayer();
+        shouldAutoPlay = true;
+        clearResumePosition();
+        ((Activity) getContext()).setIntent(intent);
+    }*/
+
+    public void onStartUizaVideo() {
+        if (Util.SDK_INT > 23) {
+            initializePlayer();
+        }
+    }
+
+    public void onResumeUizaVideo() {
+        if ((Util.SDK_INT <= 23 || player == null)) {
+            initializePlayer();
+        }
+    }
+
+    public void onPauseUizaVideo() {
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    public void onStopUizaVideo() {
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+    public void onDestroyUizaVideo() {
+        releaseAdsLoader();
+    }
+
+    public SimpleExoPlayerView getPlayerView() {
+        return simpleExoPlayerView;
     }
 }
