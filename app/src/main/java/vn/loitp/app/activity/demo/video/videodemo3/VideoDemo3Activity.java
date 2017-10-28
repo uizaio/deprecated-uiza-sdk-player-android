@@ -16,13 +16,13 @@ import vn.loitp.livestar.R;
 
 public class VideoDemo3Activity extends BaseActivity {
 
-    //private UizaVideoView uizaVideoView;
+    private UizaVideoView uizaVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LLog.d(TAG, ">>>>>>>onCreate");
         super.onCreate(savedInstanceState);
-        /*uizaVideoView = (UizaVideoView) findViewById(R.id.uiza_video_view);
+        uizaVideoView = (UizaVideoView) findViewById(R.id.uiza_video_view);
 
         InputModel inputModel = new InputModel();
         inputModel.setUri(Uri.parse("http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd"));
@@ -31,7 +31,7 @@ public class VideoDemo3Activity extends BaseActivity {
         inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=");
         inputModel.setPreferExtensionDecoders(false);
 
-        uizaVideoView.setInputModel(inputModel, true);*/
+        uizaVideoView.setInputModel(inputModel, true);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class VideoDemo3Activity extends BaseActivity {
         return R.layout.activity_video_demo_3;
     }
 
-    /*@Override
+    @Override
     public void onStart() {
         super.onStart();
         uizaVideoView.onStart();
@@ -97,5 +97,5 @@ public class VideoDemo3Activity extends BaseActivity {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         return super.dispatchKeyEvent(event) || uizaVideoView.getPlayerView().dispatchKeyEvent(event);
-    }*/
+    }
 }

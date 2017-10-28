@@ -345,13 +345,12 @@ public class UizaVideo extends BaseFragment implements View.OnClickListener, Pla
                 releaseAdsLoader();
                 loadedAdTagUri = adTagUri;
             }
-            mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
-            /*try {
+            try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
                 LLog.d(TAG, "Exception " + e.toString());
                 showToast(R.string.ima_not_loaded);
-            }*/
+            }
         } else {
             releaseAdsLoader();
         }
