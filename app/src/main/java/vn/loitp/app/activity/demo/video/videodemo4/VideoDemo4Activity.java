@@ -1,4 +1,4 @@
-package vn.loitp.app.activity.demo.video.videodemo3;
+package vn.loitp.app.activity.demo.video.videodemo4;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,14 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import vn.loitp.app.activity.demo.video.videodemo3.lib.frm.UizaVideo;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.livestar.R;
 
-public class TestVideoDemo3Activity extends BaseActivity {
+public class VideoDemo4Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

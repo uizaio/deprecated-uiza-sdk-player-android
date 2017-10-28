@@ -13,7 +13,6 @@ import vn.loitp.app.activity.demo.video.videodemo2.VideoDemo2Activity;
  */
 
 public class UriSample extends Sample {
-
     public final String uri;
     public final String extension;
     public final String adTagUri;
@@ -35,5 +34,4 @@ public class UriSample extends Sample {
                 .putExtra(VideoDemo2Activity.AD_TAG_URI_EXTRA, adTagUri)
                 .setAction(VideoDemo2Activity.ACTION_VIEW);
     }
-
 }

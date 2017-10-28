@@ -40,7 +40,13 @@
                 android:id="@+id/bt_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Video Demo 3 (Use Fragment)" />
+                android:text="Video Demo 3 (Use Custom View)" />
+
+            <Button
+                android:id="@+id/bt_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Video Demo 3 (Use Frgament, support rotation)" />
         </LinearLayout>
     </ScrollView>
 

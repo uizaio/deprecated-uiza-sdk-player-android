@@ -28,7 +28,7 @@ public class Sample {
 
     public Intent buildIntent(Context context) {
         Intent intent = new Intent(context, VideoDemo2Activity.class);
-        //Intent intent = new Intent(context, TestVideoDemo3Activity.class);
+        //Intent intent = new Intent(context, VideoDemo4Activity.class);
         intent.putExtra(VideoDemo2Activity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders);
         if (drmSchemeUuid != null) {
             intent.putExtra(VideoDemo2Activity.DRM_SCHEME_UUID_EXTRA, drmSchemeUuid.toString());

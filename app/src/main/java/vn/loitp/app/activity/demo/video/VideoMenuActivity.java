@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
+import vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.model.UriSample;
 import vn.loitp.app.app.LSApplication;
@@ -39,14 +40,17 @@ public class VideoMenuActivity extends BaseActivity {
         findViewById(R.id.bt_3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(activity, TestVideoDemo3Activity.class);
                 Intent intent = new Intent(activity, VideoDemo3Activity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
-
-                //String js = "{\"name\": \"Single inline linear\",\"uri\": \"https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv\",\"ad_tag_uri\": \"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=\"}";
-                //UriSample sample = LSApplication.getInstance().getGson().fromJson(js, UriSample.class);
-                //startActivity(sample.buildIntent(activity));
+            }
+        });
+        findViewById(R.id.bt_4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, VideoDemo4Activity.class);
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(activity);
             }
         });
     }
@@ -70,88 +74,4 @@ public class VideoMenuActivity extends BaseActivity {
     protected int setLayoutResourceId() {
         return R.layout.activity_menu_video;
     }
-
-
-    /*private abstract static class Sample {
-
-        public final String name;
-        public final boolean preferExtensionDecoders;
-        public final UUID drmSchemeUuid;
-        public final String drmLicenseUrl;
-        public final String[] drmKeyRequestProperties;
-
-        public Sample(String name, UUID drmSchemeUuid, String drmLicenseUrl, String[] drmKeyRequestProperties, boolean preferExtensionDecoders) {
-            this.name = name;
-            this.drmSchemeUuid = drmSchemeUuid;
-            this.drmLicenseUrl = drmLicenseUrl;
-            this.drmKeyRequestProperties = drmKeyRequestProperties;
-            this.preferExtensionDecoders = preferExtensionDecoders;
-        }
-
-        public Intent buildIntent(Context context) {
-            Intent intent = new Intent(context, VideoDemo2Activity.class);
-            //Intent intent = new Intent(context, TestVideoDemo3Activity.class);
-            intent.putExtra(VideoDemo2Activity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders);
-            if (drmSchemeUuid != null) {
-                intent.putExtra(VideoDemo2Activity.DRM_SCHEME_UUID_EXTRA, drmSchemeUuid.toString());
-                intent.putExtra(VideoDemo2Activity.DRM_LICENSE_URL, drmLicenseUrl);
-                intent.putExtra(VideoDemo2Activity.DRM_KEY_REQUEST_PROPERTIES, drmKeyRequestProperties);
-            }
-            return intent;
-        }
-
-    }*/
-
-    /*private static final class UriSample extends Sample {
-
-        public final String uri;
-        public final String extension;
-        public final String adTagUri;
-
-        public UriSample(String name, UUID drmSchemeUuid, String drmLicenseUrl,
-                         String[] drmKeyRequestProperties, boolean preferExtensionDecoders, String uri,
-                         String extension, String adTagUri) {
-            super(name, drmSchemeUuid, drmLicenseUrl, drmKeyRequestProperties, preferExtensionDecoders);
-            this.uri = uri;
-            this.extension = extension;
-            this.adTagUri = adTagUri;
-        }
-
-        @Override
-        public Intent buildIntent(Context context) {
-            return super.buildIntent(context)
-                    .setData(Uri.parse(uri))
-                    .putExtra(VideoDemo2Activity.EXTENSION_EXTRA, extension)
-                    .putExtra(VideoDemo2Activity.AD_TAG_URI_EXTRA, adTagUri)
-                    .setAction(VideoDemo2Activity.ACTION_VIEW);
-        }
-
-    }*/
-
-    /*private static final class PlaylistSample extends Sample {
-
-        public final UriSample[] children;
-
-        public PlaylistSample(String name, UUID drmSchemeUuid, String drmLicenseUrl,
-                              String[] drmKeyRequestProperties, boolean preferExtensionDecoders,
-                              UriSample... children) {
-            super(name, drmSchemeUuid, drmLicenseUrl, drmKeyRequestProperties, preferExtensionDecoders);
-            this.children = children;
-        }
-
-        @Override
-        public Intent buildIntent(Context context) {
-            String[] uris = new String[children.length];
-            String[] extensions = new String[children.length];
-            for (int i = 0; i < children.length; i++) {
-                uris[i] = children[i].uri;
-                extensions[i] = children[i].extension;
-            }
-            return super.buildIntent(context)
-                    .putExtra(VideoDemo2Activity.URI_LIST_EXTRA, uris)
-                    .putExtra(VideoDemo2Activity.EXTENSION_LIST_EXTRA, extensions)
-                    .setAction(VideoDemo2Activity.ACTION_VIEW_LIST);
-        }
-
-    }*/
 }
