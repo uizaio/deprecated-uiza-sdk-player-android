@@ -9,6 +9,7 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ChildPosition;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ParentPosition;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
+import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 /**
@@ -27,14 +28,8 @@ public class MediaView {
     @View(R.id.tv_name)
     private TextView tvName;
 
-    @View(R.id.tv_uri)
-    private TextView tvUri;
-
-    @View(R.id.tv_extension)
-    private TextView tvExtension;
-
-    @View(R.id.tv_ad_tag_uri)
-    private TextView tvAdTagUri;
+    @View(R.id.tv_json)
+    private TextView tvJson;
 
     private Sample mSample;
     private Context mContext;
@@ -49,14 +44,7 @@ public class MediaView {
         tvName.setText(mSample.getName());
         tvName.setVisibility(mSample.getName().isEmpty() || mSample.getName() == null ? android.view.View.GONE : android.view.View.VISIBLE);
 
-        tvUri.setText(mSample.getUri());
-        tvUri.setVisibility(mSample.getUri().isEmpty() || mSample.getUri() == null ? android.view.View.GONE : android.view.View.VISIBLE);
-
-        tvExtension.setText(mSample.getExtension());
-        tvExtension.setVisibility(mSample.getExtension().isEmpty() || mSample.getExtension() == null ? android.view.View.GONE : android.view.View.VISIBLE);
-
-        tvAdTagUri.setText(mSample.getAdTagUri());
-        tvAdTagUri.setVisibility(mSample.getAdTagUri().isEmpty() || mSample.getAdTagUri() == null ? android.view.View.GONE : android.view.View.VISIBLE);
+        LUIUtil.printBeautyJson(mSample, tvJson);
     }
 
     /*@Click(R.id.imageView)

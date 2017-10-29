@@ -23,30 +23,13 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_uri"
+            android:id="@+id/tv_json"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="@color/grey"
-            android:textSize="@dimen/txt_10" />
+            android:textSize="@dimen/txt_8" />
 
-        <TextView
-            android:id="@+id/tv_extension"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/app_name"
-            android:textColor="@color/Red"
-            android:textSize="@dimen/txt_10" />
-
-        <TextView
-            android:id="@+id/tv_ad_tag_uri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/app_name"
-            android:textColor="@color/primaryColor"
-            android:textSize="@dimen/txt_10" />
     </LinearLayout>
 
 </LinearLayout>
