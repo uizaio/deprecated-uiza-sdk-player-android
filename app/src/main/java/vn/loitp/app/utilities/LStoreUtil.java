@@ -305,25 +305,21 @@ public class LStoreUtil {
     /*
      * get random quote
 	 */
-    /*public static String getRandomeQuote(Context context) {
+    public static String readTxtFromAsset(Context context, String assetFileName) {
         InputStream in;
-        String[] arr_Str = null;
         String str = "";
         try {
-            in = context.getAssets().open("raw/quote.txt");
+            in = context.getAssets().open(assetFileName);
             byte[] buffer = new byte[in.available()];
             in.read(buffer);
             in.close();
-            String chuoi = new String(buffer);
-            arr_Str = chuoi.split("###");
-            int ran = getRandomNumber(arr_Str.length);
-            str = arr_Str[ran];
+            str = new String(buffer);
 
         } catch (Exception e) {
-            LLog.d(TAG, "getRandomeQuote: " + e.toString());
+            LLog.d(TAG, "readTxtFromAsset: " + e.toString());
         }
         return str;
-    }*/
+    }
 
     /*
      * get random number

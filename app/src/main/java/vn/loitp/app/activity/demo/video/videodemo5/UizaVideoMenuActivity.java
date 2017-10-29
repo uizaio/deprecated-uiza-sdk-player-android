@@ -1,18 +1,14 @@
 package vn.loitp.app.activity.demo.video.videodemo5;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
-import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
-import vn.loitp.app.activity.demo.video.videodemo3.lib.model.UriSample;
-import vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity;
+import loitp.utils.util.ToastUtils;
+import vn.loitp.app.activity.demo.video.videodemo5.model.WrapperUiza;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.app.utilities.LStoreUtil;
 import vn.loitp.livestar.R;
 
 public class UizaVideoMenuActivity extends BaseActivity {
@@ -21,6 +17,14 @@ public class UizaVideoMenuActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String json = LStoreUtil.readTxtFromAsset(activity, "medialist.json");
+        //LLog.d(TAG, "json: " + json);
+        if (json == null || json.isEmpty()) {
+            ToastUtils.showShort("Cannot load json from Asset :(");
+        } else {
+            WrapperUiza[] wrapperUiza = LSApplication.getInstance().getGson().fromJson(json, WrapperUiza[].class);
+            LLog.d(TAG, "size: " + wrapperUiza.length);
+        }
     }
 
     @Override
