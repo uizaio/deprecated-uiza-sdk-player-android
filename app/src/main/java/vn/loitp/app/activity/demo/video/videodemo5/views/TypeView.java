@@ -1,6 +1,7 @@
 package vn.loitp.app.activity.demo.video.videodemo5.views;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,17 +48,17 @@ public class TypeView {
 
     @Resolve
     private void onResolved() {
-        toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_launcher));
+        toggleIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_expand_more_black_48dp));
         headingTxt.setText(mHeading);
     }
 
     @Expand
     private void onExpand() {
-        toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_launcher));
+        toggleIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_expand_less_black_48dp));
     }
 
     @Collapse
     private void onCollapse() {
-        toggleIcon.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_launcher));
+        toggleIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_expand_more_black_48dp));
     }
 }
