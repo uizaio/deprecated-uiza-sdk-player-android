@@ -47,9 +47,16 @@ public class MediaView {
     @Resolve
     private void onResolved() {
         tvName.setText(mSample.getName());
+        tvName.setVisibility(mSample.getName().isEmpty() || mSample.getName() == null ? android.view.View.GONE : android.view.View.VISIBLE);
+
         tvUri.setText(mSample.getUri());
+        tvUri.setVisibility(mSample.getUri().isEmpty() || mSample.getUri() == null ? android.view.View.GONE : android.view.View.VISIBLE);
+
         tvExtension.setText(mSample.getExtension());
+        tvExtension.setVisibility(mSample.getExtension().isEmpty() || mSample.getExtension() == null ? android.view.View.GONE : android.view.View.VISIBLE);
+
         tvAdTagUri.setText(mSample.getAdTagUri());
+        tvAdTagUri.setVisibility(mSample.getAdTagUri().isEmpty() || mSample.getAdTagUri() == null ? android.view.View.GONE : android.view.View.VISIBLE);
     }
 
     /*@Click(R.id.imageView)
