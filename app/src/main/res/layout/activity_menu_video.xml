@@ -47,6 +47,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Video Demo 3 (Use Frgament, support rotation)" />
+
+            <Button
+                android:id="@+id/bt_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UizaVideo Demo (More Options)" />
         </LinearLayout>
     </ScrollView>
 

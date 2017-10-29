@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
-import vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.model.UriSample;
+import vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity;
+import vn.loitp.app.activity.demo.video.videodemo5.UizaVideoMenuActivity;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
@@ -53,6 +54,15 @@ public class VideoMenuActivity extends BaseActivity {
                 LUIUtil.transActivityFadeIn(activity);
             }
         });
+        findViewById(R.id.bt_5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, UizaVideoMenuActivity.class);
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(activity);
+            }
+        });
+
     }
 
     @Override
