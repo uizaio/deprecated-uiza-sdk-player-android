@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import vn.loitp.app.activity.demo.video.videodemo3.lib.frm.FrmUizaVideo;
+import vn.loitp.app.activity.demo.video.videodemo4.frm.FrmUizaVideo;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.livestar.R;

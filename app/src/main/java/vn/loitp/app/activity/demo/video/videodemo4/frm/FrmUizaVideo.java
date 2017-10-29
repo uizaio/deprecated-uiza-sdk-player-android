@@ -1,13 +1,9 @@
-package vn.loitp.app.activity.demo.video.videodemo3.lib.frm;
+package vn.loitp.app.activity.demo.video.videodemo4.frm;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +12,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -60,7 +55,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -68,8 +62,6 @@ import java.net.CookiePolicy;
 import java.util.UUID;
 
 import loitp.utils.util.ToastUtils;
-import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.EventLogger;
-import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.TrackSelectionHelper;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
@@ -509,7 +501,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         for (int i = 0; i < mappedTrackInfo.length; i++) {
             TrackGroupArray trackGroups = mappedTrackInfo.getTrackGroups(i);
             if (trackGroups.length != 0) {
-                Button button = new Button(getContext());
+                Button button = new Button(getActivity());
                 int label;
                 switch (player.getRendererType(i)) {
                     case C.TRACK_TYPE_AUDIO:
@@ -577,32 +569,70 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         ((Activity) getContext()).setIntent(intent);
     }*/
 
-    public void onStartUizaVideo() {
+    /*public void onStartUizaVideo() {
         if (Util.SDK_INT > 23) {
             initializePlayer();
         }
+    }*/
+
+    @Override
+    public void onStart() {
+        if (Util.SDK_INT > 23) {
+            initializePlayer();
+        }
+        super.onStart();
     }
 
-    public void onResumeUizaVideo() {
+    /*public void onResumeUizaVideo() {
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
+    }*/
+
+    @Override
+    public void onResume() {
+        if ((Util.SDK_INT <= 23 || player == null)) {
+            initializePlayer();
+        }
+        super.onResume();
     }
 
-    public void onPauseUizaVideo() {
+    /*public void onPauseUizaVideo() {
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }*/
+
+    @Override
+    public void onPause() {
+        super.onPause();
         if (Util.SDK_INT <= 23) {
             releasePlayer();
         }
     }
 
-    public void onStopUizaVideo() {
+    /*public void onStopUizaVideo() {
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }*/
+
+    @Override
+    public void onStop() {
+        super.onStop();
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
     }
 
-    public void onDestroyUizaVideo() {
+    /*public void onDestroyUizaVideo() {
         releaseAdsLoader();
+    }*/
+
+    @Override
+    public void onDestroy() {
+        releaseAdsLoader();
+        super.onDestroy();
     }
 
     public SimpleExoPlayerView getPlayerView() {
