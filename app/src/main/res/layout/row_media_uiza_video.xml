@@ -8,9 +8,11 @@
     android:padding="@dimen/padding_5">
 
     <LinearLayout
+        android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bt_tag"
+        android:clickable="true"
         android:orientation="vertical">
 
         <TextView

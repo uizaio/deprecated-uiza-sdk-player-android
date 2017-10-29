@@ -171,6 +171,9 @@
             android:name="vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity"
             android:screenOrientation="sensor" />
         <activity
+            android:name="vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity"
+            android:screenOrientation="sensor" />
+        <activity
             android:name="vn.loitp.app.activity.demo.video.VideoMenuActivity"
             android:screenOrientation="portrait" />
         <activity

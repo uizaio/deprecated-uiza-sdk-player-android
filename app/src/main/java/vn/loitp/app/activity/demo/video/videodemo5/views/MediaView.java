@@ -1,13 +1,17 @@
 package vn.loitp.app.activity.demo.video.videodemo5.views;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ChildPosition;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ParentPosition;
+import vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -31,11 +35,14 @@ public class MediaView {
     @View(R.id.tv_json)
     private TextView tvJson;
 
-    private Sample mSample;
-    private Context mContext;
+    @View(R.id.main_view)
+    private LinearLayout mainView;
 
-    public MediaView(Context context, Sample sample) {
-        mContext = context;
+    private Sample mSample;
+    private Activity mActivity;
+
+    public MediaView(Activity activity, Sample sample) {
+        mActivity = activity;
         mSample = sample;
     }
 
@@ -47,8 +54,10 @@ public class MediaView {
         LUIUtil.printBeautyJson(mSample, tvJson);
     }
 
-    /*@Click(R.id.imageView)
-    private void onClickImage() {
-        ToastUtils.showShort(mInfo.getImageUrl());
-    }*/
+    @Click(R.id.main_view)
+    private void onClickMainView() {
+        Intent intent = new Intent(mActivity, VideoDemo5Activity.class);
+        mActivity.startActivity(intent);
+        LUIUtil.transActivityFadeIn(mActivity);
+    }
 }
