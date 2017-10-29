@@ -13,6 +13,7 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ParentPosition;
 import vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
+import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -57,6 +58,7 @@ public class MediaView {
     @Click(R.id.main_view)
     private void onClickMainView() {
         Intent intent = new Intent(mActivity, VideoDemo5Activity.class);
+        intent.putExtra(Constants.KEY_UIZA, mSample);
         mActivity.startActivity(intent);
         LUIUtil.transActivityFadeIn(mActivity);
     }

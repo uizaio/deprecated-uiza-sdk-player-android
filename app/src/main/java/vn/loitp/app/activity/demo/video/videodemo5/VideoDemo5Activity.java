@@ -10,7 +10,11 @@ import android.support.v4.app.FragmentTransaction;
 
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo4.frm.FrmUizaVideo;
+import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
+import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
+import vn.loitp.app.common.Constants;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class VideoDemo5Activity extends BaseActivity {
@@ -19,6 +23,12 @@ public class VideoDemo5Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
 
+        Sample sample = (Sample) getIntent().getSerializableExtra(Constants.KEY_UIZA);
+        if (sample != null) {
+            LLog.d(TAG, "sample " + LSApplication.getInstance().getGson().toJson(sample));
+        }
+
+        //TODO
         InputModel inputModel = new InputModel();
         inputModel.setUri(Uri.parse("http://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"));
         inputModel.setDrmLicenseUrl("https://proxy.uat.widevine.com/proxy?video_id\\u003dd286538032258a1c\\u0026provider\\u003dwidevine_test");

@@ -4,7 +4,9 @@ package vn.loitp.app.activity.demo.video.videodemo5.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Playlist {
+import java.io.Serializable;
+
+public class Playlist implements Serializable {
 
     @SerializedName("uri")
     @Expose
