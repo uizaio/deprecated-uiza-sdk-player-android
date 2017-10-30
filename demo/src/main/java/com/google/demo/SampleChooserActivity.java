@@ -56,7 +56,7 @@ import java.util.UUID;
  * An activity for selecting from a list of samples.
  */
 public class SampleChooserActivity extends Activity {
-
+    private Gson gson = new Gson();
     private static final String TAG = "SampleChooserActivity";
 
     @Override
@@ -85,6 +85,7 @@ public class SampleChooserActivity extends Activity {
             uriList.toArray(uris);
             Arrays.sort(uris);
         }
+        //Log.d(TAG, "uris: " + gson.toJson(uris));
         SampleListLoader loaderTask = new SampleListLoader();
         loaderTask.execute(uris);
     }
@@ -139,6 +140,7 @@ public class SampleChooserActivity extends Activity {
 
         @Override
         protected void onPostExecute(List<SampleGroup> result) {
+            Log.d(TAG, "onPostExecute: " + gson.toJson(result));
             onSampleGroups(result, sawError);
         }
 
