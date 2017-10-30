@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,6 +75,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 import com.uiza.demo.R;
 
 import java.lang.reflect.Constructor;
@@ -87,6 +89,7 @@ import java.util.UUID;
  * An activity that plays media using {@link SimpleExoPlayer}.
  */
 public class PlayerActivity extends Activity implements OnClickListener, EventListener, PlaybackControlView.VisibilityListener {
+    private final String TAG = "loitpdeptrai";
     public static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";
     public static final String DRM_LICENSE_URL = "drm_license_url";
     public static final String DRM_KEY_REQUEST_PROPERTIES = "drm_key_request_properties";
@@ -102,6 +105,8 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
+
+    private Gson gson = new Gson();
 
     static {
         DEFAULT_COOKIE_MANAGER = new CookieManager();
@@ -258,10 +263,15 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             eventLogger = new EventLogger(trackSelector);
 
             UUID drmSchemeUuid = intent.hasExtra(DRM_SCHEME_UUID_EXTRA) ? UUID.fromString(intent.getStringExtra(DRM_SCHEME_UUID_EXTRA)) : null;
+
+            Log.d(TAG, "drmSchemeUuid " + drmSchemeUuid);
+
             DrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
             if (drmSchemeUuid != null) {
                 String drmLicenseUrl = intent.getStringExtra(DRM_LICENSE_URL);
+                Log.d(TAG, "drmLicenseUrl " + drmLicenseUrl);
                 String[] keyRequestPropertiesArray = intent.getStringArrayExtra(DRM_KEY_REQUEST_PROPERTIES);
+                Log.d(TAG, "keyRequestPropertiesArray " + gson.toJson(keyRequestPropertiesArray));
                 int errorStringId = R.string.error_drm_unknown;
                 if (Util.SDK_INT < 18) {
                     errorStringId = R.string.error_drm_not_supported;
@@ -280,10 +290,11 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             }
 
             boolean preferExtensionDecoders = intent.getBooleanExtra(PREFER_EXTENSION_DECODERS, false);
+            Log.d(TAG, "preferExtensionDecoders " + preferExtensionDecoders);
             @DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode = ((DemoApplication) getApplication()).useExtensionRenderers()
-                            ? (preferExtensionDecoders ? DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
-                            : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
-                            : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF;
+                    ? (preferExtensionDecoders ? DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
+                    : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
+                    : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF;
             DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this, drmSessionManager, extensionRendererMode);
 
             player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector);
@@ -299,18 +310,23 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             debugViewHelper.start();
         }
         String action = intent.getAction();
+        Log.d(TAG, "action " + action);
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
             uris = new Uri[]{intent.getData()};
+            Log.d(TAG, "uris " + gson.toJson(uris));
             extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
+            Log.d(TAG, "extensions " + gson.toJson(extensions));
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
+            Log.d(TAG, "uriStrings " + gson.toJson(uriStrings));
             uris = new Uri[uriStrings.length];
             for (int i = 0; i < uriStrings.length; i++) {
                 uris[i] = Uri.parse(uriStrings[i]);
             }
             extensions = intent.getStringArrayExtra(EXTENSION_LIST_EXTRA);
+            Log.d(TAG, "extensions " + extensions);
             if (extensions == null) {
                 extensions = new String[uriStrings.length];
             }
@@ -329,6 +345,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0]
                 : new ConcatenatingMediaSource(mediaSources);
         String adTagUriString = intent.getStringExtra(AD_TAG_URI_EXTRA);
+        Log.d(TAG, "adTagUriString " + adTagUriString);
         if (adTagUriString != null) {
             Uri adTagUri = Uri.parse(adTagUriString);
             if (!adTagUri.equals(loadedAdTagUri)) {
