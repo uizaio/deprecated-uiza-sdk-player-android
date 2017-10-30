@@ -31,7 +31,7 @@ public class VideoDemo5Activity extends BaseActivity {
             InputModel inputModel = new InputModel();
             inputModel.setUri(Uri.parse(sample.getUri()));
             inputModel.setDrmLicenseUrl(sample.getDrmLicenseUrl());
-            inputModel.setAction(FrmUizaVideo.ACTION_VIEW);
+            inputModel.setAction(sample.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
             inputModel.setAdTagUri(sample.getAdTagUri());
             inputModel.setPreferExtensionDecoders(false);
             inputModel.setExtension(sample.getExtension());
