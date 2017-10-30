@@ -72,6 +72,11 @@ android {
             dimension "extensions"
         }
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 repositories {
