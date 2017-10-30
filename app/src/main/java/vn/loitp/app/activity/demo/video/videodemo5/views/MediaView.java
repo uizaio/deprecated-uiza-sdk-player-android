@@ -13,7 +13,9 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ParentPosition;
 import vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
+import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.common.Constants;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -23,6 +25,8 @@ import vn.loitp.livestar.R;
 
 @Layout(R.layout.row_media_uiza_video)
 public class MediaView {
+
+    private final String TAG = getClass().getSimpleName();
 
     @ParentPosition
     private int mParentPosition;
@@ -57,6 +61,7 @@ public class MediaView {
 
     @Click(R.id.main_view)
     private void onClickMainView() {
+        LLog.d(TAG, "onClickMainView " + LSApplication.getInstance().getGson().toJson(mSample));
         Intent intent = new Intent(mActivity, VideoDemo5Activity.class);
         intent.putExtra(Constants.KEY_UIZA, mSample);
         mActivity.startActivity(intent);
