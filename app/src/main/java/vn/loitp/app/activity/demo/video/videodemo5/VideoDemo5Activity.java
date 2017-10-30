@@ -31,9 +31,11 @@ public class VideoDemo5Activity extends BaseActivity {
             InputModel inputModel = new InputModel();
             inputModel.setUri(Uri.parse(sample.getUri()));
             inputModel.setDrmLicenseUrl(sample.getDrmLicenseUrl());
-            inputModel.setAction("com.google.android.exoplayer.demo.action.VIEW");
+            inputModel.setAction(FrmUizaVideo.ACTION_VIEW);
             inputModel.setAdTagUri(sample.getAdTagUri());
             inputModel.setPreferExtensionDecoders(false);
+            inputModel.setExtension(sample.getExtension());
+            //inputModel.setKeyRequestPropertiesArray(sample.ge);
 
             //inputModel.setUri(Uri.parse("http://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?as=fmp4_audio_clear,webm2_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=B1C2A74783AC1CC4865EB312D7DD2D48230CC9FD.BD153B9882175F1F94BFE5141A5482313EA38E8D&key=ik0"));
             //inputModel.setDrmLicenseUrl("https://proxy.uat.widevine.com/proxy?video_id\\u003dd286538032258a1c\\u0026provider\\u003dwidevine_test");
