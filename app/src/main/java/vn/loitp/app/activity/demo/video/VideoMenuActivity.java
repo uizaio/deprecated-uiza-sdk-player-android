@@ -7,7 +7,6 @@ import android.view.View;
 
 import vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity;
 import vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity;
-import vn.loitp.app.activity.demo.video.videodemo3.lib.model.PlaylistSample;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.model.UriSample;
 import vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.UizaVideoMenuActivity;

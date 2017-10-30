@@ -1,6 +1,7 @@
 package vn.loitp.app.activity.demo.video.videodemo5.frm;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +56,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -355,7 +357,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
-        /*Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
+        Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
             adOverlayViewGroup = new FrameLayout(getContext());
@@ -364,14 +366,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
         Class<?> sourceClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
         Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);
-        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);*/
+        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
 
-        ImaAdsLoader imaAdsLoader = new ImaAdsLoader(getContext(), adTagUri);
+        /*ImaAdsLoader imaAdsLoader = new ImaAdsLoader(getContext(), adTagUri);
         adOverlayViewGroup = new FrameLayout(getContext());
         simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
 
         ImaAdsMediaSource imaAdsMediaSource = new ImaAdsMediaSource(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
-        return imaAdsMediaSource;
+        return imaAdsMediaSource;*/
     }
 
     private void releaseAdsLoader() {
@@ -470,12 +472,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (trackGroups != lastSeenTrackGroupArray) {
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO)
-                        == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
+                if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
                     showToast(R.string.error_unsupported_video);
                 }
-                if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO)
-                        == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
+                if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
                     showToast(R.string.error_unsupported_audio);
                 }
             }
