@@ -32,7 +32,12 @@ public class VideoMenuActivity extends BaseActivity {
         findViewById(R.id.bt_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String js = "{\"uri\":\"http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd\",\"drmLicenseUrl\":\"https://proxy.uat.widevine.com/proxy?video_id\\u003dd286538032258a1c\\u0026provider\\u003dwidevine_test\",\"drmSchemeUuid\":\"edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\",\"name\":\"WV: HDCP not specified\",\"preferExtensionDecoders\":false}";
+                //String js = "{\"uri\":\"http://yt-dash-mse-test.commondatastorage.googleapis.com/media/feelings_vp9-20130806-manifest.mpd\",\"drmLicenseUrl\":\"https://proxy.uat.widevine.com/proxy?video_id\\u003dd286538032258a1c\\u0026provider\\u003dwidevine_test\",\"drmSchemeUuid\":\"edef8ba9-79d6-4ace-a3c8-27dcd51d21ed\",\"name\":\"WV: HDCP not specified\",\"preferExtensionDecoders\":false}";
+                String js = "{\n" +
+                        "        \"name\": \"Google Play (WebM,VP9)\",\n" +
+                        "        \"uri\": \"http://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?as=fmp4_audio_clear,webm2_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=B1C2A74783AC1CC4865EB312D7DD2D48230CC9FD.BD153B9882175F1F94BFE5141A5482313EA38E8D&key=ik0\",\n" +
+                        "        \"extension\": \"mpd\"\n" +
+                        "      }";
                 UriSample sample = LSApplication.getInstance().getGson().fromJson(js, UriSample.class);
                 LLog.d(TAG, ">>>>>>>>" + LSApplication.getInstance().getGson().toJson(sample));
                 startActivity(sample.buildIntent(activity));
