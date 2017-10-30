@@ -25,6 +25,7 @@ public class VideoDemo4Activity extends BaseActivity {
         inputModel.setAction("com.google.android.exoplayer.demo.action.VIEW");
         inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=");
         inputModel.setPreferExtensionDecoders(false);
+        //inputModel.setExtension(sample.getExtension());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
