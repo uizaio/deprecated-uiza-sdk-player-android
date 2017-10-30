@@ -77,6 +77,10 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 repositories {
