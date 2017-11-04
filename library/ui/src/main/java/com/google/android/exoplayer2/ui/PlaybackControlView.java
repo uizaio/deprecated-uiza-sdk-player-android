@@ -280,8 +280,8 @@ public class PlaybackControlView extends FrameLayout {
     private static final long MAX_POSITION_FOR_SEEK_TO_PREVIOUS = 3000;
 
     private final ComponentListener componentListener;
-    private final View previousButton;
-    private final View nextButton;
+    //private final View previousButton;
+    //private final View nextButton;
     private final View playButton;
     private final View pauseButton;
     private final View fastForwardButton;
@@ -398,14 +398,14 @@ public class PlaybackControlView extends FrameLayout {
         if (pauseButton != null) {
             pauseButton.setOnClickListener(componentListener);
         }
-        previousButton = findViewById(R.id.exo_prev);
+        /*previousButton = findViewById(R.id.exo_prev);
         if (previousButton != null) {
             previousButton.setOnClickListener(componentListener);
-        }
-        nextButton = findViewById(R.id.exo_next);
+        }*/
+        /*nextButton = findViewById(R.id.exo_next);
         if (nextButton != null) {
             nextButton.setOnClickListener(componentListener);
-        }
+        }*/
         rewindButton = findViewById(R.id.exo_rew);
         if (rewindButton != null) {
             rewindButton.setOnClickListener(componentListener);
@@ -697,8 +697,8 @@ public class PlaybackControlView extends FrameLayout {
                 hide();
             }
         }
-        setButtonEnabled(enablePrevious, previousButton);
-        setButtonEnabled(enableNext, nextButton);
+        //setButtonEnabled(enablePrevious, previousButton);
+        //setButtonEnabled(enableNext, nextButton);
         setButtonEnabled(fastForwardMs > 0 && isSeekable, fastForwardButton);
         setButtonEnabled(rewindMs > 0 && isSeekable, rewindButton);
         if (timeBar != null) {
@@ -1138,11 +1138,13 @@ public class PlaybackControlView extends FrameLayout {
         @Override
         public void onClick(View view) {
             if (player != null) {
-                if (nextButton == view) {
+                /*if (nextButton == view) {
                     next();
-                } else if (previousButton == view) {
+                }*/
+                /*else if (previousButton == view) {
                     previous();
-                } else if (fastForwardButton == view) {
+                }*/
+                if (fastForwardButton == view) {
                     fastForward();
                 } else if (rewindButton == view) {
                     rewind();
