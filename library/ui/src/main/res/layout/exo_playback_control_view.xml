@@ -125,6 +125,14 @@
         <ImageButton
             android:id="@+id/exo_playlist"
             style="@style/ExoMediaButton.Playlist" />
+
+        <ImageButton
+            android:id="@+id/exo_language"
+            style="@style/ExoMediaButton.Language" />
+
+        <ImageButton
+            android:id="@+id/exo_setting"
+            style="@style/ExoMediaButton.Setting" />
     </LinearLayout>
 
 </LinearLayout>

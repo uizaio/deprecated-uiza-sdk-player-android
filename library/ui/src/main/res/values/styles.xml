@@ -47,4 +47,14 @@
         <item name="android:contentDescription">@string/exo_controls_playlist_description</item>
     </style>
 
+    <style name="ExoMediaButton.Language">
+        <item name="android:src">@drawable/ic_language</item>
+        <item name="android:contentDescription">@string/exo_controls_languagge_description</item>
+    </style>
+
+    <style name="ExoMediaButton.Setting">
+        <item name="android:src">@drawable/ic_setting</item>
+        <item name="android:contentDescription">@string/exo_controls_setting_description</item>
+    </style>
+
 </resources>
