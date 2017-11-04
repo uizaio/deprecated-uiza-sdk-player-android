@@ -121,6 +121,10 @@
         <ImageButton
             android:id="@+id/exo_question"
             style="@style/ExoMediaButton.Question" />
+
+        <ImageButton
+            android:id="@+id/exo_playlist"
+            style="@style/ExoMediaButton.Playlist" />
     </LinearLayout>
 
 </LinearLayout>

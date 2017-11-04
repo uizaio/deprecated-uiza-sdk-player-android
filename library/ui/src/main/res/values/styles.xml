@@ -18,12 +18,12 @@
     </style>
 
     <style name="ExoMediaButton.FastForward">
-        <item name="android:src">@drawable/exo_controls_fastforward</item>
+        <item name="android:src">@drawable/ic_forward</item>
         <item name="android:contentDescription">@string/exo_controls_fastforward_description</item>
     </style>
 
     <style name="ExoMediaButton.Rewind">
-        <item name="android:src">@drawable/exo_controls_rewind</item>
+        <item name="android:src">@drawable/ic_backward</item>
         <item name="android:contentDescription">@string/exo_controls_rewind_description</item>
     </style>
 
@@ -40,6 +40,11 @@
     <style name="ExoMediaButton.Question">
         <item name="android:src">@drawable/ic_question</item>
         <item name="android:contentDescription">@string/exo_controls_question_description</item>
+    </style>
+
+    <style name="ExoMediaButton.Playlist">
+        <item name="android:src">@drawable/ic_playlist_copy</item>
+        <item name="android:contentDescription">@string/exo_controls_playlist_description</item>
     </style>
 
 </resources>
