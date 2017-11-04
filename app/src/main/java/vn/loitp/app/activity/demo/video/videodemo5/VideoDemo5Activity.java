@@ -3,10 +3,13 @@ package vn.loitp.app.activity.demo.video.videodemo5;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
@@ -16,6 +19,8 @@ import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LLog;
+import vn.loitp.app.utilities.LScreenUtil;
+import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class VideoDemo5Activity extends BaseActivity {
@@ -70,12 +75,19 @@ public class VideoDemo5Activity extends BaseActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 fragmentTransaction.hide(FrmInfoVideo);
+                LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
+                    @Override
+                    public void doAfter(int mls) {
+                        LScreenUtil.hideNavBar(getWindow().getDecorView());
+                    }
+                });
             } else {
                 fragmentTransaction.show(FrmInfoVideo);
             }
             fragmentTransaction.commit();
         }
     }
+
 
     @Override
     protected boolean setFullScreen() {
