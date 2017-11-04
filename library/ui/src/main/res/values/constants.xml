@@ -6,6 +6,8 @@
     <dimen name="exo_media_button_width">52dp</dimen>
     <dimen name="exo_media_button_height">52dp</dimen>
 
+    <dimen name="exo_media_button_max_width">70dp</dimen>
+
     <color name="exo_edit_mode_background_color">#FFF4F3F0</color>
 
 </resources>

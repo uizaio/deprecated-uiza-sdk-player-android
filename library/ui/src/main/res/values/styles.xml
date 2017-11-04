@@ -57,4 +57,9 @@
         <item name="android:contentDescription">@string/exo_controls_setting_description</item>
     </style>
 
+    <style name="ExoMediaButton.Fullscreen">
+        <item name="android:src">@drawable/ic_fullscreen</item>
+        <item name="android:contentDescription">@string/exo_controls_fullscreen_description</item>
+    </style>
+
 </resources>

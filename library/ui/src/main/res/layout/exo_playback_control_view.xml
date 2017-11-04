@@ -75,13 +75,13 @@
             android:visibility="gone" />
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/exo_media_button_max_width"
             android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical|left"
                 android:text="10s"
                 android:textColor="@color/White"
                 android:textSize="8sp" />
@@ -89,7 +89,7 @@
             <ImageButton
                 android:id="@id/exo_rew"
                 style="@style/ExoMediaButton.Rewind"
-                android:layout_centerInParent="true" />
+                android:layout_gravity="center" />
         </FrameLayout>
 
         <ImageButton
@@ -97,7 +97,7 @@
             style="@style/ExoMediaButton" />
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/exo_media_button_max_width"
             android:layout_height="wrap_content">
 
             <ImageButton
@@ -133,6 +133,10 @@
         <ImageButton
             android:id="@+id/exo_setting"
             style="@style/ExoMediaButton.Setting" />
+
+        <ImageButton
+            android:id="@+id/exo_fullscreen"
+            style="@style/ExoMediaButton.Fullscreen" />
     </LinearLayout>
 
 </LinearLayout>
