@@ -118,6 +118,9 @@
             style="@style/ExoMediaButton.Next"
             android:visibility="gone" />
 
+        <ImageButton
+            android:id="@+id/exo_question"
+            style="@style/ExoMediaButton.Question" />
     </LinearLayout>
 
 </LinearLayout>

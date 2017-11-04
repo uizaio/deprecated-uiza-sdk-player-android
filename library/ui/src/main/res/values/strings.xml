@@ -16,6 +16,7 @@
 <resources>
   <string name="exo_controls_previous_description">Previous track</string>
   <string name="exo_controls_next_description">Next track</string>
+  <string name="exo_controls_question_description">Question</string>
   <string name="exo_controls_pause_description">Pause</string>
   <string name="exo_controls_play_description">Play</string>
   <string name="exo_controls_stop_description">Stop</string>
