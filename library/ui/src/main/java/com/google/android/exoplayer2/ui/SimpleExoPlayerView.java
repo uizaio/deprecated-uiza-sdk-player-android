@@ -351,7 +351,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
             controller.setOnClickEvent(new PlaybackControlView.OnClickEvent() {
                 @Override
                 public void onClickQuestion() {
-                    Log.d("loitp", "onClickQuestion 2");
+                    Log.d("loitp", "onClickQuestion");
+                }
+
+                @Override
+                public void onClickPlayList() {
+                    Log.d("loitp", "onClickPlayList");
                 }
             });
         }

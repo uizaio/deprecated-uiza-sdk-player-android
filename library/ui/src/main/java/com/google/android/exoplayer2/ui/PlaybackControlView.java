@@ -287,6 +287,7 @@ public class PlaybackControlView extends FrameLayout {
     private final View fastForwardButton;
     private final View rewindButton;
     private final View questionButton;
+    private final View playlistButton;
     private final ImageView repeatToggleButton;
     private final TextView durationView;
     private final TextView positionView;
@@ -422,6 +423,10 @@ public class PlaybackControlView extends FrameLayout {
         questionButton = findViewById(R.id.exo_question);
         if (questionButton != null) {
             questionButton.setOnClickListener(componentListener);
+        }
+        playlistButton = findViewById(R.id.exo_playlist);
+        if (playlistButton != null) {
+            playlistButton.setOnClickListener(componentListener);
         }
         Resources resources = context.getResources();
         repeatOffButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_off);
@@ -1162,6 +1167,10 @@ public class PlaybackControlView extends FrameLayout {
                     if (onClickEvent != null) {
                         onClickEvent.onClickQuestion();
                     }
+                } else if (playlistButton == view) {
+                    if (onClickEvent != null) {
+                        onClickEvent.onClickPlayList();
+                    }
                 }
             }
             hideAfterTimeout();
@@ -1171,6 +1180,8 @@ public class PlaybackControlView extends FrameLayout {
 
     public interface OnClickEvent {
         public void onClickQuestion();
+
+        public void onClickPlayList();
     }
 
     private OnClickEvent onClickEvent;

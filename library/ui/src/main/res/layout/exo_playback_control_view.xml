@@ -123,7 +123,7 @@
             style="@style/ExoMediaButton.Question" />
 
         <ImageButton
-            android:id="@+id/exo_playlist"
+            android:id="@id/exo_playlist"
             style="@style/ExoMediaButton.Playlist" />
 
         <ImageButton
