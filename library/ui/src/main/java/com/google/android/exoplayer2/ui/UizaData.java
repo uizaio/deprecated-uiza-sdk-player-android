@@ -1,5 +1,7 @@
 package com.google.android.exoplayer2.ui;
 
+import android.os.Handler;
+
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.
  */
@@ -25,6 +27,12 @@ public class UizaData {
     }
 
     public void reset() {
-        currentPosition = 0;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                currentPosition = 0;
+            }
+        }, 100);
     }
 }

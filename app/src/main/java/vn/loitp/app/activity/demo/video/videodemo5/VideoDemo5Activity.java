@@ -113,4 +113,10 @@ public class VideoDemo5Activity extends BaseActivity {
     protected int setLayoutResourceId() {
         return R.layout.activity_video_5;
     }
+
+    @Override
+    public void onBackPressed() {
+        UizaData.getInstance().reset();
+        super.onBackPressed();
+    }
 }
