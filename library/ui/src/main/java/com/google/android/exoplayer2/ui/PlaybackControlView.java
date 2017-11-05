@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -291,6 +292,7 @@ public class PlaybackControlView extends FrameLayout {
     private final View languageButton;
     private final View settingButton;
     private final View fullscreenButton;
+    private final TextView tvRewNum;
     private final ImageView repeatToggleButton;
     private final TextView durationView;
     private final TextView positionView;
@@ -364,15 +366,12 @@ public class PlaybackControlView extends FrameLayout {
         showTimeoutMs = DEFAULT_SHOW_TIMEOUT_MS;
         repeatToggleModes = DEFAULT_REPEAT_TOGGLE_MODES;
         if (playbackAttrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(playbackAttrs,
-                    R.styleable.PlaybackControlView, 0, 0);
+            TypedArray a = context.getTheme().obtainStyledAttributes(playbackAttrs, R.styleable.PlaybackControlView, 0, 0);
             try {
                 rewindMs = a.getInt(R.styleable.PlaybackControlView_rewind_increment, rewindMs);
-                fastForwardMs = a.getInt(R.styleable.PlaybackControlView_fastforward_increment,
-                        fastForwardMs);
+                fastForwardMs = a.getInt(R.styleable.PlaybackControlView_fastforward_increment, fastForwardMs);
                 showTimeoutMs = a.getInt(R.styleable.PlaybackControlView_show_timeout, showTimeoutMs);
-                controllerLayoutId = a.getResourceId(R.styleable.PlaybackControlView_controller_layout_id,
-                        controllerLayoutId);
+                controllerLayoutId = a.getResourceId(R.styleable.PlaybackControlView_controller_layout_id, controllerLayoutId);
                 repeatToggleModes = getRepeatToggleModes(a, repeatToggleModes);
             } finally {
                 a.recycle();
@@ -446,6 +445,7 @@ public class PlaybackControlView extends FrameLayout {
         if (fullscreenButton != null) {
             fullscreenButton.setOnClickListener(componentListener);
         }
+        tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
         Resources resources = context.getResources();
         repeatOffButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_off);
         repeatOneButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_one);
@@ -458,11 +458,20 @@ public class PlaybackControlView extends FrameLayout {
                 R.string.exo_controls_repeat_all_description);
     }
 
+    public void updateSensor(boolean isLandscape) {
+        Log.d("loitp", "updateSensor " + isLandscape);
+
+        /*if (isLandscape) {
+            tvRewNum.setVisibility(VISIBLE);
+        } else {
+            tvRewNum.setVisibility(GONE);
+        }*/
+    }
+
     @SuppressWarnings("ResourceType")
     private static
     @RepeatModeUtil.RepeatToggleModes
-    int getRepeatToggleModes(TypedArray a,
-                             @RepeatModeUtil.RepeatToggleModes int repeatToggleModes) {
+    int getRepeatToggleModes(TypedArray a, @RepeatModeUtil.RepeatToggleModes int repeatToggleModes) {
         return a.getInt(R.styleable.PlaybackControlView_repeat_toggle_modes, repeatToggleModes);
     }
 

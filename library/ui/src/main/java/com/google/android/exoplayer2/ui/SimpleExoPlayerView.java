@@ -378,8 +378,10 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickFullScreen() {
                     if (isFullScreen(getContext())) {
                         ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        controller.updateSensor(false);
                     } else {
                         ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        controller.updateSensor(true);
                     }
                 }
             });
