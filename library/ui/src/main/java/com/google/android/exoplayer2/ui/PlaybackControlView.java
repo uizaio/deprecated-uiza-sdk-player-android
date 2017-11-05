@@ -286,6 +286,7 @@ public class PlaybackControlView extends FrameLayout {
     private final View pauseButton;
     private final View fastForwardButton;
     private final View rewindButton;
+    private final View questionButton;
     private final ImageView repeatToggleButton;
     private final TextView durationView;
     private final TextView positionView;
@@ -417,6 +418,10 @@ public class PlaybackControlView extends FrameLayout {
         repeatToggleButton = (ImageView) findViewById(R.id.exo_repeat_toggle);
         if (repeatToggleButton != null) {
             repeatToggleButton.setOnClickListener(componentListener);
+        }
+        questionButton = findViewById(R.id.exo_question);
+        if (questionButton != null) {
+            questionButton.setOnClickListener(componentListener);
         }
         Resources resources = context.getResources();
         repeatOffButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_off);
@@ -1065,8 +1070,7 @@ public class PlaybackControlView extends FrameLayout {
         return true;
     }
 
-    private final class ComponentListener implements Player.EventListener, TimeBar.OnScrubListener,
-            OnClickListener {
+    private final class ComponentListener implements Player.EventListener, TimeBar.OnScrubListener, OnClickListener {
 
         @Override
         public void onScrubStart(TimeBar timeBar, long position) {
@@ -1153,13 +1157,26 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (pauseButton == view) {
                     controlDispatcher.dispatchSetPlayWhenReady(player, false);
                 } else if (repeatToggleButton == view) {
-                    controlDispatcher.dispatchSetRepeatMode(player, RepeatModeUtil.getNextRepeatMode(
-                            player.getRepeatMode(), repeatToggleModes));
+                    controlDispatcher.dispatchSetRepeatMode(player, RepeatModeUtil.getNextRepeatMode(player.getRepeatMode(), repeatToggleModes));
+                } else if (questionButton == view) {
+                    if (onClickEvent != null) {
+                        onClickEvent.onClickQuestion();
+                    }
                 }
             }
             hideAfterTimeout();
         }
 
+    }
+
+    public interface OnClickEvent {
+        public void onClickQuestion();
+    }
+
+    private OnClickEvent onClickEvent;
+
+    public void setOnClickEvent(OnClickEvent onClickEvent) {
+        this.onClickEvent = onClickEvent;
     }
 
 }
