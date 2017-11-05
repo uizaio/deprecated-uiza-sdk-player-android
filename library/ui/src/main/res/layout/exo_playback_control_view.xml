@@ -131,7 +131,7 @@
             style="@style/ExoMediaButton.Language" />
 
         <ImageButton
-            android:id="@+id/exo_setting"
+            android:id="@id/exo_setting"
             style="@style/ExoMediaButton.Setting" />
 
         <ImageButton

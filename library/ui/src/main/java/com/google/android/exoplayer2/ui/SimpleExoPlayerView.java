@@ -363,6 +363,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickLanguage() {
                     Log.d("loitp", "onClickLanguage");
                 }
+
+                @Override
+                public void onClickSetting() {
+                    Log.d("loitp", "onClickSetting");
+                }
             });
         }
         hideController();
