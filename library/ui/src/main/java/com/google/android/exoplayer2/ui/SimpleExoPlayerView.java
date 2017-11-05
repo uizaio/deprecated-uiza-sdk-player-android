@@ -16,7 +16,9 @@
 package com.google.android.exoplayer2.ui;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -28,10 +30,12 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -371,11 +375,29 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickFullScreen() {
-                    Log.d("loitp", "onClickFullScreen");
+                    if (isFullScreen(getContext())) {
+                        ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    } else {
+                        ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    }
                 }
             });
         }
         hideController();
+    }
+
+    private boolean isFullScreen(Context context) {
+        final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                return false;
+            case Surface.ROTATION_90:
+                return true;
+            case Surface.ROTATION_180:
+                return false;
+            default:
+                return true;
+        }
     }
 
     /**
