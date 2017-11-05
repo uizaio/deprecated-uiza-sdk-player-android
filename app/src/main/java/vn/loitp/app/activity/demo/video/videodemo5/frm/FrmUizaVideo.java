@@ -1,6 +1,7 @@
 package vn.loitp.app.activity.demo.video.videodemo5.frm;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -66,6 +67,7 @@ import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.utilities.LLog;
+import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 /**
@@ -635,5 +637,20 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     public SimpleExoPlayerView getPlayerView() {
         return simpleExoPlayerView;
+    }
+
+    public void seekTo(long position) {
+        if (player != null) {
+            LLog.d(TAG, "player != null");
+            player.seekTo(position);
+        } else {
+            LLog.d(TAG, "player == null");
+            LUIUtil.setDelay(200, new LUIUtil.DelayCallback() {
+                @Override
+                public void doAfter(int mls) {
+                    seekTo(position);
+                }
+            });
+        }
     }
 }

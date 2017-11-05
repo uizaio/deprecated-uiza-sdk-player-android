@@ -69,12 +69,11 @@ public class VideoDemo5Activity extends BaseActivity {
     private void orientVideoDescriptionFragment(int orientation) {
         // Hide the extra content when in landscape so the video is as large as possible.
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment FrmInfoVideo = fragmentManager.findFragmentById(R.id.uiza_video_info);
-
-        if (FrmInfoVideo != null) {
+        Fragment frmInfoVideo = fragmentManager.findFragmentById(R.id.uiza_video_info);
+        if (frmInfoVideo != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                fragmentTransaction.hide(FrmInfoVideo);
+                fragmentTransaction.hide(frmInfoVideo);
                 LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
                     @Override
                     public void doAfter(int mls) {
@@ -82,12 +81,17 @@ public class VideoDemo5Activity extends BaseActivity {
                     }
                 });
             } else {
-                fragmentTransaction.show(FrmInfoVideo);
+                fragmentTransaction.show(frmInfoVideo);
             }
             fragmentTransaction.commit();
         }
+        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
+        if (frmUizaVideo != null) {
+            if (frmUizaVideo instanceof FrmUizaVideo) {
+                ((FrmUizaVideo) frmUizaVideo).seekTo(10000);
+            }
+        }
     }
-
 
     @Override
     protected boolean setFullScreen() {

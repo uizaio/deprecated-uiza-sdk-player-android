@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -380,11 +381,22 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     } else {
                         ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     }
+                    Log.d("loitp", "mCurrentProgress " + mCurrentProgress);
+
+                    player.seekTo(5000);
+                }
+            });
+            controller.setOnProgressEvent(new PlaybackControlView.OnProgressEvent() {
+                @Override
+                public void onProgressChange(long progress) {
+                    mCurrentProgress = progress;
                 }
             });
         }
         hideController();
     }
+
+    private long mCurrentProgress;
 
     private boolean isFullScreen(Context context) {
         final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
@@ -912,8 +924,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         aspectRatioFrame.setResizeMode(resizeMode);
     }
 
-    private final class ComponentListener implements SimpleExoPlayer.VideoListener,
-            TextRenderer.Output, Player.EventListener {
+    private final class ComponentListener implements SimpleExoPlayer.VideoListener, TextRenderer.Output, Player.EventListener {
 
         // TextRenderer.Output implementation
 
@@ -927,8 +938,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         // SimpleExoPlayer.VideoListener implementation
 
         @Override
-        public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees,
-                                       float pixelWidthHeightRatio) {
+        public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
             if (contentFrame != null) {
                 float aspectRatio = height == 0 ? 1 : (width * pixelWidthHeightRatio) / height;
                 contentFrame.setAspectRatio(aspectRatio);
