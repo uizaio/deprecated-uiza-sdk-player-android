@@ -381,22 +381,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     } else {
                         ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     }
-                    Log.d("loitp", "mCurrentProgress " + mCurrentProgress);
-
-                    player.seekTo(5000);
-                }
-            });
-            controller.setOnProgressEvent(new PlaybackControlView.OnProgressEvent() {
-                @Override
-                public void onProgressChange(long progress) {
-                    mCurrentProgress = progress;
                 }
             });
         }
         hideController();
     }
-
-    private long mCurrentProgress;
 
     private boolean isFullScreen(Context context) {
         final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();

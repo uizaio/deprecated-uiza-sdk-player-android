@@ -330,9 +330,9 @@ public class PlaybackControlView extends FrameLayout {
     private final Runnable updateProgressAction = new Runnable() {
         @Override
         public void run() {
-            if (onProgressEvent != null) {
+            /*if (onProgressEvent != null) {
                 onProgressEvent.onProgressChange(player.getCurrentPosition());
-            }
+            }*/
             updateProgress();
         }
     };
@@ -1226,7 +1226,7 @@ public class PlaybackControlView extends FrameLayout {
         this.onClickEvent = onClickEvent;
     }
 
-    public interface OnProgressEvent {
+    /*public interface OnProgressEvent {
         public void onProgressChange(long progress);
     }
 
@@ -1234,5 +1234,5 @@ public class PlaybackControlView extends FrameLayout {
 
     public void setOnProgressEvent(OnProgressEvent onProgressEvent) {
         this.onProgressEvent = onProgressEvent;
-    }
+    }*/
 }

@@ -3,19 +3,17 @@ package vn.loitp.app.activity.demo.video.videodemo5;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
+
+import com.google.android.exoplayer2.ui.UizaData;
 
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideo;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
-import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LLog;
@@ -24,6 +22,7 @@ import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class VideoDemo5Activity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +30,7 @@ public class VideoDemo5Activity extends BaseActivity {
 
         //TODO replace sample to inputmodel
         Sample sample = (Sample) getIntent().getSerializableExtra(Constants.KEY_UIZA);
-        LLog.d(TAG, "sample " + LSApplication.getInstance().getGson().toJson(sample));
+        //LLog.d(TAG, "sample " + LSApplication.getInstance().getGson().toJson(sample));
         if (sample != null) {
             InputModel inputModel = new InputModel();
             inputModel.setUri(Uri.parse(sample.getUri()));
@@ -67,6 +66,7 @@ public class VideoDemo5Activity extends BaseActivity {
     }
 
     private void orientVideoDescriptionFragment(int orientation) {
+        LLog.d(TAG, "orientVideoDescriptionFragment");
         // Hide the extra content when in landscape so the video is as large as possible.
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment frmInfoVideo = fragmentManager.findFragmentById(R.id.uiza_video_info);
@@ -88,7 +88,8 @@ public class VideoDemo5Activity extends BaseActivity {
         Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
         if (frmUizaVideo != null) {
             if (frmUizaVideo instanceof FrmUizaVideo) {
-                ((FrmUizaVideo) frmUizaVideo).seekTo(10000);
+                LLog.d(TAG, "UizaData.getInstance().getCurrentPosition() " + UizaData.getInstance().getCurrentPosition());
+                ((FrmUizaVideo) frmUizaVideo).seekTo(UizaData.getInstance().getCurrentPosition());
             }
         }
     }
