@@ -135,7 +135,7 @@
             style="@style/ExoMediaButton.Setting" />
 
         <ImageButton
-            android:id="@+id/exo_fullscreen"
+            android:id="@id/exo_fullscreen"
             style="@style/ExoMediaButton.Fullscreen" />
     </LinearLayout>
 

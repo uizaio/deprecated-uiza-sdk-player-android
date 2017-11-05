@@ -368,6 +368,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickSetting() {
                     Log.d("loitp", "onClickSetting");
                 }
+
+                @Override
+                public void onClickFullScreen() {
+                    Log.d("loitp", "onClickFullScreen");
+                }
             });
         }
         hideController();
