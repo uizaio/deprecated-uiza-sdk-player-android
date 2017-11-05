@@ -13,6 +13,7 @@
     <item name="exo_rew" type="id" />
     <item name="exo_question" type="id" />
     <item name="exo_playlist" type="id" />
+    <item name="exo_language" type="id" />
     <item name="exo_ffwd" type="id" />
     <item name="exo_prev" type="id" />
     <item name="exo_next" type="id" />

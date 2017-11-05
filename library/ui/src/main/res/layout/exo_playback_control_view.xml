@@ -127,7 +127,7 @@
             style="@style/ExoMediaButton.Playlist" />
 
         <ImageButton
-            android:id="@+id/exo_language"
+            android:id="@id/exo_language"
             style="@style/ExoMediaButton.Language" />
 
         <ImageButton
