@@ -292,10 +292,11 @@ public class PlaybackControlView extends FrameLayout {
     private final View languageButton;
     private final View settingButton;
     private final View fullscreenButton;
-    private final TextView tvRewNum;
+
     private final ImageView repeatToggleButton;
     private final TextView durationView;
     private final TextView positionView;
+    private final TextView tvRewNum;
     private final TimeBar timeBar;
     private final StringBuilder formatBuilder;
     private final Formatter formatter;
@@ -393,6 +394,7 @@ public class PlaybackControlView extends FrameLayout {
 
         durationView = (TextView) findViewById(R.id.exo_duration);
         positionView = (TextView) findViewById(R.id.exo_position);
+        tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
         timeBar = (TimeBar) findViewById(R.id.exo_progress);
         if (timeBar != null) {
             timeBar.setListener(componentListener);
@@ -445,7 +447,7 @@ public class PlaybackControlView extends FrameLayout {
         if (fullscreenButton != null) {
             fullscreenButton.setOnClickListener(componentListener);
         }
-        tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
+
         Resources resources = context.getResources();
         repeatOffButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_off);
         repeatOneButtonDrawable = resources.getDrawable(R.drawable.exo_controls_repeat_one);
@@ -458,14 +460,10 @@ public class PlaybackControlView extends FrameLayout {
                 R.string.exo_controls_repeat_all_description);
     }
 
-    public void updateSensor(boolean isLandscape) {
-        Log.d("loitp", "updateSensor " + isLandscape);
+    public void updateSensor(final boolean isLandscape) {
+        //TODO
+        Log.d("loitp", "isLandscape " + isLandscape);
 
-        /*if (isLandscape) {
-            tvRewNum.setVisibility(VISIBLE);
-        } else {
-            tvRewNum.setVisibility(GONE);
-        }*/
     }
 
     @SuppressWarnings("ResourceType")
