@@ -377,6 +377,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickFullScreen() {
                     setFullScreen(isFullScreen(getContext()));
                 }
+
+                @Override
+                public void onClickExit() {
+                    ((Activity) getContext()).onBackPressed();
+                }
             });
         }
         hideController();

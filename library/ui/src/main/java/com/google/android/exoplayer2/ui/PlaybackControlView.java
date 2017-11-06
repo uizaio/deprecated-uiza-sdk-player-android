@@ -291,6 +291,7 @@ public class PlaybackControlView extends FrameLayout {
     private final View languageButton;
     private final View settingButton;
     private final View fullscreenButton;
+    private final View exit;
 
     private final ImageView repeatToggleButton;
     private final TextView durationView;
@@ -449,6 +450,10 @@ public class PlaybackControlView extends FrameLayout {
         fullscreenButton = findViewById(R.id.exo_fullscreen);
         if (fullscreenButton != null) {
             fullscreenButton.setOnClickListener(componentListener);
+        }
+        exit = findViewById(R.id.exo_exit);
+        if (exit != null) {
+            exit.setOnClickListener(componentListener);
         }
 
         Resources resources = context.getResources();
@@ -1216,6 +1221,10 @@ public class PlaybackControlView extends FrameLayout {
                     if (onClickEvent != null) {
                         onClickEvent.onClickFullScreen();
                     }
+                } else if (exit == view) {
+                    if (onClickEvent != null) {
+                        onClickEvent.onClickExit();
+                    }
                 }
             }
             hideAfterTimeout();
@@ -1233,6 +1242,8 @@ public class PlaybackControlView extends FrameLayout {
         public void onClickSetting();
 
         public void onClickFullScreen();
+
+        public void onClickExit();
     }
 
     private OnClickEvent onClickEvent;

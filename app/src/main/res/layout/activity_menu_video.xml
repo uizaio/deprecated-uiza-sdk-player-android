@@ -52,6 +52,7 @@
                 android:id="@+id/bt_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bt_primary"
                 android:text="UizaVideo Demo (More Options)" />
         </LinearLayout>
     </ScrollView>

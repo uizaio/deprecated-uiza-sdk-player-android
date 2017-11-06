@@ -15,6 +15,7 @@
     <item name="exo_question" type="id" />
     <item name="exo_playlist" type="id" />
     <item name="exo_language" type="id" />
+    <item name="exo_exit" type="id" />
     <item name="exo_setting" type="id" />
     <item name="exo_fullscreen" type="id" />
     <item name="exo_ffwd" type="id" />
