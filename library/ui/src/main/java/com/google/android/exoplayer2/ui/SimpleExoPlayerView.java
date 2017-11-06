@@ -23,7 +23,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -376,17 +375,21 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickFullScreen() {
-                    if (isFullScreen(getContext())) {
-                        ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        controller.updateSensor(false);
-                    } else {
-                        ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                        controller.updateSensor(true);
-                    }
+                    setFullScreen(isFullScreen(getContext()));
                 }
             });
         }
         hideController();
+    }
+
+    public void setFullScreen(boolean isFullScreen) {
+        if (isFullScreen) {
+            ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            controller.updateSensor(false);
+        } else {
+            ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            controller.updateSensor(true);
+        }
     }
 
     private boolean isFullScreen(Context context) {

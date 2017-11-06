@@ -296,6 +296,7 @@ public class PlaybackControlView extends FrameLayout {
     private final ImageView repeatToggleButton;
     private final TextView durationView;
     private final TextView positionView;
+    private final TextView tvTitle;
     private final TextView tvRewNum;
     private final TimeBar timeBar;
     private final StringBuilder formatBuilder;
@@ -394,6 +395,7 @@ public class PlaybackControlView extends FrameLayout {
 
         durationView = (TextView) findViewById(R.id.exo_duration);
         positionView = (TextView) findViewById(R.id.exo_position);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
         tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
         timeBar = (TimeBar) findViewById(R.id.exo_progress);
         if (timeBar != null) {
