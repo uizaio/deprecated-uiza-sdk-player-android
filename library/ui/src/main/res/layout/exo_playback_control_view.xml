@@ -110,7 +110,8 @@
                     android:visibility="gone" />
 
                 <FrameLayout
-                    android:layout_width="@dimen/exo_media_button_max_width"
+                    android:id="@+id/fl_rew"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -133,7 +134,7 @@
                     style="@style/ExoMediaButton" />
 
                 <FrameLayout
-                    android:layout_width="@dimen/exo_media_button_max_width"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <ImageButton
