@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -298,6 +297,7 @@ public class PlaybackControlView extends FrameLayout {
     private final TextView positionView;
     private final TextView tvTitle;
     private final TextView tvRewNum;
+    private final TextView tvFfwdNum;
     private final TimeBar timeBar;
     private final StringBuilder formatBuilder;
     private final Formatter formatter;
@@ -397,6 +397,7 @@ public class PlaybackControlView extends FrameLayout {
         positionView = (TextView) findViewById(R.id.exo_position);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
+        tvFfwdNum = (TextView) findViewById(R.id.tv_ffwd_num);
         timeBar = (TimeBar) findViewById(R.id.exo_progress);
         if (timeBar != null) {
             timeBar.setListener(componentListener);
@@ -866,10 +867,12 @@ public class PlaybackControlView extends FrameLayout {
         if (UizaData.getInstance().isLandscape()) {
             if (tvRewNum.getVisibility() != VISIBLE) {
                 tvRewNum.setVisibility(VISIBLE);
+                tvFfwdNum.setVisibility(VISIBLE);
             }
         } else {
             if (tvRewNum.getVisibility() != GONE) {
                 tvRewNum.setVisibility(GONE);
+                tvFfwdNum.setVisibility(GONE);
             }
         }
 
