@@ -32,7 +32,18 @@ public class UizaData {
             @Override
             public void run() {
                 currentPosition = 0;
+                isLandscape = false;
             }
         }, 100);
+    }
+
+    private boolean isLandscape;
+
+    public boolean isLandscape() {
+        return isLandscape;
+    }
+
+    public void setLandscape(boolean landscape) {
+        isLandscape = landscape;
     }
 }

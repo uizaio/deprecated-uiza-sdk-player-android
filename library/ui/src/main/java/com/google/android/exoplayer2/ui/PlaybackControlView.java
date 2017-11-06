@@ -462,11 +462,6 @@ public class PlaybackControlView extends FrameLayout {
                 R.string.exo_controls_repeat_all_description);
     }
 
-    public void updateSensor(final boolean isLandscape) {
-        //TODO
-        Log.d("loitp", "isLandscape " + isLandscape);
-
-    }
 
     @SuppressWarnings("ResourceType")
     private static
@@ -777,8 +772,7 @@ public class PlaybackControlView extends FrameLayout {
         if (player == null) {
             return;
         }
-        multiWindowTimeBar = showMultiWindowTimeBar
-                && canShowMultiWindowTimeBar(player.getCurrentTimeline(), window);
+        multiWindowTimeBar = showMultiWindowTimeBar && canShowMultiWindowTimeBar(player.getCurrentTimeline(), window);
     }
 
     private void updateProgress() {
@@ -797,8 +791,7 @@ public class PlaybackControlView extends FrameLayout {
             if (!timeline.isEmpty()) {
                 int currentWindowIndex = player.getCurrentWindowIndex();
                 int firstWindowIndex = multiWindowTimeBar ? 0 : currentWindowIndex;
-                int lastWindowIndex =
-                        multiWindowTimeBar ? timeline.getWindowCount() - 1 : currentWindowIndex;
+                int lastWindowIndex = multiWindowTimeBar ? timeline.getWindowCount() - 1 : currentWindowIndex;
                 for (int i = firstWindowIndex; i <= lastWindowIndex; i++) {
                     if (i == currentWindowIndex) {
                         currentWindowTimeBarOffsetUs = durationUs;
@@ -868,6 +861,16 @@ public class PlaybackControlView extends FrameLayout {
             timeBar.setPosition(position);
             timeBar.setBufferedPosition(bufferedPosition);
             timeBar.setDuration(duration);
+        }
+
+        if (UizaData.getInstance().isLandscape()) {
+            if (tvRewNum.getVisibility() != VISIBLE) {
+                tvRewNum.setVisibility(VISIBLE);
+            }
+        } else {
+            if (tvRewNum.getVisibility() != GONE) {
+                tvRewNum.setVisibility(GONE);
+            }
         }
 
         // Cancel any pending updates and schedule a new one if necessary.
