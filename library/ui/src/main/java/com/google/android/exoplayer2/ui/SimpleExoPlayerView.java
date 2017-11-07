@@ -228,6 +228,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private boolean controllerAutoShow;
     private boolean controllerHideOnTouch;
 
+    private SettingView settingView;
+
     public SimpleExoPlayerView(Context context) {
         this(context, null);
     }
@@ -368,15 +370,21 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickSetting() {
-                    Log.d("loitp", "onClickSetting");
-
-                    SettingView settingView = new SettingView(getContext());
-                    if (exoHelperFrameLayout != null) {
-                        Log.d("loitp", "overlayFrameLayout != null");
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-                        exoHelperFrameLayout.addView(settingView, params);
+                    if (settingView == null) {
+                        //show setting
+                        settingView = new SettingView(getContext());
+                        if (exoHelperFrameLayout != null) {
+                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+                            exoHelperFrameLayout.addView(settingView, params);
+                            pausePlayVideo();
+                        }
                     } else {
-                        Log.d("loitp", "overlayFrameLayout == null");
+                        //hide setting
+                        if (exoHelperFrameLayout != null) {
+                            exoHelperFrameLayout.removeView(settingView);
+                            settingView = null;
+                            resumePlayVideo();
+                        }
                     }
                 }
 
@@ -392,6 +400,20 @@ public final class SimpleExoPlayerView extends FrameLayout {
             });
         }
         hideController();
+    }
+
+    private void pausePlayVideo() {
+        if (player != null) {
+            player.setPlayWhenReady(false);
+            //player.getPlaybackState();
+        }
+    }
+
+    private void resumePlayVideo() {
+        if (player != null) {
+            player.setPlayWhenReady(true);
+            //player.getPlaybackState();
+        }
     }
 
     public void setFullScreen(boolean isFullScreen) {
