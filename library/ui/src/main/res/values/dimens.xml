@@ -10,4 +10,5 @@
     <dimen name="txt_8">8sp</dimen>
     <dimen name="w_20">20dp</dimen>
     <dimen name="h_20">20dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
 </resources>

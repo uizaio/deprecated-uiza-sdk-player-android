@@ -2,7 +2,7 @@ package com.google.android.exoplayer2.ui.settingview;
 
 import android.content.Context;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
@@ -23,7 +23,7 @@ public class SettingView extends RelativeLayout {
 
     private List<SettingObject> settingObjectList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private SettingAdapter mAdapter;
+    private SettingAdapter settingAdapter;
 
     public SettingView(Context context) {
         super(context);
@@ -44,14 +44,12 @@ public class SettingView extends RelativeLayout {
         inflate(getContext(), R.layout.setting_view, this);
 
         this.tv = (TextView) findViewById(R.id.tv);
+        this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        mAdapter = new SettingAdapter(settingObjectList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        settingAdapter = new SettingAdapter(settingObjectList);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(settingAdapter);
 
         prepareMovieData();
     }
@@ -69,6 +67,6 @@ public class SettingView extends RelativeLayout {
         settingObject = new SettingObject("1080p", false);
         settingObjectList.add(settingObject);
 
-        mAdapter.notifyDataSetChanged();
+        settingAdapter.notifyDataSetChanged();
     }
 }
