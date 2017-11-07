@@ -27,6 +27,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -217,6 +218,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private final PlaybackControlView controller;
     private final ComponentListener componentListener;
     private final FrameLayout overlayFrameLayout;
+    private final FrameLayout exoHelperFrameLayout;
 
     private SimpleExoPlayer player;
     private boolean useController;
@@ -246,6 +248,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
             controller = null;
             componentListener = null;
             overlayFrameLayout = null;
+            exoHelperFrameLayout = null;
             ImageView logo = new ImageView(context);
             if (Util.SDK_INT >= 23) {
                 configureEditModeLogoV23(getResources(), logo);
@@ -266,23 +269,17 @@ public final class SimpleExoPlayerView extends FrameLayout {
         boolean controllerHideOnTouch = true;
         boolean controllerAutoShow = true;
         if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
-                    R.styleable.SimpleExoPlayerView, 0, 0);
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SimpleExoPlayerView, 0, 0);
             try {
-                playerLayoutId = a.getResourceId(R.styleable.SimpleExoPlayerView_player_layout_id,
-                        playerLayoutId);
+                playerLayoutId = a.getResourceId(R.styleable.SimpleExoPlayerView_player_layout_id, playerLayoutId);
                 useArtwork = a.getBoolean(R.styleable.SimpleExoPlayerView_use_artwork, useArtwork);
-                defaultArtworkId = a.getResourceId(R.styleable.SimpleExoPlayerView_default_artwork,
-                        defaultArtworkId);
+                defaultArtworkId = a.getResourceId(R.styleable.SimpleExoPlayerView_default_artwork, defaultArtworkId);
                 useController = a.getBoolean(R.styleable.SimpleExoPlayerView_use_controller, useController);
                 surfaceType = a.getInt(R.styleable.SimpleExoPlayerView_surface_type, surfaceType);
                 resizeMode = a.getInt(R.styleable.SimpleExoPlayerView_resize_mode, resizeMode);
-                controllerShowTimeoutMs = a.getInt(R.styleable.SimpleExoPlayerView_show_timeout,
-                        controllerShowTimeoutMs);
-                controllerHideOnTouch = a.getBoolean(R.styleable.SimpleExoPlayerView_hide_on_touch,
-                        controllerHideOnTouch);
-                controllerAutoShow = a.getBoolean(R.styleable.SimpleExoPlayerView_auto_show,
-                        controllerAutoShow);
+                controllerShowTimeoutMs = a.getInt(R.styleable.SimpleExoPlayerView_show_timeout, controllerShowTimeoutMs);
+                controllerHideOnTouch = a.getBoolean(R.styleable.SimpleExoPlayerView_hide_on_touch, controllerHideOnTouch);
+                controllerAutoShow = a.getBoolean(R.styleable.SimpleExoPlayerView_auto_show, controllerAutoShow);
             } finally {
                 a.recycle();
             }
@@ -315,6 +312,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         // Overlay frame layout.
         overlayFrameLayout = (FrameLayout) findViewById(R.id.exo_overlay);
+        exoHelperFrameLayout = (FrameLayout) findViewById(R.id.exo_helper);
 
         // Artwork view.
         artworkView = (ImageView) findViewById(R.id.exo_artwork);
@@ -371,6 +369,15 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 @Override
                 public void onClickSetting() {
                     Log.d("loitp", "onClickSetting");
+
+                    SettingView settingView = new SettingView(getContext());
+                    if (exoHelperFrameLayout != null) {
+                        Log.d("loitp", "overlayFrameLayout != null");
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+                        exoHelperFrameLayout.addView(settingView, params);
+                    } else {
+                        Log.d("loitp", "overlayFrameLayout == null");
+                    }
                 }
 
                 @Override

@@ -19,7 +19,7 @@
             android:id="@id/exo_artwork"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop" />
 
         <com.google.android.exoplayer2.ui.SubtitleView
             android:id="@id/exo_subtitles"
@@ -30,6 +30,11 @@
 
     <View
         android:id="@id/exo_controller_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/exo_helper"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
