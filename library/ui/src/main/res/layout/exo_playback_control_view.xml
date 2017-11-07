@@ -7,10 +7,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#55000000"
+        android:background="@color/black_33"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="@dimen/padding_10">
 
         <ImageView
             android:id="@id/exo_exit"
@@ -22,10 +22,10 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/margin_10"
             android:text="Demo title here"
             android:textColor="@color/White"
-            android:textSize="15sp"
+            android:textSize="@dimen/txt_15"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -34,13 +34,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="#aa000000"
+        android:background="@color/black_33"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_5"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -49,16 +49,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:textColor="#FFBEBEBE"
-                android:textSize="14sp"
+                android:paddingLeft="@dimen/padding_5"
+                android:paddingRight="@dimen/padding_5"
+                android:textColor="@color/White"
+                android:textSize="@dimen/txt_14"
                 android:textStyle="bold" />
 
             <com.google.android.exoplayer2.ui.DefaultTimeBar
                 android:id="@id/exo_progress"
                 android:layout_width="0dp"
-                android:layout_height="26dp"
+                android:layout_height="@dimen/height_26"
                 android:layout_weight="1"
                 app:buffered_color="#0000ff"
                 app:played_color="#ff0000"
@@ -70,10 +70,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:textColor="#FFBEBEBE"
-                android:textSize="14sp"
+                android:paddingLeft="@dimen/padding_5"
+                android:paddingRight="@dimen/padding_5"
+                android:textColor="@color/White"
+                android:textSize="@dimen/txt_14"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="4dp">
+                android:paddingTop="@dimen/padding_5">
 
                 <ImageButton
                     android:id="@id/exo_pause"
@@ -119,9 +119,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="10s"
+                        android:text="@string/_10s"
                         android:textColor="@color/White"
-                        android:textSize="8sp" />
+                        android:textSize="@dimen/txt_8" />
 
                     <ImageButton
                         android:id="@id/exo_rew"
@@ -146,9 +146,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|right"
-                        android:text="10s"
+                        android:text="@string/_10s"
                         android:textColor="@color/White"
-                        android:textSize="8sp" />
+                        android:textSize="@dimen/txt_8" />
                 </FrameLayout>
 
                 <ImageButton
