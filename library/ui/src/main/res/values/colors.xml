@@ -21,6 +21,10 @@
     <color name="colorPrimaryDark">#00A7BC</color>
     <color name="transparent">#00000000</color>
     <color name="White">#FFFFFF</color>
+    <color name="df_buffered_color">#55ffffff</color>
+    <color name="df_played_color">#097cff</color>
+    <color name="df_scrubber_color">#ffffff</color>
+    <color name="df_unplayed_color">#33ffffff</color>
     <color name="WhiteTrans">#55FFFFFF</color>
     <color name="WhiteTrans99">#99FFFFFF</color>
     <color name="DeepPink">#FF1493</color>

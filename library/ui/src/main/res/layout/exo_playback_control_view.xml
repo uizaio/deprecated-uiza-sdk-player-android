@@ -60,10 +60,10 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_26"
                 android:layout_weight="1"
-                app:buffered_color="#0000ff"
-                app:played_color="#ff0000"
-                app:scrubber_color="#00ff00"
-                app:unplayed_color="#00ffff" />
+                app:buffered_color="@color/df_buffered_color"
+                app:played_color="@color/df_played_color"
+                app:scrubber_color="@color/df_scrubber_color"
+                app:unplayed_color="@color/df_unplayed_color" />
 
             <TextView
                 android:id="@id/exo_duration"
