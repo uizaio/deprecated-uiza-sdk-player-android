@@ -75,7 +75,7 @@ import vn.loitp.livestar.R;
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
-
+//TODO remove debug_text_view, controls_root, retry_button
 public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";

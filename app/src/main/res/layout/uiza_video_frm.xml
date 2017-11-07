@@ -4,6 +4,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Black"
     android:keepScreenOn="true">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
@@ -16,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/colorAccent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/debug_text_view"
