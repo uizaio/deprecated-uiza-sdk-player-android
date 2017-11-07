@@ -109,47 +109,36 @@
                     style="@style/ExoMediaButton.Previous"
                     android:visibility="gone" />
 
-                <FrameLayout
-                    android:id="@+id/fl_rew"
+                <TextView
+                    android:id="@+id/tv_rew_num"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:text="@string/_10s"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/txt_8" />
 
-                    <TextView
-                        android:id="@+id/tv_rew_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|left"
-                        android:text="@string/_10s"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/txt_8" />
-
-                    <ImageButton
-                        android:id="@id/exo_rew"
-                        style="@style/ExoMediaButton.Rewind"
-                        android:layout_gravity="center" />
-                </FrameLayout>
+                <ImageButton
+                    android:id="@id/exo_rew"
+                    style="@style/ExoMediaButton.Rewind"
+                    android:layout_gravity="center" />
 
                 <ImageButton
                     android:id="@id/exo_repeat_toggle"
                     style="@style/ExoMediaButton" />
 
-                <FrameLayout
+                <ImageButton
+                    android:id="@id/exo_ffwd"
+                    style="@style/ExoMediaButton.FastForward" />
+
+                <TextView
+                    android:id="@+id/tv_ffwd_num"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@id/exo_ffwd"
-                        style="@style/ExoMediaButton.FastForward" />
-
-                    <TextView
-                        android:id="@+id/tv_ffwd_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
-                        android:text="@string/_10s"
-                        android:textColor="@color/White"
-                        android:textSize="@dimen/txt_8" />
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:text="@string/_10s"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/txt_8" />
 
                 <ImageButton
                     android:id="@id/exo_next"
