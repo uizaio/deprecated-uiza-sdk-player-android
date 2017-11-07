@@ -8,4 +8,6 @@
     <dimen name="txt_14">14sp</dimen>
     <dimen name="height_26">26dp</dimen>
     <dimen name="txt_8">8sp</dimen>
+    <dimen name="w_20">20dp</dimen>
+    <dimen name="h_20">20dp</dimen>
 </resources>

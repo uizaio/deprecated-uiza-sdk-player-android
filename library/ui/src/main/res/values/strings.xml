@@ -16,4 +16,5 @@
     <string name="exo_controls_repeat_one_description">Repeat one</string>
     <string name="exo_controls_repeat_all_description">Repeat all</string>
     <string name="_10s">10s</string>
+    <string name="quality_setting">Quality setting</string>
 </resources>

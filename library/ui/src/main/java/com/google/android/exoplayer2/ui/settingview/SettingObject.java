@@ -1,0 +1,31 @@
+package com.google.android.exoplayer2.ui.settingview;
+
+/**
+ * Created by www.muathu@gmail.com on 11/7/2017.
+ */
+
+public class SettingObject {
+    private String description;
+    private boolean isCheck;
+
+    public SettingObject(String description, boolean isCheck) {
+        this.description = description;
+        this.isCheck = isCheck;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
+}
