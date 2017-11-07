@@ -46,7 +46,16 @@ public class SettingView extends RelativeLayout {
         this.tv = (TextView) findViewById(R.id.tv);
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        settingAdapter = new SettingAdapter(settingObjectList);
+        settingAdapter = new SettingAdapter(settingObjectList, new SettingAdapter.Callback() {
+            @Override
+            public void onClickItem(SettingObject settingObject) {
+                for (int i = 0; i < settingObjectList.size(); i++) {
+                    settingObjectList.get(i).setCheck(false);
+                }
+                settingObject.setCheck(true);
+                settingAdapter.notifyDataSetChanged();
+            }
+        });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(settingAdapter);
@@ -55,16 +64,16 @@ public class SettingView extends RelativeLayout {
     }
 
     private void prepareMovieData() {
-        SettingObject settingObject = new SettingObject("Auto", true);
+        SettingObject settingObject = new SettingObject(SettingObject.AUTO, true);
         settingObjectList.add(settingObject);
 
-        settingObject = new SettingObject("560p", false);
+        settingObject = new SettingObject(SettingObject.T560, false);
         settingObjectList.add(settingObject);
 
-        settingObject = new SettingObject("720p", false);
+        settingObject = new SettingObject(SettingObject.T720, false);
         settingObjectList.add(settingObject);
 
-        settingObject = new SettingObject("1080p", false);
+        settingObject = new SettingObject(SettingObject.T1080, false);
         settingObjectList.add(settingObject);
 
         settingAdapter.notifyDataSetChanged();

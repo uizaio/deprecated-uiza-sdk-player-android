@@ -5,6 +5,10 @@ package com.google.android.exoplayer2.ui.settingview;
  */
 
 public class SettingObject {
+    public static final String AUTO = "Auto";
+    public static final String T560 = "560p";
+    public static final String T720 = "720p";
+    public static final String T1080 = "1080p";
     private String description;
     private boolean isCheck;
 

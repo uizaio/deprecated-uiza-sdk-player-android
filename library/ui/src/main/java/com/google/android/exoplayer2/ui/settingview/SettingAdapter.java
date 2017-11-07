@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.R;
@@ -20,18 +21,21 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingH
     private List<SettingObject> settingObjectList;
 
     public class SettingHolder extends RecyclerView.ViewHolder {
-        public TextView tvDescription;
-        public ImageView ivCheck;
+        private TextView tvDescription;
+        private ImageView ivCheck;
+        private LinearLayout rootView;
 
         public SettingHolder(View view) {
             super(view);
             tvDescription = (TextView) view.findViewById(R.id.tv_description);
             ivCheck = (ImageView) view.findViewById(R.id.iv_check);
+            rootView = (LinearLayout) view.findViewById(R.id.root_view);
         }
     }
 
-    public SettingAdapter(List<SettingObject> settingObjectList) {
+    public SettingAdapter(List<SettingObject> settingObjectList, Callback callback) {
         this.settingObjectList = settingObjectList;
+        this.callback = callback;
     }
 
     @Override
@@ -41,18 +45,32 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingH
     }
 
     @Override
-    public void onBindViewHolder(SettingHolder holder, int position) {
-        SettingObject settingObject = settingObjectList.get(position);
-        holder.tvDescription.setText(settingObject.getDescription());
+    public void onBindViewHolder(SettingHolder settingHolder, int position) {
+        final SettingObject settingObject = settingObjectList.get(position);
+        settingHolder.tvDescription.setText(settingObject.getDescription());
         if (settingObject.isCheck()) {
-            holder.ivCheck.setBackgroundColor(Color.RED);
+            settingHolder.ivCheck.setBackgroundColor(Color.RED);
         } else {
-            holder.ivCheck.setBackgroundColor(Color.GREEN);
+            settingHolder.ivCheck.setBackgroundColor(Color.GREEN);
         }
+        settingHolder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null) {
+                    callback.onClickItem(settingObject);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return settingObjectList == null ? 0 : settingObjectList.size();
     }
+
+    public interface Callback {
+        public void onClickItem(SettingObject settingObject);
+    }
+
+    private Callback callback;
 }
