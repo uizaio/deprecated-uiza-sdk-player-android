@@ -56,6 +56,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout.ResizeMode;
 import com.google.android.exoplayer2.ui.PlaybackControlView.ControlDispatcher;
+import com.google.android.exoplayer2.ui.language.LanguageView;
 import com.google.android.exoplayer2.ui.settingview.SettingObject;
 import com.google.android.exoplayer2.ui.settingview.SettingView;
 import com.google.android.exoplayer2.util.Assertions;
@@ -232,6 +233,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private boolean controllerHideOnTouch;
 
     private SettingView settingView;
+    private LanguageView languageView;
 
     public SimpleExoPlayerView(Context context) {
         this(context, null);
@@ -368,7 +370,22 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickLanguage() {
-                    Log.d("loitp", "onClickLanguage");
+                    if (languageView == null) {
+                        //show setting
+                        languageView = new LanguageView(getContext());
+                        if (exoHelperFrameLayout != null) {
+                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+                            exoHelperFrameLayout.addView(languageView, params);
+                            pausePlayVideo();
+                        }
+                    } else {
+                        //hide setting
+                        if (exoHelperFrameLayout != null) {
+                            exoHelperFrameLayout.removeView(languageView);
+                            languageView = null;
+                            resumePlayVideo();
+                        }
+                    }
                 }
 
                 @Override

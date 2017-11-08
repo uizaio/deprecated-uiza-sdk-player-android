@@ -50,12 +50,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <com.google.android.exoplayer2.ui.language.RowView
+                    android:id="@+id/row_subtitle_on"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.exoplayer2.ui.language.RowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <View
                 android:layout_width="@dimen/w_1"
                 android:layout_height="match_parent"
                 android:background="@color/White" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.exoplayer2.ui.language.RowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.exoplayer2.ui.language.RowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

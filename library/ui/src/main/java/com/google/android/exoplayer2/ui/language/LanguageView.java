@@ -1,26 +1,10 @@
 package com.google.android.exoplayer2.ui.language;
 
 import android.content.Context;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.R;
-import com.google.android.exoplayer2.ui.UizaData;
-import com.google.android.exoplayer2.ui.settingview.SettingAdapter;
-import com.google.android.exoplayer2.ui.settingview.SettingObject;
-import com.google.android.exoplayer2.ui.util.LScreenUtil;
-import com.google.android.exoplayer2.ui.util.LUIUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
@@ -28,7 +12,7 @@ import java.util.List;
 
 public class LanguageView extends RelativeLayout {
     private final String TAG = getClass().getSimpleName();
-    //private TextView tv;
+    private RowView rowSubtitleOn;
 
     public LanguageView(Context context) {
         super(context);
@@ -48,7 +32,9 @@ public class LanguageView extends RelativeLayout {
     private void init() {
         inflate(getContext(), R.layout.language_view, this);
 
-        //this.tv = (TextView) findViewById(R.id.tv);
+        this.rowSubtitleOn = (RowView) findViewById(R.id.row_subtitle_on);
+
+        rowSubtitleOn.setTvDescription("Subtitle ON");
     }
 
 }
