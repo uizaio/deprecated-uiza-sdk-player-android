@@ -49,9 +49,9 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingH
         final SettingObject settingObject = settingObjectList.get(position);
         settingHolder.tvDescription.setText(settingObject.getDescription());
         if (settingObject.isCheck()) {
-            settingHolder.ivCheck.setBackgroundColor(Color.RED);
+            settingHolder.ivCheck.setImageResource(R.drawable.ic_checked);
         } else {
-            settingHolder.ivCheck.setBackgroundColor(Color.GREEN);
+            settingHolder.ivCheck.setImageResource(R.drawable.ic_unchecked);
         }
         settingHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override

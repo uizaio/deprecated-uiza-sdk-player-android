@@ -31,11 +31,10 @@
 
             <ImageView
                 android:id="@+id/iv_close"
-                android:layout_width="@dimen/w_20"
-                android:layout_height="@dimen/h_20"
+                android:layout_width="@dimen/w_15"
+                android:layout_height="@dimen/w_15"
                 android:layout_gravity="right"
-                android:src="@drawable/ic_close"
-                android:tint="@color/White" />
+                android:src="@drawable/ic_close" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
