@@ -5,7 +5,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -122,11 +121,6 @@ public class SettingView extends RelativeLayout {
 
     private void prepareMovieData() {
         SettingObject mCurrentSettingObject = UizaData.getInstance().getSettingObject();
-        if (mCurrentSettingObject == null) {
-            Log.d(TAG, "prepareMovieData mCurrentSettingObject null");
-        } else {
-            Log.d(TAG, "prepareMovieData mCurrentSettingObject " + mCurrentSettingObject.getDescription());
-        }
 
         SettingObject settingObject = new SettingObject(SettingObject.AUTO, mCurrentSettingObject == null);
         settingObjectList.add(settingObject);
