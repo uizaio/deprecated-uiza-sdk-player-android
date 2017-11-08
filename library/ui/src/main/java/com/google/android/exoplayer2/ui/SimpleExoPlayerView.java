@@ -377,7 +377,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                         //show setting
                         settingView = new SettingView(getContext());
                         if (exoHelperFrameLayout != null) {
-                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
                             exoHelperFrameLayout.addView(settingView, params);
                             pausePlayVideo();
                         }
