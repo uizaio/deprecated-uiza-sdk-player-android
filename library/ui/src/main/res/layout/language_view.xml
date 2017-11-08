@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:id="@+id/ll_title"
-            android:layout_width="300dp"
+            android:layout_width="@dimen/w_300"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical"
@@ -38,44 +38,53 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_control"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_title"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_10"
             android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/Red"
                 android:orientation="vertical">
 
                 <com.google.android.exoplayer2.ui.language.RowView
                     android:id="@+id/row_subtitle_on"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <com.google.android.exoplayer2.ui.language.RowView
-                    android:layout_width="match_parent"
+                    android:id="@+id/row_subtitle_off"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
             <View
                 android:layout_width="@dimen/w_1"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
                 android:background="@color/White" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/Red"
                 android:orientation="vertical">
 
                 <com.google.android.exoplayer2.ui.language.RowView
-                    android:layout_width="match_parent"
+                    android:id="@+id/english"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <com.google.android.exoplayer2.ui.language.RowView
-                    android:layout_width="match_parent"
+                    android:id="@+id/vietnamese"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>

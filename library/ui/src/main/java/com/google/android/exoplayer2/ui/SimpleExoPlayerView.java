@@ -378,6 +378,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
                             exoHelperFrameLayout.addView(languageView, params);
                             pausePlayVideo();
                         }
+                        languageView.setCallback(new LanguageView.Callback() {
+                            @Override
+                            public void onClickClose() {
+                                controller.getLanguageButton().performClick();
+                            }
+                        });
                     } else {
                         //hide setting
                         if (exoHelperFrameLayout != null) {

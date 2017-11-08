@@ -21,6 +21,8 @@ public class RowView extends RelativeLayout {
     private LinearLayout rootView;
     private Callback callback;
 
+    private boolean isCheck;
+
     public RowView(Context context) {
         super(context);
         init();
@@ -43,11 +45,14 @@ public class RowView extends RelativeLayout {
         this.tvDescription = (TextView) findViewById(R.id.tv_description);
         this.ivCheck = (ImageView) findViewById(R.id.iv_check);
 
+        updateUI(isCheck);
+
         rootView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callback != null) {
-                    updateUI(true);
+                    isCheck = !isCheck;
+                    updateUI(isCheck);
                     callback.onClickItem();
                 }
             }
@@ -76,5 +81,9 @@ public class RowView extends RelativeLayout {
 
     public void setTvDescription(int stringRes) {
         tvDescription.setText(getContext().getString(stringRes));
+    }
+
+    public void setCheck(boolean isCheck) {
+        this.isCheck = isCheck;
     }
 }

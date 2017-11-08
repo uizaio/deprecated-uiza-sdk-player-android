@@ -1263,4 +1263,8 @@ public class PlaybackControlView extends FrameLayout {
     public View getSettingButton() {
         return settingButton;
     }
+
+    public View getLanguageButton() {
+        return languageButton;
+    }
 }
