@@ -6,11 +6,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.R;
+import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.util.LScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,7 @@ public class SettingView extends RelativeLayout {
     private RecyclerView recyclerView;
     private SettingAdapter settingAdapter;
     private ImageView ivClose;
+    private LinearLayout llTitle;
 
     public SettingView(Context context) {
         super(context);
@@ -49,6 +54,7 @@ public class SettingView extends RelativeLayout {
         this.tv = (TextView) findViewById(R.id.tv);
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         this.ivClose = (ImageView) findViewById(R.id.iv_close);
+        this.llTitle = (LinearLayout) findViewById(R.id.ll_title);
 
         ivClose.setOnClickListener(new OnClickListener() {
             @Override
@@ -72,7 +78,20 @@ public class SettingView extends RelativeLayout {
                 }
             }
         });
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        if (UizaData.getInstance().isLandscape()) {
+            int width = LScreenUtil.getScreenWidth() / 2;
+
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            ViewGroup.LayoutParams recyclerViewParams = recyclerView.getLayoutParams();
+            recyclerViewParams.width = width;
+            recyclerView.setLayoutParams(recyclerViewParams);
+
+            ViewGroup.LayoutParams params = llTitle.getLayoutParams();
+            params.width = width;
+            llTitle.setLayoutParams(params);
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(settingAdapter);
 
