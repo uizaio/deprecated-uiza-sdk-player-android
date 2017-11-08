@@ -2,6 +2,8 @@ package com.google.android.exoplayer2.ui;
 
 import android.os.Handler;
 
+import com.google.android.exoplayer2.ui.settingview.SettingObject;
+
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.
  */
@@ -33,6 +35,7 @@ public class UizaData {
             public void run() {
                 currentPosition = 0;
                 isLandscape = false;
+                settingObject = null;
             }
         }, 100);
     }
@@ -45,5 +48,15 @@ public class UizaData {
 
     public void setLandscape(boolean landscape) {
         isLandscape = landscape;
+    }
+
+    private SettingObject settingObject;
+
+    public SettingObject getSettingObject() {
+        return settingObject;
+    }
+
+    public void setSettingObject(SettingObject settingObject) {
+        this.settingObject = settingObject;
     }
 }

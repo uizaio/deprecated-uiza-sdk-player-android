@@ -34,7 +34,8 @@
                 android:layout_width="@dimen/w_20"
                 android:layout_height="@dimen/h_20"
                 android:layout_gravity="right"
-                android:src="@drawable/ic_close" />
+                android:src="@drawable/ic_close"
+                android:tint="@color/White" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

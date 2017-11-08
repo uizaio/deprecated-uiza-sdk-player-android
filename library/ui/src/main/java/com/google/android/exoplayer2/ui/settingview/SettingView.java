@@ -5,6 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.util.LScreenUtil;
+import com.google.android.exoplayer2.ui.util.LUIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,15 +69,23 @@ public class SettingView extends RelativeLayout {
 
         settingAdapter = new SettingAdapter(settingObjectList, new SettingAdapter.Callback() {
             @Override
-            public void onClickItem(SettingObject settingObject) {
+            public void onClickItem(final SettingObject settingObject) {
                 for (int i = 0; i < settingObjectList.size(); i++) {
                     settingObjectList.get(i).setCheck(false);
                 }
                 settingObject.setCheck(true);
                 settingAdapter.notifyDataSetChanged();
-                if (callback != null) {
-                    callback.onClickSettingObject(settingObject);
-                }
+
+                UizaData.getInstance().setSettingObject(settingObject);
+
+                LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
+                    @Override
+                    public void doAfter(int mls) {
+                        if (callback != null) {
+                            callback.onClickSettingObject(settingObject);
+                        }
+                    }
+                });
             }
         });
         if (UizaData.getInstance().isLandscape()) {
@@ -111,7 +121,14 @@ public class SettingView extends RelativeLayout {
     }
 
     private void prepareMovieData() {
-        SettingObject settingObject = new SettingObject(SettingObject.AUTO, true);
+        SettingObject mCurrentSettingObject = UizaData.getInstance().getSettingObject();
+        if (mCurrentSettingObject == null) {
+            Log.d(TAG, "prepareMovieData mCurrentSettingObject null");
+        } else {
+            Log.d(TAG, "prepareMovieData mCurrentSettingObject " + mCurrentSettingObject.getDescription());
+        }
+
+        SettingObject settingObject = new SettingObject(SettingObject.AUTO, mCurrentSettingObject == null);
         settingObjectList.add(settingObject);
 
         settingObject = new SettingObject(SettingObject.T560, false);
@@ -122,6 +139,15 @@ public class SettingView extends RelativeLayout {
 
         settingObject = new SettingObject(SettingObject.T1080, false);
         settingObjectList.add(settingObject);
+
+        if (mCurrentSettingObject != null) {
+            for (int i = 0; i < settingObjectList.size(); i++) {
+                if (settingObjectList.get(i).getDescription().equals(mCurrentSettingObject.getDescription())) {
+                    settingObjectList.get(i).setCheck(true);
+                    break;
+                }
+            }
+        }
 
         settingAdapter.notifyDataSetChanged();
     }
