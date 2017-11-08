@@ -5,7 +5,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class SettingView extends RelativeLayout {
     private List<SettingObject> settingObjectList = new ArrayList<>();
     private RecyclerView recyclerView;
     private SettingAdapter settingAdapter;
+    private ImageView ivClose;
 
     public SettingView(Context context) {
         super(context);
@@ -46,6 +48,16 @@ public class SettingView extends RelativeLayout {
 
         this.tv = (TextView) findViewById(R.id.tv);
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        this.ivClose = (ImageView) findViewById(R.id.iv_close);
+
+        ivClose.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null) {
+                    callback.onClickClose();
+                }
+            }
+        });
 
         settingAdapter = new SettingAdapter(settingObjectList, new SettingAdapter.Callback() {
             @Override
@@ -69,6 +81,8 @@ public class SettingView extends RelativeLayout {
 
     public interface Callback {
         public void onClickSettingObject(SettingObject settingObject);
+
+        public void onClickClose();
     }
 
     private Callback callback;

@@ -1259,4 +1259,8 @@ public class PlaybackControlView extends FrameLayout {
     public void setOnProgressEvent(OnProgressEvent onProgressEvent) {
         this.onProgressEvent = onProgressEvent;
     }*/
+
+    public View getSettingButton() {
+        return settingButton;
+    }
 }
