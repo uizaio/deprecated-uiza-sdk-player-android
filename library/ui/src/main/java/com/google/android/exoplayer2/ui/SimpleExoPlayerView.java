@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -384,7 +385,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
                             @Override
                             public void onClickSettingObject(SettingObject settingObject) {
                                 //TODO
-                                Log.d(TAG, "onClickSettingObject " + settingObject.getDescription());
+                                Toast.makeText(getContext(), "onClickSettingObject " + settingObject.getDescription(), Toast.LENGTH_SHORT).show();
+                                controller.getSettingButton().performClick();
                             }
 
                             @Override
