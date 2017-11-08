@@ -269,8 +269,7 @@ public class PlaybackControlView extends FrameLayout {
      */
     public static final
     @RepeatModeUtil.RepeatToggleModes
-    int DEFAULT_REPEAT_TOGGLE_MODES =
-            RepeatModeUtil.REPEAT_TOGGLE_MODE_NONE;
+    int DEFAULT_REPEAT_TOGGLE_MODES = RepeatModeUtil.REPEAT_TOGGLE_MODE_NONE;
 
     /**
      * The maximum number of windows that can be shown in a multi-window time bar.
@@ -526,8 +525,7 @@ public class PlaybackControlView extends FrameLayout {
      * @param extraPlayedAdGroups Whether each ad has been played, or {@code null} to show no extra ad
      *                            markers.
      */
-    public void setExtraAdGroupMarkers(@Nullable long[] extraAdGroupTimesMs,
-                                       @Nullable boolean[] extraPlayedAdGroups) {
+    public void setExtraAdGroupMarkers(@Nullable long[] extraAdGroupTimesMs, @Nullable boolean[] extraPlayedAdGroups) {
         if (extraAdGroupTimesMs == null) {
             this.extraAdGroupTimesMs = new long[0];
             this.extraPlayedAdGroups = new boolean[0];

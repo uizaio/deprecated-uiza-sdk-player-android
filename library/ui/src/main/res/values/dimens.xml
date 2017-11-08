@@ -11,4 +11,5 @@
     <dimen name="w_20">20dp</dimen>
     <dimen name="h_20">20dp</dimen>
     <dimen name="padding_15">15dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
 </resources>

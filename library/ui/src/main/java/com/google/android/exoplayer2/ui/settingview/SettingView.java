@@ -5,6 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,6 +55,9 @@ public class SettingView extends RelativeLayout {
                 }
                 settingObject.setCheck(true);
                 settingAdapter.notifyDataSetChanged();
+                if (callback != null) {
+                    callback.onClickSettingObject(settingObject);
+                }
             }
         });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
@@ -61,6 +65,16 @@ public class SettingView extends RelativeLayout {
         recyclerView.setAdapter(settingAdapter);
 
         prepareMovieData();
+    }
+
+    public interface Callback {
+        public void onClickSettingObject(SettingObject settingObject);
+    }
+
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
     private void prepareMovieData() {

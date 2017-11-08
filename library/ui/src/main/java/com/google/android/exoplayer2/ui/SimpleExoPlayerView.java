@@ -55,6 +55,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout.ResizeMode;
 import com.google.android.exoplayer2.ui.PlaybackControlView.ControlDispatcher;
+import com.google.android.exoplayer2.ui.settingview.SettingObject;
 import com.google.android.exoplayer2.ui.settingview.SettingView;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
@@ -206,7 +207,7 @@ import java.util.List;
  */
 @TargetApi(16)
 public final class SimpleExoPlayerView extends FrameLayout {
-
+    private final String TAG = getClass().getSimpleName();
     private static final int SURFACE_TYPE_NONE = 0;
     private static final int SURFACE_TYPE_SURFACE_VIEW = 1;
     private static final int SURFACE_TYPE_TEXTURE_VIEW = 2;
@@ -379,6 +380,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
                             exoHelperFrameLayout.addView(settingView, params);
                             pausePlayVideo();
                         }
+                        settingView.setCallback(new SettingView.Callback() {
+                            @Override
+                            public void onClickSettingObject(SettingObject settingObject) {
+                                Log.d(TAG, "onClickSettingObject " + settingObject.getDescription());
+                            }
+                        });
                     } else {
                         //hide setting
                         if (exoHelperFrameLayout != null) {
