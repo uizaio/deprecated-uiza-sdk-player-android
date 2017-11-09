@@ -359,86 +359,108 @@ public final class SimpleExoPlayerView extends FrameLayout {
         if (controller != null) {
             controller.setOnClickEvent(new PlaybackControlView.OnClickEvent() {
                 @Override
-                public void onClickQuestion() {
+                public void onClickQuestion(View view) {
                     Log.d("loitp", "onClickQuestion");
                 }
 
                 @Override
-                public void onClickPlayList() {
+                public void onClickPlayList(View view) {
                     Log.d("loitp", "onClickPlayList");
                 }
 
                 @Override
-                public void onClickLanguage() {
+                public void onClickLanguage(View view) {
                     if (languageView == null) {
-                        //show setting
-                        languageView = new LanguageView(getContext());
-                        if (exoHelperFrameLayout != null) {
-                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-                            exoHelperFrameLayout.addView(languageView, params);
-                            pausePlayVideo();
-                        }
-                        languageView.setCallback(new LanguageView.Callback() {
-                            @Override
-                            public void onClickClose() {
-                                controller.getLanguageButton().performClick();
-                            }
-                        });
+                        hideOtherControl(view);
+                        showLanguage();
                     } else {
-                        //hide setting
-                        if (exoHelperFrameLayout != null) {
-                            exoHelperFrameLayout.removeView(languageView);
-                            languageView = null;
-                            resumePlayVideo();
-                        }
+                        hideLanguage();
                     }
                 }
 
                 @Override
-                public void onClickSetting() {
+                public void onClickSetting(View view) {
                     if (settingView == null) {
-                        //show setting
-                        settingView = new SettingView(getContext());
-                        if (exoHelperFrameLayout != null) {
-                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-                            exoHelperFrameLayout.addView(settingView, params);
-                            pausePlayVideo();
-                        }
-                        settingView.setCallback(new SettingView.Callback() {
-                            @Override
-                            public void onClickSettingObject(SettingObject settingObject) {
-                                //TODO
-                                Toast.makeText(getContext(), "onClickSettingObject " + settingObject.getDescription(), Toast.LENGTH_SHORT).show();
-                                controller.getSettingButton().performClick();
-                            }
-
-                            @Override
-                            public void onClickClose() {
-                                controller.getSettingButton().performClick();
-                            }
-                        });
+                        hideOtherControl(view);
+                        showSetting();
                     } else {
-                        //hide setting
-                        if (exoHelperFrameLayout != null) {
-                            exoHelperFrameLayout.removeView(settingView);
-                            settingView = null;
-                            resumePlayVideo();
-                        }
+                        hideSetting();
                     }
                 }
 
                 @Override
-                public void onClickFullScreen() {
+                public void onClickFullScreen(View view) {
                     setFullScreen(isFullScreen(getContext()));
                 }
 
                 @Override
-                public void onClickExit() {
+                public void onClickExit(View view) {
                     ((Activity) getContext()).onBackPressed();
                 }
             });
         }
         hideController();
+    }
+
+    private void showLanguage() {
+        languageView = new LanguageView(getContext());
+        if (exoHelperFrameLayout != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+            exoHelperFrameLayout.addView(languageView, params);
+            pausePlayVideo();
+        }
+        languageView.setCallback(new LanguageView.Callback() {
+            @Override
+            public void onClickClose() {
+                controller.getLanguageButton().performClick();
+            }
+        });
+    }
+
+    private void hideLanguage() {
+        if (exoHelperFrameLayout != null) {
+            exoHelperFrameLayout.removeView(languageView);
+            languageView = null;
+            resumePlayVideo();
+        }
+    }
+
+    private void showSetting() {
+        settingView = new SettingView(getContext());
+        if (exoHelperFrameLayout != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+            exoHelperFrameLayout.addView(settingView, params);
+            pausePlayVideo();
+        }
+        settingView.setCallback(new SettingView.Callback() {
+            @Override
+            public void onClickSettingObject(SettingObject settingObject) {
+                //TODO
+                Toast.makeText(getContext(), "onClickSettingObject " + settingObject.getDescription(), Toast.LENGTH_SHORT).show();
+                controller.getSettingButton().performClick();
+            }
+
+            @Override
+            public void onClickClose() {
+                controller.getSettingButton().performClick();
+            }
+        });
+    }
+
+    private void hideSetting() {
+        if (exoHelperFrameLayout != null) {
+            exoHelperFrameLayout.removeView(settingView);
+            settingView = null;
+            resumePlayVideo();
+        }
+    }
+
+    private void hideOtherControl(View view) {
+        if (view.getId() == R.id.exo_setting) {
+            hideLanguage();
+        } else if (view.getId() == R.id.exo_language) {
+            hideSetting();
+        }
     }
 
     private void pausePlayVideo() {

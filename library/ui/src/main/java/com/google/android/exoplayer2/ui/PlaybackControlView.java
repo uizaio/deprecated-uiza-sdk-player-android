@@ -1201,27 +1201,27 @@ public class PlaybackControlView extends FrameLayout {
                     controlDispatcher.dispatchSetRepeatMode(player, RepeatModeUtil.getNextRepeatMode(player.getRepeatMode(), repeatToggleModes));
                 } else if (questionButton == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickQuestion();
+                        onClickEvent.onClickQuestion(questionButton);
                     }
                 } else if (playlistButton == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickPlayList();
+                        onClickEvent.onClickPlayList(playlistButton);
                     }
                 } else if (languageButton == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickLanguage();
+                        onClickEvent.onClickLanguage(languageButton);
                     }
                 } else if (settingButton == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickSetting();
+                        onClickEvent.onClickSetting(settingButton);
                     }
                 } else if (fullscreenButton == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickFullScreen();
+                        onClickEvent.onClickFullScreen(fullscreenButton);
                     }
                 } else if (exit == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickExit();
+                        onClickEvent.onClickExit(exit);
                     }
                 }
             }
@@ -1231,17 +1231,17 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     public interface OnClickEvent {
-        public void onClickQuestion();
+        public void onClickQuestion(View view);
 
-        public void onClickPlayList();
+        public void onClickPlayList(View view);
 
-        public void onClickLanguage();
+        public void onClickLanguage(View view);
 
-        public void onClickSetting();
+        public void onClickSetting(View view);
 
-        public void onClickFullScreen();
+        public void onClickFullScreen(View view);
 
-        public void onClickExit();
+        public void onClickExit(View view);
     }
 
     private OnClickEvent onClickEvent;
