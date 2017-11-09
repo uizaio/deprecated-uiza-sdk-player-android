@@ -87,7 +87,7 @@ public class LanguageView extends RelativeLayout {
             }
         });
 
-        int width = LScreenUtil.getScreenWidth() * 2 / 3;
+        int width = LScreenUtil.getScreenWidth() * 3 / 2;
         ViewGroup.LayoutParams layoutParams = llControl.getLayoutParams();
         layoutParams.width = width;
         llControl.setLayoutParams(layoutParams);
