@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.exoplayer2.ui.R;
+import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.util.LScreenUtil;
 
 /**
@@ -25,9 +26,11 @@ public class LanguageView extends RelativeLayout {
     private LinearLayout llControl;
 
     private final String SUB_ON = "Subtitle ON";
-    private final String SUB_OFF = "ubtitle OFF";
+    private final String SUB_OFF = "Subtitle OFF";
     private final String EN = "English";
     private final String VI = "Vietnamese";
+
+    private LanguageObject languageObject;
 
     public LanguageView(Context context) {
         super(context);
@@ -59,10 +62,33 @@ public class LanguageView extends RelativeLayout {
         english.setTvDescription(EN);
         vietnamese.setTvDescription(VI);
 
-        rowSubtitleOn.setCheck(false);
-        rowSubtitleOff.setCheck(true);
-        english.setCheck(true);
-        vietnamese.setCheck(false);
+        languageObject = UizaData.getInstance().getLanguageObject();
+        if (languageObject == null) {
+            languageObject = new LanguageObject();
+            languageObject.setSubOn(false);
+            languageObject.setEn(true);
+            UizaData.getInstance().setLanguageObject(languageObject);
+
+            rowSubtitleOn.setCheck(false);
+            rowSubtitleOff.setCheck(true);
+            english.setCheck(true);
+            vietnamese.setCheck(false);
+        } else {
+            if (languageObject.isSubOn()) {
+                rowSubtitleOn.setCheck(true);
+                rowSubtitleOff.setCheck(false);
+            } else {
+                rowSubtitleOn.setCheck(false);
+                rowSubtitleOff.setCheck(true);
+            }
+            if (languageObject.isEn()) {
+                english.setCheck(true);
+                vietnamese.setCheck(false);
+            } else {
+                english.setCheck(false);
+                vietnamese.setCheck(true);
+            }
+        }
 
         rowSubtitleOn.setCanDoubleClick(false);
         rowSubtitleOff.setCanDoubleClick(false);
@@ -81,6 +107,8 @@ public class LanguageView extends RelativeLayout {
             @Override
             public void onClickItem() {
                 rowSubtitleOff.setCheck(false);
+                languageObject.setSubOn(true);
+                UizaData.getInstance().setLanguageObject(languageObject);
                 if (callback != null) {
                     callback.onClickSubOn();
                 }
@@ -90,6 +118,8 @@ public class LanguageView extends RelativeLayout {
             @Override
             public void onClickItem() {
                 rowSubtitleOn.setCheck(false);
+                languageObject.setSubOn(false);
+                UizaData.getInstance().setLanguageObject(languageObject);
                 if (callback != null) {
                     callback.onClickSubOff();
                 }
@@ -99,6 +129,8 @@ public class LanguageView extends RelativeLayout {
             @Override
             public void onClickItem() {
                 vietnamese.setCheck(false);
+                languageObject.setEn(true);
+                UizaData.getInstance().setLanguageObject(languageObject);
                 if (callback != null) {
                     callback.onClickEN();
                 }
@@ -108,16 +140,20 @@ public class LanguageView extends RelativeLayout {
             @Override
             public void onClickItem() {
                 english.setCheck(false);
+                languageObject.setEn(false);
+                UizaData.getInstance().setLanguageObject(languageObject);
                 if (callback != null) {
                     callback.onClickVI();
                 }
             }
         });
 
-        int width = LScreenUtil.getScreenWidth() * 3 / 2;
-        ViewGroup.LayoutParams layoutParams = llControl.getLayoutParams();
-        layoutParams.width = width;
-        llControl.setLayoutParams(layoutParams);
+        if (!UizaData.getInstance().isLandscape()) {
+            int width = LScreenUtil.getScreenWidth() * 3 / 2;
+            ViewGroup.LayoutParams layoutParams = llControl.getLayoutParams();
+            layoutParams.width = width;
+            llControl.setLayoutParams(layoutParams);
+        }
     }
 
     public interface Callback {

@@ -2,6 +2,7 @@ package com.google.android.exoplayer2.ui;
 
 import android.os.Handler;
 
+import com.google.android.exoplayer2.ui.language.LanguageObject;
 import com.google.android.exoplayer2.ui.settingview.SettingObject;
 
 /**
@@ -36,6 +37,7 @@ public class UizaData {
                 currentPosition = 0;
                 isLandscape = false;
                 settingObject = null;
+                languageObject = null;
             }
         }, 100);
     }
@@ -58,5 +60,15 @@ public class UizaData {
 
     public void setSettingObject(SettingObject settingObject) {
         this.settingObject = settingObject;
+    }
+
+    private LanguageObject languageObject;
+
+    public LanguageObject getLanguageObject() {
+        return languageObject;
+    }
+
+    public void setLanguageObject(LanguageObject languageObject) {
+        this.languageObject = languageObject;
     }
 }
