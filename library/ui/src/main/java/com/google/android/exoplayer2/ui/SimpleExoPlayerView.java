@@ -414,6 +414,30 @@ public final class SimpleExoPlayerView extends FrameLayout {
             public void onClickClose() {
                 controller.getLanguageButton().performClick();
             }
+
+            @Override
+            public void onClickSubOn() {
+                //TODO
+                Toast.makeText(getContext(), "onClickSubOn", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClickSubOff() {
+                //TODO
+                Toast.makeText(getContext(), "onClickSubOff", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClickEN() {
+                //TODO
+                Toast.makeText(getContext(), "onClickEN", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClickVI() {
+                //TODO
+                Toast.makeText(getContext(), "onClickVI", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

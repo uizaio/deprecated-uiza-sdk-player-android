@@ -81,24 +81,36 @@ public class LanguageView extends RelativeLayout {
             @Override
             public void onClickItem() {
                 rowSubtitleOff.setCheck(false);
+                if (callback != null) {
+                    callback.onClickSubOn();
+                }
             }
         });
         rowSubtitleOff.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
                 rowSubtitleOn.setCheck(false);
+                if (callback != null) {
+                    callback.onClickSubOff();
+                }
             }
         });
         english.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
                 vietnamese.setCheck(false);
+                if (callback != null) {
+                    callback.onClickEN();
+                }
             }
         });
         vietnamese.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
                 english.setCheck(false);
+                if (callback != null) {
+                    callback.onClickVI();
+                }
             }
         });
 
@@ -110,6 +122,14 @@ public class LanguageView extends RelativeLayout {
 
     public interface Callback {
         public void onClickClose();
+
+        public void onClickSubOn();
+
+        public void onClickSubOff();
+
+        public void onClickEN();
+
+        public void onClickVI();
     }
 
     private Callback callback;
