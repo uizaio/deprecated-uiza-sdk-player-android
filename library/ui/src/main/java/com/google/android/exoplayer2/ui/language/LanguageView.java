@@ -1,7 +1,6 @@
 package com.google.android.exoplayer2.ui.language;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,10 +87,10 @@ public class LanguageView extends RelativeLayout {
             }
         });
 
-        /*int width = LScreenUtil.getScreenWidth() / 2;
-        ViewGroup.LayoutParams recyclerViewParams = llControl.getLayoutParams();
-        recyclerViewParams.width = width;
-        llControl.setLayoutParams(recyclerViewParams);*/
+        int width = LScreenUtil.getScreenWidth() * 2 / 3;
+        ViewGroup.LayoutParams layoutParams = llControl.getLayoutParams();
+        layoutParams.width = width;
+        llControl.setLayoutParams(layoutParams);
     }
 
     public interface Callback {
