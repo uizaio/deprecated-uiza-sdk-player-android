@@ -24,6 +24,11 @@ public class LanguageView extends RelativeLayout {
     private RowView vietnamese;
     private LinearLayout llControl;
 
+    private final String SUB_ON = "Subtitle ON";
+    private final String SUB_OFF = "ubtitle OFF";
+    private final String EN = "English";
+    private final String VI = "Vietnamese";
+
     public LanguageView(Context context) {
         super(context);
         init();
@@ -49,10 +54,20 @@ public class LanguageView extends RelativeLayout {
         this.english = (RowView) findViewById(R.id.english);
         this.vietnamese = (RowView) findViewById(R.id.vietnamese);
 
-        rowSubtitleOn.setTvDescription("Subtitle ON");
-        rowSubtitleOff.setTvDescription("Subtitle OFF");
-        english.setTvDescription("English");
-        vietnamese.setTvDescription("Vietnamese");
+        rowSubtitleOn.setTvDescription(SUB_ON);
+        rowSubtitleOff.setTvDescription(SUB_OFF);
+        english.setTvDescription(EN);
+        vietnamese.setTvDescription(VI);
+
+        rowSubtitleOn.setCheck(false);
+        rowSubtitleOff.setCheck(true);
+        english.setCheck(true);
+        vietnamese.setCheck(false);
+
+        rowSubtitleOn.setCanDoubleClick(false);
+        rowSubtitleOff.setCanDoubleClick(false);
+        english.setCanDoubleClick(false);
+        vietnamese.setCanDoubleClick(false);
 
         ivClose.setOnClickListener(new OnClickListener() {
             @Override
@@ -65,25 +80,25 @@ public class LanguageView extends RelativeLayout {
         rowSubtitleOn.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
-
+                rowSubtitleOff.setCheck(false);
             }
         });
         rowSubtitleOff.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
-
+                rowSubtitleOn.setCheck(false);
             }
         });
         english.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
-
+                vietnamese.setCheck(false);
             }
         });
         vietnamese.setCallback(new RowView.Callback() {
             @Override
             public void onClickItem() {
-
+                english.setCheck(false);
             }
         });
 

@@ -21,6 +21,7 @@ public class RowView extends RelativeLayout {
     private LinearLayout rootView;
     private Callback callback;
 
+    private boolean isCanDoubleClick = true;
     private boolean isCheck;
 
     public RowView(Context context) {
@@ -45,15 +46,23 @@ public class RowView extends RelativeLayout {
         this.tvDescription = (TextView) findViewById(R.id.tv_description);
         this.ivCheck = (ImageView) findViewById(R.id.iv_check);
 
-        updateUI(isCheck);
+        updateUI();
 
         rootView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (callback != null) {
-                    isCheck = !isCheck;
-                    updateUI(isCheck);
-                    callback.onClickItem();
+                if (isCanDoubleClick) {
+                    if (callback != null) {
+                        isCheck = !isCheck;
+                        updateUI();
+                        callback.onClickItem();
+                    }
+                } else {
+                    if (!isCheck && callback != null) {
+                        callback.onClickItem();
+                        isCheck = !isCheck;
+                        updateUI();
+                    }
                 }
             }
         });
@@ -67,7 +76,7 @@ public class RowView extends RelativeLayout {
         this.callback = callback;
     }
 
-    public void updateUI(boolean isCheck) {
+    public void updateUI() {
         if (isCheck) {
             ivCheck.setImageResource(R.drawable.ic_checked);
         } else {
@@ -85,5 +94,14 @@ public class RowView extends RelativeLayout {
 
     public void setCheck(boolean isCheck) {
         this.isCheck = isCheck;
+        updateUI();
+    }
+
+    public boolean isCheck() {
+        return isCheck();
+    }
+
+    public void setCanDoubleClick(boolean isCanDoubleClick) {
+        this.isCanDoubleClick = isCanDoubleClick;
     }
 }
