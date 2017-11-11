@@ -62,7 +62,7 @@ public class PlayListView extends RelativeLayout {
             recyclerView.setLayoutParams(recyclerViewParams);
         } else {
             int width = LScreenUtil.getScreenWidth();
-            int height = LScreenUtil.getScreenHeight() / 2;
+            int height = LScreenUtil.getScreenHeight() / 3;
 
             ViewGroup.LayoutParams recyclerViewParams = recyclerView.getLayoutParams();
             recyclerViewParams.width = width;
