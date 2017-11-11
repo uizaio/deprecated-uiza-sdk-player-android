@@ -57,6 +57,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout.ResizeMode;
 import com.google.android.exoplayer2.ui.PlaybackControlView.ControlDispatcher;
 import com.google.android.exoplayer2.ui.language.LanguageView;
+import com.google.android.exoplayer2.ui.listview.PlayListView;
 import com.google.android.exoplayer2.ui.settingview.SettingObject;
 import com.google.android.exoplayer2.ui.settingview.SettingView;
 import com.google.android.exoplayer2.util.Assertions;
@@ -234,6 +235,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
     private SettingView settingView;
     private LanguageView languageView;
+    private PlayListView playListView;
 
     public SimpleExoPlayerView(Context context) {
         this(context, null);
@@ -365,7 +367,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickPlayList(View view) {
-                    Log.d("loitp", "onClickPlayList");
+                    if (playListView == null) {
+                        hideOtherControl(view);
+                        showPlayList();
+                    } else {
+                        hidePlayList();
+                    }
                 }
 
                 @Override
@@ -400,6 +407,23 @@ public final class SimpleExoPlayerView extends FrameLayout {
             });
         }
         hideController();
+    }
+
+    private void showPlayList() {
+        playListView = new PlayListView(getContext());
+        if (exoHelperFrameLayout != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+            exoHelperFrameLayout.addView(playListView, params);
+            pausePlayVideo();
+        }
+    }
+
+    private void hidePlayList() {
+        if (exoHelperFrameLayout != null) {
+            exoHelperFrameLayout.removeView(playListView);
+            playListView = null;
+            resumePlayVideo();
+        }
     }
 
     private void showLanguage() {
@@ -484,6 +508,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
             hideLanguage();
         } else if (view.getId() == R.id.exo_language) {
             hideSetting();
+        } else if (view.getId() == R.id.exo_playlist) {
+
         }
     }
 

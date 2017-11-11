@@ -104,7 +104,7 @@ public class SettingView extends RelativeLayout {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(settingAdapter);
 
-        prepareMovieData();
+        setupData();
     }
 
     public interface Callback {
@@ -119,7 +119,7 @@ public class SettingView extends RelativeLayout {
         this.callback = callback;
     }
 
-    private void prepareMovieData() {
+    private void setupData() {
         SettingObject mCurrentSettingObject = UizaData.getInstance().getSettingObject();
 
         SettingObject settingObject = new SettingObject(SettingObject.AUTO, mCurrentSettingObject == null);

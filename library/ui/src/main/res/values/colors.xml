@@ -11,6 +11,7 @@
     <color name="black_85">#D9000000</color>
 
     <color name="grey">#818181</color>
+    <color name="grey_description">#eeeeee</color>
     <color name="white">#ffffff</color>
     <color name="black_2">#05000000</color>
     <color name="black_5">#10000000</color>
