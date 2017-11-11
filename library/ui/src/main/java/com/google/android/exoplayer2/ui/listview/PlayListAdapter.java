@@ -9,15 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.R;
-import com.google.android.exoplayer2.ui.settingview.SettingObject;
 
 import java.util.List;
 
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayListHolder> {
     private List<PlayListObject> playListObjectList;
+
+    private int sizeWRoot;
+    private int sizeHRoot;
 
     public class PlayListHolder extends RecyclerView.ViewHolder {
         private TextView tvDuration;
@@ -27,9 +31,11 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         private TextView tvYear;
         private TextView tvRate;
         private TextView tvDescription;
+        private LinearLayout rootView;
 
         public PlayListHolder(View view) {
             super(view);
+            rootView = (LinearLayout) view.findViewById(R.id.root_view);
             tvDuration = (TextView) view.findViewById(R.id.tv_duration);
             tvDuration2 = (TextView) view.findViewById(R.id.tv_duration_2);
             tvName = (TextView) view.findViewById(R.id.tv_name);
@@ -40,9 +46,13 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         }
     }
 
-    public PlayListAdapter(List<PlayListObject> playListObjectList, Callback callback) {
+    public PlayListAdapter(List<PlayListObject> playListObjectList, int sizeWRoot, int sizeHRoot, Callback callback) {
         this.playListObjectList = playListObjectList;
         this.callback = callback;
+        //sizeW = LScreenUtil.getScreenWidth() / 3;
+        //sizeH = sizeW * 2 / 3;
+        this.sizeWRoot = sizeWRoot;
+        this.sizeHRoot = sizeHRoot;
     }
 
     @Override
@@ -52,15 +62,30 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     }
 
     @Override
-    public void onBindViewHolder(PlayListHolder settingHolder, int position) {
+    public void onBindViewHolder(PlayListHolder playListHolder, int position) {
         final PlayListObject playListObject = playListObjectList.get(position);
-        settingHolder.ivCover.setImageResource(R.drawable.ic_unchecked);
-        settingHolder.tvDuration.setText(playListObject.getDuration());
-        settingHolder.tvName.setText(playListObject.getName());
-        settingHolder.tvYear.setText(playListObject.getTime());
-        settingHolder.tvDuration2.setText(playListObject.getDuration());
-        settingHolder.tvRate.setText(playListObject.getRate() + "+");
-        settingHolder.tvDescription.setText(playListObject.getDuration());
+        playListHolder.ivCover.setImageResource(R.drawable.ic_unchecked);
+        playListHolder.tvDuration.setText(playListObject.getDuration());
+        playListHolder.tvName.setText(playListObject.getName());
+        playListHolder.tvYear.setText(playListObject.getTime());
+        playListHolder.tvDuration2.setText(playListObject.getDuration());
+        playListHolder.tvRate.setText(playListObject.getRate() + "+");
+        playListHolder.tvDescription.setText(playListObject.getDesctiption());
+
+        RelativeLayout.LayoutParams rootLayoutParams = new RelativeLayout.LayoutParams((int) (sizeWRoot / 3.5), sizeHRoot);
+        playListHolder.rootView.setLayoutParams(rootLayoutParams);
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (sizeWRoot / 3.5 / 2));
+        playListHolder.ivCover.setLayoutParams(layoutParams);
+
+        playListHolder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null) {
+                    callback.onClickItem(playListObject);
+                }
+            }
+        });
     }
 
     @Override
