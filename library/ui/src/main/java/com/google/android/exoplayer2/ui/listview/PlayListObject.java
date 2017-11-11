@@ -10,6 +10,7 @@ public class PlayListObject {
     private String time;
     private int rate;
     private String desctiption;
+    private String url;
 
     public String getName() {
         return name;
@@ -49,5 +50,13 @@ public class PlayListObject {
 
     public void setDesctiption(String desctiption) {
         this.desctiption = desctiption;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

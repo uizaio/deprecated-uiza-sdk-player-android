@@ -2,6 +2,7 @@ package com.google.android.exoplayer2.ui.listview;
 
 import android.content.Context;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -68,7 +69,7 @@ public class PlayListView extends RelativeLayout {
             recyclerView.setLayoutParams(recyclerViewParams);
         }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        playListAdapter = new PlayListAdapter(playListObjectList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
+        playListAdapter = new PlayListAdapter(getContext(), playListObjectList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
             @Override
             public void onClickItem(PlayListObject playListObject) {
                 //TODO
@@ -88,6 +89,7 @@ public class PlayListView extends RelativeLayout {
             playListObject.setTime("2017");
             playListObject.setRate(i);
             playListObject.setDesctiption("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, …");
+            playListObject.setUrl("https://c2.staticflickr.com/8/7697/28048898565_9357845f8d.jpg");
 
             playListObjectList.add(playListObject);
         }

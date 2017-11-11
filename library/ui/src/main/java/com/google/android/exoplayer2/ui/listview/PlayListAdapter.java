@@ -4,6 +4,8 @@ package com.google.android.exoplayer2.ui.listview;
  * Created by www.muathu@gmail.com on 11/7/2017.
  */
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ui.R;
+import com.google.android.exoplayer2.ui.util.LImageUtil;
 
 import java.util.List;
 
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayListHolder> {
     private List<PlayListObject> playListObjectList;
-
+    private Context context;
     private int sizeWRoot;
     private int sizeHRoot;
 
@@ -46,13 +50,14 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         }
     }
 
-    public PlayListAdapter(List<PlayListObject> playListObjectList, int sizeWRoot, int sizeHRoot, Callback callback) {
+    public PlayListAdapter(Context context, List<PlayListObject> playListObjectList, int sizeWRoot, int sizeHRoot, Callback callback) {
         this.playListObjectList = playListObjectList;
         this.callback = callback;
         //sizeW = LScreenUtil.getScreenWidth() / 3;
         //sizeH = sizeW * 2 / 3;
         this.sizeWRoot = sizeWRoot;
         this.sizeHRoot = sizeHRoot;
+        this.context = context;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     @Override
     public void onBindViewHolder(PlayListHolder playListHolder, int position) {
         final PlayListObject playListObject = playListObjectList.get(position);
-        playListHolder.ivCover.setImageResource(R.drawable.ic_unchecked);
+
         playListHolder.tvDuration.setText(playListObject.getDuration());
         playListHolder.tvName.setText(playListObject.getName());
         playListHolder.tvYear.setText(playListObject.getTime());
@@ -77,6 +82,8 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (sizeWRoot / 3.5 / 2));
         playListHolder.ivCover.setLayoutParams(layoutParams);
+
+        LImageUtil.load(context, playListObject.getUrl(), playListHolder.ivCover);
 
         playListHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
