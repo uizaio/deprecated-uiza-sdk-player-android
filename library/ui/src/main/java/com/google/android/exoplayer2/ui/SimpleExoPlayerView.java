@@ -419,7 +419,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     }
 
     private void hidePlayList() {
-        if (exoHelperFrameLayout != null) {
+        if (exoHelperFrameLayout != null && playListView != null) {
             exoHelperFrameLayout.removeView(playListView);
             playListView = null;
             resumePlayVideo();
@@ -466,7 +466,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     }
 
     private void hideLanguage() {
-        if (exoHelperFrameLayout != null) {
+        if (exoHelperFrameLayout != null && languageView != null) {
             exoHelperFrameLayout.removeView(languageView);
             languageView = null;
             resumePlayVideo();
@@ -496,7 +496,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     }
 
     private void hideSetting() {
-        if (exoHelperFrameLayout != null) {
+        if (exoHelperFrameLayout != null && settingView != null) {
             exoHelperFrameLayout.removeView(settingView);
             settingView = null;
             resumePlayVideo();
@@ -506,10 +506,13 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private void hideOtherControl(View view) {
         if (view.getId() == R.id.exo_setting) {
             hideLanguage();
+            hidePlayList();
         } else if (view.getId() == R.id.exo_language) {
             hideSetting();
+            hidePlayList();
         } else if (view.getId() == R.id.exo_playlist) {
-
+            hideLanguage();
+            hideSetting();
         }
     }
 

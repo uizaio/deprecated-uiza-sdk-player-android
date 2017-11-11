@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.UizaData;
@@ -70,7 +71,8 @@ public class PlayListView extends RelativeLayout {
         playListAdapter = new PlayListAdapter(playListObjectList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
             @Override
             public void onClickItem(PlayListObject playListObject) {
-
+                //TODO
+                Toast.makeText(getContext(), "Click " + playListObject.getName(), Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setAdapter(playListAdapter);
