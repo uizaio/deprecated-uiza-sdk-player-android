@@ -7,6 +7,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdrawer.DrawerHeader;
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdrawer.DrawerMenuItem;
@@ -53,46 +56,19 @@ public class HomeActivity extends BaseActivity {
 
     private void setupDrawer() {
         mDrawerView.addView(new UizaDrawerHeader());
-        for (int i = 0; i < 8; i++) {
-            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), new UizaDrawerMenuItem.DrawerCallBack() {
+
+        List<String> menuList = new ArrayList<>();
+        menuList.add("Home");
+        menuList.add("Action");
+        menuList.add("Drama");
+        menuList.add("Hornor");
+        menuList.add("Kids");
+
+        for (int i = 0; i < menuList.size(); i++) {
+            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), menuList, i, new UizaDrawerMenuItem.Callback() {
                 @Override
-                public void onProfileMenuSelected() {
+                public void onMenuItemClick(int pos) {
                     mDrawer.closeDrawers();
-                }
-
-                @Override
-                public void onRequestMenuSelected() {
-
-                }
-
-                @Override
-                public void onGroupsMenuSelected() {
-
-                }
-
-                @Override
-                public void onMessagesMenuSelected() {
-
-                }
-
-                @Override
-                public void onNotificationsMenuSelected() {
-
-                }
-
-                @Override
-                public void onSettingsMenuSelected() {
-
-                }
-
-                @Override
-                public void onTermsMenuSelected() {
-
-                }
-
-                @Override
-                public void onLogoutMenuSelected() {
-
                 }
             }));
         }
