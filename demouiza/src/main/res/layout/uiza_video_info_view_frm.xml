@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Black"
+    android:padding="@dimen/padding_5">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Info Video Here\nXác Sống Phần 8, The Walking Dead Season 8 (2017)
+Phim Xác Sống Phần 8 tiếp tục là câu chuyện của Rick và bữa tiệc đầy bất ngờ ấy nhưng không không hề có sự chia ly cho kết cục của họ, The Walking Dead đã trở lại.! Mời các bạn đón xem các phần trước tại Phimbathu.com"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_14" />
+
+</RelativeLayout>
+
