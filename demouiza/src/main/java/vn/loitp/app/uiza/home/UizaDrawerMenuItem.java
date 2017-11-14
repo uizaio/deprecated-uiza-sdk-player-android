@@ -38,8 +38,9 @@ public class UizaDrawerMenuItem {
     @View(R.id.iv_press)
     private ImageView ivPress;
 
-    public UizaDrawerMenuItem(Context context) {
+    public UizaDrawerMenuItem(Context context, DrawerCallBack drawerCallBack) {
         mContext = context;
+        mCallBack = drawerCallBack;
     }
 
     @Resolve
@@ -116,10 +117,6 @@ public class UizaDrawerMenuItem {
                 if (mCallBack != null) mCallBack.onLogoutMenuSelected();
                 break;
         }
-    }
-
-    public void setDrawerCallBack(DrawerCallBack callBack) {
-        mCallBack = callBack;
     }
 
     public interface DrawerCallBack {

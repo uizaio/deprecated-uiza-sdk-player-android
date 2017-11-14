@@ -52,15 +52,50 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setupDrawer() {
-        mDrawerView.addView(new UizaDrawerHeader())
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()))
-                .addView(new DrawerMenuItem(this.getApplicationContext()));
+        mDrawerView.addView(new UizaDrawerHeader());
+        for (int i = 0; i < 8; i++) {
+            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), new UizaDrawerMenuItem.DrawerCallBack() {
+                @Override
+                public void onProfileMenuSelected() {
+                    mDrawer.closeDrawers();
+                }
+
+                @Override
+                public void onRequestMenuSelected() {
+
+                }
+
+                @Override
+                public void onGroupsMenuSelected() {
+
+                }
+
+                @Override
+                public void onMessagesMenuSelected() {
+
+                }
+
+                @Override
+                public void onNotificationsMenuSelected() {
+
+                }
+
+                @Override
+                public void onSettingsMenuSelected() {
+
+                }
+
+                @Override
+                public void onTermsMenuSelected() {
+
+                }
+
+                @Override
+                public void onLogoutMenuSelected() {
+
+                }
+            }));
+        }
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer) {
             @Override
             public void onDrawerOpened(View drawerView) {
