@@ -2,24 +2,23 @@ package vn.loitp.app.uiza.home;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class HomeActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawer;
-    //private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +28,8 @@ public class HomeActivity extends BaseActivity {
 
         LUIUtil.setPullLikeIOSVertical(mDrawerView);
 
-        //mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setupDrawer();
+        setupActionBar();
     }
 
     @Override
@@ -73,24 +71,28 @@ public class HomeActivity extends BaseActivity {
                 }
             }));
         }
-        /*ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer) {
+    }
+
+    private void setupActionBar() {
+        UizaActionBar lActionBar = (UizaActionBar) findViewById(R.id.uiza_action_bar);
+        lActionBar.setOnClickBack(new UizaActionBar.Callback() {
             @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                if (mDrawerView != null) {
-                    mDrawerView.refresh();
+            public void onClickBack() {
+                if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+                    mDrawer.closeDrawers();
+                } else {
+                    mDrawer.openDrawer(GravityCompat.START);
                 }
             }
 
             @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                if (mDrawerView != null) {
-                    mDrawerView.refresh();
-                }
+            public void onClickMenu() {
+                ToastUtils.showShort("onClickMenu");
             }
-        };
-        mDrawer.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();*/
+        });
+        lActionBar.showMenuIcon();
+        lActionBar.setImageRightIcon(R.drawable.ic_search_black_48dp);
+        lActionBar.setImageLeftIcon(R.drawable.ic_search_black_48dp);
+        lActionBar.setTvTitle("Logo");
     }
 }

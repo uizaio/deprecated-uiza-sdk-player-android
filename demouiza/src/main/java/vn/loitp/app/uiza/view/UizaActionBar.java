@@ -1,4 +1,4 @@
-package vn.loitp.app.activity.customviews.actionbar._lib;
+package vn.loitp.app.uiza.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -18,7 +18,7 @@ import vn.loitp.livestar.R;
  * Created by www.muathu@gmail.com on 5/13/2017.
  */
 
-public class LActionBar extends RelativeLayout {
+public class UizaActionBar extends RelativeLayout {
     private final String TAG = getClass().getSimpleName();
     private ImageView ivIconBack;
     private ImageView ivIconMenu;
@@ -38,18 +38,18 @@ public class LActionBar extends RelativeLayout {
         return tvTitle;
     }
 
-    public LActionBar(Context context, AttributeSet attrs) {
+    public UizaActionBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public LActionBar(Context context, AttributeSet attrs, int defStyle) {
+    public UizaActionBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
     private void init() {
-        inflate(getContext(), R.layout.view_l_action_bar, this);
+        inflate(getContext(), R.layout.uiza_action_bar, this);
 
         this.ivIconBack = (ImageView) findViewById(R.id.iv_icon_left);
         this.ivIconMenu = (ImageView) findViewById(R.id.iv_icon_right);
@@ -117,11 +117,11 @@ public class LActionBar extends RelativeLayout {
         tvTitle.setGravity(Gravity.CENTER);
     }
 
-    public void setImageMenuIcon(int drawableRes) {
+    public void setImageRightIcon(int drawableRes) {
         ivIconMenu.setImageResource(drawableRes);
     }
 
-    public void setImageBackIcon(int drawableRes) {
+    public void setImageLeftIcon(int drawableRes) {
         ivIconBack.setImageResource(drawableRes);
     }
 
