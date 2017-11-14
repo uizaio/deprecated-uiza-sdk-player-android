@@ -52,8 +52,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setupDrawer() {
-        mDrawerView
-                .addView(new UizaDrawerHeader())
+        mDrawerView.addView(new UizaDrawerHeader())
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
@@ -62,7 +61,6 @@ public class HomeActivity extends BaseActivity {
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
                 .addView(new DrawerMenuItem(this.getApplicationContext()));
-
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -74,7 +72,6 @@ public class HomeActivity extends BaseActivity {
                 super.onDrawerClosed(drawerView);
             }
         };
-
         mDrawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
