@@ -2,6 +2,8 @@ package vn.loitp.app.uiza.home;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -20,6 +22,7 @@ import vn.loitp.livestar.R;
 public class HomeActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
+    private List<String> menuList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,6 @@ public class HomeActivity extends BaseActivity {
     private void setupDrawer() {
         mDrawerView.addView(new UizaDrawerHeader());
 
-        List<String> menuList = new ArrayList<>();
         menuList.add("Home");
         menuList.add("Action");
         menuList.add("Drama");
@@ -68,10 +70,16 @@ public class HomeActivity extends BaseActivity {
                 @Override
                 public void onMenuItemClick(int pos) {
                     HomeData.getInstance().setCurrentPosition(pos);
+                    HomeData.getInstance().setData(menuList.get(pos));
                     mDrawerLayout.closeDrawers();
+                    replaceFragment(new FrmChannel());
                 }
             }));
         }
+
+        //init data first
+        HomeData.getInstance().setData(menuList.get(0));
+        replaceFragment(new FrmChannel());
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
 
@@ -124,5 +132,12 @@ public class HomeActivity extends BaseActivity {
         if (mDrawerView != null) {
             mDrawerView.refresh();
         }
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
