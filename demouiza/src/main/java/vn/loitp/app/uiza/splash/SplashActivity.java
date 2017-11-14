@@ -1,10 +1,11 @@
-package vn.loitp.app.uiza.activity;
+package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import vn.loitp.app.base.BaseActivity;
+import vn.loitp.app.uiza.home.HomeActivity;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 

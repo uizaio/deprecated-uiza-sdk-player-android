@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.activity;
+package vn.loitp.app.uiza.home;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,13 +6,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdrawer.DrawerHeader;
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdrawer.DrawerMenuItem;
 import vn.loitp.app.base.BaseActivity;
-import vn.loitp.app.utilities.LStoreUtil;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -31,9 +29,6 @@ public class HomeActivity extends BaseActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setupDrawer();
-
-        TextView tv = (TextView) findViewById(R.id.tv);
-        tv.setText(LStoreUtil.readTxtFromRawFolder(activity, R.raw.loitp));
     }
 
     @Override
@@ -58,7 +53,7 @@ public class HomeActivity extends BaseActivity {
 
     private void setupDrawer() {
         mDrawerView
-                .addView(new DrawerHeader())
+                .addView(new UizaDrawerHeader())
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
                 .addView(new DrawerMenuItem(this.getApplicationContext()))
