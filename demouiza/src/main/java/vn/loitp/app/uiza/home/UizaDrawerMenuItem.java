@@ -10,6 +10,7 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
+import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.livestar.R;
 
 /**
@@ -42,6 +43,11 @@ public class UizaDrawerMenuItem {
     @Resolve
     private void onResolved() {
         tvName.setText(mStringList.get(mPos));
+        if (mPos == HomeData.getInstance().getCurrentPosition()) {
+            ivPress.setVisibility(android.view.View.VISIBLE);
+        } else {
+            ivPress.setVisibility(android.view.View.INVISIBLE);
+        }
     }
 
     @Click(R.id.mainView)

@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
-import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdrawer.DrawerHeader;
-import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdrawer.DrawerMenuItem;
 import vn.loitp.app.base.BaseActivity;
+import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -68,6 +67,7 @@ public class HomeActivity extends BaseActivity {
             mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), menuList, i, new UizaDrawerMenuItem.Callback() {
                 @Override
                 public void onMenuItemClick(int pos) {
+                    HomeData.getInstance().setCurrentPosition(pos);
                     mDrawer.closeDrawers();
                 }
             }));
@@ -76,11 +76,17 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                if (mDrawerView != null) {
+                    mDrawerView.refresh();
+                }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+                if (mDrawerView != null) {
+                    mDrawerView.refresh();
+                }
             }
         };
         mDrawer.addDrawerListener(drawerToggle);
