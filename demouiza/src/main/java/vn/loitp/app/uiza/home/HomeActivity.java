@@ -19,7 +19,7 @@ import vn.loitp.livestar.R;
 public class HomeActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawer;
-    private Toolbar mToolbar;
+    //private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,8 @@ public class HomeActivity extends BaseActivity {
 
         LUIUtil.setPullLikeIOSVertical(mDrawerView);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setupDrawer();
     }
 
@@ -72,13 +73,13 @@ public class HomeActivity extends BaseActivity {
                 }
             }));
         }
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer) {
+        /*ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                /*if (mDrawerView != null) {
+                if (mDrawerView != null) {
                     mDrawerView.refresh();
-                }*/
+                }
             }
 
             @Override
@@ -90,6 +91,6 @@ public class HomeActivity extends BaseActivity {
             }
         };
         mDrawer.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
+        drawerToggle.syncState();*/
     }
 }

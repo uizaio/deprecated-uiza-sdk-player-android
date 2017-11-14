@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/white">
+    android:background="@color/white"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="left|center"
-        android:text="@string/app_name"
-        android:textColor="@color/Black"
-        android:textSize="@dimen/txt_18" />
+        android:layout_height="match_parent"
+        android:background="@color/Red"
+        android:paddingRight="@dimen/padding_10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/iv_search"
+            android:background="@color/grey"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/w_40"
+                android:layout_height="@dimen/w_40"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_amazon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/txt_18" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="@dimen/w_30"
+            android:layout_height="@dimen/w_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_search_black_48dp" />
+    </RelativeLayout>
 </android.support.v7.widget.Toolbar>
