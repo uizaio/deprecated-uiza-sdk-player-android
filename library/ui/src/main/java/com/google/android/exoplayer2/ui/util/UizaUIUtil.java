@@ -6,7 +6,7 @@ import android.os.Handler;
  * Created by www.muathu@gmail.com on 11/8/2017.
  */
 
-public class LUIUtil {
+public class UizaUIUtil {
     public interface DelayCallback {
         public void doAfter(int mls);
     }

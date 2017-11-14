@@ -14,7 +14,7 @@ import android.view.ViewConfiguration;
  * @author anhdv
  */
 
-public class LScreenUtil {
+public class UizaScreenUtil {
     public int getStatusBarHeight(Context mContext) {
         int result = 0;
         int resourceId = mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");

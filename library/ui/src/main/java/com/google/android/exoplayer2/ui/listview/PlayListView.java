@@ -2,7 +2,6 @@ package com.google.android.exoplayer2.ui.listview;
 
 import android.content.Context;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.UizaData;
-import com.google.android.exoplayer2.ui.util.LScreenUtil;
+import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,16 +51,16 @@ public class PlayListView extends RelativeLayout {
         int heightRecyclerView;
 
         if (UizaData.getInstance().isLandscape()) {
-            widthRecyclerView = LScreenUtil.getScreenWidth();
-            heightRecyclerView = LScreenUtil.getScreenHeight() / 2;
+            widthRecyclerView = UizaScreenUtil.getScreenWidth();
+            heightRecyclerView = UizaScreenUtil.getScreenHeight() / 2;
 
             ViewGroup.LayoutParams recyclerViewParams = recyclerView.getLayoutParams();
             recyclerViewParams.width = widthRecyclerView;
             recyclerViewParams.height = heightRecyclerView;
             recyclerView.setLayoutParams(recyclerViewParams);
         } else {
-            widthRecyclerView = LScreenUtil.getScreenWidth();
-            heightRecyclerView = LScreenUtil.getScreenHeight() / 3;
+            widthRecyclerView = UizaScreenUtil.getScreenWidth();
+            heightRecyclerView = UizaScreenUtil.getScreenHeight() / 3;
 
             ViewGroup.LayoutParams recyclerViewParams = recyclerView.getLayoutParams();
             recyclerViewParams.width = widthRecyclerView;

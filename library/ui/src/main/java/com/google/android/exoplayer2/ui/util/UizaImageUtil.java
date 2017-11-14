@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
  * Created by www.muathu@gmail.com on 10/7/2017.
  */
 
-public class LImageUtil {
+public class UizaImageUtil {
     public static void load(Context context, String url, ImageView imageView) {
         Glide.with(context).load(url).into(imageView);
     }

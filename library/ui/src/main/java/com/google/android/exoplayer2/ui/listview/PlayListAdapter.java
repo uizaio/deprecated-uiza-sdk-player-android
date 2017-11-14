@@ -4,7 +4,6 @@ package com.google.android.exoplayer2.ui.listview;
  * Created by www.muathu@gmail.com on 11/7/2017.
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,9 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ui.R;
-import com.google.android.exoplayer2.ui.util.LImageUtil;
+import com.google.android.exoplayer2.ui.util.UizaImageUtil;
 
 import java.util.List;
 
@@ -53,7 +51,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     public PlayListAdapter(Context context, List<PlayListObject> playListObjectList, int sizeWRoot, int sizeHRoot, Callback callback) {
         this.playListObjectList = playListObjectList;
         this.callback = callback;
-        //sizeW = LScreenUtil.getScreenWidth() / 3;
+        //sizeW = UizaScreenUtil.getScreenWidth() / 3;
         //sizeH = sizeW * 2 / 3;
         this.sizeWRoot = sizeWRoot;
         this.sizeHRoot = sizeHRoot;
@@ -83,7 +81,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (sizeWRoot / 3.5 / 2));
         playListHolder.ivCover.setLayoutParams(layoutParams);
 
-        LImageUtil.load(context, playListObject.getUrl(), playListHolder.ivCover);
+        UizaImageUtil.load(context, playListObject.getUrl(), playListHolder.ivCover);
 
         playListHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override

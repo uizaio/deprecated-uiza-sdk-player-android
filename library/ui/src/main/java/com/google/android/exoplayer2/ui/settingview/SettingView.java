@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.UizaData;
-import com.google.android.exoplayer2.ui.util.LScreenUtil;
-import com.google.android.exoplayer2.ui.util.LUIUtil;
+import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
+import com.google.android.exoplayer2.ui.util.UizaUIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class SettingView extends RelativeLayout {
 
                 UizaData.getInstance().setSettingObject(settingObject);
 
-                LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
+                UizaUIUtil.setDelay(300, new UizaUIUtil.DelayCallback() {
                     @Override
                     public void doAfter(int mls) {
                         if (callback != null) {
@@ -88,7 +88,7 @@ public class SettingView extends RelativeLayout {
             }
         });
         if (UizaData.getInstance().isLandscape()) {
-            int width = LScreenUtil.getScreenWidth() / 2;
+            int width = UizaScreenUtil.getScreenWidth() / 2;
 
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
             ViewGroup.LayoutParams recyclerViewParams = recyclerView.getLayoutParams();

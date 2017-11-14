@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.UizaData;
-import com.google.android.exoplayer2.ui.util.LScreenUtil;
+import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
@@ -149,7 +149,7 @@ public class LanguageView extends RelativeLayout {
         });
 
         if (!UizaData.getInstance().isLandscape()) {
-            int width = LScreenUtil.getScreenWidth() * 3 / 2;
+            int width = UizaScreenUtil.getScreenWidth() * 3 / 2;
             ViewGroup.LayoutParams layoutParams = llControl.getLayoutParams();
             layoutParams.width = width;
             llControl.setLayoutParams(layoutParams);
