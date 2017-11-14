@@ -9,13 +9,13 @@
 
 lActionBar.setOnClickBack(new LActionBar.Callback() {
             @Override
-            public void onClickBack() {
+            public void onClickLeft() {
                 onBackPressed();
             }
 
             @Override
-            public void onClickMenu() {
-                ToastUtils.showShort("onClickMenu");
+            public void onClickRight() {
+                ToastUtils.showShort("onClickRight");
             }
         });
         lActionBar.showMenuIcon();

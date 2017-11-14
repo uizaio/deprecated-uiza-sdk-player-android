@@ -20,18 +20,18 @@ import vn.loitp.livestar.R;
 
 public class UizaActionBar extends RelativeLayout {
     private final String TAG = getClass().getSimpleName();
-    private ImageView ivIconBack;
-    private ImageView ivIconMenu;
+    private ImageView ivIconLeft;
+    private ImageView ivIconRight;
     private TextView tvTitle;
     private RealtimeBlurView realtimeBlurView;
     private View shadowView;
 
-    public ImageView getIvIconBack() {
-        return ivIconBack;
+    public ImageView getIvIconLeft() {
+        return ivIconLeft;
     }
 
-    public ImageView getIvIconMenu() {
-        return ivIconMenu;
+    public ImageView getIvIconRight() {
+        return ivIconRight;
     }
 
     public TextView getTvTitle() {
@@ -51,36 +51,36 @@ public class UizaActionBar extends RelativeLayout {
     private void init() {
         inflate(getContext(), R.layout.uiza_action_bar, this);
 
-        this.ivIconBack = (ImageView) findViewById(R.id.iv_icon_left);
-        this.ivIconMenu = (ImageView) findViewById(R.id.iv_icon_right);
+        this.ivIconLeft = (ImageView) findViewById(R.id.iv_icon_left);
+        this.ivIconRight = (ImageView) findViewById(R.id.iv_icon_right);
         this.tvTitle = (TextView) findViewById(R.id.tv_title);
         this.realtimeBlurView = (RealtimeBlurView) findViewById(R.id.blur_view);
         this.shadowView = (View) findViewById(R.id.shadow_view);
 
-        ivIconBack.setOnClickListener(new OnClickListener() {
+        ivIconLeft.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 LAnimationUtil.play(v, Techniques.Pulse);
                 if (callback != null) {
-                    callback.onClickBack();
+                    callback.onClickLeft();
                 }
             }
         });
-        ivIconMenu.setOnClickListener(new OnClickListener() {
+        ivIconRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 LAnimationUtil.play(v, Techniques.Pulse);
                 if (callback != null) {
-                    callback.onClickMenu();
+                    callback.onClickRight();
                 }
             }
         });
     }
 
     public interface Callback {
-        public void onClickBack();
+        public void onClickLeft();
 
-        public void onClickMenu();
+        public void onClickRight();
     }
 
     private Callback callback;
@@ -94,19 +94,19 @@ public class UizaActionBar extends RelativeLayout {
     }
 
     public void hideBackIcon() {
-        ivIconBack.setVisibility(GONE);
+        ivIconLeft.setVisibility(GONE);
     }
 
     public void inviBackIcon() {
-        ivIconBack.setVisibility(INVISIBLE);
+        ivIconLeft.setVisibility(INVISIBLE);
     }
 
     public void hideMenuIcon() {
-        ivIconMenu.setVisibility(GONE);
+        ivIconRight.setVisibility(GONE);
     }
 
     public void showMenuIcon() {
-        ivIconMenu.setVisibility(VISIBLE);
+        ivIconRight.setVisibility(VISIBLE);
     }
 
     public void setTvTitlePositionLeft() {
@@ -118,11 +118,11 @@ public class UizaActionBar extends RelativeLayout {
     }
 
     public void setImageRightIcon(int drawableRes) {
-        ivIconMenu.setImageResource(drawableRes);
+        ivIconRight.setImageResource(drawableRes);
     }
 
     public void setImageLeftIcon(int drawableRes) {
-        ivIconBack.setImageResource(drawableRes);
+        ivIconLeft.setImageResource(drawableRes);
     }
 
     public void hideBlurView() {

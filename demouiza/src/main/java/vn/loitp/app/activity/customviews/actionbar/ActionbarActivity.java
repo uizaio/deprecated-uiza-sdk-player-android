@@ -51,7 +51,7 @@ public class ActionbarActivity extends BaseActivity {
 
             @Override
             public void onClickMenu() {
-                ToastUtils.showShort("onClickMenu");
+                ToastUtils.showShort("onClickRight");
             }
         });
         lActionBar.showMenuIcon();

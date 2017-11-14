@@ -101,7 +101,7 @@ public class HomeActivity extends BaseActivity {
         UizaActionBar lActionBar = (UizaActionBar) findViewById(R.id.uiza_action_bar);
         lActionBar.setOnClickBack(new UizaActionBar.Callback() {
             @Override
-            public void onClickBack() {
+            public void onClickLeft() {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     updateUIDrawer();
                 } else {
@@ -110,8 +110,8 @@ public class HomeActivity extends BaseActivity {
             }
 
             @Override
-            public void onClickMenu() {
-                ToastUtils.showShort("onClickMenu");
+            public void onClickRight() {
+                ToastUtils.showShort("onClickRight");
             }
         });
         lActionBar.showMenuIcon();
