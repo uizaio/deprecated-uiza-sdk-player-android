@@ -92,7 +92,7 @@ public class HomeActivity extends BaseActivity {
         });
         lActionBar.showMenuIcon();
         lActionBar.setImageRightIcon(R.drawable.ic_search_black_48dp);
-        lActionBar.setImageLeftIcon(R.drawable.ic_search_black_48dp);
+        lActionBar.setImageLeftIcon(R.drawable.ic_menu_black_48dp);
         lActionBar.setTvTitle("Logo");
     }
 }
