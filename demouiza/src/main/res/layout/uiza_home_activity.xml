@@ -16,7 +16,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar_home" />
+                layout="@layout/uiza_toolbar_home" />
 
             <TextView
                 android:id="@+id/tv"

@@ -76,9 +76,9 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                if (mDrawerView != null) {
+                /*if (mDrawerView != null) {
                     mDrawerView.refresh();
-                }
+                }*/
             }
 
             @Override
