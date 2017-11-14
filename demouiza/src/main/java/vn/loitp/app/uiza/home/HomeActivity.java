@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,12 @@ import vn.loitp.livestar.R;
 
 public class HomeActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
-    private DrawerLayout mDrawer;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerView = (PlaceHolderView) findViewById(R.id.drawerView);
 
         LUIUtil.setPullLikeIOSVertical(mDrawerView);
@@ -67,10 +68,33 @@ public class HomeActivity extends BaseActivity {
                 @Override
                 public void onMenuItemClick(int pos) {
                     HomeData.getInstance().setCurrentPosition(pos);
-                    mDrawer.closeDrawers();
+                    mDrawerLayout.closeDrawers();
                 }
             }));
         }
+
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                //do nothing
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                updateUIDrawer();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                updateUIDrawer();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                //do nothing
+            }
+        });
     }
 
     private void setupActionBar() {
@@ -78,10 +102,10 @@ public class HomeActivity extends BaseActivity {
         lActionBar.setOnClickBack(new UizaActionBar.Callback() {
             @Override
             public void onClickBack() {
-                if (mDrawer.isDrawerOpen(GravityCompat.START)) {
-                    mDrawer.closeDrawers();
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    updateUIDrawer();
                 } else {
-                    mDrawer.openDrawer(GravityCompat.START);
+                    mDrawerLayout.openDrawer(GravityCompat.START);
                 }
             }
 
@@ -94,5 +118,11 @@ public class HomeActivity extends BaseActivity {
         lActionBar.setImageRightIcon(R.drawable.ic_search_black_48dp);
         lActionBar.setImageLeftIcon(R.drawable.ic_menu_black_48dp);
         lActionBar.setTvTitle("Logo");
+    }
+
+    private void updateUIDrawer() {
+        if (mDrawerView != null) {
+            mDrawerView.refresh();
+        }
     }
 }
