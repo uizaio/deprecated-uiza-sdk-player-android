@@ -52,12 +52,6 @@ public class FrmChannel extends BaseFragment {
     }
 
     private void setupData() {
-        /*List<Image> imageList = Utils.loadImages(getActivity());
-        List<Image> newImageList = new ArrayList<>();
-        for (int i = 0; i < imageList.size(); i++) {
-            newImageList.add(imageList.get(i));
-        }*/
-
         List<PosterObject> posterObjectList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             PosterObject posterObject = new PosterObject();
@@ -66,27 +60,5 @@ public class FrmChannel extends BaseFragment {
         }
         infinitePlaceHolderView.addView(new PosterView(getActivity(), posterObjectList));
 
-        /*for (int i = imageList.size() - 1; i >= 0; i--) {
-            infinitePlaceHolderView.addView(new ImageTypeBig(getActivity(), infinitePlaceHolderView, imageList.get(i).getImageUrl()));
-        }
-
-        infinitePlaceHolderView.setLoadMoreResolver(new LoadMoreView(infinitePlaceHolderView, newImageList));
-
-        newImageList.addAll(loadMore());
-        newImageList.addAll(loadMore());
-        newImageList.addAll(loadMore());
-        newImageList.addAll(loadMore());
-        newImageList.addAll(loadMore());
-        newImageList.addAll(loadMore());*/
-    }
-
-    private List<Image> loadMore() {
-        List<Image> imageList = Utils.loadImages(getActivity());
-        List<Image> newImageList = new ArrayList<>();
-        for (int i = 0; i < imageList.size(); i++) {
-            newImageList.add(imageList.get(i));
-        }
-        //LLog.d(TAG, ">>>loadMore " + newImageList.size());
-        return newImageList;
     }
 }
