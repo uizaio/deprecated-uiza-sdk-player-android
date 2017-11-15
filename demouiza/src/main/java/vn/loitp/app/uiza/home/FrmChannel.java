@@ -14,7 +14,9 @@ import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimageg
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.Utils;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.PosterObject;
+import vn.loitp.app.uiza.home.model.VideoObject;
 import vn.loitp.app.uiza.home.view.PosterView;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -59,6 +61,17 @@ public class FrmChannel extends BaseFragment {
             posterObjectList.add(posterObject);
         }
         infinitePlaceHolderView.addView(new PosterView(getActivity(), posterObjectList));
+
+        ChannelObject channelObject = new ChannelObject();
+        List<VideoObject> videoObjectList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            VideoObject videoObject = new VideoObject();
+            videoObject.setUrl("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
+            videoObjectList.add(videoObject);
+        }
+        channelObject.setChannelName("Hihi");
+        channelObject.setVideoObjectList(videoObjectList);
+        
 
     }
 }
