@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize">
 
-        <com.github.mmin18.widget.RealtimeBlurView
+        <!--<com.github.mmin18.widget.RealtimeBlurView
             android:id="@+id/blur_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:realtimeBlurRadius="@dimen/round_15"
-            app:realtimeOverlayColor="@color/WhiteTrans" />
+            app:realtimeOverlayColor="@color/WhiteTrans" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

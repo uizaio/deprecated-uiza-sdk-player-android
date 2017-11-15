@@ -23,7 +23,7 @@ public class UizaActionBar extends RelativeLayout {
     private ImageView ivIconLeft;
     private ImageView ivIconRight;
     private TextView tvTitle;
-    private RealtimeBlurView realtimeBlurView;
+    //private RealtimeBlurView realtimeBlurView;
     private View shadowView;
 
     public ImageView getIvIconLeft() {
@@ -54,7 +54,7 @@ public class UizaActionBar extends RelativeLayout {
         this.ivIconLeft = (ImageView) findViewById(R.id.iv_icon_left);
         this.ivIconRight = (ImageView) findViewById(R.id.iv_icon_right);
         this.tvTitle = (TextView) findViewById(R.id.tv_title);
-        this.realtimeBlurView = (RealtimeBlurView) findViewById(R.id.blur_view);
+        //this.realtimeBlurView = (RealtimeBlurView) findViewById(R.id.blur_view);
         this.shadowView = (View) findViewById(R.id.shadow_view);
 
         ivIconLeft.setOnClickListener(new OnClickListener() {
@@ -126,7 +126,7 @@ public class UizaActionBar extends RelativeLayout {
     }
 
     public void hideBlurView() {
-        realtimeBlurView.setVisibility(GONE);
+        //realtimeBlurView.setVisibility(GONE);
     }
 
     public void hideShadowView() {
