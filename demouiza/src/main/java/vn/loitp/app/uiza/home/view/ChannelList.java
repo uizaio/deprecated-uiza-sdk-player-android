@@ -6,9 +6,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Animate;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
@@ -36,9 +34,12 @@ public class ChannelList {
     private Context mContext;
     private ChannelObject mChannelObject;
 
-    public ChannelList(Context context, ChannelObject channelObject) {
+    private ChannelItem.Callback mCallback;
+
+    public ChannelList(Context context, ChannelObject channelObject, ChannelItem.Callback callback) {
         mContext = context;
         mChannelObject = channelObject;
+        mCallback = callback;
     }
 
     @Resolve
@@ -52,8 +53,8 @@ public class ChannelList {
         LUIUtil.setPullLikeIOSHorizontal(mPlaceHolderView);
 
         List<VideoObject> videoObjectList = mChannelObject.getVideoObjectList();
-        for (VideoObject videoObject : videoObjectList) {
-            mPlaceHolderView.addView(new ChannelItem(mContext, mPlaceHolderView, videoObject));
+        for (int i = 0; i < videoObjectList.size(); i++) {
+            mPlaceHolderView.addView(new ChannelItem(mContext, mPlaceHolderView, videoObjectList.get(i), i, mCallback));
         }
     }
 }

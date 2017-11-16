@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
 
-import loitp.utils.util.ToastUtils;
+import com.daimajia.androidanimations.library.Techniques;
+
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Animate;
@@ -14,6 +15,7 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.app.uiza.home.model.VideoObject;
+import vn.loitp.app.utilities.LAnimationUtil;
 import vn.loitp.app.utilities.LImageUtil;
 import vn.loitp.livestar.R;
 
@@ -32,11 +34,15 @@ public class ChannelItem {
     private VideoObject mVideoObject;
     private Context mContext;
     private PlaceHolderView mPlaceHolderView;
+    private Callback mCallback;
+    private int mPosition;
 
-    public ChannelItem(Context context, PlaceHolderView placeHolderView, VideoObject videoObject) {
+    public ChannelItem(Context context, PlaceHolderView placeHolderView, VideoObject videoObject, int position, Callback callback) {
         mContext = context;
         mPlaceHolderView = placeHolderView;
         mVideoObject = videoObject;
+        mPosition = position;
+        mCallback = callback;
     }
 
     @Resolve
@@ -51,6 +57,32 @@ public class ChannelItem {
 
     @Click(R.id.imageView)
     private void onClick() {
-        ToastUtils.showShort("Touch");
+        LAnimationUtil.play(imageView, Techniques.Pulse, new LAnimationUtil.Callback() {
+            @Override
+            public void onCancel() {
+                //do nothing
+            }
+
+            @Override
+            public void onEnd() {
+                if (mCallback != null) {
+                    mCallback.onClick(mVideoObject, mPosition);
+                }
+            }
+
+            @Override
+            public void onRepeat() {
+                //do nothing
+            }
+
+            @Override
+            public void onStart() {
+                //do nothing
+            }
+        });
+    }
+
+    public interface Callback {
+        public void onClick(VideoObject videoObject, int position);
     }
 }

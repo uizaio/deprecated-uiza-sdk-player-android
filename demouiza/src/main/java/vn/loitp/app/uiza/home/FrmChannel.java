@@ -10,13 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
+import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.PosterObject;
 import vn.loitp.app.uiza.home.model.VideoObject;
+import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -73,7 +76,12 @@ public class FrmChannel extends BaseFragment {
         }
         channelObjectTopMovies.setChannelName("Top Movies");
         channelObjectTopMovies.setVideoObjectList(videoObjectListTop);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies));
+        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
+            @Override
+            public void onClick(VideoObject videoObject, int position) {
+                onClickVideo(videoObject, position);
+            }
+        }));
 
 
         //newest movie
@@ -86,7 +94,12 @@ public class FrmChannel extends BaseFragment {
         }
         channelObjectNewestMovies.setChannelName("Newest Movies");
         channelObjectNewestMovies.setVideoObjectList(videoObjectListNewest);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies));
+        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
+            @Override
+            public void onClick(VideoObject videoObject, int position) {
+                onClickVideo(videoObject, position);
+            }
+        }));
 
 
         //dummy channel
@@ -100,7 +113,16 @@ public class FrmChannel extends BaseFragment {
             }
             channelObjectDummyMovies.setChannelName("Dummy Movies " + j);
             channelObjectDummyMovies.setVideoObjectList(videoObjectListDummy);
-            infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectDummyMovies));
+            infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectDummyMovies, new ChannelItem.Callback() {
+                @Override
+                public void onClick(VideoObject videoObject, int position) {
+                    onClickVideo(videoObject, position);
+                }
+            }));
         }
+    }
+
+    private void onClickVideo(VideoObject videoObject, int position) {
+        LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
     }
 }
