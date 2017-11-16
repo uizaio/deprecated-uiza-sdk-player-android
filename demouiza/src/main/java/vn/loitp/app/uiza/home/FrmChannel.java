@@ -70,8 +70,7 @@ public class FrmChannel extends BaseFragment {
         ChannelObject channelObjectTopMovies = new ChannelObject();
         List<VideoObject> videoObjectListTop = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            VideoObject videoObject = new VideoObject();
-            videoObject.setUrl("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
+            VideoObject videoObject = createVideoObject("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
             videoObjectListTop.add(videoObject);
         }
         channelObjectTopMovies.setChannelName("Top Movies");
@@ -88,8 +87,7 @@ public class FrmChannel extends BaseFragment {
         ChannelObject channelObjectNewestMovies = new ChannelObject();
         List<VideoObject> videoObjectListNewest = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            VideoObject videoObject = new VideoObject();
-            videoObject.setUrl("https://kenh14cdn.com/2016/photo-4-1472659094854.jpg");
+            VideoObject videoObject = createVideoObject("https://kenh14cdn.com/2016/photo-4-1472659094854.jpg");
             videoObjectListNewest.add(videoObject);
         }
         channelObjectNewestMovies.setChannelName("Newest Movies");
@@ -107,8 +105,7 @@ public class FrmChannel extends BaseFragment {
             ChannelObject channelObjectDummyMovies = new ChannelObject();
             List<VideoObject> videoObjectListDummy = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                VideoObject videoObject = new VideoObject();
-                videoObject.setUrl("https://kenh14cdn.com/2016/160831-star-momo-1472637904135.jpg");
+                VideoObject videoObject = createVideoObject("https://kenh14cdn.com/2016/160831-star-momo-1472637904135.jpg");
                 videoObjectListDummy.add(videoObject);
             }
             channelObjectDummyMovies.setChannelName("Dummy Movies " + j);
@@ -124,5 +121,25 @@ public class FrmChannel extends BaseFragment {
 
     private void onClickVideo(VideoObject videoObject, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
+    }
+
+    private VideoObject createVideoObject(String url) {
+        VideoObject videoObject = new VideoObject();
+        videoObject.setUrl(url);
+        videoObject.setTitle("Spider - Man: Homecoming (2017)");
+        videoObject.setTime("2015");
+        videoObject.setDuration("2h 13min");
+        videoObject.setRate(13);
+        videoObject.setDuration("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
+                "\n" +
+                "Đây là \"bộ truyện dài đầu tiên mà cốt truyện hoàn toàn là hư cấu sáng tạo của một cá nhân\". Trước đó, các truyện kể đều dựa ít nhiều vào sử sách hoặc truyện kể dân gian, và đều là sự chắp nối công công sức của nhiều người[2]. Tên truyện do tên ba nhân vật nữ là Phan Kim Liên, Lý Bình Nhi và Bàng Xuân Mai mà thành.\n" +
+                "\n" +
+                "Theo một số nhà nghiên cứu văn học, thì tác giả là một người ở Sơn Đông không rõ họ tên, có bút hiệu là Tiếu Tiếu Sinh (có nghĩa là \"Ông thầy cười\") [3].\n" +
+                "\n" +
+                "Có thể nói trong các tiểu thuyết viết về \"nhân tình thế thái\" (nói gọn là \"thế tình\", tức \"tình đời\") ở Trung Quốc, thì đây là truyện có tiếng nhất, đã khiến cho nhiều người bàn luận [4].");
+        videoObject.setStarring("Tom Holland, Michael Keaton, Robert Downey Jr.");
+        videoObject.setDirector("Jon Watts");
+        videoObject.setGenres("Action, Adventure, Sci-Fi");
+        return videoObject;
     }
 }
