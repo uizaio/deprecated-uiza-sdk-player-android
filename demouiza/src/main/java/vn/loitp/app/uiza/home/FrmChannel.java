@@ -11,12 +11,14 @@ import java.util.List;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.Image;
+import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.ImageTypeSmallList;
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.Utils;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.PosterObject;
 import vn.loitp.app.uiza.home.model.VideoObject;
+import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -72,6 +74,12 @@ public class FrmChannel extends BaseFragment {
         channelObject.setChannelName("Hihi");
         channelObject.setVideoObjectList(videoObjectList);
 
-
+        /*List<Image> newImageList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Image image = new Image();
+            image.setImageUrl("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
+            newImageList.add(image);
+        }*/
+        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObject));
     }
 }
