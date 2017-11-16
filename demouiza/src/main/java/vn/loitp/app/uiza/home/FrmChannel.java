@@ -71,7 +71,7 @@ public class FrmChannel extends BaseFragment {
         }
         channelObject.setChannelName("Hihi");
         channelObject.setVideoObjectList(videoObjectList);
-        
+
 
     }
 }
