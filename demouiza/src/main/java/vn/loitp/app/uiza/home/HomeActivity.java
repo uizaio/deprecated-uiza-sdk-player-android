@@ -15,6 +15,8 @@ import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
+import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -57,7 +59,19 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setupDrawer() {
-        mDrawerView.addView(new UizaDrawerHeader());
+        UizaDrawerHeader uizaDrawerHeader = new UizaDrawerHeader();
+        uizaDrawerHeader.setCallback(new UizaDrawerHeader.Callback() {
+            @Override
+            public void onClickLogOut() {
+                ToastUtils.showShort("onClickLogOut");
+            }
+
+            @Override
+            public void onClickLogin() {
+                ToastUtils.showShort("onClickLogin");
+            }
+        });
+        mDrawerView.addView(uizaDrawerHeader);
 
         menuList.add("Home");
         menuList.add("Action");
@@ -137,7 +151,7 @@ public class HomeActivity extends BaseActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 }

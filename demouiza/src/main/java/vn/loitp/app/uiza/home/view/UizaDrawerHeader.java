@@ -1,9 +1,9 @@
-package vn.loitp.app.uiza.home;
+package vn.loitp.app.uiza.home.view;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
@@ -27,13 +27,37 @@ public class UizaDrawerHeader {
     @View(R.id.iv_log_out)
     private ImageView ivLogOut;
 
+    @View(R.id.ll_login)
+    private LinearLayout llLogin;
+
     @Resolve
     private void onResolved() {
-        tvName.setText("Loitp");
+        tvName.setText("Bạn Chưa Đăng Nhập");
     }
 
     @Click(R.id.iv_log_out)
     private void onClickLogOut() {
-        ToastUtils.showShort("onClickLogOut");
+        if (callback != null) {
+            callback.onClickLogOut();
+        }
+    }
+
+    @Click(R.id.ll_login)
+    private void onClickLogin() {
+        if (callback != null) {
+            callback.onClickLogin();
+        }
+    }
+
+    private Callback callback;
+
+    public interface Callback {
+        public void onClickLogOut();
+
+        public void onClickLogin();
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 }

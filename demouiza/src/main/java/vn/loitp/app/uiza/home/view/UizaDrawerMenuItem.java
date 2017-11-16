@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home;
+package vn.loitp.app.uiza.home.view;
 
 import android.content.Context;
 import android.widget.ImageView;

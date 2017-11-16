@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/padding_10">
 
     <LinearLayout
+        android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
             android:layout_weight="1"
+            android:singleLine="true"
             android:text="User"
             android:textColor="@color/Black"
             android:textSize="@dimen/txt_20"
