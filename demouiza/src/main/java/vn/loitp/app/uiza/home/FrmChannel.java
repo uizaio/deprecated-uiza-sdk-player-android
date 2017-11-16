@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
-import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.Image;
-import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.ImageTypeSmallList;
-import vn.loitp.app.activity.customviews.placeholderview.ex.androidadvanceimagegallery.Utils;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
@@ -56,6 +53,7 @@ public class FrmChannel extends BaseFragment {
     }
 
     private void setupData() {
+        //poster
         List<PosterObject> posterObjectList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             PosterObject posterObject = new PosterObject();
@@ -64,22 +62,45 @@ public class FrmChannel extends BaseFragment {
         }
         infinitePlaceHolderView.addView(new PosterView(getActivity(), posterObjectList));
 
-        ChannelObject channelObject = new ChannelObject();
-        List<VideoObject> videoObjectList = new ArrayList<>();
+
+        //top movie
+        ChannelObject channelObjectTopMovies = new ChannelObject();
+        List<VideoObject> videoObjectListTop = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             VideoObject videoObject = new VideoObject();
             videoObject.setUrl("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
-            videoObjectList.add(videoObject);
+            videoObjectListTop.add(videoObject);
         }
-        channelObject.setChannelName("Hihi");
-        channelObject.setVideoObjectList(videoObjectList);
+        channelObjectTopMovies.setChannelName("Top Movies");
+        channelObjectTopMovies.setVideoObjectList(videoObjectListTop);
+        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies));
 
-        /*List<Image> newImageList = new ArrayList<>();
+
+        //newest movie
+        ChannelObject channelObjectNewestMovies = new ChannelObject();
+        List<VideoObject> videoObjectListNewest = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Image image = new Image();
-            image.setImageUrl("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
-            newImageList.add(image);
-        }*/
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObject));
+            VideoObject videoObject = new VideoObject();
+            videoObject.setUrl("https://kenh14cdn.com/2016/photo-4-1472659094854.jpg");
+            videoObjectListNewest.add(videoObject);
+        }
+        channelObjectNewestMovies.setChannelName("Newest Movies");
+        channelObjectNewestMovies.setVideoObjectList(videoObjectListNewest);
+        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies));
+
+
+        //dummy channel
+        for (int j = 0; j < 10; j++) {
+            ChannelObject channelObjectDummyMovies = new ChannelObject();
+            List<VideoObject> videoObjectListDummy = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                VideoObject videoObject = new VideoObject();
+                videoObject.setUrl("https://kenh14cdn.com/2016/160831-star-momo-1472637904135.jpg");
+                videoObjectListDummy.add(videoObject);
+            }
+            channelObjectDummyMovies.setChannelName("Dummy Movies " + j);
+            channelObjectDummyMovies.setVideoObjectList(videoObjectListDummy);
+            infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectDummyMovies));
+        }
     }
 }
