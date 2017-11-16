@@ -1,10 +1,12 @@
 package vn.loitp.app.uiza.home.model;
 
+import java.io.Serializable;
+
 /**
  * Created by www.muathu@gmail.com on 11/15/2017.
  */
 
-public class VideoObject {
+public class VideoObject implements Serializable {
     private String url;
     private String title;
     private String time;

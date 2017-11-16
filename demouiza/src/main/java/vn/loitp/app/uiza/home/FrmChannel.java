@@ -1,5 +1,6 @@
 package vn.loitp.app.uiza.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.List;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
+import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.PosterObject;
@@ -19,6 +21,7 @@ import vn.loitp.app.uiza.home.model.VideoObject;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
+import vn.loitp.app.uiza.player.PlayerActivity;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -120,7 +123,11 @@ public class FrmChannel extends BaseFragment {
     }
 
     private void onClickVideo(VideoObject videoObject, int position) {
-        LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
+        //LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
+        Intent intent = new Intent(getActivity(), PlayerActivity.class);
+        intent.putExtra(Constants.KEY_UIZA_PLAYER, videoObject);
+        startActivity(intent);
+        LUIUtil.transActivityFadeIn(getActivity());
     }
 
     private VideoObject createVideoObject(String url) {
