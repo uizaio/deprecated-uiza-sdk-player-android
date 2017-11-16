@@ -43,7 +43,7 @@ public class FrmChannel extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_frm_channel, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
-        tv.setText(HomeData.getInstance().getData());
+        tv.setText("Debug: " + HomeData.getInstance().getData());
 
         infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
 
