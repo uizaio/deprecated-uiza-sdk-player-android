@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
+import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.common.Constants;
