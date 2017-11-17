@@ -58,6 +58,7 @@ import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.fragment.helper.EventLogger;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.fragment.helper.TrackSelectionHelper;
+import com.google.android.exoplayer2.ui.util.UizaUIUtil;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -670,7 +671,7 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             player.seekTo(position);
         } else {
             //LLog.d(TAG, "player == null");
-            LUIUtil.setDelay(200, new LUIUtil.DelayCallback() {
+            UizaUIUtil.setDelay(200, new UizaUIUtil.DelayCallback() {
                 @Override
                 public void doAfter(int mls) {
                     seekTo(position);

@@ -29,6 +29,9 @@ android {
         // debug {
         //    testCoverageEnabled = true
         // }
+        /*dexOptions {
+            javaMaxHeapSize = "4g"
+        }*/
     }
 }
 
