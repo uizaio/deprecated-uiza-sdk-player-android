@@ -7,6 +7,7 @@ import loitp.utils.util.ToastUtils;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.home.model.VideoObject;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class PlayerActivity extends BaseActivity {
@@ -20,6 +21,8 @@ public class PlayerActivity extends BaseActivity {
             ToastUtils.showShort("Error videoObject == null");
             return;
         }
+
+
     }
 
     @Override

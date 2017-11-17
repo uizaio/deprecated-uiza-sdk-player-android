@@ -29,6 +29,7 @@ public class LSApplication extends MultiDexApplication {
         }
         Utils.init(this);
         userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
+
     }
 
     public Gson getGson() {

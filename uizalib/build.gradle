@@ -1,0 +1,132 @@
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+//apply plugin: 'android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'me.tatarka.retrolambda'
+apply from: '../constants.gradle'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        //maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        //classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        //applicationId "uiza.lib"
+        minSdkVersion 16
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1"
+        multiDexEnabled true
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /*applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent, "BaseMaster_" + buildType.name + "_" + defaultConfig.versionName + "_" + defaultConfig.versionCode + ".apk")
+        }
+    }*/
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    productFlavors {
+        noExtensions {
+            dimension "extensions"
+        }
+        withExtensions {
+            dimension "extensions"
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+    //maven { url 'https://maven.fabric.io/public' }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile project(':core')
+    //compile project(':utils')
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+
+    //start exo player
+    compile project(modulePrefix + 'library-core')
+    compile project(modulePrefix + 'library-dash')
+    compile project(modulePrefix + 'library-hls')
+    compile project(modulePrefix + 'library-smoothstreaming')
+    compile project(modulePrefix + 'library-ui')
+
+    compile project(modulePrefix + 'extension-ima')
+
+    withExtensionsCompile project(path: modulePrefix + 'extension-ffmpeg')
+    withExtensionsCompile project(path: modulePrefix + 'extension-flac')
+    //withExtensionsCompile project(path: modulePrefix + 'extension-ima')
+    withExtensionsCompile project(path: modulePrefix + 'extension-opus')
+    withExtensionsCompile project(path: modulePrefix + 'extension-vp9')
+    withExtensionsCompile project(path: modulePrefix + 'extension-rtmp')
+    //end exo player
+
+    //compile 'com.jakewharton:butterknife:8.2.1'
+    //apt 'com.jakewharton:butterknife-compiler:8.2.1'
+
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+
+    compile 'com.android.support:multidex:1.0.1'
+
+    //compile 'org.greenrobot:eventbus:3.0.0'
+
+    //compile 'com.daimajia.easing:library:2.0@aar'
+    //compile 'com.daimajia.androidanimations:library:2.2@aar'
+
+    //compile 'com.github.mmin18:realtimeblurview:1.1.0'
+
+    //compile 'com.github.bumptech.glide:glide:3.7.0'
+    //compile 'jp.wasabeef:glide-transformations:2.0.2'
+
+    compile 'com.google.code.gson:gson:2.7'
+
+    //compile 'me.everything:overscroll-decor-android:1.0.4'//https://github.com/EverythingMe/overscroll-decor
+    //compile 'com.daasuu:EasingInterpolator:1.0.0'//need for shine button
+
+    //compile 'com.google.android.gms:play-services-plus:11.0.4'
+
+}

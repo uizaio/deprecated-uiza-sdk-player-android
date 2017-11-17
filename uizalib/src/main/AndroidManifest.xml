@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="loitp.utils">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application android:name="vn.loitp.app.app.LSApplication" android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="vn.loitp.app.activity.customviews.viewpager.ViewPagerMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="vn.loitp.app.activity.customviews.viewpager.parrallaxviewpager.ex.ParallaxViewPagerActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="vn.loitp.app.activity.demo.video.videodemo1.VideoDemo1Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name="vn.loitp.app.activity.demo.video.videodemo2.VideoDemo2Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name="vn.loitp.app.activity.demo.video.videodemo3.VideoDemo3Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name="vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity"
+            android:screenOrientation="sensor" />
+        <activity android:name="vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name="vn.loitp.app.activity.demo.video.VideoMenuActivity"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity android:name="vn.loitp.app.activity.demo.video.videodemo5.UizaVideoMenuActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name="vn.loitp.app.activity.EmptyActivity" android:label="Preferences">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="vn.loitp.app.utilities.LConectifyBroadcast">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+
+    </application>
+</manifest>

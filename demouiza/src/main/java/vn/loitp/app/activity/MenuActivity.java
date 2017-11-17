@@ -52,6 +52,7 @@ public class MenuActivity extends BaseActivity {
                 LUIUtil.transActivityFadeIn(activity);
             }
         });
+
     }
 
     @Override
