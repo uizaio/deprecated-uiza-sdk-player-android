@@ -1,7 +1,6 @@
 package com.google.android.exoplayer2.ui.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,13 +23,14 @@ import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.app.LSApplication;
 import com.google.android.exoplayer2.drm.DefaultDrmSessionManager;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
 import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
+import com.google.android.exoplayer2.ext.ima.ImaAdsLoader;
+import com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
@@ -58,7 +58,6 @@ import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.fragment.helper.EventLogger;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.fragment.helper.TrackSelectionHelper;
-import com.google.android.exoplayer2.ui.util.LUIUtil;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -66,7 +65,6 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -367,7 +365,8 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
      * @return A new HttpDataSource factory.
      */
     private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
-        return ((LSApplication) ((Activity) getContext()).getApplication()).buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+        //return ((LSApplication) ((Activity) getContext()).getApplication()).buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+        return buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
     /**
@@ -379,7 +378,7 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
-        Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
+        /*Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
             adOverlayViewGroup = new FrameLayout(getContext());
@@ -388,14 +387,14 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
         }
         Class<?> sourceClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
         Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);
-        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
+        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);*/
 
-        /*ImaAdsLoader imaAdsLoader = new ImaAdsLoader(getContext(), adTagUri);
+        ImaAdsLoader imaAdsLoader = new ImaAdsLoader(getContext(), adTagUri);
         adOverlayViewGroup = new FrameLayout(getContext());
         simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
 
         ImaAdsMediaSource imaAdsMediaSource = new ImaAdsMediaSource(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
-        return imaAdsMediaSource;*/
+        return imaAdsMediaSource;
     }
 
     private void releaseAdsLoader() {

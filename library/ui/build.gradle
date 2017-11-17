@@ -61,6 +61,10 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.7'
 
+    //start for ima
+    compile 'com.google.ads.interactivemedia.v3:interactivemedia:3.7.4'
+    compile 'com.google.android.gms:play-services-ads:11.0.2'
+    //end for ima
 }
 
 ext {

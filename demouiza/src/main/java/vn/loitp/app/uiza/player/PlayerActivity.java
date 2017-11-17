@@ -44,6 +44,11 @@ public class PlayerActivity extends BaseActivity {
                 "        \"extension\": \"mpd\",\n" +
                 "        \"ad_tag_uri\": \"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=\"\n" +
                 "      }";
+        /*String json = "{\n" +
+                "        \"name\": \"Google Play (MP4,H264)\",\n" +
+                "        \"uri\": \"http://www.youtube.com/api/manifest/dash/id/3aa39fa2cc27967f/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=A2716F75795F5D2AF0E88962FFCD10DB79384F29.84308FF04844498CE6FBCE4731507882B8307798&key=ik0\",\n" +
+                "        \"extension\": \"mpd\"\n" +
+                "      }";*/
         sample = vn.loitp.app.app.LSApplication.getInstance().getGson().fromJson(json, Sample.class);
 
         LLog.d(TAG, "sample " + vn.loitp.app.app.LSApplication.getInstance().getGson().toJson(sample));
