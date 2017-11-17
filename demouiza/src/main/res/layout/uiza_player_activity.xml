@@ -49,7 +49,7 @@
 
         <fragment
             android:id="@+id/uiza_video_info"
-            class="vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideoInfo"
+            class="vn.loitp.app.uiza.player.FrmUizaVideoInfo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
