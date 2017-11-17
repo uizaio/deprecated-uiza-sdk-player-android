@@ -1,6 +1,7 @@
 package vn.loitp.app.uiza.home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
+import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
@@ -68,7 +70,12 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onClickLogin() {
-                ToastUtils.showShort("onClickLogin");
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawers();
+                }
+                Intent intent = new Intent(activity, LoginActivity.class);
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(activity);
             }
         });
         mDrawerView.addView(uizaDrawerHeader);

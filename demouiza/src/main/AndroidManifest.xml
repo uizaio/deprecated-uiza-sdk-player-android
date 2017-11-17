@@ -243,6 +243,9 @@
         <activity
             android:name="vn.loitp.app.uiza.player.PlayerActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="vn.loitp.app.uiza.login.LoginActivity"
+            android:screenOrientation="portrait" />
         <!--FOR DEMO UIZA-->
 
     </application>
