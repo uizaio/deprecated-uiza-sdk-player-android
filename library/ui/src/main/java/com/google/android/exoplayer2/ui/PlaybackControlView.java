@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -281,7 +282,8 @@ public class PlaybackControlView extends FrameLayout {
 
     private final ComponentListener componentListener;
 
-    private RelativeLayout rootView;
+    private LinearLayout llTop;
+    private LinearLayout llBottom;
     //private final View previousButton;
     //private final View nextButton;
     private final View playButton;
@@ -396,8 +398,8 @@ public class PlaybackControlView extends FrameLayout {
         LayoutInflater.from(context).inflate(controllerLayoutId, this);
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
-        rootView = (RelativeLayout) findViewById(R.id.root_view);
-        rootView.setVisibility(GONE);
+        llTop = (LinearLayout) findViewById(R.id.ll_top);
+        llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
 
         durationView = (TextView) findViewById(R.id.exo_duration);
         positionView = (TextView) findViewById(R.id.exo_position);
@@ -1274,7 +1276,13 @@ public class PlaybackControlView extends FrameLayout {
         return languageButton;
     }
 
-    public RelativeLayout getRootView() {
-        return rootView;
+    public void showAllViews() {
+        llTop.setVisibility(VISIBLE);
+        llBottom.setVisibility(VISIBLE);
+    }
+
+    public void hideAllViews() {
+        llTop.setVisibility(INVISIBLE);
+        llBottom.setVisibility(INVISIBLE);
     }
 }

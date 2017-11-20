@@ -1094,9 +1094,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 shutterView.setVisibility(INVISIBLE);
             }
             if (controller != null) {
-                if (controller.getRootView().getVisibility() != VISIBLE) {
-                    controller.getRootView().setVisibility(VISIBLE);
-                }
+                controller.showAllViews();
             }
         }
 
