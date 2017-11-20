@@ -84,5 +84,18 @@ public class UizaData {
 
     public void setInputModel(InputModel inputModel) {
         this.inputModel = inputModel;
+        if (mCallbackInputModelChange != null) {
+            mCallbackInputModelChange.onInputModelChange(this.inputModel);
+        }
+    }
+
+    public interface CallbackInputModelChange {
+        public void onInputModelChange(InputModel inputModel);
+    }
+
+    private CallbackInputModelChange mCallbackInputModelChange;
+
+    public void setCallbackInputModelChange(CallbackInputModelChange callbackInputModelChange) {
+        mCallbackInputModelChange = callbackInputModelChange;
     }
 }

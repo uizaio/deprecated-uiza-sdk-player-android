@@ -14,7 +14,6 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.app.uiza.home.model.ChannelObject;
-import vn.loitp.app.uiza.home.model.VideoObject;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 

@@ -1,7 +1,6 @@
 package vn.loitp.app.uiza.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.PosterObject;
-import vn.loitp.app.uiza.home.model.VideoObject;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
@@ -139,7 +137,7 @@ public class FrmChannel extends BaseFragment {
         inputModel.setTime("2015");
         inputModel.setDuration("2h 13min");
         inputModel.setRate(13);
-        inputModel.setDuration("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
+        inputModel.setDescription("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
                 "\n" +
                 "Đây là \"bộ truyện dài đầu tiên mà cốt truyện hoàn toàn là hư cấu sáng tạo của một cá nhân\". Trước đó, các truyện kể đều dựa ít nhiều vào sử sách hoặc truyện kể dân gian, và đều là sự chắp nối công công sức của nhiều người[2]. Tên truyện do tên ba nhân vật nữ là Phan Kim Liên, Lý Bình Nhi và Bàng Xuân Mai mà thành.\n" +
                 "\n" +

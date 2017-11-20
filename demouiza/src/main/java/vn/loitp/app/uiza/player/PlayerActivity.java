@@ -2,7 +2,6 @@ package vn.loitp.app.uiza.player;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.fragment.FrmUizaVideo;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
-import com.google.android.exoplayer2.ui.fragment.model.Sample;
 
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.base.BaseActivity;
