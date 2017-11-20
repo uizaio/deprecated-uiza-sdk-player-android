@@ -21,6 +21,9 @@ android {
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
         multiDexEnabled true
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
     }
 
     buildTypes {
@@ -63,8 +66,10 @@ dependencies {
 
     //start for ima
     compile 'com.google.ads.interactivemedia.v3:interactivemedia:3.7.4'
-    compile 'com.google.android.gms:play-services-ads:11.0.2'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
     //end for ima
+
+    compile 'com.github.mmin18:realtimeblurview:1.1.0'
 }
 
 ext {
