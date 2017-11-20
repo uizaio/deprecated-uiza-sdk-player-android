@@ -1,6 +1,8 @@
 package com.google.android.exoplayer2.ui.util;
 
+import android.graphics.Color;
 import android.os.Handler;
+import android.widget.ProgressBar;
 
 /**
  * Created by www.muathu@gmail.com on 11/8/2017.
@@ -21,5 +23,9 @@ public class UizaUIUtil {
                 }
             }
         }, mls);
+    }
+
+    public static void setColorProgressBar(ProgressBar progressBar) {
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 }

@@ -13,6 +13,7 @@
     <dimen name="height_26">26dp</dimen>
     <dimen name="txt_8">8sp</dimen>
     <dimen name="w_20">20dp</dimen>
+    <dimen name="w_50">50dp</dimen>
     <dimen name="w_15">15dp</dimen>
     <dimen name="round_15">15dp</dimen>
     <dimen name="round_5">5dp</dimen>

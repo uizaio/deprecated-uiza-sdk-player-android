@@ -1,8 +1,6 @@
 package com.google.android.exoplayer2.ui.fragment;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -139,6 +137,7 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
 
         View rootView = view.findViewById(R.id.root);
         rootView.setOnClickListener(this);
+
         debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
         debugTextView = (TextView) view.findViewById(R.id.debug_text_view);
         retryButton = (Button) view.findViewById(R.id.retry_button);
