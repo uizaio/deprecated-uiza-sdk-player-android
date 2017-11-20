@@ -1,6 +1,8 @@
 package com.google.android.exoplayer2.ui.fragment;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -144,6 +146,12 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
         simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.player_view);
         simpleExoPlayerView.setControllerVisibilityListener(this);
         simpleExoPlayerView.requestFocus();
+
+        //simpleExoPlayerView.setUseArtwork(true);
+
+        //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic);
+        //simpleExoPlayerView.setDefaultArtwork(bm);
+
         return view;
     }
 
