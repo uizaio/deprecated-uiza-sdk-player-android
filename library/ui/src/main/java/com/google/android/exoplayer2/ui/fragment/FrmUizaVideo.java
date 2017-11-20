@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -434,8 +435,16 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+        //TODO onPlayerStateChanged
         if (playbackState == Player.STATE_ENDED) {
+            Log.d("loitp", "STATE_ENDED");
             showControls();
+        } else if (playbackState == Player.STATE_BUFFERING) {
+            Log.d("loitp", "STATE_BUFFERING");
+        } else if (playbackState == Player.STATE_IDLE) {
+            Log.d("loitp", "STATE_IDLE");
+        } else if (playbackState == Player.STATE_READY) {
+            Log.d("loitp", "STATE_READY");
         }
         updateButtonVisibilities();
     }
