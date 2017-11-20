@@ -1,0 +1,66 @@
+package vn.loitp.app.uiza.player.view;
+
+import android.widget.TextView;
+
+import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Animate;
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
+import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
+import vn.loitp.livestar.R;
+
+/**
+ * Created by www.muathu@gmail.com on 9/16/2017.
+ */
+
+@Animate(Animation.CARD_TOP_IN_DESC)
+@NonReusable
+@Layout(R.layout.uiza_info)
+public class InfoView {
+    private final String TAG = getClass().getSimpleName();
+
+    @View(R.id.tv_name)
+    private TextView tvName;
+
+    @View(R.id.tv_time)
+    private TextView tvTime;
+
+    @View(R.id.tv_duration)
+    private TextView tvDuration;
+
+    @View(R.id.tv_rate)
+    private TextView tvRate;
+
+    @View(R.id.tv_description)
+    private TextView tvDescription;
+
+    @View(R.id.tv_starring_value)
+    private TextView tvStarringValue;
+
+    @View(R.id.tv_director)
+    private TextView tvDirector;
+
+    @View(R.id.tv_genres_value)
+    private TextView tvGenresValue;
+
+    private InputModel mInputModel;
+
+    public InfoView(InputModel inputModel) {
+        mInputModel = inputModel;
+    }
+
+    @Resolve
+    private void onResolved() {
+        tvName.setText(mInputModel.getTitle());
+        tvTime.setText(mInputModel.getTime());
+        tvDuration.setText(mInputModel.getDuration());
+        tvRate.setText(mInputModel.getRate() + "");
+        tvDescription.setText(mInputModel.getDescription());
+        tvStarringValue.setText(mInputModel.getStarring());
+        tvDirector.setText(mInputModel.getDirector());
+        tvGenresValue.setText(mInputModel.getGenres());
+    }
+}
