@@ -1,12 +1,9 @@
 package vn.loitp.app.uiza.player;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
@@ -14,17 +11,12 @@ import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
-import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
-import vn.loitp.app.common.Constants;
-import vn.loitp.app.uiza.home.model.ChannelObject;
-import vn.loitp.app.uiza.home.model.PosterObject;
-import vn.loitp.app.uiza.home.view.ChannelItem;
-import vn.loitp.app.uiza.home.view.ChannelList;
-import vn.loitp.app.uiza.home.view.PosterView;
 import vn.loitp.app.uiza.player.view.InfoView;
-import vn.loitp.app.utilities.LLog;
+import vn.loitp.app.uiza.player.view.MoreList;
+import vn.loitp.app.uiza.player.view.MoreListItem;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -64,5 +56,16 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaData.CallbackI
             return;
         }
         infinitePlaceHolderView.addView(new InfoView(inputModel));
+
+        List<InputModel> inputModelList = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            inputModelList.add(inputModel);
+        }
+        infinitePlaceHolderView.addView(new MoreList(getActivity(), inputModelList, new MoreListItem.Callback() {
+            @Override
+            public void onClick(InputModel inputModel, int position) {
+                ToastUtils.showShort("onClick " + position);
+            }
+        }));
     }
 }

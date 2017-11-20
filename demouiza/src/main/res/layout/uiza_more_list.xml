@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:padding="@dimen/padding_5"
+        android:text="More like this"
+        android:textAllCaps="true"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/txt_18"
+        android:textStyle="bold" />
+
+    <vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView
+        android:id="@+id/place_holder_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
+</LinearLayout>

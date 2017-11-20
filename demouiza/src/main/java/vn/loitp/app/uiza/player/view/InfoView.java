@@ -16,7 +16,7 @@ import vn.loitp.livestar.R;
  * Created by www.muathu@gmail.com on 9/16/2017.
  */
 
-@Animate(Animation.CARD_TOP_IN_DESC)
+//@Animate(Animation.CARD_LEFT_IN_ASC)
 @NonReusable
 @Layout(R.layout.uiza_info)
 public class InfoView {
