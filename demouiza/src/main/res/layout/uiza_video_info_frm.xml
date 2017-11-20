@@ -1,15 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="@dimen/padding_5">
 
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Info Video Here\nXác Sống Phần 8, The Walking Dead Season 8 (2017)
-Phim Xác Sống Phần 8 tiếp tục là câu chuyện của Rick và bữa tiệc đầy bất ngờ ấy nhưng không không hề có sự chia ly cho kết cục của họ, The Walking Dead đã trở lại.! Mời các bạn đón xem các phần trước tại Phimbathu.com"
-        android:textSize="@dimen/txt_18" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/txt_18"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spider"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/txt_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="2h13min"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/txt_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="13+"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/txt_15" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="Des"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/txt_15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starr"
+            android:textColor="@color/LightGrey"
+            android:textSize="@dimen/txt_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="13+"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/txt_15" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starr"
+            android:textColor="@color/LightGrey"
+            android:textSize="@dimen/txt_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="13+"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/txt_15" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starr"
+            android:textColor="@color/LightGrey"
+            android:textSize="@dimen/txt_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="13+"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/txt_15" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="More like this"
+        android:textAllCaps="true"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/txt_18"
+        android:textStyle="bold" />
+</LinearLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.livestar.R;
@@ -13,6 +14,7 @@ import vn.loitp.livestar.R;
  */
 
 public class FrmUizaVideoInfo extends BaseFragment {
+    private TextView tvName;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
-        //TextView tv = (TextView) view.findViewById(R.id.tv);
+        tvName = (TextView) view.findViewById(R.id.tv_name);
         return view;
     }
 }

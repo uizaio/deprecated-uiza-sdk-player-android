@@ -154,8 +154,12 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
 
     private InputModel inputModel;
 
-    public void setInputModel(InputModel inputModel, boolean reloadData) {
-        this.inputModel = inputModel;
+    public void setInputModel(InputModel ip, boolean reloadData) {
+        if (ip == null) {
+            this.inputModel = UizaData.getInstance().getInputModel();
+        } else {
+            this.inputModel = ip;
+        }
         if (reloadData) {
             releasePlayer();
             shouldAutoPlay = true;
@@ -167,7 +171,8 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
 
     public void initializePlayer() {
         if (inputModel == null) {
-            throw new IllegalArgumentException("You must init InputModel first");
+            //throw new IllegalArgumentException("You must init InputModel first");
+            inputModel = UizaData.getInstance().getInputModel();
         }
 
         //Intent intent = ((Activity) getContext()).getIntent();

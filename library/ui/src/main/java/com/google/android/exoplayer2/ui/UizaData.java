@@ -2,6 +2,7 @@ package com.google.android.exoplayer2.ui;
 
 import android.os.Handler;
 
+import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.language.LanguageObject;
 import com.google.android.exoplayer2.ui.settingview.SettingObject;
 
@@ -70,5 +71,18 @@ public class UizaData {
 
     public void setLanguageObject(LanguageObject languageObject) {
         this.languageObject = languageObject;
+    }
+
+    private InputModel inputModel;
+
+    public InputModel getInputModel() {
+        if (inputModel == null) {
+            throw new NullPointerException("inputModel cannot be null, pls init it first");
+        }
+        return inputModel;
+    }
+
+    public void setInputModel(InputModel inputModel) {
+        this.inputModel = inputModel;
     }
 }
