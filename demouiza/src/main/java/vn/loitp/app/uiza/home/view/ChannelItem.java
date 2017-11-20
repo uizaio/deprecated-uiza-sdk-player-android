@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
@@ -32,23 +33,23 @@ public class ChannelItem {
     @View(R.id.imageView)
     private ImageView imageView;
 
-    private VideoObject mVideoObject;
+    private InputModel mInputModel;
     private Context mContext;
     private PlaceHolderView mPlaceHolderView;
     private Callback mCallback;
     private int mPosition;
 
-    public ChannelItem(Context context, PlaceHolderView placeHolderView, VideoObject videoObject, int position, Callback callback) {
+    public ChannelItem(Context context, PlaceHolderView placeHolderView, InputModel inputModel, int position, Callback callback) {
         mContext = context;
         mPlaceHolderView = placeHolderView;
-        mVideoObject = videoObject;
+        mInputModel = inputModel;
         mPosition = position;
         mCallback = callback;
     }
 
     @Resolve
     private void onResolved() {
-        LImageUtil.load((Activity) mContext, mVideoObject.getUrl(), imageView);
+        LImageUtil.load((Activity) mContext, mInputModel.getUrlImg(), imageView);
     }
 
     /*@LongClick(R.id.imageView)
@@ -67,7 +68,7 @@ public class ChannelItem {
             @Override
             public void onEnd() {
                 if (mCallback != null) {
-                    mCallback.onClick(mVideoObject, mPosition);
+                    mCallback.onClick(mInputModel, mPosition);
                 }
             }
 
@@ -84,6 +85,6 @@ public class ChannelItem {
     }
 
     public interface Callback {
-        public void onClick(VideoObject videoObject, int position);
+        public void onClick(InputModel inputModel, int position);
     }
 }

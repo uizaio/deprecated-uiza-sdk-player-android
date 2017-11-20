@@ -2,7 +2,10 @@ package com.google.android.exoplayer2.ui.fragment.helper;
 
 import android.net.Uri;
 
+import com.google.android.exoplayer2.ui.fragment.model.Playlist;
+
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,11 +18,12 @@ public class InputModel implements Serializable {
     private String[] keyRequestPropertiesArray;
     private Boolean preferExtensionDecoders;
     private String action;
-    private Uri uri;
+    private String uri;
     private String extension;
     private String[] uriStrings;
     private String[] extensionList;
     private String adTagUri;
+    private List<Playlist> playlist = null;
 
     public UUID getDrmSchemeUuid() {
         return drmSchemeUuid;
@@ -62,10 +66,10 @@ public class InputModel implements Serializable {
     }
 
     public Uri getUri() {
-        return uri;
+        return Uri.parse(uri);
     }
 
-    public void setUri(Uri uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
@@ -99,5 +103,96 @@ public class InputModel implements Serializable {
 
     public void setAdTagUri(String adTagUri) {
         this.adTagUri = adTagUri;
+    }
+
+    //uiza variable
+    private String urlImg;
+    private String title;
+    private String time;
+    private String duration;
+    private int rate;
+    private String description;
+    private String starring;
+    private String director;
+    private String genres;
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStarring() {
+        return starring;
+    }
+
+    public void setStarring(String starring) {
+        this.starring = starring;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    public List<Playlist> getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(List<Playlist> playlist) {
+        this.playlist = playlist;
     }
 }

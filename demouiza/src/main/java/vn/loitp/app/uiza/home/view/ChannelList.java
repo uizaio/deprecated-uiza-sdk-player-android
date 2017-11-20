@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+
 import java.util.List;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
@@ -52,9 +54,9 @@ public class ChannelList {
                 .setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         LUIUtil.setPullLikeIOSHorizontal(mPlaceHolderView);
 
-        List<VideoObject> videoObjectList = mChannelObject.getVideoObjectList();
-        for (int i = 0; i < videoObjectList.size(); i++) {
-            mPlaceHolderView.addView(new ChannelItem(mContext, mPlaceHolderView, videoObjectList.get(i), i, mCallback));
+        List<InputModel> inputModelList = mChannelObject.getInputModelList();
+        for (int i = 0; i < inputModelList.size(); i++) {
+            mPlaceHolderView.addView(new ChannelItem(mContext, mPlaceHolderView, inputModelList.get(i), i, mCallback));
         }
     }
 }

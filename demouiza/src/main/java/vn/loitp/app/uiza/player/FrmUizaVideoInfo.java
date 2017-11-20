@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.livestar.R;
 
@@ -30,6 +33,12 @@ public class FrmUizaVideoInfo extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
         tvName = (TextView) view.findViewById(R.id.tv_name);
+
+        setupUI();
         return view;
+    }
+
+    private void setupUI() {
+
     }
 }

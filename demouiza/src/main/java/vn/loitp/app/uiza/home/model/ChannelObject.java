@@ -1,5 +1,7 @@
 package vn.loitp.app.uiza.home.model;
 
+import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class ChannelObject {
     private String channelName;
-    private List<VideoObject> videoObjectList;
+    private List<InputModel> inputModelList;
 
     public String getChannelName() {
         return channelName;
@@ -18,11 +20,11 @@ public class ChannelObject {
         this.channelName = channelName;
     }
 
-    public List<VideoObject> getVideoObjectList() {
-        return videoObjectList;
+    public List<InputModel> getInputModelList() {
+        return inputModelList;
     }
 
-    public void setVideoObjectList(List<VideoObject> videoObjectList) {
-        this.videoObjectList = videoObjectList;
+    public void setInputModelList(List<InputModel> inputModelList) {
+        this.inputModelList = inputModelList;
     }
 }
