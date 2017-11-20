@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -279,6 +280,8 @@ public class PlaybackControlView extends FrameLayout {
     private static final long MAX_POSITION_FOR_SEEK_TO_PREVIOUS = 3000;
 
     private final ComponentListener componentListener;
+
+    private RelativeLayout rootView;
     //private final View previousButton;
     //private final View nextButton;
     private final View playButton;
@@ -392,6 +395,9 @@ public class PlaybackControlView extends FrameLayout {
 
         LayoutInflater.from(context).inflate(controllerLayoutId, this);
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
+
+        rootView = (RelativeLayout) findViewById(R.id.root_view);
+        rootView.setVisibility(GONE);
 
         durationView = (TextView) findViewById(R.id.exo_duration);
         positionView = (TextView) findViewById(R.id.exo_position);
@@ -1266,5 +1272,9 @@ public class PlaybackControlView extends FrameLayout {
 
     public View getLanguageButton() {
         return languageButton;
+    }
+
+    public RelativeLayout getRootView() {
+        return rootView;
     }
 }

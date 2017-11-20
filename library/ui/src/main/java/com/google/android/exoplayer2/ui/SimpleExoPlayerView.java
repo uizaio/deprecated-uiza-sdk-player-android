@@ -1089,8 +1089,14 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onRenderedFirstFrame() {
+            Log.d(TAG, "onRenderedFirstFrame");
             if (shutterView != null) {
                 shutterView.setVisibility(INVISIBLE);
+            }
+            if (controller != null) {
+                if (controller.getRootView().getVisibility() != VISIBLE) {
+                    controller.getRootView().setVisibility(VISIBLE);
+                }
             }
         }
 
@@ -1109,6 +1115,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             maybeShowController(false);
+            /*if (playbackState == Player.STATE_IDLE) {
+                Log.d("loitp", TAG + "STATE_IDLE");
+                if (controller != null) {
+                    controller.getRootView().setVisibility(GONE);
+                }
+            }*/
         }
 
         @Override
