@@ -1189,7 +1189,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
         public void onTimelineChanged(Timeline timeline, Object manifest) {
             // Do nothing.
         }
-
     }
 
     private ImageView ivCoverVideo;
