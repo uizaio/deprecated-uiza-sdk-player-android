@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -63,6 +64,7 @@ import com.google.android.exoplayer2.ui.avloading_indicator_view._lib.avi.AVLoad
 import com.google.android.exoplayer2.ui.fragment.helper.EventLogger;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.fragment.helper.TrackSelectionHelper;
+import com.google.android.exoplayer2.ui.util.UizaAnimationUtil;
 import com.google.android.exoplayer2.ui.util.UizaImageUtil;
 import com.google.android.exoplayer2.ui.util.UizaUIUtil;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -476,9 +478,24 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
         } else if (playbackState == Player.STATE_READY) {
             Log.d("loitp", "STATE_READY");
             if (rootView != null && ivCoverVideo != null && avLoadingIndicatorView != null) {
-                ivCoverVideo.setVisibility(View.GONE);
-                rootView.removeView(ivCoverVideo);
-                ivCoverVideo = null;
+                UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        //do nothing
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        ivCoverVideo.setVisibility(View.GONE);
+                        rootView.removeView(ivCoverVideo);
+                        ivCoverVideo = null;
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        //do nothing
+                    }
+                });
                 avLoadingIndicatorView.smoothToHide();
                 rootView.removeView(ivCoverVideo);
                 avLoadingIndicatorView = null;
