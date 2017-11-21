@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.WindowManager;
 
 import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.fragment.FrmUizaVideo;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.base.BaseActivity;
@@ -45,7 +47,7 @@ public class PlayerActivity extends BaseActivity {
 
     @Override
     protected boolean setFullScreen() {
-        return false;
+        return true;
     }
 
     @Override
@@ -81,11 +83,13 @@ public class PlayerActivity extends BaseActivity {
                 LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
                     @Override
                     public void doAfter(int mls) {
-                        LScreenUtil.hideNavBar(getWindow().getDecorView());
+                        UizaScreenUtil.hideNavBar(getWindow().getDecorView());
+                        //UizaScreenUtil.hideStatusBar(activity); //why it not work?
                     }
                 });
             } else {
                 fragmentTransaction.show(frmInfoVideo);
+                //UizaScreenUtil.showStatusBar(activity); ////why it not work?
             }
             fragmentTransaction.commit();
         }
