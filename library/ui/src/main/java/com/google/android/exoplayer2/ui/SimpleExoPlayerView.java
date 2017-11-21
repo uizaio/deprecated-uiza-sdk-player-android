@@ -398,6 +398,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickFullScreen(View view) {
+                    hideAllOtherControlView();
                     setFullScreen(isFullScreen(getContext()));
                 }
 
