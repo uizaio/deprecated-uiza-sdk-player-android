@@ -1,12 +1,14 @@
 package com.google.android.exoplayer2.ui.fragment;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +59,7 @@ import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.avloading_indicator_view._lib.avi.AVLoadingIndicatorView;
 import com.google.android.exoplayer2.ui.fragment.helper.EventLogger;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.fragment.helper.TrackSelectionHelper;
@@ -159,15 +162,26 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
     }
 
     private ImageView ivCoverVideo;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private void setCoverVideo() {
         if (rootView != null && inputModel != null) {
+            //Log.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
             ivCoverVideo = new ImageView(getContext());
             ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             ivCoverVideo.setLayoutParams(layoutParams);
             UizaImageUtil.load(getContext(), inputModel.getUrlImg(), ivCoverVideo);
             rootView.addView(ivCoverVideo);
+
+            avLoadingIndicatorView = new AVLoadingIndicatorView(getContext());
+            avLoadingIndicatorView.setIndicatorColor(Color.BLACK);
+            avLoadingIndicatorView.setIndicator("BallTrianglePathIndicator");
+            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(200, 200);
+            aviLayout.setMargins(0, 0, 0, 100);
+            aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            avLoadingIndicatorView.setLayoutParams(aviLayout);
+            rootView.addView(avLoadingIndicatorView);
         }
     }
 
@@ -461,9 +475,13 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             Log.d("loitp", "STATE_IDLE");
         } else if (playbackState == Player.STATE_READY) {
             Log.d("loitp", "STATE_READY");
-            if (ivCoverVideo != null) {
+            if (rootView != null && ivCoverVideo != null && avLoadingIndicatorView != null) {
                 ivCoverVideo.setVisibility(View.GONE);
+                rootView.removeView(ivCoverVideo);
                 ivCoverVideo = null;
+                avLoadingIndicatorView.smoothToHide();
+                rootView.removeView(ivCoverVideo);
+                avLoadingIndicatorView = null;
             }
         }
         updateButtonVisibilities();
