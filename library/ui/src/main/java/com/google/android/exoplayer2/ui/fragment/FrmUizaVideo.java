@@ -1,8 +1,6 @@
 package com.google.android.exoplayer2.ui.fragment;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +60,7 @@ import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.fragment.helper.EventLogger;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.fragment.helper.TrackSelectionHelper;
+import com.google.android.exoplayer2.ui.util.UizaImageUtil;
 import com.google.android.exoplayer2.ui.util.UizaUIUtil;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
@@ -116,6 +116,8 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
 
+    private FrameLayout rootView;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -137,7 +139,7 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
-        View rootView = view.findViewById(R.id.root);
+        rootView = (FrameLayout) view.findViewById(R.id.root);
         rootView.setOnClickListener(this);
 
         debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
@@ -153,9 +155,20 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
         //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic);
         //simpleExoPlayerView.setDefaultArtwork(bm);
 
-        simpleExoPlayerView.setCoverVideo("https://kenh14cdn.com/2016/160831-star-momo-1472637904135.jpg");
-
         return view;
+    }
+
+    private ImageView ivCoverVideo;
+
+    private void setCoverVideo() {
+        if (rootView != null && inputModel != null) {
+            ivCoverVideo = new ImageView(getContext());
+            ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ivCoverVideo.setLayoutParams(layoutParams);
+            UizaImageUtil.load(getContext(), inputModel.getUrlImg(), ivCoverVideo);
+            rootView.addView(ivCoverVideo);
+        }
     }
 
     @Override
@@ -185,6 +198,7 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             //throw new IllegalArgumentException("You must init InputModel first");
             inputModel = UizaData.getInstance().getInputModel();
         }
+        setCoverVideo();
 
         //Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;
@@ -447,6 +461,10 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             Log.d("loitp", "STATE_IDLE");
         } else if (playbackState == Player.STATE_READY) {
             Log.d("loitp", "STATE_READY");
+            if (ivCoverVideo != null) {
+                ivCoverVideo.setVisibility(View.GONE);
+                ivCoverVideo = null;
+            }
         }
         updateButtonVisibilities();
     }

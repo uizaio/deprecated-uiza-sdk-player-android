@@ -1156,13 +1156,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     controller.getRootView().setVisibility(GONE);
                 }
             }*/
-            if (playbackState == Player.STATE_READY) {
+            /*if (playbackState == Player.STATE_READY) {
                 //Log.d(TAG, "onPlayerStateChanged STATE_READY");
-                if (ivCoverVideo != null) {
-                    ivCoverVideo.setVisibility(GONE);
-                    ivCoverVideo = null;
-                }
-            }
+            }*/
         }
 
         @Override
@@ -1188,19 +1184,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
             // Do nothing.
-        }
-    }
-
-    private ImageView ivCoverVideo;
-
-    public void setCoverVideo(String url) {
-        if (contentFrame != null) {
-            ivCoverVideo = new ImageView(getContext());
-            ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ivCoverVideo.setLayoutParams(layoutParams);
-            UizaImageUtil.load(getContext(), url, ivCoverVideo);
-            contentFrame.addView(ivCoverVideo);
         }
     }
 }

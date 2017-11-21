@@ -37,7 +37,8 @@ public class PlayerActivity extends BaseActivity {
         Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
         if (frmUizaVideo != null) {
             if (frmUizaVideo instanceof FrmUizaVideo) {
-                ((FrmUizaVideo) frmUizaVideo).setInputModel(inputModel, true);
+                //((FrmUizaVideo) frmUizaVideo).setInputModel(inputModel, true);
+                //((FrmUizaVideo) frmUizaVideo).setCoverVideo(inputModel.getUrlImg());
             }
         }*/
     }
