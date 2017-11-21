@@ -516,6 +516,24 @@ public final class SimpleExoPlayerView extends FrameLayout {
         }
     }
 
+    public void hideAllOtherControlView() {
+        if (exoHelperFrameLayout != null) {
+            if (languageView != null) {
+                exoHelperFrameLayout.removeView(languageView);
+                languageView = null;
+            }
+            if (playListView != null) {
+                exoHelperFrameLayout.removeView(playListView);
+                playListView = null;
+            }
+            if (settingView != null) {
+                exoHelperFrameLayout.removeView(settingView);
+                settingView = null;
+            }
+            resumePlayVideo();
+        }
+    }
+
     private void pausePlayVideo() {
         if (player != null) {
             player.setPlayWhenReady(false);
@@ -829,9 +847,23 @@ public final class SimpleExoPlayerView extends FrameLayout {
      *
      * @param listener The listener to be notified about visibility changes.
      */
-    public void setControllerVisibilityListener(PlaybackControlView.VisibilityListener listener) {
+    public void setControllerVisibilityListener(final PlaybackControlView.VisibilityListener listener) {
         Assertions.checkState(controller != null);
-        controller.setVisibilityListener(listener);
+        controller.setVisibilityListener(new PlaybackControlView.VisibilityListener() {
+            @Override
+            public void onVisibilityChange(int visibility) {
+                if (visibility == View.VISIBLE) {
+                    //Log.d(TAG, "VISIBLE");
+                } else if (visibility == View.GONE) {
+                    //Log.d(TAG, "GONE");
+                    hideAllOtherControlView();
+                }
+                if (listener != null) {
+                    listener.onVisibilityChange(visibility);
+                }
+            }
+        });
+        //controller.setVisibilityListener(listener);
     }
 
     /**
@@ -1089,7 +1121,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onRenderedFirstFrame() {
-            Log.d(TAG, "onRenderedFirstFrame");
+            //Log.d(TAG, "onRenderedFirstFrame");
             if (shutterView != null) {
                 shutterView.setVisibility(INVISIBLE);
             }
