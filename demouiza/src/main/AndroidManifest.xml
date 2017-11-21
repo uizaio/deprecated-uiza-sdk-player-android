@@ -242,6 +242,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.player.PlayerActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.login.LoginActivity"

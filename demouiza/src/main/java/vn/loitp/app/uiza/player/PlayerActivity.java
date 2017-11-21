@@ -66,7 +66,7 @@ public class PlayerActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
-        orientVideoDescriptionFragment(configuration.orientation);
+        //orientVideoDescriptionFragment(configuration.orientation);
     }
 
     private void orientVideoDescriptionFragment(int orientation) {
