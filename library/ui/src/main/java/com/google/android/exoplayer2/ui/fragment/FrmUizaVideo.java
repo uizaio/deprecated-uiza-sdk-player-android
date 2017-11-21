@@ -1,6 +1,8 @@
 package com.google.android.exoplayer2.ui.fragment;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -148,9 +150,10 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
         simpleExoPlayerView.requestFocus();
 
         //simpleExoPlayerView.setUseArtwork(true);
-
         //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic);
         //simpleExoPlayerView.setDefaultArtwork(bm);
+
+        simpleExoPlayerView.setCoverVideo("https://kenh14cdn.com/2016/160831-star-momo-1472637904135.jpg");
 
         return view;
     }
