@@ -248,6 +248,9 @@
             android:name="vn.loitp.app.uiza.login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="vn.loitp.app.uiza.setting.SettingActivity"
+            android:screenOrientation="portrait" />
         <!--FOR DEMO UIZA-->
 
     </application>

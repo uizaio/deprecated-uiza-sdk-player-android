@@ -49,4 +49,17 @@
         android:layout_height="@dimen/w_1"
         android:layout_marginTop="@dimen/margin_20"
         android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/tv_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_weight="1"
+        android:padding="@dimen/padding_5"
+        android:singleLine="true"
+        android:text="Setting"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/txt_20"
+        android:textStyle="bold" />
 </LinearLayout>

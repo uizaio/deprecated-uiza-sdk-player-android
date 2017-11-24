@@ -30,6 +30,9 @@ public class UizaDrawerHeader {
     @View(R.id.ll_login)
     private LinearLayout llLogin;
 
+    @View(R.id.tv_setting)
+    private TextView tvSetting;
+
     @Resolve
     private void onResolved() {
         tvName.setText("Bạn Chưa Đăng Nhập");
@@ -49,12 +52,21 @@ public class UizaDrawerHeader {
         }
     }
 
+    @Click(R.id.tv_setting)
+    private void onClickSetting() {
+        if (callback != null) {
+            callback.onClickSetting();
+        }
+    }
+
     private Callback callback;
 
     public interface Callback {
         public void onClickLogOut();
 
         public void onClickLogin();
+
+        public void onClickSetting();
     }
 
     public void setCallback(Callback callback) {
