@@ -9,7 +9,7 @@
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black_33"
+        android:background="@color/Red"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/padding_10"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@color/black_33"
+        android:background="@color/Red"
         android:orientation="vertical"
         android:visibility="invisible">
 

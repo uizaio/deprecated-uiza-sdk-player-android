@@ -116,13 +116,13 @@ public class UizaData implements UizaSubject {
     public final static int SKIN_1 = 1;
     public final static int SKIN_2 = 2;
     public final static int SKIN_3 = 3;
-    private int skinNo = SKIN_1;
+    private int mSkinNo;
 
     public int getSkinNo() {
-        return skinNo;
+        return mSkinNo;
     }
 
-    public void setSkinNo(int skinNo) {
-        this.skinNo = skinNo;
+    public void setSkinNo(int mSkinNo) {
+        this.mSkinNo = mSkinNo;
     }
 }

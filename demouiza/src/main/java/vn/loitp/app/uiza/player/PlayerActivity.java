@@ -31,17 +31,8 @@ public class PlayerActivity extends BaseActivity {
         }
         orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
 
-        UizaData.getInstance().setInputModel(inputModel);
         UizaData.getInstance().setSkinNo(UizaData.SKIN_2);
-
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
-        if (frmUizaVideo != null) {
-            if (frmUizaVideo instanceof FrmUizaVideo) {
-                //((FrmUizaVideo) frmUizaVideo).setInputModel(inputModel, true);
-                //((FrmUizaVideo) frmUizaVideo).setCoverVideo(inputModel.getUrlImg());
-            }
-        }*/
+        UizaData.getInstance().setInputModel(inputModel);
     }
 
     @Override

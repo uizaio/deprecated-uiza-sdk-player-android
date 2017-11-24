@@ -369,6 +369,7 @@ public class PlaybackControlView extends FrameLayout {
     public PlaybackControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr);
         final int skin = UizaData.getInstance().getSkinNo();
+        Log.d("loitp", ">>>skin " + skin);
         int controllerLayoutId;
         switch (skin) {
             case UizaData.SKIN_1:
