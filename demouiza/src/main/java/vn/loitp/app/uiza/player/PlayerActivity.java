@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.WindowManager;
 
-import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.fragment.FrmUizaVideo;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
@@ -16,7 +15,6 @@ import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.common.Constants;
-import vn.loitp.app.utilities.LScreenUtil;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 

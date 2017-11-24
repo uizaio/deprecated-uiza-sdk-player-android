@@ -59,8 +59,10 @@ import com.google.android.exoplayer2.ui.DebugTextViewHelper;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.ui.UizaData;
 import com.google.android.exoplayer2.ui.avloading_indicator_view._lib.avi.AVLoadingIndicatorView;
+import com.google.android.exoplayer2.ui.data.UizaData;
+import com.google.android.exoplayer2.ui.data.UizaRepositoryObserver;
+import com.google.android.exoplayer2.ui.data.UizaSubject;
 import com.google.android.exoplayer2.ui.fragment.helper.EventLogger;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.fragment.helper.TrackSelectionHelper;
@@ -84,7 +86,7 @@ import java.util.UUID;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmUizaVideo extends Fragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
+public class FrmUizaVideo extends Fragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, UizaRepositoryObserver {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -134,8 +136,16 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
     }
 
     @Override
+    public void onDestroyView() {
+        mUserDataRepository.removeObserver(this);
+        super.onDestroyView();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_frm, container, false);
+        mUserDataRepository = UizaData.getInstance();
+        mUserDataRepository.registerObserver(this);
         shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
@@ -755,5 +765,15 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
                 }
             });
         }
+    }
+
+    private UizaSubject mUserDataRepository;
+
+    @Override
+    public void onInputModelChange(InputModel inputModel) {
+        if (inputModel == null) {
+            return;
+        }
+        simpleExoPlayerView.getController().setTitle(inputModel.getTitle());
     }
 }

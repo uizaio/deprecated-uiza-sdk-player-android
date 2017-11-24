@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.exoplayer2.ui.R;
-import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 
 /**

@@ -1,4 +1,4 @@
-package com.google.android.exoplayer2.ui;
+package com.google.android.exoplayer2.ui.data;
 
 import android.os.Handler;
 
@@ -6,11 +6,36 @@ import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 import com.google.android.exoplayer2.ui.language.LanguageObject;
 import com.google.android.exoplayer2.ui.settingview.SettingObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.
  */
 
-public class UizaData {
+public class UizaData implements UizaSubject {
+    private ArrayList<UizaRepositoryObserver> mObservers;
+
+    @Override
+    public void registerObserver(UizaRepositoryObserver uizaRepositoryObserver) {
+        if (!mObservers.contains(uizaRepositoryObserver)) {
+            mObservers.add(uizaRepositoryObserver);
+        }
+    }
+
+    @Override
+    public void removeObserver(UizaRepositoryObserver uizaRepositoryObserver) {
+        if (mObservers.contains(uizaRepositoryObserver)) {
+            mObservers.remove(uizaRepositoryObserver);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (UizaRepositoryObserver observer : mObservers) {
+            observer.onInputModelChange(inputModel);
+        }
+    }
+
     private static final UizaData ourInstance = new UizaData();
 
     public static UizaData getInstance() {
@@ -18,6 +43,7 @@ public class UizaData {
     }
 
     private UizaData() {
+        mObservers = new ArrayList<>();
     }
 
     private long currentPosition;
@@ -86,6 +112,7 @@ public class UizaData {
         this.inputModel = inputModel;
         if (mCallbackInputModelChange != null) {
             mCallbackInputModelChange.onInputModelChange(this.inputModel);
+            notifyObservers();
         }
     }
 
@@ -97,5 +124,12 @@ public class UizaData {
 
     public void setCallbackInputModelChange(CallbackInputModelChange callbackInputModelChange) {
         mCallbackInputModelChange = callbackInputModelChange;
+    }
+
+    public String getInputModelTitle() {
+        if (inputModel != null && inputModel.getTitle() != null) {
+            return inputModel.getTitle();
+        }
+        return "-";
     }
 }

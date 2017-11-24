@@ -56,11 +56,11 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout.ResizeMode;
 import com.google.android.exoplayer2.ui.PlaybackControlView.ControlDispatcher;
+import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.language.LanguageView;
 import com.google.android.exoplayer2.ui.listview.PlayListView;
 import com.google.android.exoplayer2.ui.settingview.SettingObject;
 import com.google.android.exoplayer2.ui.settingview.SettingView;
-import com.google.android.exoplayer2.ui.util.UizaImageUtil;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
@@ -1186,5 +1186,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
         public void onTimelineChanged(Timeline timeline, Object manifest) {
             // Do nothing.
         }
+    }
+
+    public PlaybackControlView getController() {
+        return controller;
     }
 }

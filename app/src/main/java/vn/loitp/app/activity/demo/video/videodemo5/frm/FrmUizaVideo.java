@@ -1,7 +1,6 @@
 package vn.loitp.app.activity.demo.video.videodemo5.frm;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,7 +50,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.DebugTextViewHelper;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
@@ -65,7 +64,6 @@ import java.util.UUID;
 
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
-import vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.utilities.LLog;

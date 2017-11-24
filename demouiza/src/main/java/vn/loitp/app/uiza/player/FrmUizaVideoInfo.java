@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.exoplayer2.ui.UizaData;
+import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 
 import java.util.ArrayList;
@@ -51,7 +51,6 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaData.CallbackI
 
     @Override
     public void onInputModelChange(InputModel inputModel) {
-        //LLog.d(TAG, "onInputModelChange " + LSApplication.getInstance().getGson().toJson(inputModel));
         if (inputModel == null) {
             return;
         }
