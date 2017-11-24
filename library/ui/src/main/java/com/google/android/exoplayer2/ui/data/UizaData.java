@@ -112,4 +112,17 @@ public class UizaData implements UizaSubject {
         this.inputModel = inputModel;
         notifyObservers();
     }
+
+    public final static int SKIN_1 = 1;
+    public final static int SKIN_2 = 2;
+    public final static int SKIN_3 = 3;
+    private int skinNo = SKIN_1;
+
+    public int getSkinNo() {
+        return skinNo;
+    }
+
+    public void setSkinNo(int skinNo) {
+        this.skinNo = skinNo;
+    }
 }

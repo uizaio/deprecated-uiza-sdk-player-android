@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -367,7 +368,22 @@ public class PlaybackControlView extends FrameLayout {
 
     public PlaybackControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr);
-        int controllerLayoutId = R.layout.exo_playback_control_view;
+        final int skin = UizaData.getInstance().getSkinNo();
+        int controllerLayoutId;
+        switch (skin) {
+            case UizaData.SKIN_1:
+                controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
+                break;
+            case UizaData.SKIN_2:
+                controllerLayoutId = R.layout.exo_playback_control_view_skin_2;
+                break;
+            case UizaData.SKIN_3:
+                controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
+                break;
+            default:
+                controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
+                break;
+        }
         rewindMs = DEFAULT_REWIND_MS;
         fastForwardMs = DEFAULT_FAST_FORWARD_MS;
         showTimeoutMs = DEFAULT_SHOW_TIMEOUT_MS;
@@ -471,8 +487,7 @@ public class PlaybackControlView extends FrameLayout {
                 R.string.exo_controls_repeat_off_description);
         repeatOneButtonContentDescription = resources.getString(
                 R.string.exo_controls_repeat_one_description);
-        repeatAllButtonContentDescription = resources.getString(
-                R.string.exo_controls_repeat_all_description);
+        repeatAllButtonContentDescription = resources.getString(R.string.exo_controls_repeat_all_description);
     }
 
     public void setTitle(String title) {

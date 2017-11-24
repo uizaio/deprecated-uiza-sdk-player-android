@@ -32,6 +32,7 @@ public class PlayerActivity extends BaseActivity {
         orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
 
         UizaData.getInstance().setInputModel(inputModel);
+        UizaData.getInstance().setSkinNo(UizaData.SKIN_2);
 
         /*FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
