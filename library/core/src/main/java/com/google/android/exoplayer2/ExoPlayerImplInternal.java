@@ -405,8 +405,7 @@ import java.io.IOException;
             return true;
         } catch (RuntimeException e) {
             Log.e(TAG, "Internal runtime error.", e);
-            eventHandler.obtainMessage(MSG_ERROR, ExoPlaybackException.createForUnexpected(e))
-                    .sendToTarget();
+            eventHandler.obtainMessage(MSG_ERROR, ExoPlaybackException.createForUnexpected(e)).sendToTarget();
             stopInternal();
             return true;
         }
