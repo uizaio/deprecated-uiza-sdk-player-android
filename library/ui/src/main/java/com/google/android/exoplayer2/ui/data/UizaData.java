@@ -112,11 +112,4 @@ public class UizaData implements UizaSubject {
         this.inputModel = inputModel;
         notifyObservers();
     }
-
-    public String getInputModelTitle() {
-        if (inputModel != null && inputModel.getTitle() != null) {
-            return inputModel.getTitle();
-        }
-        return "-";
-    }
 }
