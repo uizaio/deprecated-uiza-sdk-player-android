@@ -712,9 +712,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
         }
     }
 
-    public void setArtwork(String urlImage) {
+    /*public void setArtwork(String urlImage) {
         UizaImageUtil.load(getContext(), urlImage, artworkView);
-    }
+    }*/
 
     /**
      * Returns whether the playback controls can be shown.

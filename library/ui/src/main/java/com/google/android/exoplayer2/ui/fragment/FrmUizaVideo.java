@@ -177,10 +177,10 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             rootView.addView(ivCoverVideo);
 
             avLoadingIndicatorView = new AVLoadingIndicatorView(getContext());
-            avLoadingIndicatorView.setIndicatorColor(Color.BLACK);
-            avLoadingIndicatorView.setIndicator("BallTrianglePathIndicator");
-            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(200, 200);
-            aviLayout.setMargins(0, 0, 0, 100);
+            avLoadingIndicatorView.setIndicatorColor(Color.RED);
+            avLoadingIndicatorView.setIndicator("PacmanIndicator");
+            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(250, 250);
+            aviLayout.setMargins(0, 0, 0, 200);
             aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             avLoadingIndicatorView.setLayoutParams(aviLayout);
             rootView.addView(avLoadingIndicatorView);
