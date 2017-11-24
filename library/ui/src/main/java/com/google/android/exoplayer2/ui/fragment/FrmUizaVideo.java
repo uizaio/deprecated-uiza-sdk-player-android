@@ -124,6 +124,7 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
     private ViewGroup adOverlayViewGroup;
 
     private FrameLayout rootView;
+    private UizaSubject mUserDataRepository;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -766,8 +767,6 @@ public class FrmUizaVideo extends Fragment implements View.OnClickListener, Play
             });
         }
     }
-
-    private UizaSubject mUserDataRepository;
 
     @Override
     public void onInputModelChange(InputModel inputModel) {

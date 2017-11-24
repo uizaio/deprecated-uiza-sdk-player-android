@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.exoplayer2.ui.data.UizaData;
+import com.google.android.exoplayer2.ui.data.UizaRepositoryObserver;
+import com.google.android.exoplayer2.ui.data.UizaSubject;
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
 
 import java.util.ArrayList;
@@ -24,9 +26,10 @@ import vn.loitp.livestar.R;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmUizaVideoInfo extends BaseFragment implements UizaData.CallbackInputModelChange {
+public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObserver {
     private final String TAG = getClass().getSimpleName();
     private InfinitePlaceHolderView infinitePlaceHolderView;
+    private UizaSubject mUserDataRepository;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -39,13 +42,21 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaData.CallbackI
     }
 
     @Override
+    public void onDestroyView() {
+        mUserDataRepository.removeObserver(this);
+        super.onDestroyView();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
+
+        mUserDataRepository = UizaData.getInstance();
+        mUserDataRepository.registerObserver(this);
 
         infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
         LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
 
-        UizaData.getInstance().setCallbackInputModelChange(this);
         return view;
     }
 
@@ -57,7 +68,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaData.CallbackI
         infinitePlaceHolderView.addView(new InfoView(inputModel));
 
         List<InputModel> inputModelList = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             inputModelList.add(inputModel);
         }
         infinitePlaceHolderView.addView(new MoreList(getActivity(), inputModelList, new MoreListItem.Callback() {

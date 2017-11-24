@@ -110,20 +110,7 @@ public class UizaData implements UizaSubject {
 
     public void setInputModel(InputModel inputModel) {
         this.inputModel = inputModel;
-        if (mCallbackInputModelChange != null) {
-            mCallbackInputModelChange.onInputModelChange(this.inputModel);
-            notifyObservers();
-        }
-    }
-
-    public interface CallbackInputModelChange {
-        public void onInputModelChange(InputModel inputModel);
-    }
-
-    private CallbackInputModelChange mCallbackInputModelChange;
-
-    public void setCallbackInputModelChange(CallbackInputModelChange callbackInputModelChange) {
-        mCallbackInputModelChange = callbackInputModelChange;
+        notifyObservers();
     }
 
     public String getInputModelTitle() {
