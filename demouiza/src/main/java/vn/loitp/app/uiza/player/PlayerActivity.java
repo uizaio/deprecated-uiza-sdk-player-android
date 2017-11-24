@@ -31,7 +31,6 @@ public class PlayerActivity extends BaseActivity {
         }
         orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
 
-        UizaData.getInstance().setSkinNo(UizaData.SKIN_2);
         UizaData.getInstance().setInputModel(inputModel);
     }
 
