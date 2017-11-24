@@ -379,7 +379,7 @@ public class PlaybackControlView extends FrameLayout {
                 controllerLayoutId = R.layout.exo_playback_control_view_skin_2;
                 break;
             case UizaData.SKIN_3:
-                controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
+                controllerLayoutId = R.layout.exo_playback_control_view_skin_3;
                 break;
             default:
                 controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
