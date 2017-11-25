@@ -12,13 +12,13 @@
         android:background="@color/black_33"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/padding_10"
         android:visibility="invisible">
 
         <ImageView
             android:id="@id/exo_exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/padding_5"
             android:src="@drawable/ic_arrow_left" />
 
         <TextView
@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10"
+            android:padding="@dimen/padding_5"
             android:singleLine="true"
             android:textColor="@color/White"
             android:textSize="@dimen/txt_15"
@@ -40,7 +41,7 @@
         android:layout_gravity="bottom"
         android:background="@color/black_33"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,8 +58,8 @@
                 android:paddingLeft="@dimen/padding_5"
                 android:paddingRight="@dimen/padding_5"
                 android:textColor="@color/White"
-                android:textSize="@dimen/txt_14"
-                android:textStyle="bold" />
+                android:textSize="@dimen/txt_12"
+                android:visibility="gone" />
 
             <com.google.android.exoplayer2.ui.DefaultTimeBar
                 android:id="@id/exo_progress"
@@ -78,8 +79,7 @@
                 android:paddingLeft="@dimen/padding_5"
                 android:paddingRight="@dimen/padding_5"
                 android:textColor="@color/White"
-                android:textSize="@dimen/txt_14"
-                android:textStyle="bold" />
+                android:textSize="@dimen/txt_12" />
 
         </LinearLayout>
 
@@ -102,7 +102,8 @@
 
                 <ImageButton
                     android:id="@id/exo_play"
-                    style="@style/ExoMediaButton.Play" />
+                    style="@style/ExoMediaButton.Play"
+                    android:tint="@color/White" />
 
                 <View
                     android:layout_width="0dp"
@@ -125,8 +126,7 @@
 
                 <ImageButton
                     android:id="@id/exo_rew"
-                    style="@style/ExoMediaButton.Rewind"
-                    android:layout_gravity="center" />
+                    style="@style/ExoMediaButton.Rewind" />
 
                 <ImageButton
                     android:id="@id/exo_repeat_toggle"
