@@ -366,12 +366,14 @@ public class PlaybackControlView extends FrameLayout {
         this(context, attrs, defStyleAttr, attrs);
     }
 
+    private int mCurrentSkin;
+
     public PlaybackControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr);
-        final int skin = UizaData.getInstance().getSkinNo();
+        mCurrentSkin = UizaData.getInstance().getSkinNo();
         //Log.d("loitp", ">>>skin " + skin);
         int controllerLayoutId;
-        switch (skin) {
+        switch (mCurrentSkin) {
             case UizaData.SKIN_1:
                 controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
                 break;
@@ -897,8 +899,13 @@ public class PlaybackControlView extends FrameLayout {
 
         if (UizaData.getInstance().isLandscape()) {
             if (tvRewNum.getVisibility() != VISIBLE) {
-                tvRewNum.setVisibility(VISIBLE);
-                tvFfwdNum.setVisibility(VISIBLE);
+                if (mCurrentSkin == UizaData.SKIN_1) {
+                    tvRewNum.setVisibility(VISIBLE);
+                    tvFfwdNum.setVisibility(VISIBLE);
+                } else {
+                    tvRewNum.setVisibility(GONE);
+                    tvFfwdNum.setVisibility(GONE);
+                }
             }
         } else {
             if (tvRewNum.getVisibility() != GONE) {
@@ -941,8 +948,19 @@ public class PlaybackControlView extends FrameLayout {
         if (Util.SDK_INT >= 11) {
             setViewAlphaV11(view, enabled ? 1f : 0.3f);
             view.setVisibility(VISIBLE);
+
+            //TODO
+            //alway hide if use skin 3
+            if (mCurrentSkin == UizaData.SKIN_3) {
+                view.setVisibility(GONE);
+            }
         } else {
             view.setVisibility(enabled ? VISIBLE : INVISIBLE);
+            //TODO
+            //alway hide if use skin 3
+            if (mCurrentSkin == UizaData.SKIN_3) {
+                view.setVisibility(GONE);
+            }
         }
     }
 
