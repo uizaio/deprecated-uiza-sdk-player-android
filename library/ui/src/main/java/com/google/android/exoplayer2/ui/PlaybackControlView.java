@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -284,6 +283,7 @@ public class PlaybackControlView extends FrameLayout {
     private final ComponentListener componentListener;
 
     private LinearLayout llTop;
+    private LinearLayout llMid;
     private LinearLayout llBottom;
     //private final View previousButton;
     //private final View nextButton;
@@ -369,7 +369,7 @@ public class PlaybackControlView extends FrameLayout {
     public PlaybackControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr);
         final int skin = UizaData.getInstance().getSkinNo();
-        Log.d("loitp", ">>>skin " + skin);
+        //Log.d("loitp", ">>>skin " + skin);
         int controllerLayoutId;
         switch (skin) {
             case UizaData.SKIN_1:
@@ -416,6 +416,7 @@ public class PlaybackControlView extends FrameLayout {
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
         llTop = (LinearLayout) findViewById(R.id.ll_top);
+        llMid = (LinearLayout) findViewById(R.id.ll_mid);
         llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
 
         durationView = (TextView) findViewById(R.id.exo_duration);
@@ -1298,10 +1299,16 @@ public class PlaybackControlView extends FrameLayout {
     public void showAllViews() {
         llTop.setVisibility(VISIBLE);
         llBottom.setVisibility(VISIBLE);
+        if (llMid != null) {
+            llMid.setVisibility(VISIBLE);
+        }
     }
 
     public void hideAllViews() {
         llTop.setVisibility(INVISIBLE);
         llBottom.setVisibility(INVISIBLE);
+        if (llMid != null) {
+            llMid.setVisibility(INVISIBLE);
+        }
     }
 }
