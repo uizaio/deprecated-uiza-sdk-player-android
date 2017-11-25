@@ -57,7 +57,7 @@ public class PlayerActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
-        //orientVideoDescriptionFragment(configuration.orientation);
+        orientVideoDescriptionFragment(configuration.orientation);
     }
 
     private void orientVideoDescriptionFragment(int orientation) {
@@ -69,26 +69,24 @@ public class PlayerActivity extends BaseActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 fragmentTransaction.hide(frmInfoVideo);
-                LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
+                /*LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
                     @Override
                     public void doAfter(int mls) {
                         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
-                        //UizaScreenUtil.hideStatusBar(activity); //why it not work?
                     }
-                });
+                });*/
             } else {
                 fragmentTransaction.show(frmInfoVideo);
-                //UizaScreenUtil.showStatusBar(activity); ////why it not work?
             }
             fragmentTransaction.commit();
         }
-        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
+        /*Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
         if (frmUizaVideo != null) {
             if (frmUizaVideo instanceof FrmUizaVideo) {
                 //LLog.d(TAG, "UizaData.getInstance().getCurrentPosition() " + UizaData.getInstance().getCurrentPosition());
                 ((FrmUizaVideo) frmUizaVideo).seekTo(UizaData.getInstance().getCurrentPosition());
             }
-        }
+        }*/
     }
 
     @Override

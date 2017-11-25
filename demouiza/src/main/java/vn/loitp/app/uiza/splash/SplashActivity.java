@@ -27,7 +27,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected boolean setFullScreen() {
-        return false;
+        return true;
     }
 
     @Override
