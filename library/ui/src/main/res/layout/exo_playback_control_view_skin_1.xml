@@ -152,6 +152,7 @@
 
                 <ImageButton
                     android:id="@id/exo_question"
+                    android:visibility="gone"
                     style="@style/ExoMediaButton.Question" />
 
                 <ImageButton
