@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.R;
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

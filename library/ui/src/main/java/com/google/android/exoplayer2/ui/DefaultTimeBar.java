@@ -42,6 +42,8 @@ import com.google.android.exoplayer2.util.Util;
 import java.util.Formatter;
 import java.util.Locale;
 
+import io.uiza.sdk.ui.R;
+
 /**
  * A time bar that shows a current position, buffered position, duration and ad markers.
  */

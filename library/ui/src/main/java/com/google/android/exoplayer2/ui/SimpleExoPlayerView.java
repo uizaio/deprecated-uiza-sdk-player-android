@@ -67,6 +67,8 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.List;
 
+import io.uiza.sdk.ui.R;
+
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
  * album art during playback, and displays playback controls using a {@link PlaybackControlView}.

@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.google.android.exoplayer2.ui.R;
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 11/21/2017.

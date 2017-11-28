@@ -15,8 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.avloading_indicator_view._lib.avi.indicators.BallPulseIndicator;
+
+import io.uiza.sdk.ui.R;
 
 public class AVLoadingIndicatorView extends View {
 

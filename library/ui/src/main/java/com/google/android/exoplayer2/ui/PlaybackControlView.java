@@ -50,6 +50,8 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
 
+import io.uiza.sdk.ui.R;
+
 /**
  * A view for controlling {@link Player} instances.
  * <p>

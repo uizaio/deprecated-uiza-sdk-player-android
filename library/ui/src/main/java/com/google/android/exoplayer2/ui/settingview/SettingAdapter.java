@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.R;
-
 import java.util.List;
+
+import io.uiza.sdk.ui.R;
 
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingHolder> {
     private List<SettingObject> settingObjectList;

@@ -8,9 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
+
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

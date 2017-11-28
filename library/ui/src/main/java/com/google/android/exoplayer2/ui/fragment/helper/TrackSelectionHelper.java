@@ -36,9 +36,10 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedT
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.ui.R;
 
 import java.util.Arrays;
+
+import io.uiza.sdk.ui.R;
 
 /**
  * Helper class for displaying track selection dialogs.

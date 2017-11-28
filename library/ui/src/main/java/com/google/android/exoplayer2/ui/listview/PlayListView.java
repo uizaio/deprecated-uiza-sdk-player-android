@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

@@ -6,7 +6,8 @@ import android.graphics.Color;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.exoplayer2.ui.R;
+
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 10/7/2017.

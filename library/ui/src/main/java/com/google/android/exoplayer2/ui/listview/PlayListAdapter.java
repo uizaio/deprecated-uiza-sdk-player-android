@@ -14,10 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.util.UizaImageUtil;
 
 import java.util.List;
+
+import io.uiza.sdk.ui.R;
 
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayListHolder> {
     private List<PlayListObject> playListObjectList;

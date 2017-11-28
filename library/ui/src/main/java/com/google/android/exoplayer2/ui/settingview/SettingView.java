@@ -12,13 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 import com.google.android.exoplayer2.ui.util.UizaUIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

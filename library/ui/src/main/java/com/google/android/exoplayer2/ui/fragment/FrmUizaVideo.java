@@ -52,9 +52,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.BuildConfig;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
-import com.google.android.exoplayer2.ui.R;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.ui.avloading_indicator_view._lib.avi.AVLoadingIndicatorView;
 import com.google.android.exoplayer2.ui.data.UizaData;
@@ -78,6 +76,9 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.UUID;
+
+import io.uiza.sdk.ui.BuildConfig;
+import io.uiza.sdk.ui.R;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
