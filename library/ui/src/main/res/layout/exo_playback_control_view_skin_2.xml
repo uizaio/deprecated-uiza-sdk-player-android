@@ -61,6 +61,7 @@
 
                 <ImageButton
                     android:id="@id/exo_language"
+                    android:visibility="gone"
                     style="@style/ExoMediaButton.Language" />
 
                 <ImageButton

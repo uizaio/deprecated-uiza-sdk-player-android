@@ -156,12 +156,13 @@
 
                 <ImageButton
                     android:id="@id/exo_playlist"
-                    android:visibility="gone"
-                    style="@style/ExoMediaButton.Playlist" />
+                    style="@style/ExoMediaButton.Playlist"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@id/exo_language"
-                    style="@style/ExoMediaButton.Language" />
+                    style="@style/ExoMediaButton.Language"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@id/exo_setting"
