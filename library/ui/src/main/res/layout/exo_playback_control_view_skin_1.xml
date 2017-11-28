@@ -156,6 +156,7 @@
 
                 <ImageButton
                     android:id="@id/exo_playlist"
+                    android:visibility="gone"
                     style="@style/ExoMediaButton.Playlist" />
 
                 <ImageButton
