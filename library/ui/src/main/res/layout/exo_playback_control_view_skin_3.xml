@@ -52,8 +52,8 @@
 
                 <ImageButton
                     android:id="@id/exo_question"
-                    android:visibility="gone"
-                    style="@style/ExoMediaButton.Question" />
+                    style="@style/ExoMediaButton.Question"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@id/exo_playlist"
@@ -67,7 +67,8 @@
 
                 <ImageButton
                     android:id="@id/exo_setting"
-                    style="@style/ExoMediaButton.Setting" />
+                    style="@style/ExoMediaButton.Setting"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@id/exo_fullscreen"

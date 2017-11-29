@@ -67,6 +67,7 @@
 
                 <ImageButton
                     android:id="@id/exo_setting"
+                    android:visibility="gone"
                     style="@style/ExoMediaButton.Setting" />
 
                 <ImageButton
