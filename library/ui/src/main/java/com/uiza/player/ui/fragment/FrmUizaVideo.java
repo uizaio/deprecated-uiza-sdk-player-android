@@ -207,7 +207,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                    LLog.d(TAG, "onAnimationStart");
+                    //do nothing
                 }
 
                 @Override
@@ -215,7 +215,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                     ivCoverVideo.setVisibility(View.GONE);
                     rootView.removeView(ivCoverVideo);
                     ivCoverVideo = null;
-                    LLog.d(TAG, "onAnimationEnd");
                 }
 
                 @Override
