@@ -133,4 +133,17 @@ public class UizaData implements UizaSubject {
     public void setSkinNo(int mSkinNo) {
         this.mSkinNo = mSkinNo;
     }
+
+    private String domain;
+
+    public String getDomain() {
+        if (domain == null || domain.isEmpty()) {
+            throw new NullPointerException("Pls init domain first");
+        }
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
 }

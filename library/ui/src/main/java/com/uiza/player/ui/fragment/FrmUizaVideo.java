@@ -145,7 +145,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_frm, container, false);
-        RestClient.init(getString(R.string.uiza_URL));
+        RestClient.init(UizaData.getInstance().getDomain());
         mUserDataRepository = UizaData.getInstance();
         mUserDataRepository.registerObserver(this);
         shouldAutoPlay = true;
@@ -227,7 +227,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             rootView.removeView(ivCoverVideo);
             avLoadingIndicatorView = null;
 
-            LLog.d(TAG, "removeCoverVideo success");
+            //LLog.d(TAG, "removeCoverVideo success");
         }
     }
 

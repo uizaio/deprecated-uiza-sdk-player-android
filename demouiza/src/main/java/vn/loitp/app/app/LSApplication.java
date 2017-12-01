@@ -10,6 +10,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import com.google.gson.Gson;
+import com.uiza.player.ui.data.UizaData;
 
 import loitp.utils.util.Utils;
 import vn.loitp.livestar.BuildConfig;
@@ -29,7 +30,7 @@ public class LSApplication extends MultiDexApplication {
         }
         Utils.init(this);
         userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
-
+        UizaData.getInstance().setDomain("https://dev-api2.uiza.io/");
     }
 
     public Gson getGson() {
