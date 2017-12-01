@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import com.google.android.exoplayer2.ui.util.LLog;
 import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
 
-import org.greenrobot.eventbus.EventBus;
 
 import io.uiza.sdk.ui.R;
 import rx.Observable;
@@ -129,16 +128,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onBackPressed();
         UizaUIUtil.transActivityFadeIn(activity);
     }*/
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
 }
