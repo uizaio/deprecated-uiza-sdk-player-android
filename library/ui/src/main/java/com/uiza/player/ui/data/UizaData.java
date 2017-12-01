@@ -134,16 +134,16 @@ public class UizaData implements UizaSubject {
         this.mSkinNo = mSkinNo;
     }
 
-    private String domain;
+    private String apiEndPoint;
 
-    public String getDomain() {
-        if (domain == null || domain.isEmpty()) {
-            throw new NullPointerException("Pls init domain first");
+    public String getApiEndPoint() {
+        if (apiEndPoint == null || apiEndPoint.isEmpty()) {
+            throw new NullPointerException("Pls init apiEndPoint first");
         }
-        return domain;
+        return apiEndPoint;
     }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
+    public void init(String apiEndPoint) {
+        this.apiEndPoint = apiEndPoint;
     }
 }
