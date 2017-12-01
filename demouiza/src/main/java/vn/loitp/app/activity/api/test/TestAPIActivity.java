@@ -56,7 +56,6 @@ public class TestAPIActivity extends BaseActivity {
         return R.layout.activity_test_api;
     }
 
-
     private void testGetPoster() {
         LSService service = RestClient.createService(LSService.class);
         subscribe(service.getPoster(3), new ApiSubscriber<GetPoster[]>() {

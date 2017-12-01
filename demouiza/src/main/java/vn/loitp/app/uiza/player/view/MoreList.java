@@ -2,10 +2,8 @@ package vn.loitp.app.uiza.player.view;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.fragment.helper.InputModel;
 
 import java.util.List;
 
@@ -14,8 +12,6 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
-import vn.loitp.app.uiza.home.model.ChannelObject;
-import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 

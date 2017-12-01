@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.exoplayer2.ui.data.UizaData;
-import com.google.android.exoplayer2.ui.data.UizaRepositoryObserver;
-import com.google.android.exoplayer2.ui.data.UizaSubject;
-import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.data.UizaRepositoryObserver;
+import com.uiza.player.ui.data.UizaSubject;
+import com.uiza.player.ui.fragment.helper.InputModel;
 
 import java.util.ArrayList;
 import java.util.List;

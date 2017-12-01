@@ -28,8 +28,8 @@ import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
 import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
-import com.google.android.exoplayer2.ext.ima.ImaAdsLoader;
-import com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource;
+import com.uiza.player.ext.ima.ImaAdsLoader;
+import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
@@ -48,9 +48,9 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.fragment.DebugTextViewHelper;
-import com.google.android.exoplayer2.ui.fragment.PlaybackControlView;
-import com.google.android.exoplayer2.ui.fragment.SimpleExoPlayerView;
+import com.uiza.player.ui.fragment.DebugTextViewHelper;
+import com.uiza.player.ui.fragment.PlaybackControlView;
+import com.uiza.player.ui.fragment.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
@@ -108,7 +108,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     private long resumePosition;
 
     // Fields used only for ad playback. The ads loader is loaded via reflection.
-    private Object imaAdsLoader; // com.google.android.exoplayer2.ext.ima.ImaAdsLoader
+    private Object imaAdsLoader; // ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
 
@@ -357,14 +357,14 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
-        /*Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
+        /*Class<?> loaderClass = Class.forName("ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
             adOverlayViewGroup = new FrameLayout(getContext());
             // The demo app has a non-null overlay frame layout.
             simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
         }
-        Class<?> sourceClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
+        Class<?> sourceClass = Class.forName("ImaAdsMediaSource");
         Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);
         return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);*/
 
@@ -379,7 +379,7 @@ public class UizaVideoView extends RelativeLayout implements View.OnClickListene
     private void releaseAdsLoader() {
         if (imaAdsLoader != null) {
             try {
-                Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
+                Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
                 Method releaseMethod = loaderClass.getMethod("release");
                 releaseMethod.invoke(imaAdsLoader);
             } catch (Exception e) {

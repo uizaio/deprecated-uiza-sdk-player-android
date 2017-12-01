@@ -7,15 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.google.android.exoplayer2.ui.data.UizaData;
-import com.google.android.exoplayer2.ui.fragment.FrmUizaVideo;
-import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
-import com.google.android.exoplayer2.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.fragment.helper.InputModel;
 
 import loitp.utils.util.ToastUtils;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.common.Constants;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class PlayerActivity extends BaseActivity {

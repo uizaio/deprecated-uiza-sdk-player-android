@@ -5,7 +5,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
-import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.fragment.helper.InputModel;
 
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;

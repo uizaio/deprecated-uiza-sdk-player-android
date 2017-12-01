@@ -50,9 +50,9 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.fragment.DebugTextViewHelper;
-import com.google.android.exoplayer2.ui.fragment.PlaybackControlView;
-import com.google.android.exoplayer2.ui.fragment.SimpleExoPlayerView;
+import com.uiza.player.ui.fragment.DebugTextViewHelper;
+import com.uiza.player.ui.fragment.PlaybackControlView;
+import com.uiza.player.ui.fragment.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
@@ -115,7 +115,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
 
     // Fields used only for ad playback. The ads loader is loaded via reflection.
 
-    private Object imaAdsLoader; // com.google.android.exoplayer2.ext.ima.ImaAdsLoader
+    private Object imaAdsLoader; // ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
 
@@ -453,7 +453,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
-        Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
+        Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class)
                     .newInstance(this, adTagUri);
@@ -462,7 +462,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
             simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
         }
         Class<?> sourceClass =
-                Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
+                Class.forName("com.uiza.player.ext.ima.ImaAdsMediaSource");
         Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class,
                 DataSource.Factory.class, loaderClass, ViewGroup.class);
         return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader,
@@ -472,7 +472,7 @@ public class VideoDemo2Activity extends BaseActivity implements View.OnClickList
     private void releaseAdsLoader() {
         if (imaAdsLoader != null) {
             try {
-                Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
+                Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
                 Method releaseMethod = loaderClass.getMethod("release");
                 releaseMethod.invoke(imaAdsLoader);
             } catch (Exception e) {

@@ -2,10 +2,8 @@ package vn.loitp.app.uiza.player.view;
 
 import android.widget.TextView;
 
-import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.fragment.helper.InputModel;
 
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Animate;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;

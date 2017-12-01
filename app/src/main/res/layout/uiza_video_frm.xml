@@ -7,7 +7,7 @@
     android:background="@color/Black"
     android:keepScreenOn="true">
 
-    <com.google.android.exoplayer2.ui.fragment.SimpleExoPlayerView
+    <com.uiza.player.ui.fragment.SimpleExoPlayerView
         android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

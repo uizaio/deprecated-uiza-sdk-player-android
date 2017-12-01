@@ -1,6 +1,6 @@
 package vn.loitp.app.uiza.home.model;
 
-import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.fragment.helper.InputModel;
 
 import java.util.List;
 

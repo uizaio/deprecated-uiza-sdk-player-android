@@ -55,12 +55,12 @@
                 android:paddingLeft="@dimen/padding_10"
                 android:paddingRight="@dimen/padding_10">
 
-                <com.google.android.exoplayer2.ui.fragment.view.language.RowView
+                <com.uiza.player.ui.fragment.view.language.RowView
                     android:id="@+id/row_subtitle_on"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.google.android.exoplayer2.ui.fragment.view.language.RowView
+                <com.uiza.player.ui.fragment.view.language.RowView
                     android:id="@+id/row_subtitle_off"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -79,12 +79,12 @@
                 android:paddingLeft="@dimen/padding_10"
                 android:paddingRight="@dimen/padding_10">
 
-                <com.google.android.exoplayer2.ui.fragment.view.language.RowView
+                <com.uiza.player.ui.fragment.view.language.RowView
                     android:id="@+id/english"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.google.android.exoplayer2.ui.fragment.view.language.RowView
+                <com.uiza.player.ui.fragment.view.language.RowView
                     android:id="@+id/vietnamese"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
