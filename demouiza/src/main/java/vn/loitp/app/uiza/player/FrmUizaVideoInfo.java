@@ -60,22 +60,30 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         return view;
     }
 
+    private InfoView infoView;
+    private MoreList moreList;
+
     @Override
     public void onInputModelChange(InputModel inputModel) {
         if (inputModel == null) {
             return;
         }
-        infinitePlaceHolderView.addView(new InfoView(inputModel));
+        if (infoView != null || moreList != null) {
+            return;
+        }
+        infoView = new InfoView(inputModel);
+        infinitePlaceHolderView.addView(infoView);
 
         List<InputModel> inputModelList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             inputModelList.add(inputModel);
         }
-        infinitePlaceHolderView.addView(new MoreList(getActivity(), inputModelList, new MoreListItem.Callback() {
+        moreList = new MoreList(getActivity(), inputModelList, new MoreListItem.Callback() {
             @Override
             public void onClick(InputModel inputModel, int position) {
                 ToastUtils.showShort("onClick " + position);
             }
-        }));
+        });
+        infinitePlaceHolderView.addView(moreList);
     }
 }
