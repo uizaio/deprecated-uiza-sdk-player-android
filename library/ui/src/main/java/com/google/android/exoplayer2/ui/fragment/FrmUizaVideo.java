@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -52,9 +51,8 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.ui.PlaybackControlView;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.ui.avloading_indicator_view._lib.avi.AVLoadingIndicatorView;
+import com.google.android.exoplayer2.ui.base.BaseFragment;
+import com.google.android.exoplayer2.ui.customview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 import com.google.android.exoplayer2.ui.data.UizaData;
 import com.google.android.exoplayer2.ui.data.UizaRepositoryObserver;
 import com.google.android.exoplayer2.ui.data.UizaSubject;
@@ -84,7 +82,7 @@ import io.uiza.sdk.ui.R;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmUizaVideo extends Fragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, UizaRepositoryObserver {
+public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, UizaRepositoryObserver {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";

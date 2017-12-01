@@ -3,7 +3,6 @@ apply plugin: 'android-apt'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply from: '../constants.gradle'
-
 buildscript {
     repositories {
         mavenCentral()
@@ -103,9 +102,6 @@ dependencies {
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.2@aar'
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
     //start exo player
     compile project(modulePrefix + 'library-core')
     compile project(modulePrefix + 'library-dash')

@@ -3,8 +3,8 @@ package com.google.android.exoplayer2.ui.data;
 import android.os.Handler;
 
 import com.google.android.exoplayer2.ui.fragment.helper.InputModel;
-import com.google.android.exoplayer2.ui.language.LanguageObject;
-import com.google.android.exoplayer2.ui.settingview.SettingObject;
+import com.google.android.exoplayer2.ui.fragment.view.language.LanguageObject;
+import com.google.android.exoplayer2.ui.fragment.view.settingview.SettingObject;
 
 import java.util.ArrayList;
 

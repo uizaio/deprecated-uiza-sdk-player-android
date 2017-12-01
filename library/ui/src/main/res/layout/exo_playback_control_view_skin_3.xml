@@ -177,7 +177,7 @@
             android:textColor="@color/White"
             android:textSize="@dimen/txt_12" />
 
-        <com.google.android.exoplayer2.ui.DefaultTimeBar
+        <com.google.android.exoplayer2.ui.fragment.DefaultTimeBar
             android:id="@id/exo_progress"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_26"
