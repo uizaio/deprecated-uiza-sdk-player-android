@@ -66,6 +66,9 @@ public class InputModel implements Serializable {
     }
 
     public Uri getUri() {
+        if (uri == null) {
+            return null;
+        }
         return Uri.parse(uri);
     }
 

@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +54,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
-import com.google.gson.Gson;
 import com.uiza.player.core.restclient.RestClient;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.service.UizaService;
@@ -183,6 +181,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private void setCoverVideo() {
         if (rootView != null && inputModel != null) {
             //Log.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
+            if (ivCoverVideo != null || avLoadingIndicatorView != null) {
+                return;
+            }
             ivCoverVideo = new ImageView(getContext());
             ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -198,6 +199,36 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             avLoadingIndicatorView.setLayoutParams(aviLayout);
             rootView.addView(avLoadingIndicatorView);
+        }
+    }
+
+    private void removeCoverVideo() {
+        if (rootView != null && ivCoverVideo != null && avLoadingIndicatorView != null) {
+            UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    LLog.d(TAG, "onAnimationStart");
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    ivCoverVideo.setVisibility(View.GONE);
+                    rootView.removeView(ivCoverVideo);
+                    ivCoverVideo = null;
+                    LLog.d(TAG, "onAnimationEnd");
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                    //do nothing
+                }
+            });
+
+            avLoadingIndicatorView.smoothToHide();
+            rootView.removeView(ivCoverVideo);
+            avLoadingIndicatorView = null;
+
+            LLog.d(TAG, "removeCoverVideo success");
         }
     }
 
@@ -229,6 +260,11 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             inputModel = UizaData.getInstance().getInputModel();
         }
         setCoverVideo();
+        if (inputModel.getUri() == null) {
+            LLog.d(TAG, "inputModel.getUri() == null -> return");
+            getLinkPlay();
+            return;
+        }
 
         //Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;
@@ -285,7 +321,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             debugViewHelper.start();*/
         }
         String action = inputModel.getAction();
-        getLinkPlay();
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
@@ -484,37 +519,15 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         //TODO onPlayerStateChanged
         if (playbackState == Player.STATE_ENDED) {
-            Log.d("loitp", "STATE_ENDED");
+            LLog.d(TAG, "STATE_ENDED");
             showControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
-            Log.d("loitp", "STATE_BUFFERING");
+            LLog.d(TAG, "STATE_BUFFERING");
         } else if (playbackState == Player.STATE_IDLE) {
-            Log.d("loitp", "STATE_IDLE");
+            LLog.d(TAG, "STATE_IDLE");
         } else if (playbackState == Player.STATE_READY) {
-            Log.d("loitp", "STATE_READY");
-            if (rootView != null && ivCoverVideo != null && avLoadingIndicatorView != null) {
-                UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        //do nothing
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        ivCoverVideo.setVisibility(View.GONE);
-                        rootView.removeView(ivCoverVideo);
-                        ivCoverVideo = null;
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                        //do nothing
-                    }
-                });
-                avLoadingIndicatorView.smoothToHide();
-                rootView.removeView(ivCoverVideo);
-                avLoadingIndicatorView = null;
-            }
+            LLog.d(TAG, "STATE_READY");
+            removeCoverVideo();
         }
         updateButtonVisibilities();
     }
@@ -774,10 +787,12 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onInputModelChange(InputModel inputModel) {
+        LLog.d(TAG, "onInputModelChange");
         if (inputModel == null) {
             return;
         }
         simpleExoPlayerView.getController().setTitle(inputModel.getTitle());
+        initializePlayer();
     }
 
     private void getLinkPlay() {
@@ -785,8 +800,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         subscribe(service.getLinkPlay("72"), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
-                Gson gson = new Gson();
-                LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                //Gson gson = new Gson();
+                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
+                //UizaData.getInstance().setLinkPlay("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
             }
 
             @Override

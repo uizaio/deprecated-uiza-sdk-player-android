@@ -113,6 +113,14 @@ public class UizaData implements UizaSubject {
         notifyObservers();
     }
 
+    public void setLinkPlay(String linkPlay) {
+        if (inputModel == null) {
+            throw new NullPointerException("inputModel cannot be null, pls init it first");
+        }
+        inputModel.setUri(linkPlay);
+        notifyObservers();
+    }
+
     public final static int SKIN_1 = 1;
     public final static int SKIN_2 = 2;
     public final static int SKIN_3 = 3;
