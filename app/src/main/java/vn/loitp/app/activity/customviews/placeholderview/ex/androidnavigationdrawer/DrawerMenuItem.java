@@ -4,13 +4,13 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Position;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.livestar.R;
+import vn.loitp.utils.util.ToastUtils;
 
 /**
  * Created by janisharali on 19/08/16.

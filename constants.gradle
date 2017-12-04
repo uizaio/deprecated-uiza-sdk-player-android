@@ -17,11 +17,11 @@ project.ext {
     // However, please note that the core media playback functionality provided
     // by the library requires API level 16 or greater.
     minSdkVersion = 15 //original 9
-    compileSdkVersion = 26
-    targetSdkVersion = 21
-    buildToolsVersion = '26.0.0'
+    compileSdkVersion = 25
+    targetSdkVersion = 25
+    buildToolsVersion = '25'
     testSupportLibraryVersion = '0.5'
-    supportLibraryVersion = '26.0.0'
+    supportLibraryVersion = '25.4.0'
     dexmakerVersion = '1.2'
     mockitoVersion = '1.9.5'
     releaseVersion = 'r2.5.3'

@@ -62,13 +62,13 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.UUID;
 
-import loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.EventLogger;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.TrackSelectionHelper;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
+import vn.loitp.utils.util.ToastUtils;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
