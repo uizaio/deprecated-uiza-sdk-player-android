@@ -215,7 +215,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private static final int SURFACE_TYPE_NONE = 0;
     private static final int SURFACE_TYPE_SURFACE_VIEW = 1;
     private static final int SURFACE_TYPE_TEXTURE_VIEW = 2;
-
     private final AspectRatioFrameLayout contentFrame;
     private final View shutterView;
     private final View surfaceView;

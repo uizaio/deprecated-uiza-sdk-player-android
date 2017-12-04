@@ -13,14 +13,15 @@ import com.uiza.player.ui.fragment.helper.InputModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.utils.util.ToastUtils;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
-import vn.loitp.app.base.BaseFragment;
+
 import vn.loitp.app.uiza.player.view.InfoView;
 import vn.loitp.app.uiza.player.view.MoreList;
 import vn.loitp.app.uiza.player.view.MoreListItem;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.

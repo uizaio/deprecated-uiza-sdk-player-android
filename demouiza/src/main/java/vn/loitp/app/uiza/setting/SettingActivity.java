@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 
 import com.uiza.player.ui.data.UizaData;
 
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.livestar.R;
 
 public class SettingActivity extends BaseActivity {

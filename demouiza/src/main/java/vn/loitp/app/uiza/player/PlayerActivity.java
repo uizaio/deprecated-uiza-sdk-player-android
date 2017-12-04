@@ -11,7 +11,7 @@ import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.fragment.helper.InputModel;
 
 import vn.loitp.utils.util.ToastUtils;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.livestar.R;
 

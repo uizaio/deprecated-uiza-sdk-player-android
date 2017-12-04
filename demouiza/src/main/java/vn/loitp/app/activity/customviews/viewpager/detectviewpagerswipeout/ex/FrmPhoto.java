@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import vn.loitp.app.base.BaseFragment;
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.livestar.R;
 
 /**

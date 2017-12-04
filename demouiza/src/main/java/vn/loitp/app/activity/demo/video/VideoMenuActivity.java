@@ -11,7 +11,7 @@ import vn.loitp.app.activity.demo.video.videodemo3.lib.model.UriSample;
 import vn.loitp.app.activity.demo.video.videodemo4.VideoDemo4Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.UizaVideoMenuActivity;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;

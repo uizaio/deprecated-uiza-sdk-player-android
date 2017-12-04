@@ -43,10 +43,10 @@ import com.google.gson.GsonBuilder;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 
-import vn.loitp.app.activity.animation.overscroll._lib.overscroll.IOverScrollDecor;
-import vn.loitp.app.activity.animation.overscroll._lib.overscroll.IOverScrollUpdateListener;
-import vn.loitp.app.activity.animation.overscroll._lib.overscroll.OverScrollDecoratorHelper;
 import vn.loitp.livestar.R;
+import vn.loitp.views.overscroll.lib.overscroll.IOverScrollDecor;
+import vn.loitp.views.overscroll.lib.overscroll.IOverScrollUpdateListener;
+import vn.loitp.views.overscroll.lib.overscroll.OverScrollDecoratorHelper;
 
 /**
  * File created on 11/3/2016.

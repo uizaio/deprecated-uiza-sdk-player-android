@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.app.utilities.LImageUtil;
 import vn.loitp.flickr.model.photosetgetlist.Photoset;
 import vn.loitp.flickr.model.photosetgetphotos.Photo;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.View;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

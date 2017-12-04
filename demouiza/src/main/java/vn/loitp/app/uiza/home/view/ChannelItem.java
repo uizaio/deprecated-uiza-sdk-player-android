@@ -6,18 +6,17 @@ import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.uiza.player.ui.fragment.helper.InputModel;
-
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.Animation;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Animate;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.app.utilities.LAnimationUtil;
 import vn.loitp.app.utilities.LImageUtil;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
+import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Animate;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.View;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

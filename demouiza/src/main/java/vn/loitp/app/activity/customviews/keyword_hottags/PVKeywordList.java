@@ -3,14 +3,14 @@ package vn.loitp.app.activity.customviews.keyword_hottags;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
 
-import vn.loitp.app.activity.customviews.keyword_hottags._lib.keyword.AutoLabelUI;
-import vn.loitp.app.activity.customviews.keyword_hottags._lib.keyword.AutoLabelUISettings;
-import vn.loitp.app.activity.customviews.keyword_hottags._lib.keyword.Label;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.NonReusable;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
 import vn.loitp.livestar.R;
+import vn.loitp.views.hottagkeywords.lib.AutoLabelUI;
+import vn.loitp.views.hottagkeywords.lib.AutoLabelUISettings;
+import vn.loitp.views.hottagkeywords.lib.Label;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.View;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

@@ -14,7 +14,7 @@ import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideo;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LScreenUtil;

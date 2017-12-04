@@ -68,7 +68,7 @@ import java.util.UUID;
 import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.EventLogger;
 import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.TrackSelectionHelper;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 

@@ -13,8 +13,6 @@ import com.uiza.player.ui.fragment.helper.InputModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
-import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
@@ -24,7 +22,9 @@ import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
 import vn.loitp.app.uiza.player.PlayerActivity;
 import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.

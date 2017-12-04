@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 //import com.google.android.gms.plus.PlusOneButton;
 
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.livestar.R;
 
 public class GooglePlusButtonActivity extends BaseActivity {

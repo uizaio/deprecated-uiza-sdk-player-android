@@ -8,11 +8,11 @@ import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.ExpandablePlaceHolderView;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
-import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.ExpandablePlaceHolderView;
+import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 public class AndroidExpandableNewsFreedActivity extends BaseActivity {
     private ExpandablePlaceHolderView mExpandableView;

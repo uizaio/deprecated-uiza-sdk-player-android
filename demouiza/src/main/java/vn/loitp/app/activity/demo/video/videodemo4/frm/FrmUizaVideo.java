@@ -61,10 +61,10 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.UUID;
 
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.livestar.R;
 
@@ -121,7 +121,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_video_frm, container, false);
+        View view = inflater.inflate(R.layout.frm_uiza_video, container, false);
         shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);

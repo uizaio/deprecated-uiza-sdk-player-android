@@ -4,13 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.View;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ChildPosition;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ParentPosition;
 import vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.app.app.LSApplication;
@@ -18,6 +11,12 @@ import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.View;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.expand.ChildPosition;
+import vn.loitp.views.placeholderview.lib.placeholderview.annotations.expand.ParentPosition;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

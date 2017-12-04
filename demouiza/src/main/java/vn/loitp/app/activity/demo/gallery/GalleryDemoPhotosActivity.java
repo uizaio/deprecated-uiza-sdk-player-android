@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
-import vn.loitp.app.activity.customviews.progress_loadingview.avloading_indicator_view._lib.avi.AVLoadingIndicatorView;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.rxandroid.ApiSubscriber;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
@@ -21,6 +19,8 @@ import vn.loitp.flickr.model.photosetgetphotos.WrapperPhotosetGetPhotos;
 import vn.loitp.flickr.service.FlickrService;
 import vn.loitp.livestar.R;
 import vn.loitp.restclient.RestClient;
+import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 public class GalleryDemoPhotosActivity extends BaseActivity {
     private AVLoadingIndicatorView avi;

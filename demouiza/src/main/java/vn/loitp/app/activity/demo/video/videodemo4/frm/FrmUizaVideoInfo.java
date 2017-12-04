@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import vn.loitp.app.base.BaseFragment;
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.livestar.R;
 
 /**

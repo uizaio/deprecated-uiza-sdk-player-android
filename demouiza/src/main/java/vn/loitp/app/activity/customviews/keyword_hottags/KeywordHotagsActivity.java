@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import vn.loitp.utils.util.ToastUtils;
-import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
+import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 
 public class KeywordHotagsActivity extends BaseActivity {
     private InfinitePlaceHolderView placeHolderView;

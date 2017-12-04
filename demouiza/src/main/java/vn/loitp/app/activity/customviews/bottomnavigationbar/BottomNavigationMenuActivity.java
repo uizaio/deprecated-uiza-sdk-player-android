@@ -5,8 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import vn.loitp.app.activity.customviews.bottomnavigationbar.bottombar.BottomBarActivity;
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
@@ -18,9 +17,9 @@ public class BottomNavigationMenuActivity extends BaseActivity {
         findViewById(R.id.bt_bottom_bar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, BottomBarActivity.class);
+                /*Intent intent = new Intent(activity, BottomBarActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LUIUtil.transActivityFadeIn(activity);*/
             }
         });
     }

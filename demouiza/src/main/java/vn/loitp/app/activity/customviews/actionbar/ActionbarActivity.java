@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import vn.loitp.app.activity.customviews.actionbar._lib.LActionBar;
-import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LStoreUtil;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.livestar.R;
 import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.actionbar.lib.LActionBar;
 
 public class ActionbarActivity extends BaseActivity {
 

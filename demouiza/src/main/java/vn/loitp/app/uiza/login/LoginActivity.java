@@ -3,7 +3,7 @@ package vn.loitp.app.uiza.login;
 import android.app.Activity;
 import android.os.Bundle;
 
-import vn.loitp.app.base.BaseActivity;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.livestar.R;
 
 public class LoginActivity extends BaseActivity {
