@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.uiza.demo"
+    package="com.uiza.moduledemo"
     android:versionCode="2503"
     android:versionName="2.5.3">
 

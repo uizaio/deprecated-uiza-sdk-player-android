@@ -23,7 +23,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
-import com.uiza.demo.BuildConfig;
+import com.uiza.moduledemo.BuildConfig;
 
 public class DemoApplication extends Application {
 

@@ -13,7 +13,7 @@ import com.uiza.player.ui.fragment.helper.InputModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import loitp.utils.util.ToastUtils;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.uiza.player.view.InfoView;

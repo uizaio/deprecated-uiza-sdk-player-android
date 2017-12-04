@@ -42,7 +42,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSource;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
 import com.google.gson.Gson;
-import com.uiza.demo.R;
+import com.uiza.moduledemo.R;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -3,7 +3,7 @@ package vn.loitp.app.activity.demo.video.videodemo5;
 import android.app.Activity;
 import android.os.Bundle;
 
-import loitp.utils.util.ToastUtils;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.ExpandablePlaceHolderView;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.app.activity.demo.video.videodemo5.model.WrapperUiza;

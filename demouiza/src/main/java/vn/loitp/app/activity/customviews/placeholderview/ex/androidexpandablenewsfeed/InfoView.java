@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import loitp.utils.util.ToastUtils;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Click;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Resolve;

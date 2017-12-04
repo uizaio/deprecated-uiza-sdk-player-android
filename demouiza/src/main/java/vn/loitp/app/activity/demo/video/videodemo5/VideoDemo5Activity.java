@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.uiza.player.ui.data.UizaData;
 
-import loitp.utils.util.ToastUtils;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideo;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;

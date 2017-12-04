@@ -68,6 +68,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.uiza.moduledemo.R;
 import com.uiza.player.ui.fragment.DebugTextViewHelper;
 import com.uiza.player.ui.fragment.PlaybackControlView;
 import com.uiza.player.ui.fragment.SimpleExoPlayerView;
@@ -76,7 +77,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import com.google.gson.Gson;
-import com.uiza.demo.R;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

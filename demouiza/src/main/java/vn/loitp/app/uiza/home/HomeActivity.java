@@ -12,7 +12,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import loitp.utils.util.ToastUtils;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.uiza.data.HomeData;

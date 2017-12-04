@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import loitp.utils.util.ToastUtils;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.customviews.bottomnavigationbar.bottombar.lib.LBottomBar;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LStoreUtil;
