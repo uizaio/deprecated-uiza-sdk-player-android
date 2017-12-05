@@ -17,6 +17,7 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -27,6 +28,9 @@ import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
 import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
+import com.google.android.exoplayer2.source.MergingMediaSource;
+import com.google.android.exoplayer2.source.SingleSampleMediaSource;
+import com.google.android.exoplayer2.util.MimeTypes;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -267,6 +271,16 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (haveResumePosition) {
             player.seekTo(resumeWindow, resumePosition);
         }
+
+        /*SingleSampleMediaSource subtitleSource = new SingleSampleMediaSource(Uri.parse("https://www.iandevlin.com/html5test/webvtt/upc-video-subtitles-en.vtt")
+                , mediaDataSourceFactory
+                //, Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, null, Format.NO_VALUE, Format.NO_VALUE, "en", null)
+                , Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en")
+                , C.TIME_UNSET);
+        mediaSources[1] = subtitleSource;
+
+        mediaSource = new MergingMediaSource(mediaSources);*/
+
         player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
         updateButtonVisibilities();
