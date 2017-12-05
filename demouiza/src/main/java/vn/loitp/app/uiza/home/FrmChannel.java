@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.FrmUizaVideo;
+import com.uiza.player.ui.player.UizaPlayerActivity;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
@@ -122,9 +124,10 @@ public class FrmChannel extends BaseFragment {
 
     private void onClickVideo(InputModel inputModel, int position) {
         //LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
-        //Intent intent = new Intent(getActivity(), PlayerActivity.class);
-        Intent intent = new Intent(getActivity(), com.uiza.player.ui.player.PlayerActivity.class);
-        intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
+        //Intent intent = new Intent(getActivity(), com.uiza.player.ui.player.PlayerActivity.class);
+        Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+        //intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
+        UizaData.getInstance().setInputModel(inputModel);
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
     }
@@ -158,7 +161,6 @@ public class FrmChannel extends BaseFragment {
         //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
 
         //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
-        inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
     }
 }
