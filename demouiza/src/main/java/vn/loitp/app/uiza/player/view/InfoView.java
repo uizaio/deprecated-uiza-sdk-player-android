@@ -2,7 +2,7 @@ package vn.loitp.app.uiza.player.view;
 
 import android.widget.TextView;
 
-import com.uiza.player.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.views.helper.InputModel;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;

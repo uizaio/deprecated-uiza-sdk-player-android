@@ -175,7 +175,7 @@
             android:textColor="@color/White"
             android:textSize="@dimen/txt_12" />
 
-        <com.uiza.player.ui.fragment.DefaultTimeBar
+        <com.uiza.player.ui.views.DefaultTimeBar
             android:id="@id/exo_progress"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_26"

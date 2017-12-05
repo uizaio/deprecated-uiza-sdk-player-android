@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.views.helper.InputModel;
 
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.core.base.BaseActivity;
@@ -21,7 +21,7 @@ public class PlayerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
+        inputModel = (InputModel) getIntent().getSerializableExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
             ToastUtils.showShort("Error inputModel == null");
             return;

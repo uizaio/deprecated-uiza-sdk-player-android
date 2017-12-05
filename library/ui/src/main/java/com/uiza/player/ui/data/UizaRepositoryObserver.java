@@ -1,6 +1,6 @@
 package com.uiza.player.ui.data;
 
-import com.uiza.player.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.views.helper.InputModel;
 
 /**
  * Created by www.muathu@gmail.com on 11/24/2017.

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.TextView;
 
-import com.uiza.player.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.List;
 

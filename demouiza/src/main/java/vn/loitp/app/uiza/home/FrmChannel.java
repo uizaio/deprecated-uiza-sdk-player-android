@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.fragment.FrmUizaVideo;
-import com.uiza.player.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.player.FrmUizaVideo;
+import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,8 +124,9 @@ public class FrmChannel extends BaseFragment {
 
     private void onClickVideo(InputModel inputModel, int position) {
         //LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
-        Intent intent = new Intent(getActivity(), PlayerActivity.class);
-        intent.putExtra(Constants.KEY_UIZA_PLAYER, inputModel);
+        //Intent intent = new Intent(getActivity(), PlayerActivity.class);
+        Intent intent = new Intent(getActivity(), com.uiza.player.ui.player.PlayerActivity.class);
+        intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
     }

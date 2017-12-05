@@ -42,7 +42,7 @@
 
         <fragment
             android:id="@+id/uiza_video"
-            class="com.uiza.player.ui.fragment.FrmUizaVideo"
+            class="com.uiza.player.ui.player.FrmUizaVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/frm_uiza_video" />

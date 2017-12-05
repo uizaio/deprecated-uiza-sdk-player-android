@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.uiza.player.ui.fragment.AspectRatioFrameLayout
+    <com.uiza.player.ui.views.AspectRatioFrameLayout
         android:id="@id/exo_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,12 +20,12 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-        <com.uiza.player.ui.fragment.SubtitleView
+        <com.uiza.player.ui.views.SubtitleView
             android:id="@id/exo_subtitles"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.uiza.player.ui.fragment.AspectRatioFrameLayout>
+    </com.uiza.player.ui.views.AspectRatioFrameLayout>
 
     <View
         android:id="@id/exo_controller_placeholder"

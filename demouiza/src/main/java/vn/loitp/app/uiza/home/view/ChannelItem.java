@@ -5,7 +5,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
-import com.uiza.player.ui.fragment.helper.InputModel;
+import com.uiza.player.ui.views.helper.InputModel;
 import vn.loitp.app.utilities.LAnimationUtil;
 import vn.loitp.app.utilities.LImageUtil;
 import vn.loitp.livestar.R;

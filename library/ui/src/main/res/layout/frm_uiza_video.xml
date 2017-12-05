@@ -6,7 +6,7 @@
     android:background="@drawable/bkg"
     android:keepScreenOn="true">
 
-    <com.uiza.player.ui.fragment.SimpleExoPlayerView
+    <com.uiza.player.ui.views.SimpleExoPlayerView
         android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
