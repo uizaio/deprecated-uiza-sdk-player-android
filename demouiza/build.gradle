@@ -87,7 +87,10 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    /*TODO remove this core*/
     compile project(':core')
+
     compile project(':corebase')
     //compile project(':utils')
     //compile project(':uizalib')
@@ -105,7 +108,7 @@ dependencies {
     compile project(modulePrefix + 'library-smoothstreaming')
     compile project(modulePrefix + 'library-ui')
 
-    //compile project(modulePrefix + 'extension-ima')
+    compile project(modulePrefix + 'extension-ima')
 
     withExtensionsCompile project(path: modulePrefix + 'extension-ffmpeg')
     withExtensionsCompile project(path: modulePrefix + 'extension-flac')
