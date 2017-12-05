@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    compile project(':corebase')
     compile project(modulePrefix + 'library-core')
     compile 'com.android.support:support-annotations:' + supportLibraryVersion
 
