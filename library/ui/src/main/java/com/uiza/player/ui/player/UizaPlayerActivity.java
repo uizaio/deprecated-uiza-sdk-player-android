@@ -418,7 +418,7 @@ public class UizaPlayerActivity extends BaseActivity implements OnClickListener,
                 textFormat, C.TIME_UNSET);
         MediaSource mediaSourceWithText = new MergingMediaSource(mediaSource, textMediaSource);
 
-        player.prepare(mediaSource, !haveResumePosition, false);
+        player.prepare(mediaSourceWithText, !haveResumePosition, false);
         inErrorState = false;
         updateButtonVisibilities();
     }
