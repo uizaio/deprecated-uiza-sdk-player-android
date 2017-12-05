@@ -9,10 +9,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
-import com.github.mmin18.widget.RealtimeBlurView;
 
 import vn.loitp.app.utilities.LAnimationUtil;
 import vn.loitp.livestar.R;
+import vn.loitp.views.realtimeblurview.RealtimeBlurView;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
