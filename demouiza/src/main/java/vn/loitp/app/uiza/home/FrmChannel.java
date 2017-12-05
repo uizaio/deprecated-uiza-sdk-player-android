@@ -131,6 +131,7 @@ public class FrmChannel extends BaseFragment {
 
     private InputModel createInputModel(String urlImg) {
         InputModel inputModel = new InputModel();
+        inputModel.setEntityID("81");
         inputModel.setUrlImg(urlImg);
         inputModel.setTitle("Spider - Man: Homecoming (2017)");
         inputModel.setTime("2015");

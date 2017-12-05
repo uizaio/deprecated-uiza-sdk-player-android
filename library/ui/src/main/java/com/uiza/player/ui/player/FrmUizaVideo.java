@@ -798,7 +798,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     private void getLinkPlay() {
         UizaService service = RestClient.createService(UizaService.class);
-        subscribe(service.getLinkPlay("72"), new ApiSubscriber<GetLinkPlay>() {
+        subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
                 //Gson gson = new Gson();

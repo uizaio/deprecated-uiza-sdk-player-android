@@ -13,6 +13,7 @@ import java.util.UUID;
  */
 
 public class InputModel implements Serializable {
+    private String entityID;
     private UUID drmSchemeUuid;
     private String drmLicenseUrl;
     private String[] keyRequestPropertiesArray;
@@ -197,5 +198,13 @@ public class InputModel implements Serializable {
 
     public void setPlaylist(List<Playlist> playlist) {
         this.playlist = playlist;
+    }
+
+    public String getEntityID() {
+        return entityID;
+    }
+
+    public void setEntityID(String entityID) {
+        this.entityID = entityID;
     }
 }
