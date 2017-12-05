@@ -15,6 +15,8 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
@@ -68,6 +70,7 @@ import com.uiza.player.rxandroid.ApiSubscriber;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
+import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.EventLogger;
@@ -110,15 +113,15 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private Handler mainHandler;
     private EventLogger eventLogger;
     private SimpleExoPlayerView simpleExoPlayerView;
-    //private LinearLayout debugRootView;
-    //private TextView debugTextView;
-    //private Button retryButton;
+    private LinearLayout debugRootView;
+    private TextView debugTextView;
+    private Button retryButton;
 
     private DataSource.Factory mediaDataSourceFactory;
     private SimpleExoPlayer player;
     private DefaultTrackSelector trackSelector;
     private TrackSelectionHelper trackSelectionHelper;
-    //private DebugTextViewHelper debugViewHelper;
+    private DebugTextViewHelper debugViewHelper;
     private boolean inErrorState;
     private TrackGroupArray lastSeenTrackGroupArray;
 
@@ -167,10 +170,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         rootView = (FrameLayout) view.findViewById(R.id.root);
         rootView.setOnClickListener(this);
 
-        /*debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
+        debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
         debugTextView = (TextView) view.findViewById(R.id.debug_text_view);
         retryButton = (Button) view.findViewById(R.id.retry_button);
-        retryButton.setOnClickListener(this);*/
+        retryButton.setOnClickListener(this);
 
         simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.player_view);
         simpleExoPlayerView.setControllerVisibilityListener(this);
@@ -241,7 +244,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onVisibilityChange(int visibility) {
-        //debugRootView.setVisibility(visibility);
+        debugRootView.setVisibility(visibility);
     }
 
     private InputModel inputModel;
@@ -324,8 +327,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
             simpleExoPlayerView.setPlayer(player);
             player.setPlayWhenReady(shouldAutoPlay);
-            /*debugViewHelper = new DebugTextViewHelper(player, debugTextView);
-            debugViewHelper.start();*/
+            debugViewHelper = new DebugTextViewHelper(player, debugTextView);
+            debugViewHelper.start();
         }
         String action = inputModel.getAction();
         Uri[] uris;
@@ -420,8 +423,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     public void releasePlayer() {
         if (player != null) {
-            /*debugViewHelper.stop();
-            debugViewHelper = null;*/
+            debugViewHelper.stop();
+            debugViewHelper = null;
             shouldAutoPlay = player.getPlayWhenReady();
             updateResumePosition();
             player.release();
@@ -629,10 +632,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     // User controls
     private void updateButtonVisibilities() {
-        /*debugRootView.removeAllViews();
+        debugRootView.removeAllViews();
 
         retryButton.setVisibility(inErrorState ? View.VISIBLE : View.GONE);
-        debugRootView.addView(retryButton);*/
+        debugRootView.addView(retryButton);
 
         if (player == null) {
             return;
@@ -664,13 +667,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 button.setText(label);
                 button.setTag(i);
                 button.setOnClickListener(this);
-                /*debugRootView.addView(button, debugRootView.getChildCount() - 1);*/
+                debugRootView.addView(button, debugRootView.getChildCount() - 1);
             }
         }
     }
 
     private void showControls() {
-        /*debugRootView.setVisibility(View.VISIBLE);*/
+        debugRootView.setVisibility(View.VISIBLE);
     }
 
     private void showToast(int messageId) {
@@ -697,14 +700,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
-        /*if (view == retryButton) {
+        if (view == retryButton) {
             initializePlayer();
         } else if (view.getParent() == debugRootView) {
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
             }
-        }*/
+        }
     }
 
     /*public void onNewIntent(Intent intent) {
