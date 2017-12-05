@@ -39,6 +39,7 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.EventListener;
@@ -57,6 +58,8 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MergingMediaSource;
+import com.google.android.exoplayer2.source.SingleSampleMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
@@ -68,6 +71,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.util.MimeTypes;
 import com.uiza.moduledemo.R;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -364,7 +368,14 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         if (haveResumePosition) {
             player.seekTo(resumeWindow, resumePosition);
         }
-        player.prepare(mediaSource, !haveResumePosition, false);
+
+        Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
+        MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse("https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt")
+                , mediaDataSourceFactory,
+                textFormat, C.TIME_UNSET);
+        MediaSource mediaSourceWithText = new MergingMediaSource(mediaSource, textMediaSource);
+
+        player.prepare(mediaSourceWithText, !haveResumePosition, false);
         inErrorState = false;
         updateButtonVisibilities();
     }
