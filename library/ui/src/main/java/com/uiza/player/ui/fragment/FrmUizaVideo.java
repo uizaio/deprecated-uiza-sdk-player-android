@@ -60,15 +60,12 @@ import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.rxandroid.ApiSubscriber;
-import com.uiza.player.ui.base.BaseFragment;
-import com.uiza.player.ui.customview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
 import com.uiza.player.ui.fragment.helper.EventLogger;
 import com.uiza.player.ui.fragment.helper.InputModel;
 import com.uiza.player.ui.fragment.helper.TrackSelectionHelper;
-import com.uiza.player.ui.util.LLog;
 import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
@@ -81,6 +78,9 @@ import java.util.UUID;
 
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
