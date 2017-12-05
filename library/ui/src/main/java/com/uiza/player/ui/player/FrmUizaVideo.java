@@ -1,6 +1,7 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -76,6 +77,7 @@ import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -489,14 +491,15 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
-        /*Class<?> loaderClass = Class.forName("ImaAdsLoader");
+
+        /*Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
             adOverlayViewGroup = new FrameLayout(getContext());
             // The demo app has a non-null overlay frame layout.
             simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
         }
-        Class<?> sourceClass = Class.forName("ImaAdsMediaSource");
+        Class<?> sourceClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
         Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);
         return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);*/
 

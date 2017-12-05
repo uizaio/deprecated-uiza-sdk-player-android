@@ -505,6 +505,7 @@ public class UizaPlayerActivity extends BaseActivity implements OnClickListener,
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
+
         /*Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
         if (imaAdsLoader == null) {
             imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class).newInstance(this, adTagUri);
@@ -513,7 +514,9 @@ public class UizaPlayerActivity extends BaseActivity implements OnClickListener,
             simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
         }
         Class<?> sourceClass = Class.forName("com.uiza.player.ext.ima.ImaAdsMediaSource");
-        Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);*/
+        Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class, DataSource.Factory.class, loaderClass, ViewGroup.class);
+        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);*/
+
         ImaAdsLoader imaAdsLoader = new ImaAdsLoader(activity, adTagUri);
         adOverlayViewGroup = new FrameLayout(activity);
         simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);

@@ -38,7 +38,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }*/
-
+    /*productFlavors {
+        noExtensions {
+            dimension "extensions"
+        }
+        withExtensions {
+            dimension "extensions"
+        }
+    }*/
 }
 
 dependencies {
@@ -59,6 +66,8 @@ dependencies {
     compile project(modulePrefix + 'library-hls')
     compile project(modulePrefix + 'library-smoothstreaming')
     //compile project(modulePrefix + 'library-ui')
+
+    //compile project(modulePrefix + 'extension-ima')
 
     /*compile project(modulePrefix + 'extension-ima')
 

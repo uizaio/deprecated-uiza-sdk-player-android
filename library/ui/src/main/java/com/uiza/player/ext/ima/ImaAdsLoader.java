@@ -183,7 +183,7 @@ public final class ImaAdsLoader implements Player.EventListener, VideoAdPlayer,
     private int playingAdIndexInAdGroup;
     /**
      * If a content period has finished but IMA has not yet sent an ad event with
-     * {@link AdEvent.AdEventType#CONTENT_PAUSE_REQUESTED}, stores the value of
+     * {@link AdEventType#CONTENT_PAUSE_REQUESTED}, stores the value of
      * {@link SystemClock#elapsedRealtime()} when the content stopped playing. This can be used to
      * determine a fake, increasing content position. {@link C#TIME_UNSET} otherwise.
      */
