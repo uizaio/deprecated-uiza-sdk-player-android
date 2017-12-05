@@ -13,6 +13,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.utils.util.ToastUtils;
 
 public class PlayerActivity extends BaseActivity {
@@ -21,6 +22,9 @@ public class PlayerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LLog.d(TAG, "PlayerActivity onCreate");
+
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
             ToastUtils.showShort("Error inputModel == null");

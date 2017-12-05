@@ -13,14 +13,12 @@ import com.uiza.player.ui.views.helper.InputModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.PosterObject;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
-import vn.loitp.app.uiza.player.PlayerActivity;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.livestar.R;
