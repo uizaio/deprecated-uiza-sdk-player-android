@@ -382,9 +382,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 , textFormat
                 , C.TIME_UNSET);
         MediaSource mediaSourceWithText = new MergingMediaSource(mediaSource, textMediaSource);
-        //player.prepare(mediaSourceWithText, !haveResumePosition, false);
+        player.prepare(mediaSourceWithText, !haveResumePosition, false);
 
-        player.prepare(mediaSource, !haveResumePosition, false);
+        //player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
         updateButtonVisibilities();
     }

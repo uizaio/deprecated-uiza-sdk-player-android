@@ -124,10 +124,21 @@ public class FrmChannel extends BaseFragment {
 
     private void onClickVideo(InputModel inputModel, int position) {
         //LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(videoObject));
-        //Intent intent = new Intent(getActivity(), com.uiza.player.ui.player.PlayerActivity.class);
-        Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
-        //intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
-        UizaData.getInstance().setInputModel(inputModel);
+        int method = 1;
+        Intent intent;
+        switch (method) {
+            case 1:
+                intent = new Intent(getActivity(), com.uiza.player.ui.player.PlayerActivity.class);
+                intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
+                break;
+            case 2:
+                intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                UizaData.getInstance().setInputModel(inputModel);
+                break;
+            default:
+                return;
+        }
+
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
     }
@@ -160,6 +171,7 @@ public class FrmChannel extends BaseFragment {
 
         //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
 
+        //TODO remove block code
         //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
     }
