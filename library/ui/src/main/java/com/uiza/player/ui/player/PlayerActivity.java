@@ -23,8 +23,6 @@ public class PlayerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LLog.d(TAG, "PlayerActivity onCreate");
-
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
             ToastUtils.showShort("Error inputModel == null");
