@@ -9,6 +9,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import java.util.List;
 
 import vn.loitp.app.uiza.home.model.ChannelObject;
+import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
@@ -53,9 +54,9 @@ public class ChannelList {
                 .setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         LUIUtil.setPullLikeIOSHorizontal(mPlaceHolderView);
 
-        List<InputModel> inputModelList = mChannelObject.getInputModelList();
-        for (int i = 0; i < inputModelList.size(); i++) {
-            mPlaceHolderView.addView(new ChannelItem(mContext, mPlaceHolderView, inputModelList.get(i), i, mCallback));
+        List<Item> itemList = mChannelObject.getItemList();
+        for (int i = 0; i < itemList.size(); i++) {
+            mPlaceHolderView.addView(new ChannelItem(mContext, mPlaceHolderView, itemList.get(i), i, mCallback));
         }
     }
 }

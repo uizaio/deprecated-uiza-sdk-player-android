@@ -83,40 +83,36 @@ public class FrmChannel extends BaseFragment {
 
         //top movie
         ChannelObject channelObjectTopMovies = new ChannelObject();
-        List<InputModel> videoObjectListTop = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            InputModel inputModel = createInputModel("https://kenh14cdn.com/2016/photo-1-1472659093342.jpg");
-            videoObjectListTop.add(inputModel);
-        }
         channelObjectTopMovies.setChannelName("Top Movies");
-        channelObjectTopMovies.setInputModelList(videoObjectListTop);
+        List<Item> itemListTopMovies = getList(itemList, 6, 15);
+        channelObjectTopMovies.setItemList(itemListTopMovies);
         infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
             @Override
-            public void onClick(InputModel inputModel, int position) {
-                onClickVideo(inputModel, position);
+            public void onClick(Item item, int position) {
+                //onClickVideo(inputModel, position);
             }
         }));
 
 
         //newest movie
-        ChannelObject channelObjectNewestMovies = new ChannelObject();
+        /*ChannelObject channelObjectNewestMovies = new ChannelObject();
         List<InputModel> videoObjectListNewest = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             InputModel inputModel = createInputModel("https://kenh14cdn.com/2016/photo-4-1472659094854.jpg");
             videoObjectListNewest.add(inputModel);
         }
         channelObjectNewestMovies.setChannelName("Newest Movies");
-        channelObjectNewestMovies.setInputModelList(videoObjectListNewest);
+        channelObjectNewestMovies.setItemList(videoObjectListNewest);
         infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(InputModel inputModel, int position) {
                 onClickVideo(inputModel, position);
             }
-        }));
+        }));*/
 
 
         //dummy channel
-        for (int j = 0; j < 10; j++) {
+        /*for (int j = 0; j < 10; j++) {
             ChannelObject channelObjectDummyMovies = new ChannelObject();
             List<InputModel> videoObjectListDummy = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
@@ -124,14 +120,14 @@ public class FrmChannel extends BaseFragment {
                 videoObjectListDummy.add(inputModel);
             }
             channelObjectDummyMovies.setChannelName("Dummy Movies " + j);
-            channelObjectDummyMovies.setInputModelList(videoObjectListDummy);
+            channelObjectDummyMovies.setItemList(videoObjectListDummy);
             infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectDummyMovies, new ChannelItem.Callback() {
                 @Override
                 public void onClick(InputModel inputModel, int position) {
                     onClickVideo(inputModel, position);
                 }
             }));
-        }
+        }*/
     }
 
     private void onClickVideo(InputModel inputModel, int position) {

@@ -5,8 +5,8 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
-import com.uiza.player.ui.views.helper.InputModel;
 
+import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.livestar.R;
@@ -18,6 +18,7 @@ import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.View;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.
@@ -31,24 +32,27 @@ public class ChannelItem {
 
     @View(R.id.imageView)
     private ImageView imageView;
+    @View(R.id.avi)
+    private AVLoadingIndicatorView avi;
 
-    private InputModel mInputModel;
+    private Item item;
     private Context mContext;
     private PlaceHolderView mPlaceHolderView;
     private Callback mCallback;
     private int mPosition;
 
-    public ChannelItem(Context context, PlaceHolderView placeHolderView, InputModel inputModel, int position, Callback callback) {
+    public ChannelItem(Context context, PlaceHolderView placeHolderView, Item item, int position, Callback callback) {
         mContext = context;
         mPlaceHolderView = placeHolderView;
-        mInputModel = inputModel;
+        this.item = item;
         mPosition = position;
         mCallback = callback;
     }
 
     @Resolve
     private void onResolved() {
-        LImageUtil.load((Activity) mContext, mInputModel.getUrlImg(), imageView);
+        //LImageUtil.load((Activity) mContext, item.getThumbnail(), imageView, avi);
+        LImageUtil.load((Activity) mContext, item.getPoster(), imageView, avi);
     }
 
     /*@LongClick(R.id.imageView)
@@ -67,7 +71,7 @@ public class ChannelItem {
             @Override
             public void onEnd() {
                 if (mCallback != null) {
-                    mCallback.onClick(mInputModel, mPosition);
+                    mCallback.onClick(item, mPosition);
                 }
             }
 
@@ -84,6 +88,6 @@ public class ChannelItem {
     }
 
     public interface Callback {
-        public void onClick(InputModel inputModel, int position);
+        public void onClick(Item item, int position);
     }
 }

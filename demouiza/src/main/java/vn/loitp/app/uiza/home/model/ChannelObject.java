@@ -1,7 +1,5 @@
 package vn.loitp.app.uiza.home.model;
 
-import com.uiza.player.ui.views.helper.InputModel;
-
 import java.util.List;
 
 /**
@@ -10,7 +8,7 @@ import java.util.List;
 
 public class ChannelObject {
     private String channelName;
-    private List<InputModel> inputModelList;
+    private List<Item> itemList;
 
     public String getChannelName() {
         return channelName;
@@ -20,11 +18,11 @@ public class ChannelObject {
         this.channelName = channelName;
     }
 
-    public List<InputModel> getInputModelList() {
-        return inputModelList;
+    public List<Item> getItemList() {
+        return itemList;
     }
 
-    public void setInputModelList(List<InputModel> inputModelList) {
-        this.inputModelList = inputModelList;
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
     }
 }
