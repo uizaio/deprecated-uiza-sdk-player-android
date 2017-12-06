@@ -46,4 +46,13 @@
     <string name="storage_permission_denied">Permission to access storage was denied</string>
     <string name="sample_list_load_error">One or more sample lists failed to load</string>
     <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
+    <string name="login_form">Login Form</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="input_email_or_phone">Input Email or Phone</string>
+    <string name="input_password">Input password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="log_in">Log in</string>
 </resources>
