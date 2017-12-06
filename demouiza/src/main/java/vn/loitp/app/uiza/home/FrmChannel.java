@@ -15,15 +15,22 @@ import com.uiza.player.ui.views.helper.InputModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.loitp.app.app.LSApplication;
+import vn.loitp.app.rxandroid.ApiSubscriber;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
+import vn.loitp.app.uiza.home.model.GetAll;
 import vn.loitp.app.uiza.home.model.PosterObject;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
+import vn.loitp.app.uiza.service.UizaDemoService;
+import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.livestar.R;
+import vn.loitp.livestar.corev3.api.service.LSService;
+import vn.loitp.restclient.RestClient;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 
 /**
@@ -55,6 +62,7 @@ public class FrmChannel extends BaseFragment {
 
         LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
         setupData();
+        getData();
         return view;
     }
 
@@ -171,8 +179,24 @@ public class FrmChannel extends BaseFragment {
 
         //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
 
-        //TODO remove block code
         inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
+    }
+
+    private void getData() {
+        UizaDemoService service = RestClient.createService(UizaDemoService.class);
+        int limit = 100;
+        int page = 0;
+        subscribe(service.getAll(limit, page), new ApiSubscriber<GetAll>() {
+            @Override
+            public void onSuccess(GetAll getAll) {
+                LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                handleException(e);
+            }
+        });
     }
 }

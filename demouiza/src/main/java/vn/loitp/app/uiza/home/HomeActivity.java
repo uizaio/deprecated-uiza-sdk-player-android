@@ -43,7 +43,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected boolean setFullScreen() {
-        return true;
+        return false;
     }
 
     @Override

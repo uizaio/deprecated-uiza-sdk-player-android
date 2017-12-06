@@ -10,6 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import rx.Observable;
+import vn.loitp.app.uiza.home.model.GetAll;
 import vn.loitp.livestar.corev3.api.model.v3.followidol.FollowIdol;
 
 /**
@@ -30,4 +31,10 @@ public interface UizaDemoService {
     @FormUrlEncoded
     @POST("/public/v1/auth/login")
     Observable<Object> login(@Field("username") String username, @Field("password") String password);
+
+    @GET("/api/data/v1/metadata/list")
+    Observable<Object> getListAllMetadata(@Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/data/v1/entity/list")
+    Observable<GetAll> getAll(@Query("limit") int limit, @Query("page") int page);
 }
