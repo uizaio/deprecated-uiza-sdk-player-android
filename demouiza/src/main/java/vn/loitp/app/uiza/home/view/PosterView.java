@@ -20,6 +20,7 @@ import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.View;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 import vn.loitp.views.viewpager.parrallaxviewpager.lib.parrallaxviewpager.Mode;
 import vn.loitp.views.viewpager.parrallaxviewpager.lib.parrallaxviewpager.ParallaxViewPager;
 
@@ -34,6 +35,8 @@ public class PosterView {
     private final String TAG = getClass().getSimpleName();
     @View(R.id.viewpager)
     private ParallaxViewPager viewPager;
+    @View(R.id.avi)
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private Context mContext;
     private List<Item> mItemList;
@@ -61,8 +64,8 @@ public class PosterView {
             ImageView imageView = (ImageView) layout.findViewById(R.id.imageView);
             //imageView.setImageResource(R.drawable.iv);
             //LImageUtil.load((Activity) mContext, mItemList.get(position).getPoster(), imageView);
-            LLog.d(TAG, "SlidePagerAdapter: " + mItemList.get(position).getThumbnail());
-            LImageUtil.load((Activity) mContext, mItemList.get(position).getThumbnail(), imageView);
+            //LLog.d(TAG, "SlidePagerAdapter: " + mItemList.get(position).getThumbnail());
+            LImageUtil.load((Activity) mContext, mItemList.get(position).getThumbnail(), imageView, avLoadingIndicatorView);
 
             collection.addView(layout);
             return layout;
