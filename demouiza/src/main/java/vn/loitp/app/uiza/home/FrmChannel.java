@@ -93,23 +93,17 @@ public class FrmChannel extends BaseFragment {
             }
         }));
 
-
-        //newest movie
-        /*ChannelObject channelObjectNewestMovies = new ChannelObject();
-        List<InputModel> videoObjectListNewest = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            InputModel inputModel = createInputModel("https://kenh14cdn.com/2016/photo-4-1472659094854.jpg");
-            videoObjectListNewest.add(inputModel);
-        }
+        //top movie
+        ChannelObject channelObjectNewestMovies = new ChannelObject();
         channelObjectNewestMovies.setChannelName("Newest Movies");
-        channelObjectNewestMovies.setItemList(videoObjectListNewest);
+        List<Item> itemListNewestMovies = getList(itemList, 16, itemList.size() - 1);
+        channelObjectNewestMovies.setItemList(itemListNewestMovies);
         infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
             @Override
-            public void onClick(InputModel inputModel, int position) {
-                onClickVideo(inputModel, position);
+            public void onClick(Item item, int position) {
+                //onClickVideo(inputModel, position);
             }
-        }));*/
-
+        }));
 
         //dummy channel
         /*for (int j = 0; j < 10; j++) {

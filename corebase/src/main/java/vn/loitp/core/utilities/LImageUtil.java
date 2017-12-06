@@ -33,7 +33,7 @@ public class LImageUtil {
                 /*if (avLoadingIndicatorView != null) {
                     avLoadingIndicatorView.smoothToHide();
                 }*/
-                LLog.d(TAG, "load onException " + e.toString() + "\n_>>>>>>" + url);
+                LLog.d(TAG, "load onException " + url);
                 return false;
             }
 
