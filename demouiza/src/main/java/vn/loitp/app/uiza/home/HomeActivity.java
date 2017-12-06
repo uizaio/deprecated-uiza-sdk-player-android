@@ -142,16 +142,19 @@ public class HomeActivity extends BaseActivity {
         lActionBar.setOnClickBack(new UizaActionBar.Callback() {
             @Override
             public void onClickLeft() {
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                //TODO
+                ToastUtils.showShort("Click");
+                /*if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     updateUIDrawer();
                 } else {
                     mDrawerLayout.openDrawer(GravityCompat.START);
-                }
+                }*/
             }
 
             @Override
             public void onClickRight() {
-                ToastUtils.showShort("onClickRight");
+                //TODO
+                ToastUtils.showShort("Click");
             }
         });
         lActionBar.showMenuIcon();
