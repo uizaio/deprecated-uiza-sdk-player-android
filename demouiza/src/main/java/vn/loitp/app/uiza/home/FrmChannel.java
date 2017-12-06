@@ -73,6 +73,7 @@ public class FrmChannel extends BaseFragment {
         for (int i = startIndex; i < endIndex; i++) {
             items.add(itemList.get(i));
         }
+        LLog.d(TAG, "getList " + startIndex + " - " + endIndex + " -> " + items.size());
         return items;
     }
 
@@ -105,23 +106,16 @@ public class FrmChannel extends BaseFragment {
             }
         }));
 
-        //dummy channel
-        /*for (int j = 0; j < 10; j++) {
-            ChannelObject channelObjectDummyMovies = new ChannelObject();
-            List<InputModel> videoObjectListDummy = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                InputModel inputModel = createInputModel("https://kenh14cdn.com/2016/160831-star-momo-1472637904135.jpg");
-                videoObjectListDummy.add(inputModel);
+        //top movie
+        ChannelObject channelObjectAllMovies = new ChannelObject();
+        channelObjectAllMovies.setChannelName("All Movies");
+        channelObjectAllMovies.setItemList(itemList);
+        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectAllMovies, new ChannelItem.Callback() {
+            @Override
+            public void onClick(Item item, int position) {
+                //onClickVideo(inputModel, position);
             }
-            channelObjectDummyMovies.setChannelName("Dummy Movies " + j);
-            channelObjectDummyMovies.setItemList(videoObjectListDummy);
-            infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectDummyMovies, new ChannelItem.Callback() {
-                @Override
-                public void onClick(InputModel inputModel, int position) {
-                    onClickVideo(inputModel, position);
-                }
-            }));
-        }*/
+        }));
     }
 
     private void onClickVideo(InputModel inputModel, int position) {

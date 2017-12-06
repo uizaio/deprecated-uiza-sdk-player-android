@@ -8,6 +8,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import loitp.core.R;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -25,15 +26,28 @@ public class LImageUtil {
         Glide.with(activity).load(url).override(sizeW, sizeH).into(imageView);
     }
 
+    public static void load(Activity activity, final String[] url, ImageView imageView, final AVLoadingIndicatorView avLoadingIndicatorView) {
+        String u = null;
+        for (int i = 0; i < url.length; i++) {
+            if (url[i] != null) {
+                u = url[i];
+                break;
+            }
+        }
+        if (u != null) {
+            load(activity, u, imageView, avLoadingIndicatorView);
+        }
+    }
+
     public static void load(Activity activity, final String url, ImageView imageView, final AVLoadingIndicatorView avLoadingIndicatorView) {
         avLoadingIndicatorView.smoothToShow();
-        Glide.with(activity).load(url).listener(new RequestListener<String, GlideDrawable>() {
+        Glide.with(activity).load(url).error(R.drawable.err).listener(new RequestListener<String, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                /*if (avLoadingIndicatorView != null) {
+                if (avLoadingIndicatorView != null) {
                     avLoadingIndicatorView.smoothToHide();
-                }*/
-                LLog.d(TAG, "load onException " + url);
+                }
+                //LLog.d(TAG, "load onException " + url);
                 return false;
             }
 

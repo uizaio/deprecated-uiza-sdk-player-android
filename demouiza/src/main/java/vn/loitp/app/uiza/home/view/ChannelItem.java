@@ -52,7 +52,10 @@ public class ChannelItem {
     @Resolve
     private void onResolved() {
         //LImageUtil.load((Activity) mContext, item.getThumbnail(), imageView, avi);
-        LImageUtil.load((Activity) mContext, item.getPoster(), imageView, avi);
+        String[] urls = new String[2];
+        urls[0] = item.getPoster();
+        urls[1] = item.getThumbnail();
+        LImageUtil.load((Activity) mContext, urls, imageView, avi);
     }
 
     /*@LongClick(R.id.imageView)
