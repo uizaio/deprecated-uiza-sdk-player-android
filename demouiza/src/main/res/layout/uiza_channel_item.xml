@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:layout_width="@dimen/w_150"
+        android:layout_width="@dimen/w_130"
         android:layout_height="@dimen/w_200"
         android:layout_margin="@dimen/margin_5"
         app:cardBackgroundColor="@color/grey"
