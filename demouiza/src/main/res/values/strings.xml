@@ -55,4 +55,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="log_in">Log in</string>
+    <string name="noti">Warning</string>
+    <string name="empty_list">Empty list</string>
+    <string name="confirm">Confirm</string>
 </resources>

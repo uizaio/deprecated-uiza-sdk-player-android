@@ -20,6 +20,7 @@ import vn.loitp.app.rxandroid.ApiSubscriber;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.GetAll;
+import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.app.uiza.home.model.PosterObject;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
@@ -28,6 +29,7 @@ import vn.loitp.app.uiza.service.UizaDemoService;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.restclient.RestClient;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
@@ -64,7 +66,7 @@ public class FrmChannel extends BaseFragment {
         return view;
     }
 
-    private void setupData() {
+    private void setupData(List<Item> itemList) {
         //poster
         List<PosterObject> posterObjectList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -189,7 +191,17 @@ public class FrmChannel extends BaseFragment {
             @Override
             public void onSuccess(GetAll getAll) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
-                setupData();
+                List<Item> itemList = getAll.getItems();
+                if (itemList == null || itemList.isEmpty()) {
+                    LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+                        @Override
+                        public void onClick() {
+                            //do nothing
+                        }
+                    });
+                } else {
+                    setupData(itemList);
+                }
             }
 
             @Override
