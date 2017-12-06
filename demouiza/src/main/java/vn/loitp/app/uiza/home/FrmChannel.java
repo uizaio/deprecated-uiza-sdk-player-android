@@ -21,7 +21,6 @@ import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.GetAll;
 import vn.loitp.app.uiza.home.model.Item;
-import vn.loitp.app.uiza.home.model.PosterObject;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
@@ -66,16 +65,21 @@ public class FrmChannel extends BaseFragment {
         return view;
     }
 
+    private List<Item> getList(List<Item> itemList, int startIndex, int endIndex) {
+        if (startIndex < 0 || endIndex > itemList.size()) {
+            return null;
+        }
+        List<Item> items = new ArrayList<>();
+        for (int i = startIndex; i < endIndex; i++) {
+            items.add(itemList.get(i));
+        }
+        return items;
+    }
+
     private void setupData(List<Item> itemList) {
         //poster
-        List<PosterObject> posterObjectList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            PosterObject posterObject = new PosterObject();
-            posterObject.setUrl("https://kenh14cdn.com/2017/photo-1-1508474775876.jpg");
-            posterObjectList.add(posterObject);
-        }
-        infinitePlaceHolderView.addView(new PosterView(getActivity(), posterObjectList));
-
+        List<Item> itemListPoster = getList(itemList, 0, 5);
+        infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster));
 
         //top movie
         ChannelObject channelObjectTopMovies = new ChannelObject();

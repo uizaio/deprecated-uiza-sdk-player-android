@@ -9,9 +9,8 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import vn.loitp.app.uiza.home.model.PosterObject;
+import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.app.utilities.LImageUtil;
-import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
@@ -36,11 +35,11 @@ public class PosterView {
     private ParallaxViewPager viewPager;
 
     private Context mContext;
-    private List<PosterObject> posterObjectList;
+    private List<Item> mItemList;
 
-    public PosterView(Context context, List<PosterObject> posterObjectList) {
+    public PosterView(Context context, List<Item> itemList) {
         mContext = context;
-        this.posterObjectList = posterObjectList;
+        this.mItemList = itemList;
     }
 
     @Resolve
@@ -60,7 +59,8 @@ public class PosterView {
 
             ImageView imageView = (ImageView) layout.findViewById(R.id.imageView);
             //imageView.setImageResource(R.drawable.iv);
-            LImageUtil.load((Activity) mContext, posterObjectList.get(position).getUrl(), imageView);
+            //LImageUtil.load((Activity) mContext, mItemList.get(position).getPoster(), imageView);
+            LImageUtil.load((Activity) mContext, mItemList.get(position).getThumbnail(), imageView);
 
             collection.addView(layout);
             return layout;
@@ -73,7 +73,7 @@ public class PosterView {
 
         @Override
         public int getCount() {
-            return posterObjectList == null ? 0 : posterObjectList.size();
+            return mItemList == null ? 0 : mItemList.size();
         }
 
         @Override
