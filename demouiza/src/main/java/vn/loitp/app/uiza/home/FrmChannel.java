@@ -29,7 +29,6 @@ import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.livestar.R;
-import vn.loitp.livestar.corev3.api.service.LSService;
 import vn.loitp.restclient.RestClient;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 
@@ -61,7 +60,6 @@ public class FrmChannel extends BaseFragment {
         infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
 
         LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
-        setupData();
         getData();
         return view;
     }
@@ -191,6 +189,7 @@ public class FrmChannel extends BaseFragment {
             @Override
             public void onSuccess(GetAll getAll) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
+                setupData();
             }
 
             @Override

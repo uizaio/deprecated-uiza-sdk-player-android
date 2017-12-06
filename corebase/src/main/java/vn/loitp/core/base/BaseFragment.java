@@ -9,6 +9,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+import vn.loitp.core.utilities.LDialogUtil;
 
 /**
  * Created by khanh on 7/31/16.
@@ -47,6 +48,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void handleException(Throwable throwable) {
-
+        LDialogUtil.showOne(getActivity(), "Error", throwable.getMessage(), "Confirm", new LDialogUtil.CallbackShowOne() {
+            @Override
+            public void onClick() {
+                //do nothing
+            }
+        });
     }
 }
