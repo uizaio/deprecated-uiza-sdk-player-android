@@ -36,6 +36,8 @@
     <dimen name="margin_55">55dp</dimen>
     <dimen name="margin_75">75dp</dimen>
     <dimen name="w_250">250dp</dimen>
+    <dimen name="w_255">255dp</dimen>
+    <dimen name="w_55">55dp</dimen>
     <dimen name="label_title_size">14sp</dimen>
     <dimen name="padding_label_view">10dp</dimen>
     <dimen name="margin_between_labels">3dp</dimen>
