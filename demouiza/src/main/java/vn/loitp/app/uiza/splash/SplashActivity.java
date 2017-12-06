@@ -8,12 +8,14 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.uiza.home.HomeActivity;
 import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
+import vn.loitp.restclient.RestClient;
 
 public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RestClient.init(getString(R.string.dev_uiza_URL));
         LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {
