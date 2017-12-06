@@ -187,12 +187,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     }
 
     private ImageView ivCoverVideo;
+    private ImageView ivCoverLogo;
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private void setCoverVideo() {
         if (rootView != null && inputModel != null) {
             //Log.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
-            if (ivCoverVideo != null || avLoadingIndicatorView != null) {
+            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null) {
                 return;
             }
             ivCoverVideo = new ImageView(getContext());
@@ -201,6 +202,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             ivCoverVideo.setLayoutParams(layoutParams);
             UizaImageUtil.load(getContext(), inputModel.getUrlImg(), ivCoverVideo);
             rootView.addView(ivCoverVideo);
+
+            ivCoverLogo = new ImageView(getContext());
+            ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            FrameLayout.LayoutParams layoutParamsIvLogo = new FrameLayout.LayoutParams(150, 150);
+            ivCoverLogo.setLayoutParams(layoutParamsIvLogo);
+            ivCoverLogo.setImageResource(R.drawable.uiza_logo_512);
+            layoutParamsIvLogo.gravity = Gravity.CENTER;
+            rootView.addView(ivCoverLogo);
 
             avLoadingIndicatorView = new AVLoadingIndicatorView(getContext());
             avLoadingIndicatorView.setIndicatorColor(Color.WHITE);
@@ -214,28 +223,17 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     }
 
     private void removeCoverVideo() {
-        if (rootView != null && ivCoverVideo != null && avLoadingIndicatorView != null) {
-            UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    //do nothing
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    ivCoverVideo.setVisibility(View.GONE);
-                    rootView.removeView(ivCoverVideo);
-                    ivCoverVideo = null;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                    //do nothing
-                }
-            });
+        if (rootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null) {
+            UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, null);
 
             avLoadingIndicatorView.smoothToHide();
+            ivCoverVideo.setVisibility(View.GONE);
             rootView.removeView(ivCoverVideo);
+            ivCoverVideo = null;
+
+            ivCoverLogo.setVisibility(View.GONE);
+            rootView.removeView(ivCoverLogo);
+            ivCoverLogo = null;
             avLoadingIndicatorView = null;
 
             //LLog.d(TAG, "removeCoverVideo success");
