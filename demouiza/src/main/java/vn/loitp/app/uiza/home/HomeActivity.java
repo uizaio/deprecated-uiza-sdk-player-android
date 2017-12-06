@@ -138,8 +138,9 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setupActionBar() {
-        UizaActionBar lActionBar = (UizaActionBar) findViewById(R.id.uiza_action_bar);
-        lActionBar.setOnClickBack(new UizaActionBar.Callback() {
+        UizaActionBar uizaActionBar = (UizaActionBar) findViewById(R.id.uiza_action_bar);
+        uizaActionBar.hideTvTitle();
+        uizaActionBar.setOnClickBack(new UizaActionBar.Callback() {
             @Override
             public void onClickLeft() {
                 //TODO
@@ -157,10 +158,10 @@ public class HomeActivity extends BaseActivity {
                 ToastUtils.showShort("Click");
             }
         });
-        lActionBar.showMenuIcon();
-        lActionBar.setImageRightIcon(R.drawable.ic_search_black_48dp);
-        lActionBar.setImageLeftIcon(R.drawable.ic_menu_black_48dp);
-        lActionBar.setTvTitle("Logo");
+        uizaActionBar.showMenuIcon();
+        uizaActionBar.setImageRightIcon(R.drawable.ic_search_black_48dp);
+        uizaActionBar.setImageLeftIcon(R.drawable.ic_menu_black_48dp);
+        uizaActionBar.setTvTitle("Logo");
     }
 
     private void updateUIDrawer() {

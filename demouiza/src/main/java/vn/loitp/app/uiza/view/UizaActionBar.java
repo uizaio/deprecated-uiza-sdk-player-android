@@ -92,6 +92,10 @@ public class UizaActionBar extends RelativeLayout {
         tvTitle.setText(title);
     }
 
+    public void hideTvTitle() {
+        tvTitle.setVisibility(GONE);
+    }
+
     public void hideBackIcon() {
         ivIconLeft.setVisibility(GONE);
     }
