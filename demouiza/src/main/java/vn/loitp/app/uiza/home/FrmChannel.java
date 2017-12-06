@@ -216,7 +216,7 @@ public class FrmChannel extends BaseFragment {
                     LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
                         @Override
                         public void onClick() {
-                            //do nothing
+                            getActivity().onBackPressed();
                         }
                     });
                 } else {

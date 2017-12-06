@@ -51,7 +51,7 @@ public abstract class BaseFragment extends Fragment {
         LDialogUtil.showOne(getActivity(), "Error", throwable.getMessage(), "Confirm", new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
-                //do nothing
+                getActivity().onBackPressed();
             }
         });
     }
