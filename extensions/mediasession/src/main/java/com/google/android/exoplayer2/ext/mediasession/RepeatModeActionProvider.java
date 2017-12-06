@@ -21,6 +21,8 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 
+import io.uiza.sdk.ext.mediasession.R;
+
 /**
  * Provides a custom action for toggling repeat modes.
  */
