@@ -8,8 +8,8 @@ import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.ExpandablePlaceHolderView;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;

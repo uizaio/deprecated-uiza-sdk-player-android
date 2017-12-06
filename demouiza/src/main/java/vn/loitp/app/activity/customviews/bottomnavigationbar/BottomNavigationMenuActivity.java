@@ -1,12 +1,10 @@
 package vn.loitp.app.activity.customviews.bottomnavigationbar;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class BottomNavigationMenuActivity extends BaseActivity {

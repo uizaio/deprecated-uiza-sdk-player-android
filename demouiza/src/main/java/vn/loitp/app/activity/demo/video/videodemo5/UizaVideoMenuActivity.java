@@ -3,6 +3,9 @@ package vn.loitp.app.activity.demo.video.videodemo5;
 import android.app.Activity;
 import android.os.Bundle;
 
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LStoreUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.app.activity.demo.video.videodemo5.model.WrapperUiza;
@@ -10,9 +13,6 @@ import vn.loitp.app.activity.demo.video.videodemo5.views.MediaView;
 import vn.loitp.app.activity.demo.video.videodemo5.views.TypeView;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LLog;
-import vn.loitp.app.utilities.LStoreUtil;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.ExpandablePlaceHolderView;
 

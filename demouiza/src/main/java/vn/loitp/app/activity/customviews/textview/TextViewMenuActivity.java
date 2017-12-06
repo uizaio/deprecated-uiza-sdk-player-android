@@ -8,7 +8,7 @@ import android.view.View;
 import vn.loitp.app.activity.customviews.textview.countdown.CountDownActivity;
 import vn.loitp.app.activity.customviews.textview.scoretext.ScoreTextViewActivity;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class TextViewMenuActivity extends BaseActivity {

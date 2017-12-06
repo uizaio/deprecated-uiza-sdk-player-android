@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ScrollView;
 
 import vn.loitp.app.activity.animation.MenuAnimationActivity;
 import vn.loitp.app.activity.api.MenuAPIActivity;
 import vn.loitp.app.activity.customviews.MenuCustomViewsActivity;
 import vn.loitp.app.activity.demo.MenuDemoActivity;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class MenuActivity extends BaseActivity {

@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.rxandroid.ApiSubscriber;
-import vn.loitp.app.utilities.LLog;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.livestar.R;
 import vn.loitp.livestar.corev3.api.service.LSService;
 import vn.loitp.restclient.RestClient;

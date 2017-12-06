@@ -6,8 +6,9 @@ import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.uiza.player.ui.views.helper.InputModel;
-import vn.loitp.app.utilities.LAnimationUtil;
-import vn.loitp.app.utilities.LImageUtil;
+
+import vn.loitp.core.utilities.LAnimationUtil;
+import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;

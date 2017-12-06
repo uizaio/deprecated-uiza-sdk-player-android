@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 
-import vn.loitp.app.utilities.LAnimationUtil;
+import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.livestar.R;
 
 /**

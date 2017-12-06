@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LLog;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class ScoreTextViewActivity extends BaseActivity {

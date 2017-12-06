@@ -6,9 +6,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.utils.util.ToastUtils;
 
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 

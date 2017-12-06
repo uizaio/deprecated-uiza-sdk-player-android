@@ -8,8 +8,8 @@ import android.view.View;
 import vn.loitp.app.activity.customviews.imageview.circleimageview.CircleImageViewActivity;
 import vn.loitp.app.activity.customviews.imageview.strectchyimageview.StrectchyImageViewActivity;
 import vn.loitp.app.activity.customviews.imageview.touchimageview.TouchImageViewActivity;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class ImageViewMenuActivity extends BaseActivity {

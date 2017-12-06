@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.restclient.RestClient;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;

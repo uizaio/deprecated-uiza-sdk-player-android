@@ -11,8 +11,8 @@ import java.util.List;
 
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.rxandroid.ApiSubscriber;
-import vn.loitp.app.utilities.LLog;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.flickr.FlickrConst;
 import vn.loitp.flickr.model.photosetgetphotos.Photo;
 import vn.loitp.flickr.model.photosetgetphotos.WrapperPhotosetGetPhotos;

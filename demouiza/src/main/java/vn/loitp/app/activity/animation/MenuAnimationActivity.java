@@ -7,8 +7,8 @@ import android.view.View;
 
 import vn.loitp.app.activity.animation.animationview.AnimationViewActivity;
 import vn.loitp.app.activity.animation.overscroll.OverScrollActivity;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class MenuAnimationActivity extends BaseActivity {

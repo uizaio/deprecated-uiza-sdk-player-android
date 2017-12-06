@@ -424,4 +424,20 @@ public class LStoreUtil {
     public static String getPathOfFileNameMainComicsListHTMLCode(Context context) {
         return getFolderPath(context) + "/" + LStoreUtil.FOLDER_TRUYENTRANHTUAN + "/" + LStoreUtil.FILE_NAME_MAIN_COMICS_LIST_HTML_CODE;
     }
+
+    public static String readTxtFromAsset(Context context, String assetFileName) {
+        InputStream in;
+        String str = "";
+        try {
+            in = context.getAssets().open(assetFileName);
+            byte[] buffer = new byte[in.available()];
+            in.read(buffer);
+            in.close();
+            str = new String(buffer);
+
+        } catch (Exception e) {
+            LLog.d(TAG, "readTxtFromAsset: " + e.toString());
+        }
+        return str;
+    }
 }

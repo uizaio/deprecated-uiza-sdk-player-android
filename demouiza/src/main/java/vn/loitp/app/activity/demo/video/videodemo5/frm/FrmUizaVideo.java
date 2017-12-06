@@ -65,11 +65,11 @@ import java.net.CookiePolicy;
 import java.util.UUID;
 
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.utilities.LLog;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 /**

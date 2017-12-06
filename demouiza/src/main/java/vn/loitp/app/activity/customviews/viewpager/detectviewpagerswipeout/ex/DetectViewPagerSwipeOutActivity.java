@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LStoreUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LLog;
-import vn.loitp.app.utilities.LStoreUtil;
-import vn.loitp.app.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class DetectViewPagerSwipeOutActivity extends BaseActivity {

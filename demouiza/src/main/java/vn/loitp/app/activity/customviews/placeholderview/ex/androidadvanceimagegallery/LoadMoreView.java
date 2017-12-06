@@ -6,7 +6,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import vn.loitp.app.utilities.LLog;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;

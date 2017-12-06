@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import vn.loitp.app.utilities.LStoreUtil;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LStoreUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.actionbar.lib.LActionBar;

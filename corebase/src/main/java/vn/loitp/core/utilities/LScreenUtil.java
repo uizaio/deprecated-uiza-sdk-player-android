@@ -1,4 +1,4 @@
-package vn.loitp.app.utilities;
+package vn.loitp.core.utilities;
 
 import android.content.Context;
 import android.os.Build;

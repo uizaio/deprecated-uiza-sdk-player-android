@@ -43,8 +43,8 @@ import java.util.TimerTask;
 import vn.loitp.app.activity.demo.alarmdemoapp.model.Alarm;
 import vn.loitp.app.activity.demo.alarmdemoapp.model.DateTime;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LLog;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 
 public class AlarmNotification extends BaseActivity {

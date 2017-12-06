@@ -24,7 +24,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LLog;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class VideoDemo1Activity extends BaseActivity implements VideoRendererEventListener {

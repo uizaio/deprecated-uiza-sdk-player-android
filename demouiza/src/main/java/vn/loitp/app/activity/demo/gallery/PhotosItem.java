@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import vn.loitp.app.utilities.LImageUtil;
-import vn.loitp.flickr.model.photosetgetlist.Photoset;
+import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.flickr.model.photosetgetphotos.Photo;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;

@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import java.util.List;
 
 import vn.loitp.app.uiza.home.model.Item;
-import vn.loitp.app.utilities.LImageUtil;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LImageUtil;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Animate;
@@ -60,6 +61,7 @@ public class PosterView {
             ImageView imageView = (ImageView) layout.findViewById(R.id.imageView);
             //imageView.setImageResource(R.drawable.iv);
             //LImageUtil.load((Activity) mContext, mItemList.get(position).getPoster(), imageView);
+            LLog.d(TAG, "SlidePagerAdapter: " + mItemList.get(position).getThumbnail());
             LImageUtil.load((Activity) mContext, mItemList.get(position).getThumbnail(), imageView);
 
             collection.addView(layout);

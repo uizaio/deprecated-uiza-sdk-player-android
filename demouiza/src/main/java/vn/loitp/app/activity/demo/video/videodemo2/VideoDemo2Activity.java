@@ -69,7 +69,7 @@ import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.EventLogger;
 import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.TrackSelectionHelper;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.app.utilities.LLog;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.livestar.R;
 
 public class VideoDemo2Activity extends BaseActivity implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {

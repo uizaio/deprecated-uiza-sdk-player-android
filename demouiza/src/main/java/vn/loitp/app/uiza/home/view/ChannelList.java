@@ -9,7 +9,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import java.util.List;
 
 import vn.loitp.app.uiza.home.model.ChannelObject;
-import vn.loitp.app.utilities.LUIUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
