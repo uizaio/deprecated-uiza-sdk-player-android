@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -60,6 +62,9 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
 
         mUserDataRepository = UizaData.getInstance();
         mUserDataRepository.registerObserver(this);
+
+        ScrollView scrollView = (ScrollView) view.findViewById(R.id.scroll_view);
+        LUIUtil.setPullLikeIOSVertical(scrollView);
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
