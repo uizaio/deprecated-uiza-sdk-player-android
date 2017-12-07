@@ -31,6 +31,12 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
     private UizaSubject mUserDataRepository;
     private AVLoadingIndicatorView avLoadingIndicatorView;
     private TextView tvVideoName;
+    private TextView tvVideoTime;
+    private TextView tvVideoRate;
+    private TextView tvVideoDescription;
+    private TextView tvVideoStarring;
+    private TextView tvVideoDirector;
+    private TextView tvVideoGenres;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -59,6 +65,12 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         avLoadingIndicatorView.smoothToShow();
 
         tvVideoName = (TextView) view.findViewById(R.id.tv_video_name);
+        tvVideoTime = (TextView) view.findViewById(R.id.tv_video_time);
+        tvVideoRate = (TextView) view.findViewById(R.id.tv_video_rate);
+        tvVideoDescription = (TextView) view.findViewById(R.id.tv_video_description);
+        tvVideoStarring = (TextView) view.findViewById(R.id.tv_video_starring);
+        tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
+        tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
 
         return view;
     }
@@ -117,6 +129,17 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
     }
 
     private void updateUI() {
-        tvVideoName.setText(mItem.getName());
+        try {
+            tvVideoName.setText(mItem.getName());
+            tvVideoTime.setText(mItem.getExtendData().getPublishedDate() + "  |  " + mItem.getExtendData().getDurationMins());
+            tvVideoRate.setText("18+");
+            tvVideoDescription.setText(mItem.getDescription().isEmpty() ? mItem.getShortDescription() : mItem.getDescription());
+            //TODO
+            tvVideoStarring.setText("-");
+            tvVideoDirector.setText("-");
+            tvVideoGenres.setText("-");
+        } catch (NullPointerException e) {
+            LLog.e(TAG, "updateUI NullPointerException " + e.toString());
+        }
     }
 }
