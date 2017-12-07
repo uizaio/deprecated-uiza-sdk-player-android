@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import vn.loitp.app.common.Constants;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.uiza.home.HomeActivity;
 import vn.loitp.core.utilities.LUIUtil;
@@ -15,7 +16,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RestClient.init(getString(R.string.dev_uiza_URL), "uiza");
+        RestClient.init(getString(R.string.dev_uiza_URL), Constants.TOKEN);
         LUIUtil.setDelay(3000, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {
