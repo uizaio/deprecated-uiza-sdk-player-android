@@ -32,6 +32,7 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -41,6 +42,7 @@ public class FrmChannel extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private InfinitePlaceHolderView infinitePlaceHolderView;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class FrmChannel extends BaseFragment {
         tv.setText("Debug: " + HomeData.getInstance().getData());
 
         infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        avLoadingIndicatorView.smoothToShow();
 
         LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
         getData();
@@ -116,6 +120,8 @@ public class FrmChannel extends BaseFragment {
                 onClickVideo(item, position);
             }
         }));
+
+        avLoadingIndicatorView.smoothToHide();
     }
 
     private void onClickVideo(Item item, int position) {
