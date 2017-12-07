@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by www.muathu@gmail.com on 12/6/2017.
  */
@@ -15,7 +18,19 @@ public class LDialogUtil {
         public void onClick();
     }
 
+    private static List<AlertDialog> alertDialogList = new ArrayList<>();
+
+    private static void clearAllDialog() {
+        for (AlertDialog alertDialog : alertDialogList) {
+            if (alertDialog != null) {
+                alertDialog.cancel();
+            }
+        }
+        alertDialogList.clear();
+    }
+
     public static void showOne(Context context, String title, String message, String button, final CallbackShowOne callbackShowOne) {
+        clearAllDialog();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
@@ -30,5 +45,6 @@ public class LDialogUtil {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+        alertDialogList.add(dialog);
     }
 }

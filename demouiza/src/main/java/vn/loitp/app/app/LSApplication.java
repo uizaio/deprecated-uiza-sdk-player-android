@@ -12,6 +12,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 
+import vn.loitp.app.common.Constants;
 import vn.loitp.livestar.BuildConfig;
 import vn.loitp.utils.util.Utils;
 
@@ -30,7 +31,7 @@ public class LSApplication extends MultiDexApplication {
         }
         Utils.init(this);
         userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
-        UizaData.getInstance().init("https://dev-api.uiza.io/");
+        UizaData.getInstance().init("https://dev-api.uiza.io/", Constants.TOKEN);
     }
 
     public Gson getGson() {

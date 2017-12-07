@@ -3,6 +3,8 @@
 
     <!--TODO-->
     <string name="str_f"></string>
+    <string name="err">Error</string>
+    <string name="confirm">Confirm</string>
 
 
 </resources>

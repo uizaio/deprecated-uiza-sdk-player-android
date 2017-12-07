@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
+import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
@@ -13,6 +15,8 @@ import com.uiza.player.ui.views.helper.InputModel;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.rxandroid.ApiSubscriber;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -51,27 +55,51 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
 
     @Override
     public void onInputModelChange(InputModel inputModel) {
-        LLog.d(TAG, "onInputModelChange");
         if (inputModel == null) {
+            LLog.d(TAG, "onInputModelChange -> return");
             return;
+        }
+        this.mInputModel = inputModel;
+        if (mDetailEntity == null) {
+            getDetailEntity();
         }
     }
 
-    private void getLinkPlay() {
-        /*UizaService service = RestClient.createService(UizaService.class);
-        subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
+    private InputModel mInputModel;
+    private DetailEntity mDetailEntity;
+
+    private void getDetailEntity() {
+        LLog.d(TAG, "getDetailEntity");
+        if (mInputModel == null) {
+            LLog.d(TAG, "mInputModel == null -> return");
+            return;
+        }
+        UizaService service = RestClient.createService(UizaService.class);
+        int entity;
+        try {
+            entity = Integer.parseInt(mInputModel.getEntityID());
+        } catch (Exception e) {
+            handleException("Exception " + e.toString());
+            return;
+        }
+        LLog.d(TAG, "entity " + entity);
+        subscribe(service.getDetailEntity(entity), new ApiSubscriber<DetailEntity>() {
             @Override
-            public void onSuccess(GetLinkPlay getLinkPlay) {
+            public void onSuccess(DetailEntity detailEntity) {
                 //Gson gson = new Gson();
-                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
-                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
-                //UizaData.getInstance().setLinkPlay("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
+                //LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
+                if (detailEntity != null) {
+                    mDetailEntity = detailEntity;
+
+                } else {
+                    handleException("getDetailEntity Error");
+                }
             }
 
             @Override
             public void onFail(Throwable e) {
                 handleException(e);
             }
-        });*/
+        });
     }
 }

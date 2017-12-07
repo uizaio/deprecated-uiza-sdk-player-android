@@ -135,6 +135,7 @@ public class UizaData implements UizaSubject {
     }
 
     private String apiEndPoint;
+    private String token;
 
     public String getApiEndPoint() {
         if (apiEndPoint == null || apiEndPoint.isEmpty()) {
@@ -143,7 +144,15 @@ public class UizaData implements UizaSubject {
         return apiEndPoint;
     }
 
-    public void init(String apiEndPoint) {
+    public String getToken() {
+        if (token == null || token.isEmpty()) {
+            throw new NullPointerException("Pls init token first");
+        }
+        return token;
+    }
+
+    public void init(String apiEndPoint, String token) {
         this.apiEndPoint = apiEndPoint;
+        this.token = token;
     }
 }

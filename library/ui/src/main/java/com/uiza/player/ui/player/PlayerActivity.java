@@ -14,6 +14,7 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.utils.util.ToastUtils;
 
 public class PlayerActivity extends BaseActivity {
@@ -22,7 +23,7 @@ public class PlayerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
             ToastUtils.showShort("Error inputModel == null");

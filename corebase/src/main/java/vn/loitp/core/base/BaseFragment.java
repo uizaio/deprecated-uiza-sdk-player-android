@@ -3,6 +3,7 @@ package vn.loitp.core.base;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import loitp.core.R;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -48,10 +49,24 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void handleException(Throwable throwable) {
-        LDialogUtil.showOne(getActivity(), "Error", throwable.getMessage(), "Confirm", new LDialogUtil.CallbackShowOne() {
+        LDialogUtil.showOne(getActivity(), getString(R.string.err), throwable.getMessage(), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
                 getActivity().onBackPressed();
+            }
+        });
+    }
+
+    protected void handleException(final String msgErr) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                LDialogUtil.showOne(getActivity(), getString(R.string.err), msgErr, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+                    @Override
+                    public void onClick() {
+                        getActivity().onBackPressed();
+                    }
+                });
             }
         });
     }

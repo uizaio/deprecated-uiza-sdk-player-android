@@ -1,5 +1,5 @@
 
-package vn.loitp.app.uiza.home.model;
+package com.uiza.player.core.uiza.api.model.getdetailentity;
 
 import java.util.List;
 
@@ -31,10 +31,10 @@ public class Item {
     private String poster;
     @SerializedName("view")
     @Expose
-    private double view;
+    private int view;
     @SerializedName("status")
     @Expose
-    private double status;
+    private int status;
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
@@ -98,19 +98,19 @@ public class Item {
         this.poster = poster;
     }
 
-    public double getView() {
+    public int getView() {
         return view;
     }
 
-    public void setView(double view) {
+    public void setView(int view) {
         this.view = view;
     }
 
-    public double getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(double status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
