@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
+import com.uiza.player.core.uiza.api.model.getdetailentity.Item;
 import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
@@ -28,6 +30,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
     private final String TAG = getClass().getSimpleName();
     private UizaSubject mUserDataRepository;
     private AVLoadingIndicatorView avLoadingIndicatorView;
+    private TextView tvVideoName;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
 
+        tvVideoName = (TextView) view.findViewById(R.id.tv_video_name);
+
         return view;
     }
 
@@ -66,13 +71,13 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
             return;
         }
         this.mInputModel = inputModel;
-        if (mDetailEntity == null && !avLoadingIndicatorView.isShown()) {
+        if (mItem == null && !avLoadingIndicatorView.isShown()) {
             getDetailEntity();
         }
     }
 
     private InputModel mInputModel;
-    private DetailEntity mDetailEntity;
+    private Item mItem;
 
     private void getDetailEntity() {
         LLog.d(TAG, "getDetailEntity");
@@ -95,8 +100,8 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
                 Gson gson = new Gson();
                 LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
                 if (detailEntity != null) {
-                    mDetailEntity = detailEntity;
-
+                    mItem = detailEntity.getItem().get(0);
+                    updateUI();
                 } else {
                     handleException("getDetailEntity Error");
                 }
@@ -109,5 +114,9 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
                 handleException(e);
             }
         });
+    }
+
+    private void updateUI() {
+        tvVideoName.setText(mItem.getName());
     }
 }

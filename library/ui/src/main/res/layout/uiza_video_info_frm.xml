@@ -9,13 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_10"
-        android:paddingRight="@dimen/padding_10">
+        android:paddingBottom="@dimen/padding_30"
+        android:paddingLeft="@dimen/padding_30"
+        android:paddingRight="@dimen/padding_50"
+        android:paddingTop="@dimen/padding_50">
 
         <TextView
+            android:id="@+id/tv_video_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fuck"
             android:textColor="@color/White"
             android:textSize="@dimen/txt_25"
             android:textStyle="bold" />
