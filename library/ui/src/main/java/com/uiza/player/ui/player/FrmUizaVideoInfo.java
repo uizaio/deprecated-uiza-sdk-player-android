@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
 import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.ui.data.UizaData;
@@ -17,6 +18,7 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.rxandroid.ApiSubscriber;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -25,6 +27,7 @@ import vn.loitp.rxandroid.ApiSubscriber;
 public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObserver {
     private final String TAG = getClass().getSimpleName();
     private UizaSubject mUserDataRepository;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         mUserDataRepository = UizaData.getInstance();
         mUserDataRepository.registerObserver(this);
 
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        avLoadingIndicatorView.smoothToShow();
+
         return view;
     }
 
@@ -60,7 +66,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
             return;
         }
         this.mInputModel = inputModel;
-        if (mDetailEntity == null) {
+        if (mDetailEntity == null && !avLoadingIndicatorView.isShown()) {
             getDetailEntity();
         }
     }
@@ -86,18 +92,20 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         subscribe(service.getDetailEntity(entity), new ApiSubscriber<DetailEntity>() {
             @Override
             public void onSuccess(DetailEntity detailEntity) {
-                //Gson gson = new Gson();
-                //LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
+                Gson gson = new Gson();
+                LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
                 if (detailEntity != null) {
                     mDetailEntity = detailEntity;
 
                 } else {
                     handleException("getDetailEntity Error");
                 }
+                avLoadingIndicatorView.smoothToHide();
             }
 
             @Override
             public void onFail(Throwable e) {
+                avLoadingIndicatorView.smoothToHide();
                 handleException(e);
             }
         });
