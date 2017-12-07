@@ -89,7 +89,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     /*TODO remove this core*/
-    compile project(':core')
+    //compile project(':core')
 
     compile project(':corebase')
     //compile project(':utils')

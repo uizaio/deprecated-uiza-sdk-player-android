@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import vn.loitp.app.activity.demo.alarmdemoapp.activity.AlarmMeActivity;
-import vn.loitp.app.activity.demo.gallery.GalleryDemoSplashActivity;
 import vn.loitp.app.activity.demo.video.VideoMenuActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
@@ -28,9 +27,9 @@ public class MenuDemoActivity extends BaseActivity {
         findViewById(R.id.bt_gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, GalleryDemoSplashActivity.class);
+                /*Intent intent = new Intent(activity, GalleryDemoSplashActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LUIUtil.transActivityFadeIn(activity);*/
             }
         });
         findViewById(R.id.bt_video).setOnClickListener(new View.OnClickListener() {

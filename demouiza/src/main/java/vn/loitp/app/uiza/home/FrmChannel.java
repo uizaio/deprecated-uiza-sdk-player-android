@@ -30,7 +30,7 @@ import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
-import vn.loitp.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 
 /**

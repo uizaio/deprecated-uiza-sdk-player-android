@@ -11,7 +11,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import rx.Observable;
 import vn.loitp.app.uiza.home.model.GetAll;
-import vn.loitp.livestar.corev3.api.model.v3.followidol.FollowIdol;
 
 /**
  * @author loitp
@@ -26,7 +25,7 @@ public interface UizaDemoService {
 
     @FormUrlEncoded
     @PUT("v1/room/follow")
-    Observable<FollowIdol> followIdol(@Field("roomId") String roomId);
+    Observable<Object> followIdol(@Field("roomId") String roomId);
 
     @FormUrlEncoded
     @POST("/public/v1/auth/login")

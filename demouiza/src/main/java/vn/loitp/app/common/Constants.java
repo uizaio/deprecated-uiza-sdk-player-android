@@ -10,5 +10,5 @@ public class Constants {
     public final static String URL_IMG_LONG = "https://c2.staticflickr.com/6/5476/29412311793_8067369e64_b.jpg";
 
     public final static String KEY_UIZA = "KEY_UIZA";
-    public final static String TOKEN = "F6LdmiWRl4AqrgH4shQaSbfJ9klHeTJT";
+    public final static String TOKEN = "F6LdmiWRl4AqrgH4shQaSbfJ9klHeTJT-1512613465672";
 }
