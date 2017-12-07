@@ -11,7 +11,6 @@ import java.util.List;
 
 import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.core.utilities.LImageUtil;
-import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.livestar.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
@@ -41,9 +40,10 @@ public class PosterView {
     private Context mContext;
     private List<Item> mItemList;
 
-    public PosterView(Context context, List<Item> itemList) {
+    public PosterView(Context context, List<Item> itemList, Callback callback) {
         mContext = context;
         this.mItemList = itemList;
+        this.callback = callback;
     }
 
     @Resolve
@@ -53,6 +53,12 @@ public class PosterView {
         viewPager.setAdapter(new SlidePagerAdapter());
         //LLog.d(TAG, "size: " + posterObjectList.size());
     }
+
+    public interface Callback {
+        public void onClick(Item item, int position);
+    }
+
+    private Callback callback;
 
     private class SlidePagerAdapter extends PagerAdapter {
 
@@ -66,7 +72,14 @@ public class PosterView {
             //LImageUtil.load((Activity) mContext, mItemList.get(position).getPoster(), imageView);
             //LLog.d(TAG, "SlidePagerAdapter: " + mItemList.get(position).getThumbnail());
             LImageUtil.load((Activity) mContext, mItemList.get(position).getThumbnail(), imageView, avLoadingIndicatorView);
-
+            imageView.setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View v) {
+                    if (callback != null) {
+                        callback.onClick(mItemList.get(position), position);
+                    }
+                }
+            });
             collection.addView(layout);
             return layout;
         }

@@ -84,7 +84,12 @@ public class FrmChannel extends BaseFragment {
     private void setupData(List<Item> itemList) {
         //poster
         List<Item> itemListPoster = getList(itemList, 0, 5);
-        infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster));
+        infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
+            @Override
+            public void onClick(Item item, int position) {
+                onClickVideo(item, position);
+            }
+        }));
 
         //top movie
         ChannelObject channelObjectTopMovies = new ChannelObject();
