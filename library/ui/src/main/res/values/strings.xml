@@ -38,4 +38,7 @@
     <string name="retry">Retry</string>
     <string name="selection_disabled">Disabled</string>
     <string name="selection_default">Default</string>
+    <string name="starring">Starring:</string>
+    <string name="director">Director</string>
+    <string name="genres">Genres</string>
 </resources>

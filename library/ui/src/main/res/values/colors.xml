@@ -41,4 +41,6 @@
     <color name="alarm_details">#888888</color>
 
     <color name="default_background_label">#ff303030</color>
+    <color name="info_video_gray">#999999</color>
+    <color name="info_video_description">#0a0f20</color>
 </resources>
