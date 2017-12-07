@@ -1,7 +1,6 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -61,8 +59,6 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
-import com.google.gson.Gson;
-import com.uiza.player.core.restclient.RestClient;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.ext.ima.ImaAdsLoader;
@@ -71,17 +67,16 @@ import com.uiza.player.rxandroid.ApiSubscriber;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
+import com.uiza.player.ui.util.UizaAnimationUtil;
+import com.uiza.player.ui.util.UizaImageUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.EventLogger;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.helper.TrackSelectionHelper;
-import com.uiza.player.ui.util.UizaAnimationUtil;
-import com.uiza.player.ui.util.UizaImageUtil;
-import com.uiza.player.ui.util.UizaUIUtil;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -92,6 +87,7 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -819,8 +815,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
-                Gson gson = new Gson();
-                LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                //Gson gson = new Gson();
+                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
                 UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
                 //UizaData.getInstance().setLinkPlay("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
             }

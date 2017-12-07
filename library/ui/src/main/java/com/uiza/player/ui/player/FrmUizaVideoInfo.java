@@ -12,6 +12,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LLog;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -50,8 +51,27 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
 
     @Override
     public void onInputModelChange(InputModel inputModel) {
+        LLog.d(TAG, "onInputModelChange");
         if (inputModel == null) {
             return;
         }
+    }
+
+    private void getLinkPlay() {
+        /*UizaService service = RestClient.createService(UizaService.class);
+        subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
+            @Override
+            public void onSuccess(GetLinkPlay getLinkPlay) {
+                //Gson gson = new Gson();
+                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
+                //UizaData.getInstance().setLinkPlay("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                handleException(e);
+            }
+        });*/
     }
 }
