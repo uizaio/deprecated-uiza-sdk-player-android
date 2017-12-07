@@ -66,7 +66,7 @@ public class HomeActivity extends BaseActivity {
         uizaDrawerHeader.setCallback(new UizaDrawerHeader.Callback() {
             @Override
             public void onClickLogOut() {
-                ToastUtils.showShort("onClickLogOut");
+                ToastUtils.showShort("Click");
             }
 
             @Override
@@ -74,9 +74,11 @@ public class HomeActivity extends BaseActivity {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawers();
                 }
-                Intent intent = new Intent(activity, LoginActivity.class);
+                ToastUtils.showShort("Click");
+                //TODO
+                /*Intent intent = new Intent(activity, LoginActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LUIUtil.transActivityFadeIn(activity);*/
             }
 
             @Override
@@ -84,9 +86,11 @@ public class HomeActivity extends BaseActivity {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawers();
                 }
-                Intent intent = new Intent(activity, SettingActivity.class);
+                ToastUtils.showShort("Click");
+                //TODO
+                /*Intent intent = new Intent(activity, SettingActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LUIUtil.transActivityFadeIn(activity);*/
             }
         });
         mDrawerView.addView(uizaDrawerHeader);
