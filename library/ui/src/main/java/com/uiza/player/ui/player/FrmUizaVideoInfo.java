@@ -134,17 +134,28 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
     }
 
     private void updateUI() {
+        String empty = "Empty";
         try {
             tvVideoName.setText(mItem.getName());
-            tvVideoTime.setText(mItem.getExtendData().getPublishedDate() + "  |  " + mItem.getExtendData().getDurationMins());
-            tvVideoRate.setText("18+");
-            tvVideoDescription.setText(mItem.getDescription().isEmpty() ? mItem.getShortDescription() : mItem.getDescription());
-            //TODO
-            tvVideoStarring.setText("-");
-            tvVideoDirector.setText("-");
-            tvVideoGenres.setText("-");
         } catch (NullPointerException e) {
-            LLog.e(TAG, "updateUI NullPointerException " + e.toString());
+            tvVideoName.setText(empty);
         }
+        try {
+            tvVideoTime.setText(mItem.getExtendData().getPublishedDate() + "  |  " + mItem.getExtendData().getDurationMins());
+        } catch (NullPointerException e) {
+            tvVideoTime.setText(empty);
+        }
+
+        tvVideoRate.setText("18+");
+        try {
+            tvVideoDescription.setText(mItem.getDescription().isEmpty() ? mItem.getShortDescription().isEmpty() ? empty : mItem.getShortDescription() : mItem.getDescription());
+        } catch (NullPointerException e) {
+            tvVideoDescription.setText(empty);
+        }
+
+        //TODO
+        tvVideoStarring.setText(empty);
+        tvVideoDirector.setText(empty);
+        tvVideoGenres.setText(empty);
     }
 }
