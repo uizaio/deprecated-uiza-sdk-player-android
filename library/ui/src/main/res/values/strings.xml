@@ -9,7 +9,6 @@
     <string name="exo_controls_fullscreen_description">Fullscreen</string>
     <string name="exo_controls_pause_description">Pause</string>
     <string name="exo_controls_play_description">Play</string>
-    <string name="exo_controls_stop_description">Stop</string>
     <string name="exo_controls_rewind_description">Rewind</string>
     <string name="exo_controls_fastforward_description">Fast forward</string>
     <string name="exo_controls_repeat_off_description">Repeat none</string>
@@ -30,7 +29,6 @@
     <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
     <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
     <string name="storage_permission_denied">Permission to access storage was denied</string>
-    <string name="sample_list_load_error">One or more sample lists failed to load</string>
     <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
     <string name="video">Video</string>
     <string name="audio">Audio</string>

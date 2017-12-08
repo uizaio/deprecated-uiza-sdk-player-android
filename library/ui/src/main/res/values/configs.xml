@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="webService_URL">http://dev.livestar.vn:1010/api/</string>
-    <string name="flickr_URL">https://api.flickr.com/services/</string>
     <!--<string name="uiza_URL">https://dev-api2.uiza.io/</string>-->
 
 </resources>
