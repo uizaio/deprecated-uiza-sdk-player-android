@@ -1,6 +1,8 @@
 
 package vn.loitp.app.uiza.home.model;
 
+import vn.loitp.app.common.Constants;
+
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -91,6 +93,8 @@ public class Item {
     }
 
     public String getPoster() {
+        if (poster == null || poster == "")
+            return Constants.URL_IMG_POSTER;
         return poster;
     }
 
@@ -115,6 +119,8 @@ public class Item {
     }
 
     public String getThumbnail() {
+        if (thumbnail == null || thumbnail == "")
+            return Constants.URL_IMG_THUMBNAIL;
         return thumbnail;
     }
 
