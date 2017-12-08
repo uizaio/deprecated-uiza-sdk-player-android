@@ -32,7 +32,7 @@
             class="com.uiza.player.ui.player.FrmUizaVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/uiza_video_frm" />
+            tools:layout="@layout/uiza_video_player_frm" />
 
         <fragment
             android:id="@+id/uiza_video_info"

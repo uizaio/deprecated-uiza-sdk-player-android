@@ -377,16 +377,16 @@ public class PlaybackControlView extends FrameLayout {
         int controllerLayoutId;
         switch (mCurrentSkin) {
             case UizaData.SKIN_1:
-                controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
+                controllerLayoutId = R.layout.uiza_playback_control_view_skin_1;
                 break;
             case UizaData.SKIN_2:
-                controllerLayoutId = R.layout.exo_playback_control_view_skin_2;
+                controllerLayoutId = R.layout.uiza_playback_control_view_skin_2;
                 break;
             case UizaData.SKIN_3:
-                controllerLayoutId = R.layout.exo_playback_control_view_skin_3;
+                controllerLayoutId = R.layout.uiza_playback_control_view_skin_3;
                 break;
             default:
-                controllerLayoutId = R.layout.exo_playback_control_view_skin_1;
+                controllerLayoutId = R.layout.uiza_playback_control_view_skin_1;
                 break;
         }
         rewindMs = DEFAULT_REWIND_MS;

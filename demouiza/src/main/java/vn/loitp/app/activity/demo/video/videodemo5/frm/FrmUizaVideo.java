@@ -123,7 +123,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_video_frm, container, false);
+        View view = inflater.inflate(R.layout.uiza_video_player_frm, container, false);
         shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
