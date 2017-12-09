@@ -112,6 +112,7 @@ import vn.loitp.core.utilities.LLog;
 
     @SuppressLint("InflateParams")
     private View buildView(Context context) {
+        LLog.d(TAG, "buildView");
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.track_selection_dialog, null);
         ViewGroup root = (ViewGroup) view.findViewById(R.id.root);
@@ -155,9 +156,9 @@ import vn.loitp.core.utilities.LLog;
                 CheckedTextView trackView = (CheckedTextView) inflater.inflate(
                         trackViewLayoutId, root, false);
                 trackView.setBackgroundResource(selectableItemBackgroundResourceId);
+                LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
                 trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
-                if (trackInfo.getTrackFormatSupport(rendererIndex, groupIndex, trackIndex)
-                        == RendererCapabilities.FORMAT_HANDLED) {
+                if (trackInfo.getTrackFormatSupport(rendererIndex, groupIndex, trackIndex) == RendererCapabilities.FORMAT_HANDLED) {
                     trackView.setFocusable(true);
                     trackView.setTag(Pair.create(groupIndex, trackIndex));
                     trackView.setOnClickListener(this);
@@ -189,8 +190,7 @@ import vn.loitp.core.utilities.LLog;
         defaultView.setChecked(!isDisabled && override == null);
         for (int i = 0; i < trackViews.length; i++) {
             for (int j = 0; j < trackViews[i].length; j++) {
-                trackViews[i][j].setChecked(override != null && override.groupIndex == i
-                        && override.containsTrack(j));
+                trackViews[i][j].setChecked(override != null && override.groupIndex == i && override.containsTrack(j));
             }
         }
         if (enableRandomAdaptationView != null) {
@@ -198,8 +198,7 @@ import vn.loitp.core.utilities.LLog;
             enableRandomAdaptationView.setEnabled(enableView);
             enableRandomAdaptationView.setFocusable(enableView);
             if (enableView) {
-                enableRandomAdaptationView.setChecked(!isDisabled
-                        && override.factory instanceof RandomTrackSelection.Factory);
+                enableRandomAdaptationView.setChecked(!isDisabled && override.factory instanceof RandomTrackSelection.Factory);
             }
         }
     }
@@ -208,6 +207,7 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+        LLog.d(TAG, "onClick DialogInterface dialog");
         selector.setRendererDisabled(rendererIndex, isDisabled);
         if (override != null) {
             selector.setSelectionOverride(rendererIndex, trackGroups, override);
@@ -220,7 +220,7 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onClick(View view) {
-        LLog.d(TAG, "onClick");
+        LLog.d(TAG, "onClick View view");
         if (view == disableView) {
             isDisabled = true;
             override = null;
