@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
+import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.rxandroid.ApiSubscriber;
 import com.uiza.player.ui.data.UizaData;
@@ -40,6 +41,7 @@ public class PlayerActivity extends BaseActivity {
 
         UizaData.getInstance().setInputModel(inputModel);
 
+        getPlayerConfig();
         getLinkPlay();
         getDetailEntity();
         //getEntityInfo();
@@ -174,6 +176,29 @@ public class PlayerActivity extends BaseActivity {
             public void onSuccess(Object o) {
                 Gson gson = new Gson();
                 LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(o));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                handleException(e);
+            }
+        });
+    }
+
+    private void getPlayerConfig() {
+        LLog.d(TAG, "getPlayerConfig");
+        if (inputModel == null) {
+            LLog.d(TAG, "mInputModel == null -> return");
+            return;
+        }
+        UizaService service = RestClient.createService(UizaService.class);
+        //String id = inputModel.getEntityID();
+        String id = "108";
+        subscribe(service.getPlayerInfo(id), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
+            @Override
+            public void onSuccess(PlayerConfig playerConfig) {
+                Gson gson = new Gson();
+                LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(playerConfig));
             }
 
             @Override

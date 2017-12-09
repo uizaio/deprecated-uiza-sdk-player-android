@@ -2,6 +2,7 @@ package com.uiza.player.core.uiza.api.service;
 
 import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
+import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.core.uiza.api.model.getposter.GetPoster;
 
 import retrofit2.http.GET;
@@ -25,4 +26,7 @@ public interface UizaService {
 
     @GET("/api/data/v1/entity/detail")
     Observable<DetailEntity> getDetailEntity(@Query("id") int id);
+
+    @GET("/api/public/v1/player/info/{id}")
+    Observable<PlayerConfig> getPlayerInfo(@Path("id") String playerId);
 }
