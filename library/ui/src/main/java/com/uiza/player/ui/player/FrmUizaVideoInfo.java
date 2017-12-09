@@ -89,14 +89,19 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         }
         this.mInputModel = inputModel;
         if (mItem == null && !avLoadingIndicatorView.isShown()) {
-            getDetailEntity();
+            //getDetailEntity();
+            if (mInputModel.getDetailEntity() != null) {
+                mItem = mInputModel.getDetailEntity().getItem().get(0);
+                updateUI();
+            }
+            avLoadingIndicatorView.smoothToHide();
         }
     }
 
     private InputModel mInputModel;
     private Item mItem;
 
-    private void getDetailEntity() {
+    /*private void getDetailEntity() {
         LLog.d(TAG, "getDetailEntity");
         if (mInputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
@@ -131,7 +136,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
                 handleException(e);
             }
         });
-    }
+    }*/
 
     private void updateUI() {
         String empty = "Empty";

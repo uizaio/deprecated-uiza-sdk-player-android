@@ -124,6 +124,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         LLog.e("handleException", throwable.toString());
     }
 
+    protected void handleException(String msg) {
+        LLog.e("handleException", msg);
+    }
+
     protected abstract boolean setFullScreen();
 
     protected abstract String setTag();

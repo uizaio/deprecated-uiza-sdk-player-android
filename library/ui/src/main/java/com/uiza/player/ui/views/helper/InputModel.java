@@ -2,6 +2,8 @@ package com.uiza.player.ui.views.helper;
 
 import android.net.Uri;
 
+import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
+import com.uiza.player.core.uiza.api.model.getdetailentity.Item;
 import com.uiza.player.ui.views.model.Playlist;
 
 import java.io.Serializable;
@@ -20,6 +22,7 @@ public class InputModel implements Serializable {
     private Boolean preferExtensionDecoders;
     private String action;
     private String uri;
+    private DetailEntity detailEntity;
     private String extension;
     private String[] uriStrings;
     private String[] extensionList;
@@ -206,5 +209,13 @@ public class InputModel implements Serializable {
 
     public void setEntityID(String entityID) {
         this.entityID = entityID;
+    }
+
+    public DetailEntity getDetailEntity() {
+        return detailEntity;
+    }
+
+    public void setDetailEntity(DetailEntity detailEntity) {
+        this.detailEntity = detailEntity;
     }
 }

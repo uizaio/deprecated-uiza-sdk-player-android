@@ -2,6 +2,8 @@ package com.uiza.player.ui.data;
 
 import android.os.Handler;
 
+import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
+import com.uiza.player.core.uiza.api.model.getdetailentity.Item;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
@@ -118,6 +120,14 @@ public class UizaData implements UizaSubject {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
         inputModel.setUri(linkPlay);
+        notifyObservers();
+    }
+
+    public void setDetailEntity(DetailEntity detailEntity) {
+        if (inputModel == null) {
+            throw new NullPointerException("inputModel cannot be null, pls init it first");
+        }
+        inputModel.setDetailEntity(detailEntity);
         notifyObservers();
     }
 
