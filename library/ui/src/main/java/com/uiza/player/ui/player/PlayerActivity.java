@@ -112,8 +112,8 @@ public class PlayerActivity extends BaseActivity {
             public void onSuccess(GetLinkPlay getLinkPlay) {
                 Gson gson = new Gson();
                 LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                //UizaData.getInstance().setLinkPlay("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
                 UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
-                //UizaData.getInstance().setLinkPlay("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
             }
 
             @Override

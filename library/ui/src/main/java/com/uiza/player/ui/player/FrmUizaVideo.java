@@ -376,14 +376,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
 
         //TODO with subtitle vtt
-        Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
+        /*Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
         String urlSubtitle = "https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt";
         MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse(urlSubtitle)
                 , mediaDataSourceFactory
                 , textFormat
                 , C.TIME_UNSET);
         MediaSource mediaSourceWithText = new MergingMediaSource(mediaSource, textMediaSource);
-        player.prepare(mediaSourceWithText, !haveResumePosition, false);
+        player.prepare(mediaSourceWithText, !haveResumePosition, false);*/
 
         player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
