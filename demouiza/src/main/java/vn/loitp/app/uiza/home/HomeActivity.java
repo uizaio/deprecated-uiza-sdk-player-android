@@ -86,11 +86,9 @@ public class HomeActivity extends BaseActivity {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawers();
                 }
-                ToastUtils.showShort("Click");
-                //TODO
-                /*Intent intent = new Intent(activity, SettingActivity.class);
+                Intent intent = new Intent(activity, SettingActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);*/
+                LUIUtil.transActivityFadeIn(activity);
             }
         });
         mDrawerView.addView(uizaDrawerHeader);

@@ -131,7 +131,6 @@ public class FrmChannel extends BaseFragment {
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        UizaData.getInstance().setSkinNo(UizaData.SKIN_3);
         InputModel inputModel = createInputModel(item);
         int method = 1;
         Intent intent;
