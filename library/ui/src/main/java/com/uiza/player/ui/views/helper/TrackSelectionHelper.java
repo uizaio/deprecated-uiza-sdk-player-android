@@ -40,12 +40,14 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LLog;
 
 /**
  * Helper class for displaying track selection dialogs.
  */
-/* package */public final class TrackSelectionHelper implements View.OnClickListener,
-        DialogInterface.OnClickListener {
+/* package */public final class TrackSelectionHelper implements View.OnClickListener, DialogInterface.OnClickListener {
+
+    private final String TAG = getClass().getSimpleName();
 
     private static final TrackSelection.Factory FIXED_FACTORY = new FixedTrackSelection.Factory();
     private static final TrackSelection.Factory RANDOM_FACTORY = new RandomTrackSelection.Factory();
@@ -84,8 +86,7 @@ import io.uiza.sdk.ui.R;
      * @param trackInfo     The current track information.
      * @param rendererIndex The index of the renderer.
      */
-    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo,
-                                    int rendererIndex) {
+    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex) {
         this.trackInfo = trackInfo;
         this.rendererIndex = rendererIndex;
 
@@ -121,8 +122,7 @@ import io.uiza.sdk.ui.R;
         attributeArray.recycle();
 
         // View for disabling the renderer.
-        disableView = (CheckedTextView) inflater.inflate(
-                android.R.layout.simple_list_item_single_choice, root, false);
+        disableView = (CheckedTextView) inflater.inflate(android.R.layout.simple_list_item_single_choice, root, false);
         disableView.setBackgroundResource(selectableItemBackgroundResourceId);
         disableView.setText(R.string.selection_disabled);
         disableView.setFocusable(true);
@@ -130,8 +130,7 @@ import io.uiza.sdk.ui.R;
         root.addView(disableView);
 
         // View for clearing the override to allow the selector to use its default selection logic.
-        defaultView = (CheckedTextView) inflater.inflate(
-                android.R.layout.simple_list_item_single_choice, root, false);
+        defaultView = (CheckedTextView) inflater.inflate(android.R.layout.simple_list_item_single_choice, root, false);
         defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
         defaultView.setText(R.string.selection_default);
         defaultView.setFocusable(true);
@@ -173,8 +172,7 @@ import io.uiza.sdk.ui.R;
 
         if (haveAdaptiveTracks) {
             // View for using random adaptation.
-            enableRandomAdaptationView = (CheckedTextView) inflater.inflate(
-                    android.R.layout.simple_list_item_multiple_choice, root, false);
+            enableRandomAdaptationView = (CheckedTextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, root, false);
             enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
             enableRandomAdaptationView.setText(R.string.enable_random_adaptation);
             enableRandomAdaptationView.setOnClickListener(this);
@@ -222,6 +220,7 @@ import io.uiza.sdk.ui.R;
 
     @Override
     public void onClick(View view) {
+        LLog.d(TAG, "onClick");
         if (view == disableView) {
             isDisabled = true;
             override = null;

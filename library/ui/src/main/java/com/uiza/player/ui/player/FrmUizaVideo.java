@@ -134,6 +134,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private FrameLayout rootView;
     private UizaSubject mUserDataRepository;
 
+    private AVLoadingIndicatorView avi;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -163,6 +165,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
+        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         rootView = (FrameLayout) view.findViewById(R.id.root);
         rootView.setOnClickListener(this);
 
@@ -238,6 +241,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onVisibilityChange(int visibility) {
+        LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
     }
 
@@ -536,14 +540,18 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         //TODO onPlayerStateChanged
         if (playbackState == Player.STATE_ENDED) {
             LLog.d(TAG, "STATE_ENDED");
+            avi.smoothToHide();
             showControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
             LLog.d(TAG, "STATE_BUFFERING");
+            avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
             LLog.d(TAG, "STATE_IDLE");
+            avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "STATE_READY");
             removeCoverVideo();
+            avi.smoothToHide();
         }
         updateButtonVisibilities();
     }
@@ -699,6 +707,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (view == retryButton) {
             initializePlayer();
         } else if (view.getParent() == debugRootView) {
+            LLog.d(TAG, "onClick");
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
