@@ -5,6 +5,7 @@ import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.model.getposter.GetPoster;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -18,6 +19,9 @@ public interface UizaService {
 
     @GET("api/public/v1/media/entity/get-link-play")
     Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId);
+
+    @GET("api/public/v1/media/entity/info/{id}")
+    Observable<Object> getEntityInfo(@Path("id") String id);
 
     @GET("/api/data/v1/entity/detail")
     Observable<DetailEntity> getDetailEntity(@Query("id") int id);
