@@ -197,6 +197,8 @@ public class PlayerActivity extends BaseActivity {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
                 LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(playerConfig));
+                //TODO config here
+                //TODO drunk, iplm later
                 getLinkPlay();
                 getDetailEntity();
             }
