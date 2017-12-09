@@ -26,6 +26,8 @@ import vn.loitp.utils.util.ToastUtils;
 
 public class PlayerActivity extends BaseActivity {
     private InputModel inputModel;
+    //TODO remove gson later
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class PlayerActivity extends BaseActivity {
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
-        getLinkPlay();
-        getDetailEntity();
+        //getLinkPlay();
+        //getDetailEntity();
         //getEntityInfo();
     }
 
@@ -113,8 +115,7 @@ public class PlayerActivity extends BaseActivity {
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
-                //Gson gson = new Gson();
-                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
                 //UizaData.getInstance().setLinkPlay("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
                 UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
             }
@@ -127,7 +128,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getDetailEntity() {
-        LLog.d(TAG, "getDetailEntity");
+        //LLog.d(TAG, "getDetailEntity");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
@@ -140,12 +141,11 @@ public class PlayerActivity extends BaseActivity {
             handleException("Exception " + e.toString());
             return;
         }
-        LLog.d(TAG, "entity " + entity);
+        //LLog.d(TAG, "entity " + entity);
         subscribe(service.getDetailEntity(entity), new vn.loitp.rxandroid.ApiSubscriber<DetailEntity>() {
             @Override
             public void onSuccess(DetailEntity detailEntity) {
-                //Gson gson = new Gson();
-                //LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
+                LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
                 if (detailEntity != null) {
                     //mItem = detailEntity.getItem().get(0);
                     //updateUI();
@@ -174,7 +174,6 @@ public class PlayerActivity extends BaseActivity {
         subscribe(service.getEntityInfo(id), new vn.loitp.rxandroid.ApiSubscriber<Object>() {
             @Override
             public void onSuccess(Object o) {
-                Gson gson = new Gson();
                 LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(o));
             }
 
@@ -186,19 +185,20 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getPlayerConfig() {
-        LLog.d(TAG, "getPlayerConfig");
+        //LLog.d(TAG, "getPlayerConfig");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
         UizaService service = RestClient.createService(UizaService.class);
         //String id = inputModel.getEntityID();
-        String id = "108";
+        String id = inputModel.getEntityID();
         subscribe(service.getPlayerInfo(id), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
-                Gson gson = new Gson();
                 LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(playerConfig));
+                getLinkPlay();
+                getDetailEntity();
             }
 
             @Override
