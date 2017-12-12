@@ -369,13 +369,14 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             player.seekTo(resumeWindow, resumePosition);
         }
 
-        Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
+        /*Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
         MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse("https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt")
                 , mediaDataSourceFactory,
                 textFormat, C.TIME_UNSET);
         MediaSource mediaSourceWithText = new MergingMediaSource(mediaSource, textMediaSource);
+        player.prepare(mediaSourceWithText, !haveResumePosition, false);*/
 
-        player.prepare(mediaSourceWithText, !haveResumePosition, false);
+        player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
         updateButtonVisibilities();
     }
