@@ -31,7 +31,7 @@ public class LSApplication extends MultiDexApplication {
         }
         Utils.init(this);
         userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
-        UizaData.getInstance().init("https://dev-api.uiza.io/", Constants.TOKEN);
+        UizaData.getInstance().init("https://demo-api.uiza.io/", Constants.TOKEN);
     }
 
     public Gson getGson() {
