@@ -25,28 +25,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<fragment
-            android:id="@+id/uiza_video"
-            class="com.uiza.player.ui.player.FrmUizaVideo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/uiza_video_player_frm" />-->
         <FrameLayout
             android:id="@+id/container_uiza_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <!--<fragment
-            android:id="@+id/uiza_video_info"
-            class="com.uiza.player.ui.player.FrmUizaVideoInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/uiza_video_info_frm" />-->
 
         <FrameLayout
             android:id="@+id/container_uiza_video_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

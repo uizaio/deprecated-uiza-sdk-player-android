@@ -1,18 +1,15 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,8 +57,6 @@ import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
-import com.uiza.player.ui.util.UizaAnimationUtil;
-import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -177,60 +172,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         return view;
     }
 
-    private ImageView ivCoverVideo;
-    private ImageView ivCoverLogo;
-    private AVLoadingIndicatorView avLoadingIndicatorView;
-
-    private void setCoverVideo() {
-        if (rootView != null && inputModel != null) {
-            //Log.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
-            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null) {
-                return;
-            }
-            ivCoverVideo = new ImageView(getContext());
-            ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ivCoverVideo.setLayoutParams(layoutParams);
-            UizaImageUtil.load(getContext(), inputModel.getUrlImg(), ivCoverVideo);
-            rootView.addView(ivCoverVideo);
-
-            ivCoverLogo = new ImageView(getContext());
-            ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            FrameLayout.LayoutParams layoutParamsIvLogo = new FrameLayout.LayoutParams(150, 150);
-            ivCoverLogo.setLayoutParams(layoutParamsIvLogo);
-            ivCoverLogo.setImageResource(R.drawable.uiza_logo_512);
-            layoutParamsIvLogo.gravity = Gravity.CENTER;
-            rootView.addView(ivCoverLogo);
-
-            avLoadingIndicatorView = new AVLoadingIndicatorView(getContext());
-            avLoadingIndicatorView.setIndicatorColor(Color.WHITE);
-            avLoadingIndicatorView.setIndicator("BallSpinFadeLoaderIndicator");
-            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(100, 100);
-            aviLayout.setMargins(0, 0, 0, 200);
-            aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            avLoadingIndicatorView.setLayoutParams(aviLayout);
-            rootView.addView(avLoadingIndicatorView);
-        }
-    }
-
-    private void removeCoverVideo() {
-        if (rootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null) {
-            UizaAnimationUtil.playFadeOut(getContext(), ivCoverVideo, null);
-
-            avLoadingIndicatorView.smoothToHide();
-            ivCoverVideo.setVisibility(View.GONE);
-            rootView.removeView(ivCoverVideo);
-            ivCoverVideo = null;
-
-            ivCoverLogo.setVisibility(View.GONE);
-            rootView.removeView(ivCoverLogo);
-            ivCoverLogo = null;
-            avLoadingIndicatorView = null;
-
-            //LLog.d(TAG, "removeCoverVideo success");
-        }
-    }
-
     @Override
     public void onVisibilityChange(int visibility) {
         LLog.d(TAG, "onVisibilityChange " + visibility);
@@ -259,7 +200,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             //throw new IllegalArgumentException("You must init InputModel first");
             inputModel = UizaData.getInstance().getInputModel();
         }
-        setCoverVideo();
         if (inputModel.getUri() == null) {
             LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
@@ -545,7 +485,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "STATE_READY");
-            removeCoverVideo();
             avi.smoothToHide();
         }
         updateButtonVisibilities();

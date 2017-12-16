@@ -1,11 +1,15 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
-import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
@@ -14,6 +18,8 @@ import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.rxandroid.ApiSubscriber;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.util.UizaAnimationUtil;
+import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -23,6 +29,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 public class PlayerActivity extends BaseActivity {
     private InputModel inputModel;
@@ -32,9 +39,14 @@ public class PlayerActivity extends BaseActivity {
     private boolean isGetLinkPlayDone;
     private boolean isgetEntityInfoDone;
 
+    private FrameLayout flRootView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
+
         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
         RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
@@ -42,7 +54,7 @@ public class PlayerActivity extends BaseActivity {
             ToastUtils.showShort("Error inputModel == null");
             return;
         }
-        orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
+        //orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
 
         UizaData.getInstance().setInputModel(inputModel);
 
@@ -65,10 +77,65 @@ public class PlayerActivity extends BaseActivity {
         transaction.commit();
     }
 
+    private ImageView ivCoverVideo;
+    private ImageView ivCoverLogo;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
+
+    private void setCoverVideo() {
+        if (flRootView != null && inputModel != null) {
+            //Log.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
+            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null) {
+                return;
+            }
+            ivCoverVideo = new ImageView(activity);
+            ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ivCoverVideo.setLayoutParams(layoutParams);
+            UizaImageUtil.load(activity, inputModel.getUrlImg(), ivCoverVideo);
+            flRootView.addView(ivCoverVideo);
+
+            ivCoverLogo = new ImageView(activity);
+            ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            FrameLayout.LayoutParams layoutParamsIvLogo = new FrameLayout.LayoutParams(150, 150);
+            ivCoverLogo.setLayoutParams(layoutParamsIvLogo);
+            ivCoverLogo.setImageResource(R.drawable.uiza_logo_512);
+            layoutParamsIvLogo.gravity = Gravity.CENTER;
+            flRootView.addView(ivCoverLogo);
+
+            avLoadingIndicatorView = new AVLoadingIndicatorView(activity);
+            avLoadingIndicatorView.setIndicatorColor(Color.WHITE);
+            avLoadingIndicatorView.setIndicator("BallSpinFadeLoaderIndicator");
+            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(100, 100);
+            aviLayout.setMargins(0, 0, 0, 200);
+            aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            avLoadingIndicatorView.setLayoutParams(aviLayout);
+            flRootView.addView(avLoadingIndicatorView);
+        }
+    }
+
+    private void removeCoverVideo() {
+        if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null) {
+            UizaAnimationUtil.playFadeOut(activity, ivCoverVideo, null);
+
+            avLoadingIndicatorView.smoothToHide();
+            ivCoverVideo.setVisibility(View.GONE);
+            flRootView.removeView(ivCoverVideo);
+            ivCoverVideo = null;
+
+            ivCoverLogo.setVisibility(View.GONE);
+            flRootView.removeView(ivCoverLogo);
+            ivCoverLogo = null;
+            avLoadingIndicatorView = null;
+
+            //LLog.d(TAG, "removeCoverVideo success");
+        }
+    }
+
     private void init() {
         if (isGetLinkPlayDone && isgetEntityInfoDone) {
             initContainerVideo();
             initContainerVideoInfo();
+            removeCoverVideo();
         } else {
             LLog.d(TAG, "init !isGetLinkPlayDone || !isgetEntityInfoDone");
         }
@@ -94,14 +161,14 @@ public class PlayerActivity extends BaseActivity {
         return R.layout.uiza_player_activity;
     }
 
-    @Override
+    /*@Override
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
         orientVideoDescriptionFragment(configuration.orientation);
     }
 
     private void orientVideoDescriptionFragment(int orientation) {
-        /*//LLog.d(TAG, "orientVideoDescriptionFragment");
+        //LLog.d(TAG, "orientVideoDescriptionFragment");
         //Hide the extra content when in landscape so the video is as large as possible.
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment frmInfoVideo = fragmentManager.findFragmentById(R.id.uiza_video_info);
@@ -109,25 +176,25 @@ public class PlayerActivity extends BaseActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 fragmentTransaction.hide(frmInfoVideo);
-                *//*LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
+                LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
                     @Override
                     public void doAfter(int mls) {
                         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
                     }
-                });*//*
+                });
             } else {
                 fragmentTransaction.show(frmInfoVideo);
             }
             fragmentTransaction.commit();
         }
-        *//*Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
+        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
         if (frmUizaVideo != null) {
             if (frmUizaVideo instanceof FrmUizaVideo) {
                 //LLog.d(TAG, "UizaData.getInstance().getCurrentPosition() " + UizaData.getInstance().getCurrentPosition());
                 ((FrmUizaVideo) frmUizaVideo).seekTo(UizaData.getInstance().getCurrentPosition());
             }
-        }*/
-    }
+        }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -226,6 +293,7 @@ public class PlayerActivity extends BaseActivity {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
+        setCoverVideo();
         UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
