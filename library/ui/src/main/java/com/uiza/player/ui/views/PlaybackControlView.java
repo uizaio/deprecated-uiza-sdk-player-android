@@ -45,6 +45,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ui.data.UizaData;
 
 import java.util.Arrays;
@@ -373,6 +374,7 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     private String mCurrentSkin;
+    //private PlayerConfig mPlayerConfig;
 
     private void showErrorInitPlaybackControlView() {
         LDialogUtil.showOne(getContext(), "Error", "Cannot init PlaybackControlView because the name of skin not found", "Close", new LDialogUtil.CallbackShowOne() {
@@ -387,6 +389,7 @@ public class PlaybackControlView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         int controllerLayoutId;
         mCurrentSkin = UizaData.getInstance().getPlayerId();
+        //mPlayerConfig = UizaData.getInstance().getPlayerConfig();
         switch (mCurrentSkin) {
             case UizaData.PLAYER_ID_SKIN_1:
                 LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_1");
@@ -510,6 +513,15 @@ public class PlaybackControlView extends FrameLayout {
         repeatOneButtonContentDescription = resources.getString(
                 R.string.exo_controls_repeat_one_description);
         repeatAllButtonContentDescription = resources.getString(R.string.exo_controls_repeat_all_description);
+
+        /*if (fullscreenButton != null) {
+            if (!mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T)) {
+                fullscreenButton.setVisibility(VISIBLE);
+            } else {
+                fullscreenButton.setVisibility(GONE);
+            }
+        }*/
+
     }
 
     public void setTitle(String title) {
