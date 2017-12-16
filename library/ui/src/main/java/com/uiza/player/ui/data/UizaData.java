@@ -3,17 +3,21 @@ package com.uiza.player.ui.data;
 import android.os.Handler;
 
 import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
+import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
 import java.util.ArrayList;
 
+import vn.loitp.core.utilities.LLog;
+
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.
  */
 
 public class UizaData implements UizaSubject {
+    private final String TAG = getClass().getSimpleName();
     private ArrayList<UizaRepositoryObserver> mObservers;
 
     @Override
@@ -122,6 +126,16 @@ public class UizaData implements UizaSubject {
         notifyObservers();
     }
 
+    private PlayerConfig playerConfig;
+
+    public PlayerConfig getPlayerConfig() {
+        return playerConfig;
+    }
+
+    public void setPlayerConfig(PlayerConfig playerConfig) {
+        this.playerConfig = playerConfig;
+    }
+
     /*public void setDetailEntity(DetailEntity detailEntity) {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
@@ -138,18 +152,9 @@ public class UizaData implements UizaSubject {
         notifyObservers();
     }
 
-    public final static int SKIN_1 = 1;
-    public final static int SKIN_2 = 2;
-    public final static int SKIN_3 = 3;
-    private int mSkinNo = SKIN_1;
-
-    public int getSkinNo() {
-        return mSkinNo;
-    }
-
-    public void setSkinNo(int mSkinNo) {
-        this.mSkinNo = mSkinNo;
-    }
+    public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
+    public final static String PLAYER_ID_SKIN_2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";
+    public final static String PLAYER_ID_SKIN_3 = "d1a9eca0-8bef-4985-8260-af3300191200";
 
     private String apiEndPoint;
     private String token;
@@ -180,5 +185,9 @@ public class UizaData implements UizaSubject {
         this.apiEndPoint = apiEndPoint;
         this.token = token;
         this.playerId = playerId;
+
+        LLog.d(TAG, "apiEndPoint " + apiEndPoint);
+        LLog.d(TAG, "token " + token);
+        LLog.d(TAG, "playerId " + playerId);
     }
 }

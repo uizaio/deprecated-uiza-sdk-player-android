@@ -63,5 +63,6 @@
         android:text="Setting"
         android:textColor="@color/White"
         android:textSize="@dimen/txt_20"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 </LinearLayout>

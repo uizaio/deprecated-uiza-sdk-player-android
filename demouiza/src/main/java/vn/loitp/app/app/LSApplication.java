@@ -32,10 +32,7 @@ public class LSApplication extends MultiDexApplication {
         Utils.init(this);
         userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
 
-        String playerIdSkin1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
-        String playerIdSkin2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";
-        String playerIdSkin3 = "d1a9eca0-8bef-4985-8260-af3300191200";
-        UizaData.getInstance().init("https://demo-api.uiza.io/", Constants.TOKEN, playerIdSkin1);
+        UizaData.getInstance().init("https://demo-api.uiza.io/", Constants.TOKEN, UizaData.PLAYER_ID_SKIN_2);
     }
 
     public Gson getGson() {

@@ -26,7 +26,7 @@ public class SettingActivity extends BaseActivity {
         radio2 = (RadioButton) findViewById(R.id.radio_2);
         radio3 = (RadioButton) findViewById(R.id.radio_3);
 
-        int currentSkin = UizaData.getInstance().getSkinNo();
+        /*int currentSkin = UizaData.getInstance().getSkinNo();
         switch (currentSkin) {
             case UizaData.SKIN_1:
                 radio1.setChecked(true);
@@ -62,7 +62,7 @@ public class SettingActivity extends BaseActivity {
                         break;
                 }
             }
-        });
+        });*/
     }
 
     @Override

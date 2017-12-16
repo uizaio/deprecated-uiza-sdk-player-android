@@ -199,7 +199,9 @@ public class PlayerActivity extends BaseActivity {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
                 LLog.d(TAG, "getPlayerConfig getEntityInfo onSuccess " + gson.toJson(playerConfig));
-                //TODO config here
+
+                UizaData.getInstance().setPlayerConfig(playerConfig);
+
                 getLinkPlay();
                 //getDetailEntity();
                 getEntityInfo();

@@ -17,6 +17,7 @@ package com.uiza.player.ui.views;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -41,16 +42,18 @@ import com.google.android.exoplayer2.Player.RepeatMode;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.uiza.player.ui.data.UizaData;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.ui.data.UizaData;
 
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LDialogUtil;
+import vn.loitp.core.utilities.LLog;
 
 /**
  * A view for controlling {@link Player} instances.
@@ -171,6 +174,7 @@ import io.uiza.sdk.ui.R;
  * of {@code exo_playback_control_view.xml} for only the instance on which the attribute is set.
  */
 public class PlaybackControlView extends FrameLayout {
+    private final String TAG = getClass().getSimpleName();
 
     static {
         ExoPlayerLibraryInfo.registerModule("goog.exo.ui");
@@ -368,24 +372,36 @@ public class PlaybackControlView extends FrameLayout {
         this(context, attrs, defStyleAttr, attrs);
     }
 
-    private int mCurrentSkin;
+    private String mCurrentSkin;
+
+    private void showErrorInitPlaybackControlView() {
+        LDialogUtil.showOne(getContext(), "Error", "Cannot init PlaybackControlView because the name of skin not found", "Close", new LDialogUtil.CallbackShowOne() {
+            @Override
+            public void onClick() {
+                ((Activity) getContext()).onBackPressed();
+            }
+        });
+    }
 
     public PlaybackControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr);
-        mCurrentSkin = UizaData.getInstance().getSkinNo();
-        //Log.d("loitp", ">>>skin " + skin);
         int controllerLayoutId;
+        mCurrentSkin = UizaData.getInstance().getPlayerId();
         switch (mCurrentSkin) {
-            case UizaData.SKIN_1:
+            case UizaData.PLAYER_ID_SKIN_1:
+                LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_1");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_1;
                 break;
-            case UizaData.SKIN_2:
+            case UizaData.PLAYER_ID_SKIN_2:
+                LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_2");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_2;
                 break;
-            case UizaData.SKIN_3:
+            case UizaData.PLAYER_ID_SKIN_3:
+                LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_3");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_3;
                 break;
             default:
+                LLog.d(TAG, "default mCurrentSkin PLAYER_ID_SKIN_1");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_1;
                 break;
         }
@@ -901,7 +917,7 @@ public class PlaybackControlView extends FrameLayout {
 
         if (UizaData.getInstance().isLandscape()) {
             if (tvRewNum.getVisibility() != VISIBLE) {
-                if (mCurrentSkin == UizaData.SKIN_1) {
+                if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_1)) {
                     tvRewNum.setVisibility(VISIBLE);
                     tvFfwdNum.setVisibility(VISIBLE);
                 } else {
@@ -953,14 +969,14 @@ public class PlaybackControlView extends FrameLayout {
 
             //TODO
             //alway hide if use skin 3
-            if (mCurrentSkin == UizaData.SKIN_3) {
+            if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_3)) {
                 view.setVisibility(GONE);
             }
         } else {
             view.setVisibility(enabled ? VISIBLE : INVISIBLE);
             //TODO
             //alway hide if use skin 3
-            if (mCurrentSkin == UizaData.SKIN_3) {
+            if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_3)) {
                 view.setVisibility(GONE);
             }
         }
