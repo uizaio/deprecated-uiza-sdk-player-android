@@ -264,10 +264,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
         }
-        if (inputModel.getDetailEntity() == null) {
+        /*if (inputModel.getDetailEntity() == null) {
             LLog.d(TAG, "inputModel.getDetailEntity() == null -> return");
-            //return;
-        }
+            return;
+        }*/
 
         //Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;

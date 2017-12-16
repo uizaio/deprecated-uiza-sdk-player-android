@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.google.gson.Gson;
-import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
 import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
@@ -126,7 +125,7 @@ public class PlayerActivity extends BaseActivity {
         });
     }
 
-    private void getDetailEntity() {
+    /*private void getDetailEntity() {
         LLog.d(TAG, "getDetailEntity");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
@@ -160,7 +159,7 @@ public class PlayerActivity extends BaseActivity {
                 handleException(e);
             }
         });
-    }
+    }*/
 
     private void getEntityInfo() {
         //LLog.d(TAG, "getEntityInfo");
@@ -175,6 +174,11 @@ public class PlayerActivity extends BaseActivity {
             @Override
             public void onSuccess(EntityInfo entityInfo) {
                 LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(entityInfo));
+                if (entityInfo != null) {
+                    UizaData.getInstance().setEntityInfo(entityInfo);
+                } else {
+                    handleException("getEntityInfo onSuccess entityInfo == null");
+                }
             }
 
             @Override

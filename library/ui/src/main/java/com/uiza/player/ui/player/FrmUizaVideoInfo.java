@@ -7,10 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
-import com.uiza.player.core.uiza.api.model.getdetailentity.Item;
-import com.uiza.player.core.uiza.api.service.UizaService;
+import com.uiza.player.core.uiza.api.model.getentityinfo.Item;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
@@ -20,8 +17,6 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -90,8 +85,8 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         this.mInputModel = inputModel;
         if (mItem == null && !avLoadingIndicatorView.isShown()) {
             //getDetailEntity();
-            if (mInputModel.getDetailEntity() != null) {
-                mItem = mInputModel.getDetailEntity().getItem().get(0);
+            if (mInputModel.getEntityInfo() != null) {
+                mItem = mInputModel.getEntityInfo().getItem();
                 updateUI();
             }
             avLoadingIndicatorView.smoothToHide();
@@ -146,7 +141,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
             tvVideoName.setText(empty);
         }
         try {
-            tvVideoTime.setText(mItem.getExtendData().getPublishedDate() + "  |  " + mItem.getExtendData().getDurationMins());
+            tvVideoTime.setText(mItem.getCreatedAt());
         } catch (NullPointerException e) {
             tvVideoTime.setText(empty);
         }
