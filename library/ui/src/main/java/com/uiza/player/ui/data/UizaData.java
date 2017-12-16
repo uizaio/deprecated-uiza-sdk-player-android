@@ -2,7 +2,6 @@ package com.uiza.player.ui.data;
 
 import android.os.Handler;
 
-import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
 import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
@@ -154,6 +153,7 @@ public class UizaData implements UizaSubject {
 
     private String apiEndPoint;
     private String token;
+    private String playerId;//for select theme
 
     public String getApiEndPoint() {
         if (apiEndPoint == null || apiEndPoint.isEmpty()) {
@@ -169,8 +169,16 @@ public class UizaData implements UizaSubject {
         return token;
     }
 
-    public void init(String apiEndPoint, String token) {
+    public String getPlayerId() {
+        if (playerId == null || playerId.isEmpty()) {
+            throw new NullPointerException("Pls init playerId first");
+        }
+        return playerId;
+    }
+
+    public void init(String apiEndPoint, String token, String playerId) {
         this.apiEndPoint = apiEndPoint;
         this.token = token;
+        this.playerId = playerId;
     }
 }

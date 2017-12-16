@@ -195,8 +195,7 @@ public class PlayerActivity extends BaseActivity {
             return;
         }
         UizaService service = RestClient.createService(UizaService.class);
-        String id = inputModel.getEntityID();
-        subscribe(service.getPlayerInfo(id), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
+        subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
                 LLog.d(TAG, "getPlayerConfig getEntityInfo onSuccess " + gson.toJson(playerConfig));
