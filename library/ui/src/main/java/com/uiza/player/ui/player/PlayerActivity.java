@@ -44,9 +44,6 @@ public class PlayerActivity extends BaseActivity {
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
-        //getLinkPlay();
-        //getDetailEntity();
-        //getEntityInfo();
     }
 
     @Override
@@ -111,6 +108,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getLinkPlay() {
+        LLog.d(TAG, "getLinkPlay");
         UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
@@ -128,7 +126,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getDetailEntity() {
-        //LLog.d(TAG, "getDetailEntity");
+        LLog.d(TAG, "getDetailEntity");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
@@ -138,10 +136,10 @@ public class PlayerActivity extends BaseActivity {
         try {
             entity = Integer.parseInt(inputModel.getEntityID());
         } catch (Exception e) {
+            LLog.d(TAG, "getDetailEntity Exception " + e.toString());
             handleException("Exception " + e.toString());
             return;
         }
-        //LLog.d(TAG, "entity " + entity);
         subscribe(service.getDetailEntity(entity), new vn.loitp.rxandroid.ApiSubscriber<DetailEntity>() {
             @Override
             public void onSuccess(DetailEntity detailEntity) {
@@ -157,6 +155,7 @@ public class PlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
+                LLog.d(TAG, "getDetailEntity onFail " + e.toString());
                 handleException(e);
             }
         });
@@ -185,7 +184,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getPlayerConfig() {
-        //LLog.d(TAG, "getPlayerConfig");
+        LLog.d(TAG, "getPlayerConfig");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
@@ -196,11 +195,11 @@ public class PlayerActivity extends BaseActivity {
         subscribe(service.getPlayerInfo(id), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
-                LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(playerConfig));
+                LLog.d(TAG, "getPlayerConfig getEntityInfo onSuccess " + gson.toJson(playerConfig));
                 //TODO config here
-                //TODO drunk, iplm later
                 getLinkPlay();
                 getDetailEntity();
+                //getEntityInfo();
             }
 
             @Override

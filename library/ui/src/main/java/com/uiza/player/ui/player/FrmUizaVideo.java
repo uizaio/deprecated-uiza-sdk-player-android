@@ -21,7 +21,6 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -39,8 +38,6 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.MergingMediaSource;
-import com.google.android.exoplayer2.source.SingleSampleMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
@@ -57,13 +54,9 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
-import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
-import com.uiza.player.core.uiza.api.service.UizaService;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
-import com.uiza.player.rxandroid.ApiSubscriber;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.data.UizaRepositoryObserver;
 import com.uiza.player.ui.data.UizaSubject;
@@ -87,7 +80,6 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -268,10 +260,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             inputModel = UizaData.getInstance().getInputModel();
         }
         setCoverVideo();
-        if (inputModel.getUri() == null || inputModel.getDetailEntity() == null) {
-            LLog.d(TAG, "inputModel.getUri() == null || inputModel.getDetailEntity() == null -> return");
-            //getLinkPlay();
+        if (inputModel.getUri() == null) {
+            LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
+        }
+        if (inputModel.getDetailEntity() == null) {
+            LLog.d(TAG, "inputModel.getDetailEntity() == null -> return");
+            //return;
         }
 
         //Intent intent = ((Activity) getContext()).getIntent();
@@ -819,22 +814,4 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         simpleExoPlayerView.getController().setTitle(inputModel.getTitle());
         initializePlayer();
     }
-
-    /*private void getLinkPlay() {
-        UizaService service = RestClient.createService(UizaService.class);
-        subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
-            @Override
-            public void onSuccess(GetLinkPlay getLinkPlay) {
-                //Gson gson = new Gson();
-                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
-                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
-                //UizaData.getInstance().setLinkPlay("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                handleException(e);
-            }
-        });
-    }*/
 }
