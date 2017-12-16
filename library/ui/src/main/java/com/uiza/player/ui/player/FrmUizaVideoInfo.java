@@ -34,6 +34,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
     private TextView tvVideoStarring;
     private TextView tvVideoDirector;
     private TextView tvVideoGenres;
+    private TextView tvDebugJson;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         tvVideoStarring = (TextView) view.findViewById(R.id.tv_video_starring);
         tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
         tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
+        tvDebugJson = (TextView) view.findViewById(R.id.tv_debug_json);
 
         return view;
     }
@@ -157,5 +159,7 @@ public class FrmUizaVideoInfo extends BaseFragment implements UizaRepositoryObse
         tvVideoStarring.setText(empty);
         tvVideoDirector.setText(empty);
         tvVideoGenres.setText(empty);
+
+        LUIUtil.printBeautyJson(mItem, tvDebugJson);
     }
 }

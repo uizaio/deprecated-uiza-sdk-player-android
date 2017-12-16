@@ -415,7 +415,7 @@ public class LUIUtil {
     public static void printBeautyJson(Object o, TextView textView) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(o);
-        textView.setText(json);
+        textView.setText("Debug view, will be removed later\n" + json);
     }
 
     public static void setPullLikeIOSVertical(RecyclerView recyclerView) {
