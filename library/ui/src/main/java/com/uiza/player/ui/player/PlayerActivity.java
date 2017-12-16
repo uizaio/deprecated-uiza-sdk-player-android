@@ -29,6 +29,9 @@ public class PlayerActivity extends BaseActivity {
     //TODO remove gson later
     private Gson gson = new Gson();
 
+    private boolean isGetLinkPlayDone;
+    private boolean isgetEntityInfoDone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,31 @@ public class PlayerActivity extends BaseActivity {
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
+    }
+
+    private void initContainerVideo() {
+        FrmUizaVideo objFragment = new FrmUizaVideo();
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container_uiza_video, objFragment);
+        //transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void initContainerVideoInfo() {
+        FrmUizaVideoInfo objFragment = new FrmUizaVideoInfo();
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container_uiza_video_info, objFragment);
+        //transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void init() {
+        if (isGetLinkPlayDone && isgetEntityInfoDone) {
+            initContainerVideo();
+            initContainerVideoInfo();
+        } else {
+            LLog.d(TAG, "init !isGetLinkPlayDone || !isgetEntityInfoDone");
+        }
     }
 
     @Override
@@ -73,7 +101,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void orientVideoDescriptionFragment(int orientation) {
-        //LLog.d(TAG, "orientVideoDescriptionFragment");
+        /*//LLog.d(TAG, "orientVideoDescriptionFragment");
         //Hide the extra content when in landscape so the video is as large as possible.
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment frmInfoVideo = fragmentManager.findFragmentById(R.id.uiza_video_info);
@@ -81,18 +109,18 @@ public class PlayerActivity extends BaseActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 fragmentTransaction.hide(frmInfoVideo);
-                /*LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
+                *//*LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
                     @Override
                     public void doAfter(int mls) {
                         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
                     }
-                });*/
+                });*//*
             } else {
                 fragmentTransaction.show(frmInfoVideo);
             }
             fragmentTransaction.commit();
         }
-        /*Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
+        *//*Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
         if (frmUizaVideo != null) {
             if (frmUizaVideo instanceof FrmUizaVideo) {
                 //LLog.d(TAG, "UizaData.getInstance().getCurrentPosition() " + UizaData.getInstance().getCurrentPosition());
@@ -116,6 +144,8 @@ public class PlayerActivity extends BaseActivity {
                 LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
                 //UizaData.getInstance().setLinkPlay("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
                 UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
+                isGetLinkPlayDone = true;
+                init();
             }
 
             @Override
@@ -179,6 +209,8 @@ public class PlayerActivity extends BaseActivity {
                 } else {
                     handleException("getEntityInfo onSuccess entityInfo == null");
                 }
+                isgetEntityInfoDone = true;
+                init();
             }
 
             @Override

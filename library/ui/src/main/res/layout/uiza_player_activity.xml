@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,19 +25,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <fragment
+        <!--<fragment
             android:id="@+id/uiza_video"
             class="com.uiza.player.ui.player.FrmUizaVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/uiza_video_player_frm" />
+            tools:layout="@layout/uiza_video_player_frm" />-->
+        <FrameLayout
+            android:id="@+id/container_uiza_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <fragment
+        <!--<fragment
             android:id="@+id/uiza_video_info"
             class="com.uiza.player.ui.player.FrmUizaVideoInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/uiza_video_info_frm" />
+            tools:layout="@layout/uiza_video_info_frm" />-->
+
+        <FrameLayout
+            android:id="@+id/container_uiza_video_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </RelativeLayout>
