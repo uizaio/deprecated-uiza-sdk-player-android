@@ -1,6 +1,7 @@
 package com.uiza.player.core.uiza.api.service;
 
 import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
+import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.core.uiza.api.model.getposter.GetPoster;
@@ -22,11 +23,12 @@ public interface UizaService {
     Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId);
 
     @GET("api/public/v1/media/entity/info/{id}")
-    Observable<Object> getEntityInfo(@Path("id") String id);
+    Observable<EntityInfo> getEntityInfo(@Path("id") String id);
 
     @GET("/api/data/v1/entity/detail")
     Observable<DetailEntity> getDetailEntity(@Query("id") int id);
 
+    //getPlayerConfig
     @GET("/api/public/v1/player/info/{id}")
     Observable<PlayerConfig> getPlayerInfo(@Path("id") String playerId);
 }

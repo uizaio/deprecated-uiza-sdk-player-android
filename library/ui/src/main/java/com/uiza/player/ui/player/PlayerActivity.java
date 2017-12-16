@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
+import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
 import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.core.uiza.api.service.UizaService;
@@ -108,7 +109,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getLinkPlay() {
-        LLog.d(TAG, "getLinkPlay");
+        //LLog.d(TAG, "getLinkPlay");
         UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
@@ -162,18 +163,18 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getEntityInfo() {
-        LLog.d(TAG, "getEntityInfo");
+        //LLog.d(TAG, "getEntityInfo");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
         UizaService service = RestClient.createService(UizaService.class);
-        //String id = inputModel.getEntityID();
-        String id = "81";
-        subscribe(service.getEntityInfo(id), new vn.loitp.rxandroid.ApiSubscriber<Object>() {
+        String id = inputModel.getEntityID();
+        //LLog.d(TAG, "getEntityInfo id " + id);
+        subscribe(service.getEntityInfo(id), new vn.loitp.rxandroid.ApiSubscriber<EntityInfo>() {
             @Override
-            public void onSuccess(Object o) {
-                LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(o));
+            public void onSuccess(EntityInfo entityInfo) {
+                LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(entityInfo));
             }
 
             @Override
@@ -184,13 +185,12 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getPlayerConfig() {
-        LLog.d(TAG, "getPlayerConfig");
+        //LLog.d(TAG, "getPlayerConfig");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
         UizaService service = RestClient.createService(UizaService.class);
-        //String id = inputModel.getEntityID();
         String id = inputModel.getEntityID();
         subscribe(service.getPlayerInfo(id), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
@@ -198,8 +198,8 @@ public class PlayerActivity extends BaseActivity {
                 LLog.d(TAG, "getPlayerConfig getEntityInfo onSuccess " + gson.toJson(playerConfig));
                 //TODO config here
                 getLinkPlay();
-                getDetailEntity();
-                //getEntityInfo();
+                //getDetailEntity();
+                getEntityInfo();
             }
 
             @Override
