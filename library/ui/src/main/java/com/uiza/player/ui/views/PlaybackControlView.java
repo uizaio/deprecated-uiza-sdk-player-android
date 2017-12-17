@@ -532,6 +532,13 @@ public class PlaybackControlView extends FrameLayout {
                 settingButton.setVisibility(GONE);
             }
         }
+        if (playlistButton != null) {
+            if (mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T)) {
+                playlistButton.setVisibility(VISIBLE);
+            } else {
+                playlistButton.setVisibility(GONE);
+            }
+        }
 
     }
 
