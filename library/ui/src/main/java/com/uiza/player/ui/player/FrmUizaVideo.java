@@ -1,6 +1,7 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -337,17 +338,23 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     private void setConfigUIPlayer() {
         PlaybackControlView playbackControlView = getPlayerView().getController();
-        if (playbackControlView != null) {
-            playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
-            playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
-            playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
+        if (playbackControlView == null) {
+            return;
         }
+        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
+        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
+        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
         if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
         } else {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
         }
-
+        try {
+            int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
+            playbackControlView.setColorAllIcons(color);
+        } catch (Exception e) {
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor " + e.toString());
+        }
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {

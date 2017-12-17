@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,8 +47,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
-import com.google.gson.Gson;
-import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ui.data.UizaData;
 
 import java.util.Arrays;
@@ -295,20 +295,20 @@ public class PlaybackControlView extends FrameLayout {
     private LinearLayout llBottom;
     //private final View previousButton;
     //private final View nextButton;
-    private final View playButton;
-    private final View pauseButton;
-    private final View fastForwardButton;
-    private final View rewindButton;
-    private final View questionButton;
-    private final View playlistButton;
-    private final View languageButton;
-    private final View settingButton;
-    private final View fullscreenButton;
-    private final View exit;
+    private final ImageButton playButton;
+    private final ImageButton pauseButton;
+    private final ImageButton fastForwardButton;
+    private final ImageButton rewindButton;
+    private final ImageButton questionButton;
+    private final ImageButton playlistButton;
+    private final ImageButton languageButton;
+    private final ImageButton settingButton;
+    private final ImageButton fullscreenButton;
+    private final ImageView exitButton;
 
     private final ImageView repeatToggleButton;
-    private final TextView durationView;
-    private final TextView positionView;
+    private final TextView tvDuration;
+    private final TextView tvPosition;
     private final TextView tvTitle;
     private final TextView tvRewNum;
     private final TextView tvFfwdNum;
@@ -444,8 +444,8 @@ public class PlaybackControlView extends FrameLayout {
         llMid = (LinearLayout) findViewById(R.id.ll_mid);
         llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
 
-        durationView = (TextView) findViewById(R.id.exo_duration);
-        positionView = (TextView) findViewById(R.id.exo_position);
+        tvDuration = (TextView) findViewById(R.id.exo_duration);
+        tvPosition = (TextView) findViewById(R.id.exo_position);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
         tvFfwdNum = (TextView) findViewById(R.id.tv_ffwd_num);
@@ -453,27 +453,27 @@ public class PlaybackControlView extends FrameLayout {
         if (timeBar != null) {
             timeBar.setListener(componentListener);
         }
-        playButton = findViewById(R.id.exo_play);
+        playButton = (ImageButton) findViewById(R.id.exo_play);
         if (playButton != null) {
             playButton.setOnClickListener(componentListener);
         }
-        pauseButton = findViewById(R.id.exo_pause);
+        pauseButton = (ImageButton) findViewById(R.id.exo_pause);
         if (pauseButton != null) {
             pauseButton.setOnClickListener(componentListener);
         }
-        /*previousButton = findViewById(R.id.exo_prev);
+        /*previousButton = (ImageButton)findViewById(R.id.exo_prev);
         if (previousButton != null) {
             previousButton.setOnClickListener(componentListener);
         }*/
-        /*nextButton = findViewById(R.id.exo_next);
+        /*nextButton = (ImageButton)findViewById(R.id.exo_next);
         if (nextButton != null) {
             nextButton.setOnClickListener(componentListener);
         }*/
-        rewindButton = findViewById(R.id.exo_rew);
+        rewindButton = (ImageButton) findViewById(R.id.exo_rew);
         if (rewindButton != null) {
             rewindButton.setOnClickListener(componentListener);
         }
-        fastForwardButton = findViewById(R.id.exo_ffwd);
+        fastForwardButton = (ImageButton) findViewById(R.id.exo_ffwd);
         if (fastForwardButton != null) {
             fastForwardButton.setOnClickListener(componentListener);
         }
@@ -481,29 +481,29 @@ public class PlaybackControlView extends FrameLayout {
         if (repeatToggleButton != null) {
             repeatToggleButton.setOnClickListener(componentListener);
         }
-        questionButton = findViewById(R.id.exo_question);
+        questionButton = (ImageButton) findViewById(R.id.exo_question);
         if (questionButton != null) {
             questionButton.setOnClickListener(componentListener);
         }
-        playlistButton = findViewById(R.id.exo_playlist);
+        playlistButton = (ImageButton) findViewById(R.id.exo_playlist);
         if (playlistButton != null) {
             playlistButton.setOnClickListener(componentListener);
         }
-        languageButton = findViewById(R.id.exo_language);
+        languageButton = (ImageButton) findViewById(R.id.exo_language);
         if (languageButton != null) {
             languageButton.setOnClickListener(componentListener);
         }
-        settingButton = findViewById(R.id.exo_setting);
+        settingButton = (ImageButton) findViewById(R.id.exo_setting);
         if (settingButton != null) {
             settingButton.setOnClickListener(componentListener);
         }
-        fullscreenButton = findViewById(R.id.exo_fullscreen);
+        fullscreenButton = (ImageButton) findViewById(R.id.exo_fullscreen);
         if (fullscreenButton != null) {
             fullscreenButton.setOnClickListener(componentListener);
         }
-        exit = findViewById(R.id.exo_exit);
-        if (exit != null) {
-            exit.setOnClickListener(componentListener);
+        exitButton = (ImageView) findViewById(R.id.exo_exit);
+        if (exitButton != null) {
+            exitButton.setOnClickListener(componentListener);
         }
 
         Resources resources = context.getResources();
@@ -532,6 +532,58 @@ public class PlaybackControlView extends FrameLayout {
     public void setVisibilityDisplayPlaylist(boolean isShow) {
         if (playlistButton != null) {
             playlistButton.setVisibility(isShow ? VISIBLE : GONE);
+        }
+    }
+
+    public void setColorAllIcons(int color) {
+        color = Color.RED;
+        if (exitButton != null) {
+            exitButton.setColorFilter(color);
+        }
+        if (tvTitle != null) {
+            tvTitle.setTextColor(color);
+        }
+        if (tvFfwdNum != null) {
+            tvFfwdNum.setTextColor(color);
+        }
+        if (tvRewNum != null) {
+            tvRewNum.setTextColor(color);
+        }
+        if (tvDuration != null) {
+            tvDuration.setTextColor(color);
+        }
+        if (tvPosition != null) {
+            tvPosition.setTextColor(color);
+        }
+        if (playButton != null) {
+            playButton.setColorFilter(color);
+        }
+        if (pauseButton != null) {
+            pauseButton.setColorFilter(color);
+        }
+        if (fastForwardButton != null) {
+            fastForwardButton.setColorFilter(color);
+        }
+        if (rewindButton != null) {
+            rewindButton.setColorFilter(color);
+        }
+        if (questionButton != null) {
+            questionButton.setColorFilter(color);
+        }
+        if (playlistButton != null) {
+            playlistButton.setColorFilter(color);
+        }
+        if (languageButton != null) {
+            languageButton.setColorFilter(color);
+        }
+        if (settingButton != null) {
+            settingButton.setColorFilter(color);
+        }
+        if (fullscreenButton != null) {
+            fullscreenButton.setColorFilter(color);
+        }
+        if (exitButton != null) {
+            exitButton.setColorFilter(color);
         }
     }
 
@@ -926,11 +978,11 @@ public class PlaybackControlView extends FrameLayout {
                 timeBar.setAdGroupTimesMs(adGroupTimesMs, playedAdGroups, totalAdGroupCount);
             }
         }
-        if (durationView != null) {
-            durationView.setText(Util.getStringForTime(formatBuilder, formatter, duration));
+        if (tvDuration != null) {
+            tvDuration.setText(Util.getStringForTime(formatBuilder, formatter, duration));
         }
-        if (positionView != null && !scrubbing) {
-            positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
+        if (tvPosition != null && !scrubbing) {
+            tvPosition.setText(Util.getStringForTime(formatBuilder, formatter, position));
         }
         if (timeBar != null) {
             timeBar.setPosition(position);
@@ -1208,8 +1260,8 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onScrubMove(TimeBar timeBar, long position) {
-            if (positionView != null) {
-                positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
+            if (tvPosition != null) {
+                tvPosition.setText(Util.getStringForTime(formatBuilder, formatter, position));
             }
         }
 
@@ -1306,9 +1358,9 @@ public class PlaybackControlView extends FrameLayout {
                     if (onClickEvent != null) {
                         onClickEvent.onClickFullScreen(fullscreenButton);
                     }
-                } else if (exit == view) {
+                } else if (exitButton == view) {
                     if (onClickEvent != null) {
-                        onClickEvent.onClickExit(exit);
+                        onClickEvent.onClickExit(exitButton);
                     }
                 }
             }
