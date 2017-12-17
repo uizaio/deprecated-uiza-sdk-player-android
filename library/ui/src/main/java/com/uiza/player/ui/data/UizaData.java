@@ -16,9 +16,10 @@ import vn.loitp.core.utilities.LLog;
  * Created by www.muathu@gmail.com on 11/5/2017.
  */
 
-public class UizaData implements UizaSubject {
+//public class UizaData implements UizaSubject {
+public class UizaData {
     private final String TAG = getClass().getSimpleName();
-    private ArrayList<UizaRepositoryObserver> mObservers;
+    /*private ArrayList<UizaRepositoryObserver> mObservers;
 
     @Override
     public void registerObserver(UizaRepositoryObserver uizaRepositoryObserver) {
@@ -39,7 +40,7 @@ public class UizaData implements UizaSubject {
         for (UizaRepositoryObserver observer : mObservers) {
             observer.onInputModelChange(inputModel);
         }
-    }
+    }*/
 
     private static final UizaData ourInstance = new UizaData();
 
@@ -48,7 +49,7 @@ public class UizaData implements UizaSubject {
     }
 
     private UizaData() {
-        mObservers = new ArrayList<>();
+        //mObservers = new ArrayList<>();
     }
 
     private long currentPosition;
@@ -115,7 +116,7 @@ public class UizaData implements UizaSubject {
 
     public void setInputModel(InputModel inputModel) {
         this.inputModel = inputModel;
-        notifyObservers();
+        //notifyObservers();
     }
 
     public void setLinkPlay(String linkPlay) {
@@ -123,7 +124,7 @@ public class UizaData implements UizaSubject {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
         inputModel.setUri(linkPlay);
-        notifyObservers();
+        //notifyObservers();
     }
 
     private PlayerConfig playerConfig;
@@ -152,7 +153,7 @@ public class UizaData implements UizaSubject {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
         inputModel.setEntityInfo(entityInfo);
-        notifyObservers();
+        //notifyObservers();
     }
 
     public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
