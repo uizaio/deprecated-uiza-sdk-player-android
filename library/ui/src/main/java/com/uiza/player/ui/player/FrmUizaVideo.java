@@ -57,8 +57,6 @@ import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.data.UizaRepositoryObserver;
-import com.uiza.player.ui.data.UizaSubject;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -83,7 +81,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, UizaRepositoryObserver {
+public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -121,7 +119,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private ViewGroup adOverlayViewGroup;
 
     private FrameLayout rootView;
-    private UizaSubject mUserDataRepository;
 
     private AVLoadingIndicatorView avi;
 
@@ -136,16 +133,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
-    public void onDestroyView() {
-        mUserDataRepository.removeObserver(this);
-        super.onDestroyView();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_player_frm, container, false);
-        mUserDataRepository = UizaData.getInstance();
-        mUserDataRepository.registerObserver(this);
         shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
@@ -341,6 +330,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (playbackControlView == null) {
             return;
         }
+        playbackControlView.setTitle(inputModel.getTitle());
+
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
         playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
         playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
@@ -770,15 +761,5 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 }
             });
         }
-    }
-
-    @Override
-    public void onInputModelChange(InputModel inputModel) {
-        LLog.d(TAG, "onInputModelChange");
-        if (inputModel == null) {
-            return;
-        }
-        simpleExoPlayerView.getController().setTitle(inputModel.getTitle());
-        initializePlayer();
     }
 }
