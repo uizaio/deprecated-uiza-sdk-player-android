@@ -375,7 +375,6 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     private String mCurrentSkin;
-    private PlayerConfig mPlayerConfig;
 
     private void showErrorInitPlaybackControlView() {
         LDialogUtil.showOne(getContext(), "Error", "Cannot init PlaybackControlView because the name of skin not found", "Close", new LDialogUtil.CallbackShowOne() {
@@ -390,7 +389,6 @@ public class PlaybackControlView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         int controllerLayoutId;
         mCurrentSkin = UizaData.getInstance().getPlayerId();
-        mPlayerConfig = UizaData.getInstance().getPlayerConfig();
 
         //LLog.d(TAG, "mPlayerConfig:" + new Gson().toJson(mPlayerConfig));
 
@@ -517,29 +515,24 @@ public class PlaybackControlView extends FrameLayout {
         repeatOneButtonContentDescription = resources.getString(
                 R.string.exo_controls_repeat_one_description);
         repeatAllButtonContentDescription = resources.getString(R.string.exo_controls_repeat_all_description);
+    }
 
+    public void setVisibilityFullscreenButton(boolean isShow) {
         if (fullscreenButton != null) {
-            if (mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T)) {
-                fullscreenButton.setVisibility(VISIBLE);
-            } else {
-                fullscreenButton.setVisibility(GONE);
-            }
+            fullscreenButton.setVisibility(isShow ? VISIBLE : GONE);
         }
-        if (settingButton != null) {
-            if (mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T)) {
-                settingButton.setVisibility(VISIBLE);
-            } else {
-                settingButton.setVisibility(GONE);
-            }
-        }
-        if (playlistButton != null) {
-            if (mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T)) {
-                playlistButton.setVisibility(VISIBLE);
-            } else {
-                playlistButton.setVisibility(GONE);
-            }
-        }
+    }
 
+    public void setVisibilityShowQuality(boolean isShow) {
+        if (settingButton != null) {
+            settingButton.setVisibility(isShow ? VISIBLE : GONE);
+        }
+    }
+
+    public void setVisibilityDisplayPlaylist(boolean isShow) {
+        if (playlistButton != null) {
+            playlistButton.setVisibility(isShow ? VISIBLE : GONE);
+        }
     }
 
     public void setTitle(String title) {

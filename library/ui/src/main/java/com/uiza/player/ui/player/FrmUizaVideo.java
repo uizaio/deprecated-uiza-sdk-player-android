@@ -52,6 +52,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
@@ -327,6 +328,20 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
         updateButtonVisibilities();
+
+        mPlayerConfig = UizaData.getInstance().getPlayerConfig();
+        setConfigUIPlayer();
+    }
+
+    private PlayerConfig mPlayerConfig;
+
+    private void setConfigUIPlayer() {
+        PlaybackControlView playbackControlView = getPlayerView().getController();
+        if (playbackControlView != null) {
+            playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
+            playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
+            playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
+        }
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
