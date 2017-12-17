@@ -61,7 +61,7 @@
                 android:textSize="@dimen/txt_12"
                 android:visibility="gone" />
 
-            <com.uiza.player.ui.views.DefaultTimeBar
+            <!--<com.uiza.player.ui.views.DefaultTimeBar
                 android:id="@id/exo_progress"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_26"
@@ -69,7 +69,13 @@
                 app:buffered_color="@color/df_buffered_color"
                 app:played_color="@color/df_played_color"
                 app:scrubber_color="@color/df_scrubber_color"
-                app:unplayed_color="@color/df_unplayed_color" />
+                app:unplayed_color="@color/df_unplayed_color" />-->
+
+            <com.uiza.player.ui.views.DefaultTimeBar
+                android:id="@id/exo_progress"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_26"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@id/exo_duration"
@@ -152,8 +158,8 @@
 
                 <ImageButton
                     android:id="@id/exo_question"
-                    android:visibility="gone"
-                    style="@style/ExoMediaButton.Question" />
+                    style="@style/ExoMediaButton.Question"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@id/exo_playlist"
@@ -167,8 +173,8 @@
 
                 <ImageButton
                     android:id="@id/exo_setting"
-                    android:visibility="gone"
-                    style="@style/ExoMediaButton.Setting" />
+                    style="@style/ExoMediaButton.Setting"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@id/exo_fullscreen"

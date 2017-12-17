@@ -312,7 +312,7 @@ public class PlaybackControlView extends FrameLayout {
     private final TextView tvTitle;
     private final TextView tvRewNum;
     private final TextView tvFfwdNum;
-    private final TimeBar timeBar;
+    private final DefaultTimeBar timeBar;
     private final StringBuilder formatBuilder;
     private final Formatter formatter;
     private final Timeline.Period period;
@@ -449,7 +449,7 @@ public class PlaybackControlView extends FrameLayout {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
         tvFfwdNum = (TextView) findViewById(R.id.tv_ffwd_num);
-        timeBar = (TimeBar) findViewById(R.id.exo_progress);
+        timeBar = (DefaultTimeBar) findViewById(R.id.exo_progress);
         if (timeBar != null) {
             timeBar.setListener(componentListener);
         }
@@ -536,7 +536,6 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     public void setColorAllIcons(int color) {
-        color = Color.RED;
         if (exitButton != null) {
             exitButton.setColorFilter(color);
         }

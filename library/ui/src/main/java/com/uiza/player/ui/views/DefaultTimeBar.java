@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -594,18 +595,22 @@ public class DefaultTimeBar extends View implements TimeBar {
 
     private static int getDefaultScrubberColor(int playedColor) {
         return 0xFF000000 | playedColor;
+        //return 0xFF000000 | Color.RED;
     }
 
     private static int getDefaultUnplayedColor(int playedColor) {
         return 0x33000000 | (playedColor & 0x00FFFFFF);
+        //return 0x33000000 | (Color.GREEN & 0x00FFFFFF);
     }
 
     private static int getDefaultBufferedColor(int playedColor) {
         return 0xCC000000 | (playedColor & 0x00FFFFFF);
+        //return 0xCC000000 | (Color.BLUE & 0x00FFFFFF);
     }
 
     private static int getDefaultPlayedAdMarkerColor(int adMarkerColor) {
         return 0x33000000 | (adMarkerColor & 0x00FFFFFF);
+        //return 0x33000000 | (Color.CYAN & 0x00FFFFFF);
     }
 
 }
