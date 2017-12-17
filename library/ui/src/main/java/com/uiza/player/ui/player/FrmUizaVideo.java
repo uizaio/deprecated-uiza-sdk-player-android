@@ -342,6 +342,12 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
             playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
         }
+        if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
+            simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
+        } else {
+            simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
+        }
+
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
