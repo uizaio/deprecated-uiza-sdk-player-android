@@ -203,7 +203,7 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void getLinkPlay() {
-        //LLog.d(TAG, "getLinkPlay");
+        LLog.d(TAG, "getLinkPlay " + inputModel.getEntityID());
         UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
