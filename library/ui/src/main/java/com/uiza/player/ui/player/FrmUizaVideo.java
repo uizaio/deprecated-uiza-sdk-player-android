@@ -75,6 +75,7 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -165,7 +166,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onVisibilityChange(int visibility) {
-        LLog.d(TAG, "onVisibilityChange " + visibility);
+        //LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
     }
 
@@ -493,17 +494,17 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         //TODO onPlayerStateChanged
         if (playbackState == Player.STATE_ENDED) {
-            LLog.d(TAG, "STATE_ENDED");
+            //LLog.d(TAG, "STATE_ENDED");
             avi.smoothToHide();
             showControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
-            LLog.d(TAG, "STATE_BUFFERING");
+            //LLog.d(TAG, "STATE_BUFFERING");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
-            LLog.d(TAG, "STATE_IDLE");
+            //LLog.d(TAG, "STATE_IDLE");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
-            LLog.d(TAG, "STATE_READY");
+            //LLog.d(TAG, "STATE_READY");
             avi.smoothToHide();
         }
         updateButtonVisibilities();
@@ -603,6 +604,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             return;
         }
 
+
         for (int i = 0; i < mappedTrackInfo.length; i++) {
             TrackGroupArray trackGroups = mappedTrackInfo.getTrackGroups(i);
             if (trackGroups.length != 0) {
@@ -625,9 +627,27 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 button.setTag(i);
                 button.setOnClickListener(this);
                 debugRootView.addView(button, debugRootView.getChildCount() - 1);
+                LLog.d(TAG, "updateButtonVisibilities addView " + button.getText().toString() + ", tag: " + button.getTag().toString());
+                if (i == 0) {
+                    bttest = button;
+                }
             }
         }
+
+        LUIUtil.setDelay(5000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                if (bttest == null) {
+                    LLog.d(TAG, "updateButtonVisibilities doAfter 5000mls button==null");
+                } else {
+                    LLog.d(TAG, "updateButtonVisibilities doAfter 5000mls performClick");
+                    bttest.performClick();
+                }
+            }
+        });
     }
+
+    Button bttest;
 
     private void showControls() {
         debugRootView.setVisibility(View.VISIBLE);
@@ -660,7 +680,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (view == retryButton) {
             initializePlayer();
         } else if (view.getParent() == debugRootView) {
-            LLog.d(TAG, "onClick");
+            LLog.d(TAG, "onClick " + ((Button) view).getText());
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
