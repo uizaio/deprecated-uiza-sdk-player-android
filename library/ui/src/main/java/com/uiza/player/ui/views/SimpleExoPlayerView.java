@@ -390,6 +390,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     if (settingView == null) {
                         hideOtherControl(view);
                         showSetting();
+                        if (callback != null) {
+                            callback.onClickSetting();
+                        }
                     } else {
                         hideSetting();
                     }
@@ -408,6 +411,16 @@ public final class SimpleExoPlayerView extends FrameLayout {
             });
         }
         hideController();
+    }
+
+    public interface Callback {
+        public void onClickSetting();
+    }
+
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
     private void showPlayList() {

@@ -5,11 +5,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroup;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
@@ -61,6 +64,7 @@ import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
+import com.uiza.player.ui.views.helper.DemoUtil;
 import com.uiza.player.ui.views.helper.EventLogger;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.helper.TrackSelectionHelper;
@@ -160,6 +164,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         //simpleExoPlayerView.setUseArtwork(true);
         //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic);
         //simpleExoPlayerView.setDefaultArtwork(bm);
+
+        simpleExoPlayerView.setCallback(new SimpleExoPlayerView.Callback() {
+            @Override
+            public void onClickSetting() {
+                LLog.d(TAG, "onClickSetting");
+                //bttest.performClick();
+            }
+        });
 
         return view;
     }
@@ -634,7 +646,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             }
         }
 
-        LUIUtil.setDelay(5000, new LUIUtil.DelayCallback() {
+        /*LUIUtil.setDelay(5000, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {
                 if (bttest == null) {
@@ -644,7 +656,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                     bttest.performClick();
                 }
             }
-        });
+        });*/
     }
 
     private Button bttest;
