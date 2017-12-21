@@ -723,7 +723,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             LLog.d(TAG, "onClick " + ((Button) view).getText());
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
+                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag());
             }
         }
     }
