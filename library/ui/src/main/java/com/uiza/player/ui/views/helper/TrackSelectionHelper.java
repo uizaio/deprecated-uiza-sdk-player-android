@@ -20,12 +20,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.TypedArray;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+import android.widget.LinearLayout;
 
 import com.google.android.exoplayer2.RendererCapabilities;
 import com.google.android.exoplayer2.source.TrackGroup;
@@ -115,7 +114,7 @@ import vn.loitp.core.utilities.LLog;
         LLog.d(TAG, "buildView");
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.track_selection_dialog, null);
-        ViewGroup root = (ViewGroup) view.findViewById(R.id.root);
+        LinearLayout root = (LinearLayout) view.findViewById(R.id.root);
 
         //TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
         //int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
@@ -135,7 +134,7 @@ import vn.loitp.core.utilities.LLog;
         defaultView.setText(R.string.selection_default);
         defaultView.setFocusable(true);
         defaultView.setOnClickListener(this);
-        root.addView(inflater.inflate(R.layout.list_divider, root, false));
+        //root.addView(inflater.inflate(R.layout.list_divider, root, false));
         root.addView(defaultView);
 
         // Per-track views.
@@ -144,16 +143,15 @@ import vn.loitp.core.utilities.LLog;
         for (int groupIndex = 0; groupIndex < trackGroups.length; groupIndex++) {
             TrackGroup group = trackGroups.get(groupIndex);
             boolean groupIsAdaptive = trackGroupsAdaptive[groupIndex];
+            LLog.d(TAG, "groupIndex " + groupIndex + ",groupIsAdaptive " + groupIsAdaptive);
             haveAdaptiveTracks |= groupIsAdaptive;
             trackViews[groupIndex] = new CheckedTextView[group.length];
             for (int trackIndex = 0; trackIndex < group.length; trackIndex++) {
-                if (trackIndex == 0) {
-                    root.addView(inflater.inflate(R.layout.list_divider, root, false));
-                }
-                int trackViewLayoutId = groupIsAdaptive ? android.R.layout.simple_list_item_multiple_choice
-                        : android.R.layout.simple_list_item_single_choice;
-                CheckedTextView trackView = (CheckedTextView) inflater.inflate(
-                        trackViewLayoutId, root, false);
+                //if (trackIndex == 0) {
+                //    root.addView(inflater.inflate(R.layout.list_divider, root, false));
+                //}
+                int trackViewLayoutId = groupIsAdaptive ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_single_choice;
+                CheckedTextView trackView = (CheckedTextView) inflater.inflate(trackViewLayoutId, root, false);
                 //trackView.setBackgroundResource(selectableItemBackgroundResourceId);
                 LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
                 trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
@@ -176,7 +174,7 @@ import vn.loitp.core.utilities.LLog;
             //enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
             enableRandomAdaptationView.setText(R.string.enable_random_adaptation);
             enableRandomAdaptationView.setOnClickListener(this);
-            root.addView(inflater.inflate(R.layout.list_divider, root, false));
+            //root.addView(inflater.inflate(R.layout.list_divider, root, false));
             root.addView(enableRandomAdaptationView);
         }
 
@@ -203,7 +201,6 @@ import vn.loitp.core.utilities.LLog;
     }
 
     // DialogInterface.OnClickListener
-
     @Override
     public void onClick(DialogInterface dialog, int which) {
         LLog.d(TAG, "onClick DialogInterface dialog");
@@ -216,26 +213,27 @@ import vn.loitp.core.utilities.LLog;
     }
 
     // View.OnClickListener
-
     @Override
     public void onClick(View view) {
-        LLog.d(TAG, "onClick View view");
         if (view == disableView) {
+            LLog.d(TAG, "onClick view == disableView");
             isDisabled = true;
             override = null;
         } else if (view == defaultView) {
+            LLog.d(TAG, "onClick view == defaultView");
             isDisabled = false;
             override = null;
         } else if (view == enableRandomAdaptationView) {
+            LLog.d(TAG, "onClick view == enableRandomAdaptationView");
             setOverride(override.groupIndex, override.tracks, !enableRandomAdaptationView.isChecked());
         } else {
+            LLog.d(TAG, "onClick view else");
             isDisabled = false;
             @SuppressWarnings("unchecked")
             Pair<Integer, Integer> tag = (Pair<Integer, Integer>) view.getTag();
             int groupIndex = tag.first;
             int trackIndex = tag.second;
-            if (!trackGroupsAdaptive[groupIndex] || override == null
-                    || override.groupIndex != groupIndex) {
+            if (!trackGroupsAdaptive[groupIndex] || override == null || override.groupIndex != groupIndex) {
                 override = new SelectionOverride(FIXED_FACTORY, groupIndex, trackIndex);
             } else {
                 // The group being modified is adaptive and we already have a non-null override.
@@ -248,13 +246,11 @@ import vn.loitp.core.utilities.LLog;
                         override = null;
                         isDisabled = true;
                     } else {
-                        setOverride(groupIndex, getTracksRemoving(override, trackIndex),
-                                enableRandomAdaptationView.isChecked());
+                        setOverride(groupIndex, getTracksRemoving(override, trackIndex), enableRandomAdaptationView.isChecked());
                     }
                 } else {
                     // Add the track to the override.
-                    setOverride(groupIndex, getTracksAdding(override, trackIndex),
-                            enableRandomAdaptationView.isChecked());
+                    setOverride(groupIndex, getTracksAdding(override, trackIndex), enableRandomAdaptationView.isChecked());
                 }
             }
         }
@@ -263,8 +259,7 @@ import vn.loitp.core.utilities.LLog;
     }
 
     private void setOverride(int group, int[] tracks, boolean enableRandomAdaptation) {
-        TrackSelection.Factory factory = tracks.length == 1 ? FIXED_FACTORY
-                : (enableRandomAdaptation ? RANDOM_FACTORY : adaptiveTrackSelectionFactory);
+        TrackSelection.Factory factory = tracks.length == 1 ? FIXED_FACTORY : (enableRandomAdaptation ? RANDOM_FACTORY : adaptiveTrackSelectionFactory);
         override = new SelectionOverride(factory, group, tracks);
     }
 

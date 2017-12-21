@@ -390,7 +390,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     if (settingView == null) {
                         hideOtherControl(view);
                         //TODO
-                        showSetting();
+                        //showSetting();
                         if (callback != null) {
                             callback.onClickSetting();
                         }
