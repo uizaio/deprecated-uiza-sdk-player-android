@@ -647,7 +647,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         });
     }
 
-    Button bttest;
+    private Button bttest;
 
     private void showControls() {
         debugRootView.setVisibility(View.VISIBLE);

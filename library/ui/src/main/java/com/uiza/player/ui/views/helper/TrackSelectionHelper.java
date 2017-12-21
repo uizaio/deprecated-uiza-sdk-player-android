@@ -117,8 +117,7 @@ import vn.loitp.core.utilities.LLog;
         View view = inflater.inflate(R.layout.track_selection_dialog, null);
         ViewGroup root = (ViewGroup) view.findViewById(R.id.root);
 
-        TypedArray attributeArray = context.getTheme().obtainStyledAttributes(
-                new int[]{android.R.attr.selectableItemBackground});
+        TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
         int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
         attributeArray.recycle();
 
