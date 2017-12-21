@@ -5,13 +5,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,7 +36,6 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroup;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
@@ -64,7 +61,6 @@ import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
-import com.uiza.player.ui.views.helper.DemoUtil;
 import com.uiza.player.ui.views.helper.EventLogger;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.helper.TrackSelectionHelper;
@@ -79,7 +75,6 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -169,12 +164,50 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onClickSetting() {
                 LLog.d(TAG, "onClickSetting");
-                //bttest.performClick();
+                if (getBtVideo() != null) {
+                    getBtVideo().performClick();
+                }
             }
         });
-
         return view;
     }
+
+    private View getBtVideo() {
+        for (int i = 0; i < debugRootView.getChildCount(); i++) {
+            View childView = debugRootView.getChildAt(i);
+            if (childView instanceof Button) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.video))) {
+                    return childView;
+                }
+            }
+        }
+        return null;
+    }
+
+    private View getBtAudio() {
+        for (int i = 0; i < debugRootView.getChildCount(); i++) {
+            View childView = debugRootView.getChildAt(i);
+            if (childView instanceof Button) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.audio))) {
+                    return childView;
+                }
+            }
+        }
+        return null;
+    }
+
+    private View getBtText() {
+        for (int i = 0; i < debugRootView.getChildCount(); i++) {
+            View childView = debugRootView.getChildAt(i);
+            if (childView instanceof Button) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.text))) {
+                    return childView;
+                }
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void onVisibilityChange(int visibility) {
@@ -639,10 +672,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 button.setTag(i);
                 button.setOnClickListener(this);
                 debugRootView.addView(button, debugRootView.getChildCount() - 1);
-                LLog.d(TAG, "updateButtonVisibilities addView " + button.getText().toString() + ", tag: " + button.getTag().toString());
-                if (i == 0) {
-                    bttest = button;
-                }
+                //LLog.d(TAG, "updateButtonVisibilities addView " + button.getText().toString() + ", tag: " + button.getTag().toString());
             }
         }
 
@@ -658,8 +688,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             }
         });*/
     }
-
-    private Button bttest;
 
     private void showControls() {
         debugRootView.setVisibility(View.VISIBLE);
