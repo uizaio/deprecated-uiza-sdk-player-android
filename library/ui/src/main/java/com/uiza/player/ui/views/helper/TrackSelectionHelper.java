@@ -17,13 +17,17 @@ package com.uiza.player.ui.views.helper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckedTextView;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.google.android.exoplayer2.RendererCapabilities;
@@ -100,42 +104,62 @@ import vn.loitp.core.utilities.LLog;
         LLog.d(TAG, "showSelectionDialog isDisabled " + isDisabled);
         override = selector.getSelectionOverride(rendererIndex, trackGroups);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(title)
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder
+                .setTitle(title)
                 .setView(buildView(builder.getContext()))
                 .setPositiveButton(android.R.string.ok, this)
-                .setNegativeButton(android.R.string.cancel, null)
-                .create()
-                .show();
+                .setNegativeButton(android.R.string.cancel, null);
+        alertDialog = builder.create();
+        alertDialog.show();*/
+
+        dialog = new Dialog(activity);
+        dialog.setContentView(buildView(activity));
+        dialog.show();
     }
+
+    //private AlertDialog alertDialog;
+    private Dialog dialog;
 
     @SuppressLint("InflateParams")
     private View buildView(Context context) {
         LLog.d(TAG, "buildView");
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.track_selection_dialog, null);
-        LinearLayout root = (LinearLayout) view.findViewById(R.id.root);
+        //View view = inflater.inflate(R.layout.track_selection_dialog, null);
+        //LinearLayout root = (LinearLayout) view.findViewById(R.id.root);
+        LinearLayout root = new LinearLayout(context);
+        root.setBackgroundColor(ContextCompat.getColor(context, R.color.black_65));
+        //root.setOrientation(LinearLayout.HORIZONTAL);
 
-        //TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
-        //int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
-        //attributeArray.recycle();
+        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(context);
+        root.addView(horizontalScrollView);
+
+        LinearLayout subRoot = new LinearLayout(context);
+        //subroot.setBackgroundColor(Color.BLUE);
+        //subroot.setOrientation(LinearLayout.HORIZONTAL);
+
+        horizontalScrollView.addView(subRoot);
+
+        TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
+        int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
+        attributeArray.recycle();
 
         // View for disabling the renderer.
-        disableView = (CheckedTextView) inflater.inflate(android.R.layout.simple_list_item_single_choice, root, false);
-        //disableView.setBackgroundResource(selectableItemBackgroundResourceId);
+        disableView = (CheckedTextView) inflater.inflate(R.layout.view_setting_single_choice, root, false);
+        disableView.setBackgroundResource(selectableItemBackgroundResourceId);
         disableView.setText(R.string.selection_disabled);
         disableView.setFocusable(true);
         disableView.setOnClickListener(this);
-        root.addView(disableView);
+        subRoot.addView(disableView);
 
         // View for clearing the override to allow the selector to use its default selection logic.
-        defaultView = (CheckedTextView) inflater.inflate(android.R.layout.simple_list_item_single_choice, root, false);
-        //defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
+        defaultView = (CheckedTextView) inflater.inflate(R.layout.view_setting_single_choice, root, false);
+        defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
         defaultView.setText(R.string.selection_default);
         defaultView.setFocusable(true);
         defaultView.setOnClickListener(this);
         //root.addView(inflater.inflate(R.layout.list_divider, root, false));
-        root.addView(defaultView);
+        subRoot.addView(defaultView);
 
         // Per-track views.
         boolean haveAdaptiveTracks = false;
@@ -150,9 +174,9 @@ import vn.loitp.core.utilities.LLog;
                 //if (trackIndex == 0) {
                 //    root.addView(inflater.inflate(R.layout.list_divider, root, false));
                 //}
-                int trackViewLayoutId = groupIsAdaptive ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_single_choice;
+                int trackViewLayoutId = groupIsAdaptive ? R.layout.view_setting_mutiple_choice : R.layout.view_setting_single_choice;
                 CheckedTextView trackView = (CheckedTextView) inflater.inflate(trackViewLayoutId, root, false);
-                //trackView.setBackgroundResource(selectableItemBackgroundResourceId);
+                trackView.setBackgroundResource(selectableItemBackgroundResourceId);
                 LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
                 trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
                 if (trackInfo.getTrackFormatSupport(rendererIndex, groupIndex, trackIndex) == RendererCapabilities.FORMAT_HANDLED) {
@@ -164,14 +188,14 @@ import vn.loitp.core.utilities.LLog;
                     trackView.setEnabled(false);
                 }
                 trackViews[groupIndex][trackIndex] = trackView;
-                root.addView(trackView);
+                subRoot.addView(trackView);
             }
         }
 
         if (haveAdaptiveTracks) {
             // View for using random adaptation.
-            enableRandomAdaptationView = (CheckedTextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, root, false);
-            //enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
+            enableRandomAdaptationView = (CheckedTextView) inflater.inflate(R.layout.view_setting_mutiple_choice, root, false);
+            enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
             enableRandomAdaptationView.setText(R.string.enable_random_adaptation);
             enableRandomAdaptationView.setOnClickListener(this);
             //root.addView(inflater.inflate(R.layout.list_divider, root, false));
@@ -179,7 +203,7 @@ import vn.loitp.core.utilities.LLog;
         }
 
         updateViews();
-        return view;
+        return root;
     }
 
     private void updateViews() {
@@ -204,11 +228,18 @@ import vn.loitp.core.utilities.LLog;
     @Override
     public void onClick(DialogInterface dialog, int which) {
         LLog.d(TAG, "onClick DialogInterface dialog");
+        apply();
+    }
+
+    private void apply() {
         selector.setRendererDisabled(rendererIndex, isDisabled);
         if (override != null) {
             selector.setSelectionOverride(rendererIndex, trackGroups, override);
         } else {
             selector.clearSelectionOverrides(rendererIndex);
+        }
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 
@@ -253,6 +284,7 @@ import vn.loitp.core.utilities.LLog;
                     setOverride(groupIndex, getTracksAdding(override, trackIndex), enableRandomAdaptationView.isChecked());
                 }
             }
+            apply();
         }
         // Update the views with the new state.
         updateViews();
