@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -115,6 +116,7 @@ import vn.loitp.core.utilities.LLog;
 
         dialog = new Dialog(activity);
         dialog.setContentView(buildView(activity));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
     }
 
@@ -135,29 +137,34 @@ import vn.loitp.core.utilities.LLog;
         root.addView(horizontalScrollView);
 
         LinearLayout subRoot = new LinearLayout(context);
-        //subroot.setBackgroundColor(Color.BLUE);
-        //subroot.setOrientation(LinearLayout.HORIZONTAL);
+        //subRoot.setBackgroundColor(Color.BLUE);
+        //subRoot.setOrientation(LinearLayout.HORIZONTAL);
 
         horizontalScrollView.addView(subRoot);
 
-        TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
-        int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
-        attributeArray.recycle();
+        //TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
+        //int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
+        //attributeArray.recycle();
 
         // View for disabling the renderer.
         disableView = (CheckedTextView) inflater.inflate(R.layout.view_setting_single_choice, root, false);
-        disableView.setBackgroundResource(selectableItemBackgroundResourceId);
+        //disableView.setBackgroundResource(selectableItemBackgroundResourceId);
         disableView.setText(R.string.selection_disabled);
         disableView.setFocusable(true);
+        disableView.setTextColor(Color.WHITE);
+        disableView.setCheckMarkDrawable(R.drawable.default_checkbox);
         disableView.setOnClickListener(this);
+
         subRoot.addView(disableView);
 
         // View for clearing the override to allow the selector to use its default selection logic.
         defaultView = (CheckedTextView) inflater.inflate(R.layout.view_setting_single_choice, root, false);
-        defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
+        //defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
         defaultView.setText(R.string.selection_default);
         defaultView.setFocusable(true);
         defaultView.setOnClickListener(this);
+        defaultView.setTextColor(Color.WHITE);
+        defaultView.setCheckMarkDrawable(R.drawable.default_checkbox);
         //root.addView(inflater.inflate(R.layout.list_divider, root, false));
         subRoot.addView(defaultView);
 
@@ -176,9 +183,11 @@ import vn.loitp.core.utilities.LLog;
                 //}
                 int trackViewLayoutId = groupIsAdaptive ? R.layout.view_setting_mutiple_choice : R.layout.view_setting_single_choice;
                 CheckedTextView trackView = (CheckedTextView) inflater.inflate(trackViewLayoutId, root, false);
-                trackView.setBackgroundResource(selectableItemBackgroundResourceId);
+                //trackView.setBackgroundResource(selectableItemBackgroundResourceId);
                 LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
                 trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
+                trackView.setTextColor(Color.WHITE);
+                trackView.setCheckMarkDrawable(R.drawable.default_checkbox);
                 if (trackInfo.getTrackFormatSupport(rendererIndex, groupIndex, trackIndex) == RendererCapabilities.FORMAT_HANDLED) {
                     trackView.setFocusable(true);
                     trackView.setTag(Pair.create(groupIndex, trackIndex));
@@ -195,7 +204,7 @@ import vn.loitp.core.utilities.LLog;
         if (haveAdaptiveTracks) {
             // View for using random adaptation.
             enableRandomAdaptationView = (CheckedTextView) inflater.inflate(R.layout.view_setting_mutiple_choice, root, false);
-            enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
+            //enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
             enableRandomAdaptationView.setText(R.string.enable_random_adaptation);
             enableRandomAdaptationView.setOnClickListener(this);
             //root.addView(inflater.inflate(R.layout.list_divider, root, false));
