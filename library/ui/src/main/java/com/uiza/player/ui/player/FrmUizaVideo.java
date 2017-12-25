@@ -1,6 +1,7 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
@@ -58,6 +59,7 @@ import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -730,6 +732,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                         if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
                         }
+                        UizaScreenUtil.hideNavBar(getActivity().getWindow().getDecorView());
                     }
                 });
             }

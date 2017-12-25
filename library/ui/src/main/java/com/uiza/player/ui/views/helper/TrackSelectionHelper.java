@@ -27,6 +27,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckedTextView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -40,11 +41,15 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedT
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LDeviceUtil;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 
 /**
  * Helper class for displaying track selection dialogs.
@@ -89,7 +94,8 @@ import vn.loitp.core.utilities.LLog;
      * @param trackInfo     The current track information.
      * @param rendererIndex The index of the renderer.
      */
-    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, DialogInterface.OnDismissListener onDismissListener) {
+
+    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, final DialogInterface.OnDismissListener callbackDialogDissmiss) {
         this.trackInfo = trackInfo;
         this.rendererIndex = rendererIndex;
 
@@ -117,8 +123,9 @@ import vn.loitp.core.utilities.LLog;
         dialog = new Dialog(activity);
         dialog.setContentView(buildView(activity));
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setOnDismissListener(onDismissListener);
+        dialog.setOnDismissListener(callbackDialogDissmiss);
         dialog.show();
+        //UizaScreenUtil.hideNavBar(dialog.getWindow().getDecorView());
     }
 
     //private AlertDialog alertDialog;
