@@ -1,6 +1,7 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -723,7 +724,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             LLog.d(TAG, "onClick " + ((Button) view).getText());
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag());
+                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag(), new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (simpleExoPlayerView != null) {
+                            simpleExoPlayerView.resumePlayVideo();
+                        }
+                    }
+                });
             }
         }
     }

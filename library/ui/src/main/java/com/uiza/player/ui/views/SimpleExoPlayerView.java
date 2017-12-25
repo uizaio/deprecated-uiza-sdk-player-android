@@ -233,7 +233,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private boolean controllerAutoShow;
     private boolean controllerHideOnTouch;
 
-    private SettingView settingView;
+    //private SettingView settingView;
     private LanguageView languageView;
     private PlayListView playListView;
 
@@ -387,7 +387,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickSetting(View view) {
-                    if (settingView == null) {
+                    /*if (settingView == null) {
                         hideOtherControl(view);
                         //TODO
                         //showSetting();
@@ -396,6 +396,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
                         }
                     } else {
                         hideSetting();
+                    }*/
+                    hideOtherControl(view);
+                    pausePlayVideo();
+                    if (callback != null) {
+                        callback.onClickSetting();
                     }
                 }
 
@@ -488,7 +493,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         }
     }
 
-    private void showSetting() {
+    /*private void showSetting() {
         settingView = new SettingView(getContext());
         if (exoHelperFrameLayout != null) {
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
@@ -508,26 +513,26 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 controller.getSettingButton().performClick();
             }
         });
-    }
+    }*/
 
-    private void hideSetting() {
+    /*private void hideSetting() {
         if (exoHelperFrameLayout != null && settingView != null) {
             exoHelperFrameLayout.removeView(settingView);
             settingView = null;
             resumePlayVideo();
         }
-    }
+    }*/
 
     private void hideOtherControl(View view) {
         if (view.getId() == R.id.exo_setting) {
             hideLanguage();
             hidePlayList();
         } else if (view.getId() == R.id.exo_language) {
-            hideSetting();
+            //hideSetting();
             hidePlayList();
         } else if (view.getId() == R.id.exo_playlist) {
             hideLanguage();
-            hideSetting();
+            //hideSetting();
         }
     }
 
@@ -541,22 +546,22 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 exoHelperFrameLayout.removeView(playListView);
                 playListView = null;
             }
-            if (settingView != null) {
+            /*if (settingView != null) {
                 exoHelperFrameLayout.removeView(settingView);
                 settingView = null;
-            }
+            }*/
             resumePlayVideo();
         }
     }
 
-    private void pausePlayVideo() {
+    public void pausePlayVideo() {
         if (player != null) {
             player.setPlayWhenReady(false);
             //player.getPlaybackState();
         }
     }
 
-    private void resumePlayVideo() {
+    public void resumePlayVideo() {
         if (player != null) {
             player.setPlayWhenReady(true);
             //player.getPlaybackState();

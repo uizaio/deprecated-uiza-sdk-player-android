@@ -270,7 +270,7 @@ public class UizaPlayerActivity extends BaseActivity implements OnClickListener,
             MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 trackSelectionHelper.showSelectionDialog(this, ((Button) view).getText(),
-                        trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
+                        trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag(), null);
             }
         }
     }

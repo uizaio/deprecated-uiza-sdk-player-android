@@ -89,7 +89,7 @@ import vn.loitp.core.utilities.LLog;
      * @param trackInfo     The current track information.
      * @param rendererIndex The index of the renderer.
      */
-    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex) {
+    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, DialogInterface.OnDismissListener onDismissListener) {
         this.trackInfo = trackInfo;
         this.rendererIndex = rendererIndex;
 
@@ -117,6 +117,7 @@ import vn.loitp.core.utilities.LLog;
         dialog = new Dialog(activity);
         dialog.setContentView(buildView(activity));
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setOnDismissListener(onDismissListener);
         dialog.show();
     }
 
