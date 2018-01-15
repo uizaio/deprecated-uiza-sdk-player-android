@@ -26,7 +26,6 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -54,18 +53,17 @@ import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.TextRenderer;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.views.view.language.LanguageView;
-import com.uiza.player.ui.views.view.listview.PlayListView;
-import com.uiza.player.ui.views.view.settingview.SettingObject;
-import com.uiza.player.ui.views.view.settingview.SettingView;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.views.view.language.LanguageView;
+import com.uiza.player.ui.views.view.listview.PlayListView;
 
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LLog;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -362,7 +360,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
             controller.setOnClickEvent(new PlaybackControlView.OnClickEvent() {
                 @Override
                 public void onClickQuestion(View view) {
-                    Log.d("loitp", "onClickQuestion");
+                    LLog.d(TAG, "onClickQuestion");
                 }
 
                 @Override
@@ -877,9 +875,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
             @Override
             public void onVisibilityChange(int visibility) {
                 if (visibility == View.VISIBLE) {
-                    //Log.d(TAG, "VISIBLE");
+                    LLog.d(TAG, "setControllerVisibilityListener VISIBLE");
                 } else if (visibility == View.GONE) {
-                    //Log.d(TAG, "GONE");
+                    LLog.d(TAG, "setControllerVisibilityListener GONE");
                     hideAllOtherControlView();
                 }
                 if (listener != null) {
@@ -1145,7 +1143,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onRenderedFirstFrame() {
-            //Log.d(TAG, "onRenderedFirstFrame");
+            LLog.d(TAG, "onRenderedFirstFrame");
             if (shutterView != null) {
                 shutterView.setVisibility(INVISIBLE);
             }
@@ -1164,11 +1162,13 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onLoadingChanged(boolean isLoading) {
             // Do nothing.
+            LLog.d(TAG, "onLoadingChanged isLoading " + isLoading);
         }
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             maybeShowController(false);
+            LLog.d(TAG, "onPlayerStateChanged playbackState " + playbackState);
             /*if (playbackState == Player.STATE_IDLE) {
                 Log.d("loitp", TAG + "STATE_IDLE");
                 if (controller != null) {
@@ -1183,6 +1183,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onRepeatModeChanged(int repeatMode) {
             // Do nothing.
+            LLog.d(TAG, "onRepeatModeChanged repeatMode " + repeatMode);
+
         }
 
         @Override
@@ -1203,6 +1205,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
             // Do nothing.
+            LLog.d(TAG, "onTimelineChanged timeline " + timeline.getPeriodCount());
         }
     }
 
