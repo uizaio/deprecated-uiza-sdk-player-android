@@ -64,6 +64,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.utils.util.ToastUtils;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -416,7 +417,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
             controller.setOnProgressEvent(new PlaybackControlView.OnProgressEvent() {
                 @Override
                 public void onProgressChange(long progress) {
-                    LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + Math.round((float) ((float) progress / 1000)));
+                    int sec = Math.round((float) ((float) progress / 1000));
+                    LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + sec);
+                    if (sec % 20 == 0) {
+                        ToastUtils.showShort("sec " + sec);
+                    }
                 }
             });
         }
