@@ -413,6 +413,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     ((Activity) getContext()).onBackPressed();
                 }
             });
+            controller.setOnProgressEvent(new PlaybackControlView.OnProgressEvent() {
+                @Override
+                public void onProgressChange(long progress) {
+                    LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + Math.round((float) ((float) progress / 1000)));
+                }
+            });
         }
         hideController();
     }

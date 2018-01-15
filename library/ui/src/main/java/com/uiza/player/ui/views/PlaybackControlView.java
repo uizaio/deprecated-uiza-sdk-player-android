@@ -258,7 +258,6 @@ public class PlaybackControlView extends FrameLayout {
             player.setRepeatMode(repeatMode);
             return true;
         }
-
     };
 
     /**
@@ -343,8 +342,6 @@ public class PlaybackControlView extends FrameLayout {
     private boolean[] playedAdGroups;
     private long[] extraAdGroupTimesMs;
     private boolean[] extraPlayedAdGroups;
-
-    private boolean isAlwaysCountEverySecond = true;
 
     private final Runnable updateProgressAction = new Runnable() {
         @Override
@@ -778,6 +775,8 @@ public class PlaybackControlView extends FrameLayout {
     /**
      * Hides the controller.
      */
+    private boolean isViewHiddenButStillCount = true;
+
     public void hide() {
         LLog.d(TAG, "hide isVisible " + isVisible());
         if (isVisible()) {
@@ -785,7 +784,7 @@ public class PlaybackControlView extends FrameLayout {
             if (visibilityListener != null) {
                 visibilityListener.onVisibilityChange(getVisibility());
             }
-            if (!isAlwaysCountEverySecond) {
+            if (!isViewHiddenButStillCount) {
                 removeCallbacks(updateProgressAction);
             }
             removeCallbacks(hideAction);
@@ -908,16 +907,10 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     private void updateProgress() {
-        if (!isVisible() || !isAttachedToWindow) {
-            LLog.d(TAG, "updateProgress return ->isVisible " + isVisible() + ", isAttachedToWindow " + isAttachedToWindow);
-            if (isAlwaysCountEverySecond) {
-                LLog.d(TAG, "isAlwaysCountEverySecond -> update progress UI");
-            } else {
-                LLog.d(TAG, "!isAlwaysCountEverySecond -> return");
-                return;
-            }
+        if (!isAttachedToWindow) {
+            LLog.d(TAG, "updateProgress return isAttachedToWindow " + isAttachedToWindow);
+            return;
         }
-
         long position = 0;
         long bufferedPosition = 0;
         long duration = 0;
@@ -977,44 +970,48 @@ public class PlaybackControlView extends FrameLayout {
                 position += player.getCurrentPosition();
                 bufferedPosition += player.getBufferedPosition();
             }
-            if (timeBar != null) {
-                int extraAdGroupCount = extraAdGroupTimesMs.length;
-                int totalAdGroupCount = adGroupCount + extraAdGroupCount;
-                if (totalAdGroupCount > adGroupTimesMs.length) {
-                    adGroupTimesMs = Arrays.copyOf(adGroupTimesMs, totalAdGroupCount);
-                    playedAdGroups = Arrays.copyOf(playedAdGroups, totalAdGroupCount);
+            if (isVisible()) {
+                if (timeBar != null) {
+                    int extraAdGroupCount = extraAdGroupTimesMs.length;
+                    int totalAdGroupCount = adGroupCount + extraAdGroupCount;
+                    if (totalAdGroupCount > adGroupTimesMs.length) {
+                        adGroupTimesMs = Arrays.copyOf(adGroupTimesMs, totalAdGroupCount);
+                        playedAdGroups = Arrays.copyOf(playedAdGroups, totalAdGroupCount);
+                    }
+                    System.arraycopy(extraAdGroupTimesMs, 0, adGroupTimesMs, adGroupCount, extraAdGroupCount);
+                    System.arraycopy(extraPlayedAdGroups, 0, playedAdGroups, adGroupCount, extraAdGroupCount);
+                    timeBar.setAdGroupTimesMs(adGroupTimesMs, playedAdGroups, totalAdGroupCount);
                 }
-                System.arraycopy(extraAdGroupTimesMs, 0, adGroupTimesMs, adGroupCount, extraAdGroupCount);
-                System.arraycopy(extraPlayedAdGroups, 0, playedAdGroups, adGroupCount, extraAdGroupCount);
-                timeBar.setAdGroupTimesMs(adGroupTimesMs, playedAdGroups, totalAdGroupCount);
             }
         }
-        if (tvDuration != null) {
-            tvDuration.setText(Util.getStringForTime(formatBuilder, formatter, duration));
-        }
-        if (tvPosition != null && !scrubbing) {
-            tvPosition.setText(Util.getStringForTime(formatBuilder, formatter, position));
-        }
-        if (timeBar != null) {
-            timeBar.setPosition(position);
-            timeBar.setBufferedPosition(bufferedPosition);
-            timeBar.setDuration(duration);
-        }
-
-        if (UizaData.getInstance().isLandscape()) {
-            if (tvRewNum.getVisibility() != VISIBLE) {
-                if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_1)) {
-                    tvRewNum.setVisibility(VISIBLE);
-                    tvFfwdNum.setVisibility(VISIBLE);
-                } else {
+        if (isVisible()) {
+            LLog.d(TAG, "isVisible " + isVisible());
+            if (tvDuration != null) {
+                tvDuration.setText(Util.getStringForTime(formatBuilder, formatter, duration));
+            }
+            if (tvPosition != null && !scrubbing) {
+                tvPosition.setText(Util.getStringForTime(formatBuilder, formatter, position));
+            }
+            if (timeBar != null) {
+                timeBar.setPosition(position);
+                timeBar.setBufferedPosition(bufferedPosition);
+                timeBar.setDuration(duration);
+            }
+            if (UizaData.getInstance().isLandscape()) {
+                if (tvRewNum.getVisibility() != VISIBLE) {
+                    if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_1)) {
+                        tvRewNum.setVisibility(VISIBLE);
+                        tvFfwdNum.setVisibility(VISIBLE);
+                    } else {
+                        tvRewNum.setVisibility(GONE);
+                        tvFfwdNum.setVisibility(GONE);
+                    }
+                }
+            } else {
+                if (tvRewNum.getVisibility() != GONE) {
                     tvRewNum.setVisibility(GONE);
                     tvFfwdNum.setVisibility(GONE);
                 }
-            }
-        } else {
-            if (tvRewNum.getVisibility() != GONE) {
-                tvRewNum.setVisibility(GONE);
-                tvFfwdNum.setVisibility(GONE);
             }
         }
 
@@ -1266,12 +1263,14 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onScrubStart(TimeBar timeBar, long position) {
+            LLog.d(TAG, "onScrubStart position " + position);
             removeCallbacks(hideAction);
             scrubbing = true;
         }
 
         @Override
         public void onScrubMove(TimeBar timeBar, long position) {
+            LLog.d(TAG, "onScrubMove position " + position);
             if (tvPosition != null) {
                 tvPosition.setText(Util.getStringForTime(formatBuilder, formatter, position));
             }
@@ -1279,6 +1278,7 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onScrubStop(TimeBar timeBar, long position, boolean canceled) {
+            LLog.d(TAG, "onScrubStop position " + position);
             scrubbing = false;
             if (!canceled && player != null) {
                 seekToTimeBarPosition(position);
@@ -1288,18 +1288,21 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+            LLog.d(TAG, "onPlayerStateChanged playbackState " + playbackState);
             updatePlayPauseButton();
             updateProgress();
         }
 
         @Override
         public void onRepeatModeChanged(int repeatMode) {
+            LLog.d(TAG, "onRepeatModeChanged repeatMode " + repeatMode);
             updateRepeatModeButton();
             updateNavigation();
         }
 
         @Override
         public void onPositionDiscontinuity() {
+            LLog.d(TAG, "onPositionDiscontinuity");
             updateNavigation();
             updateProgress();
         }
@@ -1311,6 +1314,7 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
+            LLog.d(TAG, "onTimelineChanged");
             updateNavigation();
             updateTimeBarMode();
             updateProgress();
@@ -1318,7 +1322,7 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onLoadingChanged(boolean isLoading) {
-            // Do nothing.
+            LLog.d(TAG, "onLoadingChanged isLoading " + isLoading);
         }
 
         @Override
