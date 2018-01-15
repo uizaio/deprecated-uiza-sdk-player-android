@@ -127,7 +127,7 @@ public class PlayerActivity extends BaseActivity {
             ivCoverLogo = null;
             avLoadingIndicatorView = null;
 
-            //LLog.d(TAG, "removeCoverVideo success");
+            LLog.d(TAG, "removeCoverVideo success");
         }
     }
 
