@@ -214,7 +214,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onVisibilityChange(int visibility) {
-        //LLog.d(TAG, "onVisibilityChange " + visibility);
+        LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
     }
 
@@ -237,7 +237,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     public void initializePlayer() {
         if (inputModel == null) {
-            //throw new IllegalArgumentException("You must init InputModel first");
             inputModel = UizaData.getInstance().getInputModel();
         }
         if (inputModel.getUri() == null) {
@@ -249,7 +248,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             return;
         }*/
 
-        //Intent intent = ((Activity) getContext()).getIntent();
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
@@ -334,7 +332,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
         MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0] : new ConcatenatingMediaSource(mediaSources);
         String adTagUriString = inputModel.getAdTagUri();
-        //LLog.d(TAG, "adTagUriString " + adTagUriString);
+        LLog.d(TAG, "adTagUriString " + adTagUriString);
         if (adTagUriString != null) {
             Uri adTagUri = Uri.parse(adTagUriString);
             if (!adTagUri.equals(loadedAdTagUri)) {
@@ -542,17 +540,17 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         //TODO onPlayerStateChanged
         if (playbackState == Player.STATE_ENDED) {
-            //LLog.d(TAG, "STATE_ENDED");
+            LLog.d(TAG, "STATE_ENDED");
             avi.smoothToHide();
             showControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
-            //LLog.d(TAG, "STATE_BUFFERING");
+            LLog.d(TAG, "STATE_BUFFERING");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
-            //LLog.d(TAG, "STATE_IDLE");
+            LLog.d(TAG, "STATE_IDLE");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
-            //LLog.d(TAG, "STATE_READY");
+            LLog.d(TAG, "STATE_READY");
             avi.smoothToHide();
         }
         updateButtonVisibilities();
