@@ -344,13 +344,15 @@ public class PlaybackControlView extends FrameLayout {
     private long[] extraAdGroupTimesMs;
     private boolean[] extraPlayedAdGroups;
 
+    private boolean isAlwaysCountEverySecond = true;
+
     private final Runnable updateProgressAction = new Runnable() {
         @Override
         public void run() {
+            LLog.d(TAG, "updateProgressAction updateProgress() getCurrentPosition " + player.getCurrentPosition());
             if (onProgressEvent != null) {
                 onProgressEvent.onProgressChange(player.getCurrentPosition());
             }
-            LLog.d(TAG, "updateProgressAction updateProgress() getCurrentPosition " + player.getCurrentPosition());
             updateProgress();
         }
     };
@@ -777,12 +779,15 @@ public class PlaybackControlView extends FrameLayout {
      * Hides the controller.
      */
     public void hide() {
+        LLog.d(TAG, "hide isVisible " + isVisible());
         if (isVisible()) {
             setVisibility(GONE);
             if (visibilityListener != null) {
                 visibilityListener.onVisibilityChange(getVisibility());
             }
-            removeCallbacks(updateProgressAction);
+            if (!isAlwaysCountEverySecond) {
+                removeCallbacks(updateProgressAction);
+            }
             removeCallbacks(hideAction);
             hideAtMs = C.TIME_UNSET;
         }
@@ -796,6 +801,7 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     private void hideAfterTimeout() {
+        LLog.d(TAG, "hideAfterTimeout");
         removeCallbacks(hideAction);
         if (showTimeoutMs > 0) {
             hideAtMs = SystemClock.uptimeMillis() + showTimeoutMs;
@@ -903,7 +909,13 @@ public class PlaybackControlView extends FrameLayout {
 
     private void updateProgress() {
         if (!isVisible() || !isAttachedToWindow) {
-            return;
+            LLog.d(TAG, "updateProgress return ->isVisible " + isVisible() + ", isAttachedToWindow " + isAttachedToWindow);
+            if (isAlwaysCountEverySecond) {
+                LLog.d(TAG, "isAlwaysCountEverySecond -> update progress UI");
+            } else {
+                LLog.d(TAG, "!isAlwaysCountEverySecond -> return");
+                return;
+            }
         }
 
         long position = 0;
@@ -1165,6 +1177,7 @@ public class PlaybackControlView extends FrameLayout {
 
     @Override
     public void onDetachedFromWindow() {
+        LLog.d(TAG, "onDetachedFromWindow");
         super.onDetachedFromWindow();
         isAttachedToWindow = false;
         removeCallbacks(updateProgressAction);
