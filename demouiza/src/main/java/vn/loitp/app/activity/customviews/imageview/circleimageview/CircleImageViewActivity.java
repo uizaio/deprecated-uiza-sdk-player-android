@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class CircleImageViewActivity extends BaseActivity {
 

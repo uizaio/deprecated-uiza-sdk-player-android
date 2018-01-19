@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.common.Constants;
-import vn.loitp.livestar.BuildConfig;
+import vn.loitp.uiza.BuildConfig;
 import vn.loitp.utils.util.Utils;
 
 public class LSApplication extends MultiDexApplication {

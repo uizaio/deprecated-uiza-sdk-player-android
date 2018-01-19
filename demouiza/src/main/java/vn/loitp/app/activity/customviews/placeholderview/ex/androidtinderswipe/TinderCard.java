@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.SwipePlaceHolderView;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;

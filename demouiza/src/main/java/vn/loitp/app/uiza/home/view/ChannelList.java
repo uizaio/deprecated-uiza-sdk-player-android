@@ -4,14 +4,12 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.TextView;
 
-import com.uiza.player.ui.views.helper.InputModel;
-
 import java.util.List;
 
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.NonReusable;

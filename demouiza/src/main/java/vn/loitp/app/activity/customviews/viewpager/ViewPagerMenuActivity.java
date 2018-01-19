@@ -9,7 +9,7 @@ import vn.loitp.app.activity.customviews.viewpager.detectviewpagerswipeout.ex.De
 import vn.loitp.app.activity.customviews.viewpager.parrallaxviewpager.ex.ParallaxViewPagerActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class ViewPagerMenuActivity extends BaseActivity {
 

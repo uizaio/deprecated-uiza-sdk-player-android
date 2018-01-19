@@ -45,7 +45,7 @@ import vn.loitp.app.activity.demo.alarmdemoapp.model.DateTime;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class AlarmNotification extends BaseActivity {
     private Ringtone mRingtone;

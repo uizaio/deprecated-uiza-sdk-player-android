@@ -3,7 +3,7 @@ package vn.loitp.app.activity.customviews.keyword_hottags;
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
 
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.hottagkeywords.lib.AutoLabelUI;
 import vn.loitp.views.hottagkeywords.lib.AutoLabelUISettings;
 import vn.loitp.views.hottagkeywords.lib.Label;

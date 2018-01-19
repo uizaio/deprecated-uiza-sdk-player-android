@@ -11,7 +11,7 @@ import android.widget.TextView;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LStoreUtil;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 public class AndroidNavigationDrawerActivity extends BaseActivity {

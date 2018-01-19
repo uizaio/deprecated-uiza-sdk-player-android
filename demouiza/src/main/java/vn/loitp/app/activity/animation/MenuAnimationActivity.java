@@ -9,7 +9,7 @@ import vn.loitp.app.activity.animation.animationview.AnimationViewActivity;
 import vn.loitp.app.activity.animation.overscroll.OverScrollActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class MenuAnimationActivity extends BaseActivity {
 

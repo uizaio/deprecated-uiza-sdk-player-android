@@ -14,7 +14,7 @@ import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class VideoMenuActivity extends BaseActivity {
 

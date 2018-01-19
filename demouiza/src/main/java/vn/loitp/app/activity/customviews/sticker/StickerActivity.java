@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.sticker.lib.StickerImageView;
 import vn.loitp.views.sticker.lib.StickerTextView;
 

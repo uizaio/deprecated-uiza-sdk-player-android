@@ -29,7 +29,7 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;

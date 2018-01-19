@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Animate;

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.loitp.core.base.BaseFragment;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.

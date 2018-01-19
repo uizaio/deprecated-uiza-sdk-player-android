@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="vn.loitp.livestar.core">
+    package="com.uiza.core">
 
     <application
         android:allowBackup="true"

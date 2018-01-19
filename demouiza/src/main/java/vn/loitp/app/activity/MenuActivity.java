@@ -10,7 +10,7 @@ import vn.loitp.app.activity.customviews.MenuCustomViewsActivity;
 import vn.loitp.app.activity.demo.MenuDemoActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class MenuActivity extends BaseActivity {
 

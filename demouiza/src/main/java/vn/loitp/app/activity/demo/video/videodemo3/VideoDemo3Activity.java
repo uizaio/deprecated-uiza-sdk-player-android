@@ -12,7 +12,7 @@ import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.view.UizaVideoView;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class VideoDemo3Activity extends BaseActivity {
 

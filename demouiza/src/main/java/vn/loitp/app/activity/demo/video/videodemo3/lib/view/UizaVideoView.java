@@ -56,7 +56,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -69,7 +68,7 @@ import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.EventLogger;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.TrackSelectionHelper;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

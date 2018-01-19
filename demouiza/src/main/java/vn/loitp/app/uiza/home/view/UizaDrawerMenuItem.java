@@ -7,7 +7,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.loitp.app.uiza.data.HomeData;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Resolve;

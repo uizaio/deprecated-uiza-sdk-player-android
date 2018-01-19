@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.button.shinebutton.lib.LShineView;
 

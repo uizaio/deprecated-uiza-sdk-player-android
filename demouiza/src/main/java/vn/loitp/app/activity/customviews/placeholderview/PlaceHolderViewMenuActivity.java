@@ -13,7 +13,7 @@ import vn.loitp.app.activity.customviews.placeholderview.ex.androidnavigationdra
 import vn.loitp.app.activity.customviews.placeholderview.ex.androidtinderswipe.AndroidTinderSwipeActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class PlaceHolderViewMenuActivity extends BaseActivity {
 

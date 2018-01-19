@@ -8,7 +8,7 @@ import android.view.View;
 import vn.loitp.app.activity.customviews.button.shinebutton.ShineButtonActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class ButtonMenuActivity extends BaseActivity {
 

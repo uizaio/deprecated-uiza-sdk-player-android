@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 
 import vn.loitp.core.utilities.LAnimationUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

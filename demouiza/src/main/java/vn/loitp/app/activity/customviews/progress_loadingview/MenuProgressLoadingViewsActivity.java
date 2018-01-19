@@ -8,7 +8,7 @@ import android.view.View;
 import vn.loitp.app.activity.customviews.progress_loadingview.avloading_indicator_view.AVLoadingIndicatorActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class MenuProgressLoadingViewsActivity extends BaseActivity {
 

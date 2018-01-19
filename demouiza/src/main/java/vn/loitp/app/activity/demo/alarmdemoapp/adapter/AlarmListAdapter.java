@@ -34,7 +34,7 @@ import vn.loitp.app.activity.demo.alarmdemoapp.model.DataSource;
 import vn.loitp.app.activity.demo.alarmdemoapp.model.DateTime;
 import vn.loitp.app.activity.demo.alarmdemoapp.service.AlarmReceiver;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class AlarmListAdapter extends BaseAdapter {
     private final String TAG = "AlarmMeActivity";

@@ -3,7 +3,7 @@ package vn.loitp.app.activity.customviews.placeholderview.ex.androidbeginnerimag
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Animate;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;

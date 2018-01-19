@@ -2,15 +2,11 @@ package vn.loitp.app.uiza.setting;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.uiza.player.ui.data.UizaData;
-
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class SettingActivity extends BaseActivity {
     private RadioGroup radioGroup;

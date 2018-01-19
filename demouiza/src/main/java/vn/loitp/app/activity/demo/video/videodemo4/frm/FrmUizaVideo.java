@@ -66,7 +66,7 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.

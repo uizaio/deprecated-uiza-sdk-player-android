@@ -8,7 +8,7 @@ import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.home.HomeActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.restapi.restclient.RestClient;
 
 public class SplashActivity extends BaseActivity {

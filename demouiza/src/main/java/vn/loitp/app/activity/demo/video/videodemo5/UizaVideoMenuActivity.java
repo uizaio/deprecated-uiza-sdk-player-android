@@ -13,7 +13,7 @@ import vn.loitp.app.activity.demo.video.videodemo5.views.MediaView;
 import vn.loitp.app.activity.demo.video.videodemo5.views.TypeView;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.ExpandablePlaceHolderView;
 
 public class UizaVideoMenuActivity extends BaseActivity {

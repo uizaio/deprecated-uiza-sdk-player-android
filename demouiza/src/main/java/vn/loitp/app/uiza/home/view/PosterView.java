@@ -12,7 +12,7 @@ import java.util.List;
 import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Animate;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;

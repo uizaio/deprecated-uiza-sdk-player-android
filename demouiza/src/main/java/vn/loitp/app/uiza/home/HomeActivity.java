@@ -15,12 +15,11 @@ import java.util.List;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
-import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 

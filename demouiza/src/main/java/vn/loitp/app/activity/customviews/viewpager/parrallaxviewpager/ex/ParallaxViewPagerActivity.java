@@ -15,7 +15,7 @@ import java.util.List;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LStoreUtil;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.viewpager.parrallaxviewpager.lib.parrallaxviewpager.Mode;
 import vn.loitp.views.viewpager.parrallaxviewpager.lib.parrallaxviewpager.ParallaxViewPager;
 

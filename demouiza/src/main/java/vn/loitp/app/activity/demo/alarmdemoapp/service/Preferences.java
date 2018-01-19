@@ -22,7 +22,7 @@ package vn.loitp.app.activity.demo.alarmdemoapp.service;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class Preferences extends PreferenceActivity {
     @Override

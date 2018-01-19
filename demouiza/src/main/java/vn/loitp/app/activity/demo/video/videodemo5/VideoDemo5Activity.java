@@ -19,7 +19,7 @@ import vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideo;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.common.Constants;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 
 public class VideoDemo5Activity extends BaseActivity {
 

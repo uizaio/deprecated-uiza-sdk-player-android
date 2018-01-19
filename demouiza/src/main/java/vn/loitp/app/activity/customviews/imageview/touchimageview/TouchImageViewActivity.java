@@ -6,7 +6,7 @@ import android.os.Bundle;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.core.utilities.LImageUtil;
-import vn.loitp.livestar.R;
+import vn.loitp.uiza.R;
 import vn.loitp.views.imageview.touchimageview.lib.LTouchImageView;
 
 public class TouchImageViewActivity extends BaseActivity {
