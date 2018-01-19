@@ -55,4 +55,6 @@
     <string name="noti">Warning</string>
     <string name="empty_list">Empty list</string>
     <string name="confirm">Confirm</string>
+    <string name="open_drawer">open_drawer</string>
+    <string name="close_drawer">close_drawer</string>
 </resources>
