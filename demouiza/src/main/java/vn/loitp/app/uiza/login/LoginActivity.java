@@ -11,7 +11,7 @@ import vn.loitp.app.rxandroid.ApiSubscriber;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.uiza.R;
-import vn.loitp.restapi.livestar.corev3.api.service.LSService;
+import vn.loitp.restapi.uiza.corev3.api.service.LSService;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.utils.util.ToastUtils;
 
