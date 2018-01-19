@@ -11,7 +11,7 @@ import vn.loitp.app.activity.demo.video.videodemo3.lib.helper.InputModel;
 import vn.loitp.app.activity.demo.video.videodemo3.lib.view.UizaVideoView;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.utils.util.ToastUtils;
 
 public class VideoDemo3Activity extends BaseActivity {

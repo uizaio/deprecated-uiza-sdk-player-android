@@ -8,7 +8,7 @@ import android.view.View;
 import vn.loitp.app.activity.customviews.switchtoggle.appcompatswitch.AppcompatSwitchActivity;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public class SwitchToggleMenuActivity extends BaseActivity {
 

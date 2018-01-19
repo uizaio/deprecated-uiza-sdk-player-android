@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public abstract class StickerView extends FrameLayout {
 

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import vn.loitp.app.activity.customviews.bottomnavigationbar.bottombar.lib.LBottomBar;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LStoreUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.utils.util.ToastUtils;
 
 public class BottomBarActivity extends BaseActivity {

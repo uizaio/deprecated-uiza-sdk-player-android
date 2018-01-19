@@ -39,7 +39,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 
 import java.util.Arrays;
 
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * Helper class for displaying track selection dialogs.

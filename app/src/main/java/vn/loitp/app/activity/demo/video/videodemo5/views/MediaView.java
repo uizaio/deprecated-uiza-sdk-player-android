@@ -17,7 +17,7 @@ import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

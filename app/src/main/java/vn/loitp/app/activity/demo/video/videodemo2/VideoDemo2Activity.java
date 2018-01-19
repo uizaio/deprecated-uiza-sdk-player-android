@@ -70,7 +70,7 @@ import vn.loitp.app.activity.demo.video.videodemo2.libgoogle.TrackSelectionHelpe
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LLog;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public class VideoDemo2Activity extends BaseActivity implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
     public static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";

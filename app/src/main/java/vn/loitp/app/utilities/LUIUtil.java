@@ -46,7 +46,7 @@ import java.lang.reflect.Field;
 import vn.loitp.app.activity.animation.overscroll._lib.overscroll.IOverScrollDecor;
 import vn.loitp.app.activity.animation.overscroll._lib.overscroll.IOverScrollUpdateListener;
 import vn.loitp.app.activity.animation.overscroll._lib.overscroll.OverScrollDecoratorHelper;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * File created on 11/3/2016.

@@ -10,7 +10,7 @@ import vn.loitp.app.activity.demo.gallery.GalleryDemoSplashActivity;
 import vn.loitp.app.activity.demo.video.VideoMenuActivity;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public class MenuDemoActivity extends BaseActivity {
 

@@ -25,7 +25,7 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public class LCircleImageView extends ImageView {
 

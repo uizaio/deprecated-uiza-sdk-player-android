@@ -11,7 +11,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * Created by loitp

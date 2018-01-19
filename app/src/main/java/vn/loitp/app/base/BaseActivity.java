@@ -30,7 +30,7 @@ import rx.subscriptions.CompositeSubscription;
 import vn.loitp.app.data.EventBusData;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 //TODO change const debug
 

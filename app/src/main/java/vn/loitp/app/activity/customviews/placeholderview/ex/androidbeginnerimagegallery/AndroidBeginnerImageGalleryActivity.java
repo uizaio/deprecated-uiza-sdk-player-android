@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.PlaceHolderView;
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.utils.util.ToastUtils;
 
 public class AndroidBeginnerImageGalleryActivity extends BaseActivity {

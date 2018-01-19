@@ -17,7 +17,7 @@ import vn.loitp.app.activity.customviews.viewpager.parrallaxviewpager._lib.parra
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.utilities.LStoreUtil;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public class ParallaxViewPagerActivity extends BaseActivity {
 

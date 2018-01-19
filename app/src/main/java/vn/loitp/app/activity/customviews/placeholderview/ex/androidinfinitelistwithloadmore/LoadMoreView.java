@@ -9,7 +9,7 @@ import java.util.List;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.Layout;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.infinite.LoadMore;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

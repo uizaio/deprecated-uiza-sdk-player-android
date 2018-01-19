@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

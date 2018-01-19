@@ -15,7 +15,7 @@ import vn.loitp.app.base.BaseFragment;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LStoreUtil;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.utils.util.ToastUtils;
 
 public class DetectViewPagerSwipeOutActivity extends BaseActivity {

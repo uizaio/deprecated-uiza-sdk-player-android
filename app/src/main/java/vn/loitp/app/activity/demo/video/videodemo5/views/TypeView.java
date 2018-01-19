@@ -15,7 +15,7 @@ import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.an
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.ParentPosition;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.SingleTop;
 import vn.loitp.app.activity.customviews.placeholderview._lib.placeholderview.annotations.expand.Toggle;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 /**
  * Created by www.muathu@gmail.com on 9/16/2017.

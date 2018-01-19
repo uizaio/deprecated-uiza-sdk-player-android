@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 
 import vn.loitp.app.utilities.LAnimationUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.views.realtimeblurview.RealtimeBlurView;
 
 /**

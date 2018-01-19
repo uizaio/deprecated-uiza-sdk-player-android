@@ -7,7 +7,7 @@ import vn.loitp.app.activity.customviews.imageview.strectchyimageview.lib.LStret
 import vn.loitp.app.base.BaseActivity;
 import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LImageUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 
 public class StrectchyImageViewActivity extends BaseActivity {
 

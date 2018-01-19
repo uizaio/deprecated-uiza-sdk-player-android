@@ -6,7 +6,7 @@ import android.view.View;
 
 import vn.loitp.app.activity.customviews.button.shinebutton._lib.LShineView;
 import vn.loitp.app.base.BaseActivity;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.utils.util.ToastUtils;
 
 public class ShineButtonActivity extends BaseActivity {

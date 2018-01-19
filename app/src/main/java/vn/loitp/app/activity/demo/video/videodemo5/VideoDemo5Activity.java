@@ -18,7 +18,7 @@ import vn.loitp.app.common.Constants;
 import vn.loitp.app.utilities.LLog;
 import vn.loitp.app.utilities.LScreenUtil;
 import vn.loitp.app.utilities.LUIUtil;
-import vn.loitp.livestar.R;
+import vn.uiza.app.R;
 import vn.loitp.utils.util.ToastUtils;
 
 public class VideoDemo5Activity extends BaseActivity {
