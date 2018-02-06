@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.FrmUizaVideo;
 import com.uiza.player.ui.player.UizaPlayerActivity;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -29,8 +28,8 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.uiza.R;
 import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -132,21 +131,8 @@ public class FrmChannel extends BaseFragment {
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         InputModel inputModel = createInputModel(item);
-        int method = 1;
-        Intent intent;
-        switch (method) {
-            case 1:
-                intent = new Intent(getActivity(), com.uiza.player.ui.player.PlayerActivity.class);
-                intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
-                break;
-            case 2:
-                intent = new Intent(getActivity(), UizaPlayerActivity.class);
-                UizaData.getInstance().setInputModel(inputModel);
-                break;
-            default:
-                return;
-        }
-
+        Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+        intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
     }
