@@ -28,10 +28,6 @@
             </intent-filter>-->
         </activity>
         <activity
-            android:name="vn.loitp.app.activity.api.test.TestAPIActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="vn.loitp.app.activity.customviews.placeholderview.PlaceHolderViewMenuActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
@@ -60,28 +56,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vn.loitp.app.activity.api.MenuAPIActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="vn.loitp.app.activity.customviews.MenuCustomViewsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.activity.demo.MenuDemoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.activity.api.galleryAPI.GalleryAPIActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.activity.demo.gallery.GalleryDemoSplashActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.activity.demo.gallery.GalleryDemoAlbumActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.activity.demo.gallery.GalleryDemoPhotosActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.activity.demo.gallery.GalleryDemoSlideActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.activity.customviews.viewpager.ViewPagerMenuActivity"
@@ -139,9 +117,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.activity.customviews.bottomnavigationbar.BottomNavigationMenuActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.activity.customviews.bottomnavigationbar.bottombar.BottomBarActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.activity.customviews.textview.countdown.CountDownActivity"
@@ -218,14 +193,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <!--FOR ALARM DEMO APP-->
-
-        <receiver android:name="vn.loitp.app.utilities.LConectifyBroadcast">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-
 
         <!--FOR DEMO UIZA-->
         <activity
@@ -239,10 +206,6 @@
         </activity>
         <activity
             android:name="vn.loitp.app.uiza.home.HomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="vn.loitp.app.uiza.player.PlayerActivity"
-            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.login.LoginActivity"

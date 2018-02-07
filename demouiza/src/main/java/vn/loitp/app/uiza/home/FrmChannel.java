@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.player.FrmUizaVideo;
-import com.uiza.player.ui.player.UizaPlayerActivity;
+import com.uiza.player.ui.player.v1.FrmUizaVideo;
+import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;

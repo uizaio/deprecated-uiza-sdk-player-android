@@ -1,4 +1,4 @@
-package com.uiza.player.ui.player;
+package com.uiza.player.ui.player.v1;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
