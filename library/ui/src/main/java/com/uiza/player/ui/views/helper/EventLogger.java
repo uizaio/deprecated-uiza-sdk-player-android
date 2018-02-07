@@ -62,7 +62,7 @@ import java.util.Locale;
         ExtractorMediaSource.EventListener, DefaultDrmSessionManager.EventListener,
         MetadataRenderer.Output {
 
-    private static final String TAG = "EventLogger";
+    private static final String TAG = EventLogger.class.getSimpleName();
     private static final int MAX_TIMELINE_ITEM_LINES = 3;
     private static final NumberFormat TIME_FORMAT;
 

@@ -1355,28 +1355,28 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (repeatToggleButton == view) {
                     controlDispatcher.dispatchSetRepeatMode(player, RepeatModeUtil.getNextRepeatMode(player.getRepeatMode(), repeatToggleModes));
                 } else if (questionButton == view) {
-                    if (onClickEvent != null) {
-                        onClickEvent.onClickQuestion(questionButton);
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickQuestion(questionButton);
                     }
                 } else if (playlistButton == view) {
-                    if (onClickEvent != null) {
-                        onClickEvent.onClickPlayList(playlistButton);
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickPlayList(playlistButton);
                     }
                 } else if (languageButton == view) {
-                    if (onClickEvent != null) {
-                        onClickEvent.onClickLanguage(languageButton);
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickLanguage(languageButton);
                     }
                 } else if (settingButton == view) {
-                    if (onClickEvent != null) {
-                        onClickEvent.onClickSetting(settingButton);
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickSetting(settingButton);
                     }
                 } else if (fullscreenButton == view) {
-                    if (onClickEvent != null) {
-                        onClickEvent.onClickFullScreen(fullscreenButton);
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
                     }
                 } else if (exitButton == view) {
-                    if (onClickEvent != null) {
-                        onClickEvent.onClickExit(exitButton);
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickExit(exitButton);
                     }
                 }
             }
@@ -1385,7 +1385,7 @@ public class PlaybackControlView extends FrameLayout {
 
     }
 
-    public interface OnClickEvent {
+    public interface PlaybackControlViewOnClickEvent {
         public void onClickQuestion(View view);
 
         public void onClickPlayList(View view);
@@ -1399,10 +1399,10 @@ public class PlaybackControlView extends FrameLayout {
         public void onClickExit(View view);
     }
 
-    private OnClickEvent onClickEvent;
+    private PlaybackControlViewOnClickEvent playbackControlViewOnClickEvent;
 
-    public void setOnClickEvent(OnClickEvent onClickEvent) {
-        this.onClickEvent = onClickEvent;
+    public void setPlaybackControlViewOnClickEvent(PlaybackControlViewOnClickEvent playbackControlViewOnClickEvent) {
+        this.playbackControlViewOnClickEvent = playbackControlViewOnClickEvent;
     }
 
     public interface OnProgressEvent {
