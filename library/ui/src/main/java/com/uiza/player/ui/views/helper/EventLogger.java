@@ -88,18 +88,18 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onLoadingChanged(boolean isLoading) {
-        LLog.d(TAG, "loading [" + isLoading + "]");
+        LLog.d(TAG, "onLoadingChanged loading [" + isLoading + "]");
     }
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int state) {
-        LLog.d(TAG, "state [" + getSessionTimeString() + ", " + playWhenReady + ", "
+        LLog.d(TAG, "onPlayerStateChanged state [" + getSessionTimeString() + ", " + playWhenReady + ", "
                 + getStateString(state) + "]");
     }
 
     @Override
     public void onRepeatModeChanged(@Player.RepeatMode int repeatMode) {
-        LLog.d(TAG, "repeatMode [" + getRepeatModeString(repeatMode) + "]");
+        LLog.d(TAG, "onRepeatModeChanged repeatMode [" + getRepeatModeString(repeatMode) + "]");
     }
 
     @Override
@@ -109,12 +109,13 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-        LLog.d(TAG, "playbackParameters " + String.format(
+        LLog.d(TAG, "onPlaybackParametersChanged playbackParameters " + String.format(
                 "[speed=%.2f, pitch=%.2f]", playbackParameters.speed, playbackParameters.pitch));
     }
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
+        LLog.d(TAG, "onTimelineChanged");
         int periodCount = timeline.getPeriodCount();
         int windowCount = timeline.getWindowCount();
         LLog.d(TAG, "sourceInfo [periodCount=" + periodCount + ", windowCount=" + windowCount);
@@ -138,11 +139,12 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onPlayerError(ExoPlaybackException e) {
-        LLog.d(TAG, "playerFailed [" + getSessionTimeString() + "] " + e.toString());
+        LLog.d(TAG, "onPlayerError playerFailed [" + getSessionTimeString() + "] " + e.toString());
     }
 
     @Override
     public void onTracksChanged(TrackGroupArray ignored, TrackSelectionArray trackSelections) {
+        LLog.d(TAG, "onTracksChanged");
         MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
         if (mappedTrackInfo == null) {
             LLog.d(TAG, "Tracks []");
@@ -220,34 +222,33 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onAudioEnabled(DecoderCounters counters) {
-        LLog.d(TAG, "audioEnabled [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onAudioEnabled audioEnabled [" + getSessionTimeString() + "]");
     }
 
     @Override
     public void onAudioSessionId(int audioSessionId) {
-        LLog.d(TAG, "audioSessionId [" + audioSessionId + "]");
+        LLog.d(TAG, "onAudioSessionId audioSessionId [" + audioSessionId + "]");
     }
 
     @Override
-    public void onAudioDecoderInitialized(String decoderName, long elapsedRealtimeMs,
-                                          long initializationDurationMs) {
-        LLog.d(TAG, "audioDecoderInitialized [" + getSessionTimeString() + ", " + decoderName + "]");
+    public void onAudioDecoderInitialized(String decoderName, long elapsedRealtimeMs, long initializationDurationMs) {
+        LLog.d(TAG, "onAudioDecoderInitialized audioDecoderInitialized [" + getSessionTimeString() + ", " + decoderName + "]");
     }
 
     @Override
     public void onAudioInputFormatChanged(Format format) {
-        LLog.d(TAG, "audioFormatChanged [" + getSessionTimeString() + ", " + Format.toLogString(format)
+        LLog.d(TAG, "onAudioInputFormatChanged audioFormatChanged [" + getSessionTimeString() + ", " + Format.toLogString(format)
                 + "]");
     }
 
     @Override
     public void onAudioDisabled(DecoderCounters counters) {
-        LLog.d(TAG, "audioDisabled [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onAudioDisabled audioDisabled [" + getSessionTimeString() + "]");
     }
 
     @Override
     public void onAudioTrackUnderrun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {
-        printInternalError("audioTrackUnderrun [" + bufferSize + ", " + bufferSizeMs + ", "
+        printInternalError("onAudioTrackUnderrun audioTrackUnderrun [" + bufferSize + ", " + bufferSizeMs + ", "
                 + elapsedSinceLastFeedMs + "]", null);
     }
 
@@ -255,62 +256,61 @@ import vn.loitp.core.utilities.LLog;
 
     @Override
     public void onVideoEnabled(DecoderCounters counters) {
-        LLog.d(TAG, "videoEnabled [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onVideoEnabled videoEnabled [" + getSessionTimeString() + "]");
     }
 
     @Override
-    public void onVideoDecoderInitialized(String decoderName, long elapsedRealtimeMs,
-                                          long initializationDurationMs) {
-        LLog.d(TAG, "videoDecoderInitialized [" + getSessionTimeString() + ", " + decoderName + "]");
+    public void onVideoDecoderInitialized(String decoderName, long elapsedRealtimeMs, long initializationDurationMs) {
+        LLog.d(TAG, "onVideoDecoderInitialized videoDecoderInitialized [" + getSessionTimeString() + ", " + decoderName + "]");
     }
 
     @Override
     public void onVideoInputFormatChanged(Format format) {
-        LLog.d(TAG, "videoFormatChanged [" + getSessionTimeString() + ", " + Format.toLogString(format)
+        LLog.d(TAG, "onVideoInputFormatChanged videoFormatChanged [" + getSessionTimeString() + ", " + Format.toLogString(format)
                 + "]");
     }
 
     @Override
     public void onVideoDisabled(DecoderCounters counters) {
-        LLog.d(TAG, "videoDisabled [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onVideoDisabled videoDisabled [" + getSessionTimeString() + "]");
     }
 
     @Override
     public void onDroppedFrames(int count, long elapsed) {
-        LLog.d(TAG, "droppedFrames [" + getSessionTimeString() + ", " + count + "]");
+        LLog.d(TAG, "onDroppedFrames droppedFrames [" + getSessionTimeString() + ", " + count + "]");
     }
 
     @Override
     public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees,
                                    float pixelWidthHeightRatio) {
-        LLog.d(TAG, "videoSizeChanged [" + width + ", " + height + "]");
+        LLog.d(TAG, "onVideoSizeChanged videoSizeChanged [" + width + ", " + height + "]");
     }
 
     @Override
     public void onRenderedFirstFrame(Surface surface) {
-        LLog.d(TAG, "renderedFirstFrame [" + surface + "]");
+        LLog.d(TAG, "onRenderedFirstFrame renderedFirstFrame [" + surface + "]");
     }
 
     // DefaultDrmSessionManager.EventListener
 
     @Override
     public void onDrmSessionManagerError(Exception e) {
-        printInternalError("drmSessionManagerError", e);
+        printInternalError("onDrmSessionManagerError drmSessionManagerError", e);
     }
 
     @Override
     public void onDrmKeysRestored() {
-        LLog.d(TAG, "drmKeysRestored [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onDrmKeysRestored drmKeysRestored [" + getSessionTimeString() + "]");
     }
 
     @Override
     public void onDrmKeysRemoved() {
-        LLog.d(TAG, "drmKeysRemoved [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onDrmKeysRemoved drmKeysRemoved [" + getSessionTimeString() + "]");
     }
 
     @Override
     public void onDrmKeysLoaded() {
-        LLog.d(TAG, "drmKeysLoaded [" + getSessionTimeString() + "]");
+        LLog.d(TAG, "onDrmKeysLoaded drmKeysLoaded [" + getSessionTimeString() + "]");
     }
 
     // ExtractorMediaSource.EventListener
