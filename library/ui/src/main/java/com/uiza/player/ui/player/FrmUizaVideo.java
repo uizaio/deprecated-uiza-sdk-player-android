@@ -1,7 +1,6 @@
 package com.uiza.player.ui.player;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
