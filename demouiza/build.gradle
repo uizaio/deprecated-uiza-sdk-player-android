@@ -94,11 +94,11 @@ dependencies {
     //compile project(':utils')
     //compile project(':uizalib')
     //compile project(':uizalibrary')
-    compile 'com.android.support:support-v4:26.0.0'
-    compile 'com.android.support:appcompat-v7:26.0.0'
-    compile 'com.android.support:design:26.0.0'
-    compile 'com.android.support:recyclerview-v7:26.0.0'
-    compile 'com.android.support:cardview-v7:26.0.0'
+    //compile 'com.android.support:support-v4:26.0.0'
+    //compile 'com.android.support:appcompat-v7:26.0.0'
+    //compile 'com.android.support:design:26.0.0'
+    //compile 'com.android.support:recyclerview-v7:26.0.0'
+    //compile 'com.android.support:cardview-v7:26.0.0'
 
     //start exo player
     compile project(modulePrefix + 'library-ui')
