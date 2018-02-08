@@ -1385,7 +1385,6 @@ public class PlaybackControlView extends FrameLayout {
             }
             hideAfterTimeout();
         }
-
     }
 
     public interface PlaybackControlViewOnClickEvent {
@@ -1408,6 +1407,7 @@ public class PlaybackControlView extends FrameLayout {
         this.playbackControlViewOnClickEvent = playbackControlViewOnClickEvent;
     }
 
+    ////////////////////////
     public interface OnProgressEvent {
         public void onProgressChange(long progress);
     }
@@ -1417,6 +1417,7 @@ public class PlaybackControlView extends FrameLayout {
     public void setOnProgressEvent(OnProgressEvent onProgressEvent) {
         this.onProgressEvent = onProgressEvent;
     }
+    ////////////////////////
 
     public View getSettingButton() {
         return settingButton;

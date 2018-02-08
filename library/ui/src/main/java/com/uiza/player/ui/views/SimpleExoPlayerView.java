@@ -308,10 +308,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         // Create a surface view and insert it into the content frame, if there is one.
         if (contentFrame != null && surfaceType != SURFACE_TYPE_NONE) {
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            surfaceView = surfaceType == SURFACE_TYPE_TEXTURE_VIEW ? new TextureView(context)
-                    : new SurfaceView(context);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            surfaceView = surfaceType == SURFACE_TYPE_TEXTURE_VIEW ? new TextureView(context) : new SurfaceView(context);
             surfaceView.setLayoutParams(params);
             contentFrame.addView(surfaceView, 0);
         } else {
@@ -420,6 +418,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     int sec = Math.round((float) ((float) progress / 1000));
                     LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + sec);
                     if (sec % 20 == 0) {
+                        //freuss47 event every 20s
                         ToastUtils.showShort("sec " + sec);
                     }
                 }
@@ -1146,6 +1145,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
+            LLog.d(TAG, "onVideoSizeChanged");
             if (contentFrame != null) {
                 float aspectRatio = height == 0 ? 1 : (width * pixelWidthHeightRatio) / height;
                 contentFrame.setAspectRatio(aspectRatio);
@@ -1165,6 +1165,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onTracksChanged(TrackGroupArray tracks, TrackSelectionArray selections) {
+            LLog.d(TAG, "onTracksChanged");
             updateForCurrentTrackSelections();
         }
 
@@ -1172,7 +1173,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onLoadingChanged(boolean isLoading) {
-            // Do nothing.
             LLog.d(TAG, "onLoadingChanged isLoading " + isLoading);
         }
 
@@ -1193,29 +1193,27 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onRepeatModeChanged(int repeatMode) {
-            // Do nothing.
             LLog.d(TAG, "onRepeatModeChanged repeatMode " + repeatMode);
 
         }
 
         @Override
         public void onPlayerError(ExoPlaybackException e) {
-            // Do nothing.
+            LLog.d(TAG, "onPlayerError");
         }
 
         @Override
         public void onPositionDiscontinuity() {
-            // Do nothing.
+            LLog.d(TAG, "onPositionDiscontinuity");
         }
 
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-            // Do nothing.
+            LLog.d(TAG, "onPlaybackParametersChanged");
         }
 
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
-            // Do nothing.
             LLog.d(TAG, "onTimelineChanged timeline " + timeline.getPeriodCount());
         }
     }
