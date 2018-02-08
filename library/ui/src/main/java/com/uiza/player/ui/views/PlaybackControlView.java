@@ -341,11 +341,12 @@ public class PlaybackControlView extends FrameLayout {
     private boolean[] playedAdGroups;
     private long[] extraAdGroupTimesMs;
     private boolean[] extraPlayedAdGroups;
+    private String mCurrentSkin;
 
     private final Runnable updateProgressAction = new Runnable() {
         @Override
         public void run() {
-            //freuss47
+            //freuss47 event progress change
             LLog.d(TAG, "updateProgressAction updateProgress() getCurrentPosition " + player.getCurrentPosition());
             if (onProgressEvent != null) {
                 onProgressEvent.onProgressChange(player.getCurrentPosition());
@@ -373,8 +374,6 @@ public class PlaybackControlView extends FrameLayout {
         this(context, attrs, defStyleAttr, attrs);
     }
 
-    private String mCurrentSkin;
-
     private void showErrorInitPlaybackControlView() {
         LDialogUtil.showOne(getContext(), "Error", "Cannot init PlaybackControlView because the name of skin not found", "Close", new LDialogUtil.CallbackShowOne() {
             @Override
@@ -387,6 +386,7 @@ public class PlaybackControlView extends FrameLayout {
     public PlaybackControlView(Context context, AttributeSet attrs, int defStyleAttr, AttributeSet playbackAttrs) {
         super(context, attrs, defStyleAttr);
         int controllerLayoutId;
+        //freuss47 custom skin
         mCurrentSkin = UizaData.getInstance().getPlayerId();
 
         //LLog.d(TAG, "mPlayerConfig:" + new Gson().toJson(mPlayerConfig));
