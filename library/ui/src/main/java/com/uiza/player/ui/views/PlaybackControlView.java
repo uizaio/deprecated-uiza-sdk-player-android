@@ -192,7 +192,6 @@ public class PlaybackControlView extends FrameLayout {
          * @param visibility The new visibility. Either {@link View#VISIBLE} or {@link View#GONE}.
          */
         void onVisibilityChange(int visibility);
-
     }
 
     /**
