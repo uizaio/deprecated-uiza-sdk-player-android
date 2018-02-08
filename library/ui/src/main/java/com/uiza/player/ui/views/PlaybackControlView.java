@@ -345,6 +345,7 @@ public class PlaybackControlView extends FrameLayout {
     private final Runnable updateProgressAction = new Runnable() {
         @Override
         public void run() {
+            //freuss47
             LLog.d(TAG, "updateProgressAction updateProgress() getCurrentPosition " + player.getCurrentPosition());
             if (onProgressEvent != null) {
                 onProgressEvent.onProgressChange(player.getCurrentPosition());
