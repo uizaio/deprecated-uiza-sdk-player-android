@@ -1027,8 +1027,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
             return true;
         }
         int playbackState = player.getPlaybackState();
-        return controllerAutoShow && (playbackState == Player.STATE_IDLE
-                || playbackState == Player.STATE_ENDED || !player.getPlayWhenReady());
+        return controllerAutoShow && (playbackState == Player.STATE_IDLE || playbackState == Player.STATE_ENDED || !player.getPlayWhenReady());
     }
 
     private void showController(boolean showIndefinitely) {
