@@ -34,7 +34,7 @@ public interface UizaWTTService {
 
     @Headers("Content-Type: application/vnd.api+json")
     @GET("/api/data/v1/metadata/list")
-    Observable<Object> getListAllMetadata(@Query("limit") int limit);
+    Observable<Object> getListAllMetadata();
 
     @GET("/api/data/v1/entity/list")
     Observable<GetAll> getAll(@Query("limit") int limit, @Query("page") int page);

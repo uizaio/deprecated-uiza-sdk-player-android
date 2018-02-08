@@ -78,6 +78,7 @@ public class RestClient {
     public static void addHeader(String name, String value) {
         if (restRequestInterceptor != null) {
             restRequestInterceptor.addHeader(name, value);
+            LLog.d(TAG, "addHeader: name: " + name + " value: " + value);
         }
     }
 
