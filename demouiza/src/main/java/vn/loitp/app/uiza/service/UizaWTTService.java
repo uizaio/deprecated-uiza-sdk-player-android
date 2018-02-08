@@ -6,6 +6,7 @@ import com.uiza.player.core.uiza.api.model.getposter.GetPoster;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -16,7 +17,7 @@ import vn.loitp.app.uiza.home.model.GetAll;
  * @author loitp
  */
 
-public interface UizaDemoService {
+public interface UizaWTTService {
     @GET("v1/app/poster")
     Observable<GetPoster[]> getPoster(@Query("number") int number);
 
@@ -31,9 +32,13 @@ public interface UizaDemoService {
     @POST("/public/v1/auth/login")
     Observable<Object> login(@Field("username") String username, @Field("password") String password);
 
+    @Headers("Content-Type: application/vnd.api+json")
     @GET("/api/data/v1/metadata/list")
-    Observable<Object> getListAllMetadata(@Query("limit") int limit, @Query("page") int page);
+    Observable<Object> getListAllMetadata(@Query("limit") int limit);
 
     @GET("/api/data/v1/entity/list")
     Observable<GetAll> getAll(@Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/data/v1/entity/list")
+    Observable<Object> testGetAll();
 }

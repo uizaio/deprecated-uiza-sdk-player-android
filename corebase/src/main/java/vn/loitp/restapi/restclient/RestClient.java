@@ -14,11 +14,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.DateTypeDeserializer;
 
 public class RestClient {
+    private static final String TAG = RestClient.class.getSimpleName();
     private static final int TIMEOUT_TIME = 1;
-    private static final int CONNECT_TIMEOUT_TIME = 20;
+    private static final int CONNECT_TIMEOUT_TIME = 20;//20s
     private static final String AUTHORIZATION = "Authorization";
     private static Retrofit retrofit;
     private static RestRequestInterceptor restRequestInterceptor;
@@ -28,6 +30,7 @@ public class RestClient {
     }
 
     public static void init(String baseApiUrl, String token) {
+        LLog.d(TAG, "init " + baseApiUrl + " - " + token);
         if (TextUtils.isEmpty(baseApiUrl)) {
             throw new InvalidParameterException("baseApiUrl cannot null or empty");
         }
@@ -69,7 +72,6 @@ public class RestClient {
         if (retrofit == null) {
             throw new IllegalStateException("Must call init() before use");
         }
-
         return retrofit.create(serviceClass);
     }
 
@@ -82,7 +84,7 @@ public class RestClient {
     public static void addAuthorization(String token) {
         //addHeader(AUTHORIZATION, "Token token=" + token);
         addHeader(AUTHORIZATION, token);
-        //Log.d(AUTHORIZATION, "token: " + token);
+        LLog.d(TAG, "Add token: " + token);
     }
 
     public static void removeAuthorization() {

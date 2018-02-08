@@ -7,9 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.rxandroid.ApiSubscriber;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.restapi.uiza.corev3.api.service.LSService;
 import vn.loitp.restapi.restclient.RestClient;

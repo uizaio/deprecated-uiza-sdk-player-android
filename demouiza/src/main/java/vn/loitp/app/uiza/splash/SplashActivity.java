@@ -16,8 +16,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RestClient.init(getString(R.string.dev_uiza_URL), Constants.TOKEN);
-        LUIUtil.setDelay(3000, new LUIUtil.DelayCallback() {
+        LUIUtil.setDelay(1500, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {
                 Intent intent = new Intent(activity, HomeActivity.class);

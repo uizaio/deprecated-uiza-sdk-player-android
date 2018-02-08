@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.rxandroid.ApiSubscriber;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.model.ChannelObject;
 import vn.loitp.app.uiza.home.model.GetAll;
@@ -23,12 +22,13 @@ import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.app.uiza.home.view.ChannelItem;
 import vn.loitp.app.uiza.home.view.ChannelList;
 import vn.loitp.app.uiza.home.view.PosterView;
-import vn.loitp.app.uiza.service.UizaDemoService;
+import vn.loitp.app.uiza.service.UizaWTTService;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -201,7 +201,7 @@ public class FrmChannel extends BaseFragment {
     }
 
     private void getData() {
-        UizaDemoService service = RestClient.createService(UizaDemoService.class);
+        UizaWTTService service = RestClient.createService(UizaWTTService.class);
         int limit = 100;
         int page = 0;
         subscribe(service.getAll(limit, page), new ApiSubscriber<GetAll>() {

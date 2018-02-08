@@ -13,7 +13,9 @@ import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.common.Constants;
+import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.uiza.BuildConfig;
+import vn.loitp.uiza.R;
 import vn.loitp.utils.util.Utils;
 
 public class LSApplication extends MultiDexApplication {
@@ -30,9 +32,13 @@ public class LSApplication extends MultiDexApplication {
             gson = new Gson();
         }
         Utils.init(this);
-        userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
+        userAgent = Util.getUserAgent(this, "LoitpDemoUiza");
 
-        UizaData.getInstance().init("https://demo-api.uiza.io/", Constants.TOKEN, UizaData.PLAYER_ID_SKIN_1);
+        //RestClient.init(getString(R.string.dev_uiza_URL), Constants.TOKEN);
+        //UizaData.getInstance().init(getString(R.string.dev_uiza_URL), Constants.TOKEN, UizaData.PLAYER_ID_SKIN_1);
+
+        RestClient.init("http://wtt-api.uiza.io/", "BIH80NYmucZwCoqPvrdI3ZU9ATB909Gi-1512972145301");
+        //UizaData.getInstance().init(getString(R.string.dev_uiza_wtt_URL), Constants.TOKEN_WTT, UizaData.PLAYER_ID_SKIN_1);
     }
 
     public Gson getGson() {

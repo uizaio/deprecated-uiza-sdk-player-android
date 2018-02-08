@@ -9,6 +9,7 @@ public class Constants {
 
     public final static String KEY_UIZA = "KEY_UIZA";
     public final static String TOKEN = "yXYCA0Rf5eACj0Bmy3oZehxaB5HAmb8A-1512988199884";
+    public final static String TOKEN_WTT = "BIH80NYmucZwCoqPvrdI3ZU9ATB909Gi-1512972145301";
     public final static String URL_IMG_POSTER = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
     public final static String URL_IMG_THUMBNAIL = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
 }
