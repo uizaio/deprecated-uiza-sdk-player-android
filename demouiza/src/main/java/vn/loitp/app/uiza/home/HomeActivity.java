@@ -15,6 +15,7 @@ import java.util.List;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
+import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
@@ -73,11 +74,9 @@ public class HomeActivity extends BaseActivity {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawers();
                 }
-                ToastUtils.showShort("Click");
-                //TODO
-                /*Intent intent = new Intent(activity, LoginActivity.class);
+                Intent intent = new Intent(activity, LoginActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);*/
+                LUIUtil.transActivityFadeIn(activity);
             }
 
             @Override
