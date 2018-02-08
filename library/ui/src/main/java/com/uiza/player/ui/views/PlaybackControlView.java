@@ -448,10 +448,12 @@ public class PlaybackControlView extends FrameLayout {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvRewNum = (TextView) findViewById(R.id.tv_rew_num);
         tvFfwdNum = (TextView) findViewById(R.id.tv_ffwd_num);
+
         timeBar = (DefaultTimeBar) findViewById(R.id.exo_progress);
         if (timeBar != null) {
             timeBar.setListener(componentListener);
         }
+
         playButton = (ImageButton) findViewById(R.id.exo_play);
         if (playButton != null) {
             playButton.setOnClickListener(componentListener);
@@ -1259,6 +1261,7 @@ public class PlaybackControlView extends FrameLayout {
         return true;
     }
 
+    //freuss47 event click ui
     private final class ComponentListener implements Player.EventListener, TimeBar.OnScrubListener, OnClickListener {
 
         @Override
@@ -1309,7 +1312,7 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-            // Do nothing.
+            LLog.d(TAG, "onPlaybackParametersChanged");
         }
 
         @Override
@@ -1327,12 +1330,12 @@ public class PlaybackControlView extends FrameLayout {
 
         @Override
         public void onTracksChanged(TrackGroupArray tracks, TrackSelectionArray selections) {
-            // Do nothing.
+            LLog.d(TAG, "onTracksChanged");
         }
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
-            // Do nothing.
+            LLog.d(TAG, "onPlayerError " + error.toString());
         }
 
         @Override
