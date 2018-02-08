@@ -365,6 +365,9 @@ import vn.loitp.core.utilities.LLog;
     // Internal methods
 
     private void printInternalError(String type, Exception e) {
+        if (e == null || e.toString() == null) {
+            return;
+        }
         LLog.e(TAG, "internalError [" + getSessionTimeString() + ", " + type + "] " + e.toString());
     }
 
