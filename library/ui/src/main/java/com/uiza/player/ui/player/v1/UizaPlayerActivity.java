@@ -50,7 +50,7 @@ public class UizaPlayerActivity extends BaseActivity {
         RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
-            ToastUtils.showShort("Error inputModel == null");
+            showDialogError("Error inputModel == null");
             return;
         }
         //orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
@@ -82,7 +82,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
     private void setCoverVideo() {
         if (flRootView != null && inputModel != null) {
-            //Log.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
+            //LLog.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
             if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null) {
                 return;
             }
