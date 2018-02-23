@@ -24,6 +24,9 @@ import vn.loitp.app.uiza.home.view.PosterView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -63,7 +66,7 @@ public class FrmChannel extends BaseFragment {
         return view;
     }
 
-    private List<Item> getList(List<Item> itemList, int startIndex, int endIndex) {
+    private List<Item> getSubList(List<Item> itemList, int startIndex, int endIndex) {
         if (startIndex < 0 || endIndex > itemList.size()) {
             return null;
         }
@@ -77,7 +80,7 @@ public class FrmChannel extends BaseFragment {
 
     private void setupData(List<Item> itemList) {
         //poster
-        List<Item> itemListPoster = getList(itemList, 0, 5);
+        List<Item> itemListPoster = getSubList(itemList, 0, 5);
         infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
             @Override
             public void onClick(Item item, int position) {
@@ -88,7 +91,7 @@ public class FrmChannel extends BaseFragment {
         //top movie
         ChannelObject channelObjectTopMovies = new ChannelObject();
         channelObjectTopMovies.setChannelName("Top Movies");
-        List<Item> itemListTopMovies = getList(itemList, 6, 15);
+        List<Item> itemListTopMovies = getSubList(itemList, 6, 15);
         channelObjectTopMovies.setItemList(itemListTopMovies);
         infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
             @Override
@@ -100,7 +103,7 @@ public class FrmChannel extends BaseFragment {
         //top movie
         ChannelObject channelObjectNewestMovies = new ChannelObject();
         channelObjectNewestMovies.setChannelName("Newest Movies");
-        List<Item> itemListNewestMovies = getList(itemList, 16, itemList.size() - 1);
+        List<Item> itemListNewestMovies = getSubList(itemList, 16, itemList.size() - 1);
         channelObjectNewestMovies.setItemList(itemListNewestMovies);
         infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
             @Override
@@ -221,5 +224,22 @@ public class FrmChannel extends BaseFragment {
                 handleException(e);
             }
         });*/
+
+        LLog.d(TAG, ">>>getData");
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        int limit = 100;
+        int page = 0;
+        subscribe(service.listAllEntity(limit, page), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object getAll) {
+                LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.e(TAG, "listAllEntity onFail " + e.toString());
+                //handleException(e);
+            }
+        });
     }
 }

@@ -43,4 +43,8 @@ public interface UizaV2Service {
     @FormUrlEncoded
     @POST("/api/resource/v1/media/metadata/list")
     Observable<ListAllMetadata> listAllMetadata(@Field("limit") int limit);
+
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/entity/list")
+    Observable<Object> listAllEntity(@Field("limit") int limit, @Field("page") int page);
 }

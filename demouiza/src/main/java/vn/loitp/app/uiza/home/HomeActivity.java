@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -154,10 +155,10 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void replaceFragment(Fragment fragment) {
-        /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         //transaction.addToBackStack(null);
-        transaction.commit();*/
+        transaction.commit();
     }
 
     private void getListAllMetadata() {
