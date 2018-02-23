@@ -1,5 +1,8 @@
 package vn.loitp.core.utilities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * File created on 11/15/2016.
  *
@@ -8,7 +11,9 @@ package vn.loitp.core.utilities;
 public class LPref {
     private String TAG = getClass().getSimpleName();
 
-    private final static String PREFERENCES_FILE_NAME = "loitp";
+    private final static String PREFERENCES_FILE_NAME = "uizav2";
+    public static String AUTH = "AUTH";
+
     public static String JSON_LIST_DATA = "JSON_LIST_DATA";
     public static String JSON_FAV_DATA = "JSON_FAV_DATA";
     public static String JSON_AD_DATA = "JSON_AD_DATA";
@@ -62,4 +67,16 @@ public class LPref {
         editor.putInt(Const.ATTR_INDEX_VIEWBY, value);
         editor.apply();
     }*/
+
+    /////////////////////////////////OBJECT
+    public static String getAuth(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(PREFERENCES_FILE_NAME, 0);
+        return pref.getString(AUTH, null);
+    }
+
+    public static void setAuth(Context context, String value) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCES_FILE_NAME, 0).edit();
+        editor.putString(AUTH, value);
+        editor.apply();
+    }
 }

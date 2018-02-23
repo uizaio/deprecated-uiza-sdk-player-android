@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.common.Constants;
+import vn.loitp.core.utilities.LPref;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.uiza.BuildConfig;
 import vn.loitp.uiza.R;
@@ -40,7 +41,8 @@ public class LSApplication extends MultiDexApplication {
         //RestClient.init("http://wtt-api.uiza.io/", "BIH80NYmucZwCoqPvrdI3ZU9ATB909Gi-1512972145301");
         //UizaData.getInstance().init(getString(R.string.dev_uiza_wtt_URL), Constants.TOKEN_WTT, UizaData.PLAYER_ID_SKIN_1);
 
-        RestClient.init("http://dev-api.uiza.io/", "");
+        RestClient.init(getString(R.string.dev_uiza_v2_URL), "");
+        //LPref
     }
 
     public Gson getGson() {

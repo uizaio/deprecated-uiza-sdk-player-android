@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.service.UizaV2Service;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.uiza.UizaV2Service;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 
