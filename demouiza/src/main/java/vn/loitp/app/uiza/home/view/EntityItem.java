@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 
+import vn.loitp.app.common.Constants;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.restapi.uiza.model.listallentity.Item;
@@ -59,7 +60,8 @@ public class EntityItem {
         imageView.getLayoutParams().height = mSizeH;
         imageView.requestLayout();
 
-        LImageUtil.load((Activity) mContext, "https://kenh14cdn.com/2018/84a2b164b59e12659b70fc4adfbd7a33-1516711720908.jpg", imageView, avi);
+        LImageUtil.load((Activity) mContext, Constants.URL_IMG_16x9, imageView, avi);
+
         /*String[] urls = new String[2];
         urls[0] = item.getPoster();
         urls[1] = item.getThumbnail();
