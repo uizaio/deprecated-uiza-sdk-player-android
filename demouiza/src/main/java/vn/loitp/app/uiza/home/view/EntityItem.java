@@ -3,12 +3,14 @@ package vn.loitp.app.uiza.home.view;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 
 import vn.loitp.app.common.Constants;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.listallentity.Item;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
@@ -35,6 +37,8 @@ public class EntityItem {
     private ImageView imageView;
     @View(R.id.avi)
     private AVLoadingIndicatorView avi;
+    @View(R.id.tv_name)
+    private TextView tvName;
 
     private Item item;
     private Context mContext;
@@ -66,6 +70,9 @@ public class EntityItem {
         urls[0] = item.getPoster();
         urls[1] = item.getThumbnail();
         LImageUtil.load((Activity) mContext, urls, imageView, avi);*/
+
+        tvName.setText(item.getName());
+        LUIUtil.setTextShadow(tvName);
     }
 
     /*@LongClick(R.id.imageView)
