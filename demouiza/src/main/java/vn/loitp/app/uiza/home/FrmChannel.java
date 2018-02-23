@@ -13,6 +13,7 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
@@ -40,6 +41,8 @@ public class FrmChannel extends BaseFragment {
     private InfinitePlaceHolderView infinitePlaceHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
+    private final int NUMBER_OF_COLUMN = 2;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -61,7 +64,7 @@ public class FrmChannel extends BaseFragment {
         infinitePlaceHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
-                .setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                .setLayoutManager(new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN));
         LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
@@ -131,6 +134,7 @@ public class FrmChannel extends BaseFragment {
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
 
+        addBlankView();
         for (Item item : itemList) {
             infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
@@ -139,7 +143,14 @@ public class FrmChannel extends BaseFragment {
                 }
             }));
         }
+        addBlankView();
         avLoadingIndicatorView.smoothToHide();
+    }
+
+    private void addBlankView() {
+        for (int i = 0; i < NUMBER_OF_COLUMN; i++) {
+            infinitePlaceHolderView.addView(new BlankView());
+        }
     }
 
     /*private void onClickVideo(Item item, int position) {
