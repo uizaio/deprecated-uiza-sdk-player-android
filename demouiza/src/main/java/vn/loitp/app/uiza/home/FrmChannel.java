@@ -1,5 +1,6 @@
 package vn.loitp.app.uiza.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.uiza.player.ui.player.v1.FrmUizaVideo;
+import com.uiza.player.ui.player.v1.UizaPlayerActivity;
+import com.uiza.player.ui.views.helper.InputModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
+import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
@@ -139,7 +145,7 @@ public class FrmChannel extends BaseFragment {
             infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
-                    //onClickVideo(item, position);
+                    onClickVideo(item, position);
                 }
             }));
         }
@@ -153,14 +159,14 @@ public class FrmChannel extends BaseFragment {
         }
     }
 
-    /*private void onClickVideo(Item item, int position) {
+    private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         InputModel inputModel = createInputModel(item);
         Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
         intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
-    }*/
+    }
 
     /*private InputModel createInputModel(String urlImg) {
         InputModel inputModel = new InputModel();
@@ -193,12 +199,13 @@ public class FrmChannel extends BaseFragment {
         inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
     }*/
-    /*private InputModel createInputModel(Item item) {
+
+    private InputModel createInputModel(Item item) {
         InputModel inputModel = new InputModel();
         inputModel.setEntityID(item.getId() + "");
-        inputModel.setUrlImg(item.getPoster());
+        inputModel.setUrlImg(Constants.URL_IMG_16x9);
         inputModel.setTitle(item.getName());
-        *//*inputModel.setTime("2015");
+        inputModel.setTime("2015");
         inputModel.setDuration("2h 13min");
         inputModel.setRate(13);
         inputModel.setDescription("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
@@ -210,7 +217,7 @@ public class FrmChannel extends BaseFragment {
                 "Có thể nói trong các tiểu thuyết viết về \"nhân tình thế thái\" (nói gọn là \"thế tình\", tức \"tình đời\") ở Trung Quốc, thì đây là truyện có tiếng nhất, đã khiến cho nhiều người bàn luận [4].");
         inputModel.setStarring("Tom Holland, Michael Keaton, Robert Downey Jr.");
         inputModel.setDirector("Jon Watts");
-        inputModel.setGenres("Action, Adventure, Sci-Fi");*//*
+        inputModel.setGenres("Action, Adventure, Sci-Fi");
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");
         inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
@@ -223,7 +230,7 @@ public class FrmChannel extends BaseFragment {
 
         //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
-    }*/
+    }
 
     private void getData() {
         LLog.d(TAG, ">>>getData");

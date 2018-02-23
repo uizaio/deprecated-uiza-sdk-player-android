@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.uiza.player.ui.data.UizaData;
+
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.HomeActivity;
 import vn.loitp.core.base.BaseActivity;
@@ -21,7 +23,19 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth();
+        Auth auth = LPref.getAuth(activity, LSApplication.getInstance().getGson());
+        if (auth == null) {
+            auth();
+        } else {
+            //TODO check token is expired
+
+            LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+                @Override
+                public void doAfter(int mls) {
+                    goToHome(auth);
+                }
+            });
+        }
     }
 
     @Override
@@ -58,14 +72,9 @@ public class SplashActivity extends BaseActivity {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(auth));
                 LPref.setAuth(activity, auth, LSApplication.getInstance().getGson());
 
-                String token = auth.getToken();
-                LLog.d(TAG, "token " + token);
-                RestClient.addAuthorization(token);
+                LLog.d(TAG, ">>>>token " + auth.getToken());
 
-                Intent intent = new Intent(activity, HomeActivity.class);
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
-                finish();
+                goToHome(auth);
             }
 
             @Override
@@ -74,5 +83,15 @@ public class SplashActivity extends BaseActivity {
                 handleException(e);
             }
         });
+    }
+
+    private void goToHome(Auth auth) {
+        RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
+        UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
+
+        Intent intent = new Intent(activity, HomeActivity.class);
+        startActivity(intent);
+        LUIUtil.transActivityFadeIn(activity);
+        finish();
     }
 }
