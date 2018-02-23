@@ -8,6 +8,7 @@ import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.HomeActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
@@ -55,6 +56,12 @@ public class SplashActivity extends BaseActivity {
                     return;
                 }
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(auth));
+                LPref.setAuth(activity, auth, LSApplication.getInstance().getGson());
+
+                String token = auth.getToken();
+                LLog.d(TAG, "token " + token);
+                RestClient.addAuthorization(token);
+
                 Intent intent = new Intent(activity, HomeActivity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);

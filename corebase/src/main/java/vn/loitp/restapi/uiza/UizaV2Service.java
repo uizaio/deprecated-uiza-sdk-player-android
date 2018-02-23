@@ -36,6 +36,10 @@ public interface UizaV2Service {
     Observable<Object> testGetAll();*/
 
     @FormUrlEncoded
-    @POST("/api/public/v1/auth/credentical\n")
+    @POST("/api/public/v1/auth/credentical")
     Observable<Auth> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
+
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/metadata/list")
+    Observable<Object> listAllMetadata(@Field("limit") int limit);
 }

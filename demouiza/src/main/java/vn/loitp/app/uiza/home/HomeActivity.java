@@ -11,6 +11,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
@@ -18,7 +19,11 @@ import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
@@ -135,7 +140,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        getData();
+        getListAllMetadata();
     }
 
     private void setupActionBar() {
@@ -175,13 +180,16 @@ public class HomeActivity extends BaseActivity {
         transaction.commit();*/
     }
 
-    private void getData() {
-        /*LLog.d(TAG, "getData");
+    private void getListAllMetadata() {
+        LLog.d(TAG, "getListAllMetadata");
         UizaV2Service service = RestClient.createService(UizaV2Service.class);
-        subscribe(service.getListAllMetadata(), new ApiSubscriber<Object>() {
+
+        int limit = 100;
+
+        subscribe(service.listAllMetadata(limit), new ApiSubscriber<Object>() {
             @Override
             public void onSuccess(Object getAll) {
-                LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
+                LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
             }
 
             @Override
@@ -189,6 +197,6 @@ public class HomeActivity extends BaseActivity {
                 LLog.e(TAG, "onFail " + e.getMessage());
                 handleException(e);
             }
-        });*/
+        });
     }
 }
