@@ -16,6 +16,8 @@ import vn.loitp.uiza.BuildConfig;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.Utils;
 
+//TODO load more
+
 public class LSApplication extends MultiDexApplication {
     private final String TAG = LSApplication.class.getSimpleName();
     private static LSApplication instance;

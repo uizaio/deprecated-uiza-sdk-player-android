@@ -5,6 +5,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 import vn.loitp.restapi.uiza.model.auth.Auth;
+import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.listallmetadata.ListAllMetadata;
 
 /**
@@ -46,5 +47,5 @@ public interface UizaV2Service {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/entity/list")
-    Observable<Object> listAllEntity(@Field("limit") int limit, @Field("page") int page);
+    Observable<ListAllEntity> listAllEntity(@Field("limit") int limit, @Field("page") int page);
 }
