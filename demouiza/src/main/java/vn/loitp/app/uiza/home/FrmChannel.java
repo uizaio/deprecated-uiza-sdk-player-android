@@ -3,7 +3,6 @@ package vn.loitp.app.uiza.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
@@ -240,7 +238,7 @@ public class FrmChannel extends BaseFragment {
         jsonBody.setLimit(100);
         jsonBody.setPage(0);
         List<String> metadataId = new ArrayList<>();
-        metadataId.add("061eac8b-7ab0-4fc2-a7f6-2c4c8cbf26b4");
+        metadataId.add(HomeData.getInstance().getItem().getId());
         jsonBody.setMetadataId(metadataId);
 
         subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
