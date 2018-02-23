@@ -126,10 +126,23 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
         }
         LLog.e("handleException", throwable.toString());
-        LDialogUtil.showOne(activity, getString(R.string.app_name), throwable.getMessage(), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+        showDialogError(throwable.getMessage());
+    }
+
+    protected void showDialogOne(String msg) {
+        LDialogUtil.showOne(activity, getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
                 //do nothing
+            }
+        });
+    }
+
+    protected void showDialogError(String msg) {
+        LDialogUtil.showOne(activity, getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+            @Override
+            public void onClick() {
+                onBackPressed();
             }
         });
     }

@@ -4,6 +4,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
+import vn.loitp.restapi.uiza.model.auth.Auth;
 
 /**
  * @author loitp
@@ -36,5 +37,5 @@ public interface UizaV2Service {
 
     @FormUrlEncoded
     @POST("/api/public/v1/auth/credentical\n")
-    Observable<Object> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
+    Observable<Auth> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
 }
