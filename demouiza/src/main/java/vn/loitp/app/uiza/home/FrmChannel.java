@@ -27,6 +27,7 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
 import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
+import vn.loitp.restapi.uiza.model.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
@@ -228,9 +229,15 @@ public class FrmChannel extends BaseFragment {
 
         LLog.d(TAG, ">>>getData");
         UizaV2Service service = RestClient.createService(UizaV2Service.class);
-        int limit = 100;
-        int page = 0;
-        subscribe(service.listAllEntity(limit, page), new ApiSubscriber<ListAllEntity>() {
+
+        JsonBody jsonBody = new JsonBody();
+        jsonBody.setLimit(100);
+        jsonBody.setPage(0);
+        List<String> metadataId = new ArrayList<>();
+        metadataId.add("061eac8b-7ab0-4fc2-a7f6-2c4c8cbf26b4");
+        jsonBody.setMetadataId(metadataId);
+
+        subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
