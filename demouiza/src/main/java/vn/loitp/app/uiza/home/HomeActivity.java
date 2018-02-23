@@ -11,19 +11,14 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
-import vn.loitp.app.uiza.service.UizaWTTService;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
@@ -181,8 +176,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void getData() {
-        LLog.d(TAG, "getData");
-        UizaWTTService service = RestClient.createService(UizaWTTService.class);
+        /*LLog.d(TAG, "getData");
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
         subscribe(service.getListAllMetadata(), new ApiSubscriber<Object>() {
             @Override
             public void onSuccess(Object getAll) {
@@ -194,6 +189,6 @@ public class HomeActivity extends BaseActivity {
                 LLog.e(TAG, "onFail " + e.getMessage());
                 handleException(e);
             }
-        });
+        });*/
     }
 }

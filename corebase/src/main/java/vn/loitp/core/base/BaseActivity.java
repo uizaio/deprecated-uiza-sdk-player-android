@@ -29,6 +29,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
@@ -121,7 +122,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void handleException(Throwable throwable) {
+        if (throwable == null) {
+            return;
+        }
         LLog.e("handleException", throwable.toString());
+        LDialogUtil.showOne(activity, getString(R.string.app_name), throwable.getMessage(), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+            @Override
+            public void onClick() {
+                //do nothing
+            }
+        });
     }
 
     protected void handleException(String msg) {

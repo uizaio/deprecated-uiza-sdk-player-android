@@ -17,8 +17,8 @@ import vn.loitp.app.uiza.home.model.GetAll;
  * @author loitp
  */
 
-public interface UizaWTTService {
-    @GET("v1/app/poster")
+public interface UizaV2Service {
+    /*@GET("v1/app/poster")
     Observable<GetPoster[]> getPoster(@Query("number") int number);
 
     @GET("api/public/v1/media/entity/get-link-play")
@@ -40,5 +40,9 @@ public interface UizaWTTService {
     Observable<GetAll> getAll(@Query("limit") int limit, @Query("page") int page);
 
     @GET("/api/data/v1/entity/list")
-    Observable<Object> testGetAll();
+    Observable<Object> testGetAll();*/
+
+    @FormUrlEncoded
+    @POST("/api/public/v1/auth/credentical\n")
+    Observable<Object> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
 }
