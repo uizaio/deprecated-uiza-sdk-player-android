@@ -1,5 +1,7 @@
 package vn.loitp.app.uiza.data;
 
+import vn.loitp.restapi.uiza.model.listallmetadata.Item;
+
 /**
  * Created by www.muathu@gmail.com on 11/14/2017.
  */
@@ -24,13 +26,13 @@ public class HomeData {
         this.currentPosition = currentPosition;
     }
 
-    private String data;
+    private Item mCurrentItem;
 
-    public String getData() {
-        return data;
+    public Item getItem() {
+        return mCurrentItem;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setItem(Item item) {
+        this.mCurrentItem = item;
     }
 }

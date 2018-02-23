@@ -23,6 +23,8 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.model.listallmetadata.Item;
+import vn.loitp.restapi.uiza.model.listallmetadata.ListAllMetadata;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
@@ -31,7 +33,7 @@ import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 public class HomeActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
-    private List<String> menuList = new ArrayList<>();
+    private List<Item> itemList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,28 +96,6 @@ public class HomeActivity extends BaseActivity {
             }
         });
         mDrawerView.addView(uizaDrawerHeader);
-
-        menuList.add("Home");
-        menuList.add("Action");
-        menuList.add("Drama");
-        menuList.add("Hornor");
-        menuList.add("Kids");
-
-        for (int i = 0; i < menuList.size(); i++) {
-            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), menuList, i, new UizaDrawerMenuItem.Callback() {
-                @Override
-                public void onMenuItemClick(int pos) {
-                    HomeData.getInstance().setCurrentPosition(pos);
-                    HomeData.getInstance().setData(menuList.get(pos));
-                    mDrawerLayout.closeDrawers();
-                    replaceFragment(new FrmChannel());
-                }
-            }));
-        }
-
-        //init data first
-        HomeData.getInstance().setData(menuList.get(0));
-        replaceFragment(new FrmChannel());
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
 
@@ -186,10 +166,15 @@ public class HomeActivity extends BaseActivity {
 
         int limit = 100;
 
-        subscribe(service.listAllMetadata(limit), new ApiSubscriber<Object>() {
+        subscribe(service.listAllMetadata(limit), new ApiSubscriber<ListAllMetadata>() {
             @Override
-            public void onSuccess(Object getAll) {
-                LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
+            public void onSuccess(ListAllMetadata listAllMetadata) {
+                LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(listAllMetadata));
+                if (listAllMetadata == null) {
+                    showDialogError(getString(R.string.err_unknow));
+                    return;
+                }
+                genListDrawerLayout(listAllMetadata);
             }
 
             @Override
@@ -198,5 +183,29 @@ public class HomeActivity extends BaseActivity {
                 handleException(e);
             }
         });
+    }
+
+    private void genListDrawerLayout(ListAllMetadata listAllMetadata) {
+        itemList = listAllMetadata.getItems();
+        if (itemList == null || itemList.isEmpty()) {
+            showDialogOne("itemList == null || itemList.isEmpty()");
+            return;
+        }
+
+        for (int i = 0; i < this.itemList.size(); i++) {
+            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItem.Callback() {
+                @Override
+                public void onMenuItemClick(int pos) {
+                    HomeData.getInstance().setCurrentPosition(pos);
+                    HomeData.getInstance().setItem(itemList.get(pos));
+                    mDrawerLayout.closeDrawers();
+                    replaceFragment(new FrmChannel());
+                }
+            }));
+        }
+
+        //init data first
+        HomeData.getInstance().setItem(itemList.get(0));
+        replaceFragment(new FrmChannel());
     }
 }

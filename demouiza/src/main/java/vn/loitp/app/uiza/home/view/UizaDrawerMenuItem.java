@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.restapi.uiza.model.listallmetadata.Item;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
@@ -29,20 +30,20 @@ public class UizaDrawerMenuItem {
     @View(R.id.iv_press)
     private ImageView ivPress;
 
-    private List<String> mStringList;
+    private List<Item> itemList;
     private int mPos;
     private Callback mCallback;
 
-    public UizaDrawerMenuItem(Context context, List<String> stringList, int pos, Callback callback) {
+    public UizaDrawerMenuItem(Context context, List<Item> itemList, int pos, Callback callback) {
         this.mContext = context;
-        this.mStringList = stringList;
+        this.itemList = itemList;
         this.mPos = pos;
         this.mCallback = callback;
     }
 
     @Resolve
     private void onResolved() {
-        tvName.setText(mStringList.get(mPos));
+        tvName.setText(itemList.get(mPos).getName());
         if (mPos == HomeData.getInstance().getCurrentPosition()) {
             ivPress.setVisibility(android.view.View.VISIBLE);
         } else {
