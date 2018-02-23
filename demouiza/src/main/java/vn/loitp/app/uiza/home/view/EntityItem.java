@@ -42,14 +42,23 @@ public class EntityItem {
     @Position
     private int mPosition;
 
-    public EntityItem(Context context, Item item, Callback callback) {
-        mContext = context;
+    private int mSizeW;
+    private int mSizeH;
+
+    public EntityItem(Context context, Item item, int sizeW, int sizeH, Callback callback) {
+        this.mContext = context;
         this.item = item;
-        mCallback = callback;
+        this.mSizeW = sizeW;
+        this.mSizeH = sizeH;
+        this.mCallback = callback;
     }
 
     @Resolve
     private void onResolved() {
+        imageView.getLayoutParams().width = mSizeW;
+        imageView.getLayoutParams().height = mSizeH;
+        imageView.requestLayout();
+
         LImageUtil.load((Activity) mContext, "https://kenh14cdn.com/2018/84a2b164b59e12659b70fc4adfbd7a33-1516711720908.jpg", imageView, avi);
         /*String[] urls = new String[2];
         urls[0] = item.getPoster();

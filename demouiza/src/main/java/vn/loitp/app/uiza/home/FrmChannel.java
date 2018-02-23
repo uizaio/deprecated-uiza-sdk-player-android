@@ -1,6 +1,8 @@
 package vn.loitp.app.uiza.home;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,9 @@ import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
+import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
@@ -53,10 +57,16 @@ public class FrmChannel extends BaseFragment {
         tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
 
         infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
+
+        infinitePlaceHolderView.getBuilder()
+                .setHasFixedSize(false)
+                .setItemViewCacheSize(10)
+                .setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
+
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
 
-        LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
         getData();
         return view;
     }
@@ -118,8 +128,11 @@ public class FrmChannel extends BaseFragment {
             }
         }));*/
 
+        int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
+        int sizeH = sizeW * 9 / 16;
+
         for (Item item : itemList) {
-            infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, new EntityItem.Callback() {
+            infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     //onClickVideo(item, position);
