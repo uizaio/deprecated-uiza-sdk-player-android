@@ -1,31 +1,24 @@
 package vn.loitp.app.uiza.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.player.v1.FrmUizaVideo;
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
-import com.uiza.player.ui.views.helper.InputModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
-import vn.loitp.app.uiza.home.model.ChannelObject;
-import vn.loitp.app.uiza.home.model.Item;
-import vn.loitp.app.uiza.home.view.ChannelItem;
-import vn.loitp.app.uiza.home.view.ChannelList;
-import vn.loitp.app.uiza.home.view.PosterView;
+import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.model.listallentity.Item;
 import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -68,7 +61,7 @@ public class FrmChannel extends BaseFragment {
         return view;
     }
 
-    private List<Item> getSubList(List<Item> itemList, int startIndex, int endIndex) {
+    /*private List<Item> getSubList(List<Item> itemList, int startIndex, int endIndex) {
         if (startIndex < 0 || endIndex > itemList.size()) {
             return null;
         }
@@ -78,10 +71,10 @@ public class FrmChannel extends BaseFragment {
         }
         LLog.d(TAG, "getList " + startIndex + " - " + endIndex + " -> " + items.size());
         return items;
-    }
+    }*/
 
     private void setupData(List<Item> itemList) {
-        //poster
+        /*//poster
         List<Item> itemListPoster = getSubList(itemList, 0, 5);
         infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
             @Override
@@ -123,19 +116,27 @@ public class FrmChannel extends BaseFragment {
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
             }
-        }));
+        }));*/
 
+        for (Item item : itemList) {
+            infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, new EntityItem.Callback() {
+                @Override
+                public void onClick(Item item, int position) {
+                    //onClickVideo(item, position);
+                }
+            }));
+        }
         avLoadingIndicatorView.smoothToHide();
     }
 
-    private void onClickVideo(Item item, int position) {
+    /*private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         InputModel inputModel = createInputModel(item);
         Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
         intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
-    }
+    }*/
 
     /*private InputModel createInputModel(String urlImg) {
         InputModel inputModel = new InputModel();
@@ -168,12 +169,12 @@ public class FrmChannel extends BaseFragment {
         inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
     }*/
-    private InputModel createInputModel(Item item) {
+    /*private InputModel createInputModel(Item item) {
         InputModel inputModel = new InputModel();
         inputModel.setEntityID(item.getId() + "");
         inputModel.setUrlImg(item.getPoster());
         inputModel.setTitle(item.getName());
-        /*inputModel.setTime("2015");
+        *//*inputModel.setTime("2015");
         inputModel.setDuration("2h 13min");
         inputModel.setRate(13);
         inputModel.setDescription("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
@@ -185,7 +186,7 @@ public class FrmChannel extends BaseFragment {
                 "Có thể nói trong các tiểu thuyết viết về \"nhân tình thế thái\" (nói gọn là \"thế tình\", tức \"tình đời\") ở Trung Quốc, thì đây là truyện có tiếng nhất, đã khiến cho nhiều người bàn luận [4].");
         inputModel.setStarring("Tom Holland, Michael Keaton, Robert Downey Jr.");
         inputModel.setDirector("Jon Watts");
-        inputModel.setGenres("Action, Adventure, Sci-Fi");*/
+        inputModel.setGenres("Action, Adventure, Sci-Fi");*//*
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");
         inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
@@ -198,35 +199,9 @@ public class FrmChannel extends BaseFragment {
 
         //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
-    }
+    }*/
 
     private void getData() {
-        /*UizaV2Service service = RestClient.createService(UizaV2Service.class);
-        int limit = 100;
-        int page = 0;
-        subscribe(service.getAll(limit, page), new ApiSubscriber<GetAll>() {
-            @Override
-            public void onSuccess(GetAll getAll) {
-                LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(getAll));
-                List<Item> itemList = getAll.getItems();
-                if (itemList == null || itemList.isEmpty()) {
-                    LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
-                        @Override
-                        public void onClick() {
-                            getActivity().onBackPressed();
-                        }
-                    });
-                } else {
-                    setupData(itemList);
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                handleException(e);
-            }
-        });*/
-
         LLog.d(TAG, ">>>getData");
         UizaV2Service service = RestClient.createService(UizaV2Service.class);
 
@@ -241,12 +216,24 @@ public class FrmChannel extends BaseFragment {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
+
+                List<Item> itemList = listAllEntity.getItems();
+                if (itemList == null || itemList.isEmpty()) {
+                    LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+                        @Override
+                        public void onClick() {
+                            getActivity().onBackPressed();
+                        }
+                    });
+                } else {
+                    setupData(itemList);
+                }
             }
 
             @Override
             public void onFail(Throwable e) {
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
-                //handleException(e);
+                handleException(e);
             }
         });
     }

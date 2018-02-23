@@ -22,7 +22,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/txt_12"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
