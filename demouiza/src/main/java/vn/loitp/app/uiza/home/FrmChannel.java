@@ -1,5 +1,6 @@
 package vn.loitp.app.uiza.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,6 +24,7 @@ import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
+import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
@@ -201,7 +203,13 @@ public class FrmChannel extends BaseFragment {
     private InputModel createInputModel(Item item) {
         InputModel inputModel = new InputModel();
         inputModel.setEntityID(item.getId() + "");
-        inputModel.setUrlImg(Constants.URL_IMG_16x9);
+
+        if (item.getThumbnail() == null || item.getThumbnail().isEmpty()) {
+            inputModel.setUrlImg(Constants.URL_IMG_16x9);
+        } else {
+            inputModel.setUrlImg(Constants.PREFIXS + item.getThumbnail());
+        }
+
         inputModel.setTitle(item.getName());
         inputModel.setTime("2015");
         inputModel.setDuration("2h 13min");

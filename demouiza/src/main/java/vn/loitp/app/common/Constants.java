@@ -13,4 +13,6 @@ public class Constants {
     public final static String TOKEN_WTT = "BIH80NYmucZwCoqPvrdI3ZU9ATB909Gi-1512972145301";
     public final static String URL_IMG_POSTER = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
     public final static String URL_IMG_THUMBNAIL = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
+
+    public final static String PREFIXS = "https://";
 }

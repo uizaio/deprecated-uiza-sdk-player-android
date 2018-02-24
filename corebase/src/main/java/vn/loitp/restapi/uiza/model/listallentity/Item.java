@@ -1,9 +1,10 @@
 
 package vn.loitp.restapi.uiza.model.listallentity;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Item {
 
@@ -39,7 +40,7 @@ public class Item {
     private int status;
     @SerializedName("thumbnail")
     @Expose
-    private Object thumbnail;
+    private String thumbnail;
     @SerializedName("duration")
     @Expose
     private String duration;
@@ -142,11 +143,11 @@ public class Item {
         this.status = status;
     }
 
-    public Object getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(Object thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 

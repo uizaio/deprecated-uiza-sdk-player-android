@@ -28,7 +28,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  */
 
 //@Animate(Animation.CARD_TOP_IN_DESC)
-@Animate(Animation.CARD_BOTTOM_IN_ASC)
+//@Animate(Animation.CARD_BOTTOM_IN_ASC)
 @NonReusable
 @Layout(R.layout.uiza_entity_item)
 public class EntityItem {
@@ -64,7 +64,11 @@ public class EntityItem {
         imageView.getLayoutParams().height = mSizeH;
         imageView.requestLayout();
 
-        LImageUtil.load((Activity) mContext, Constants.URL_IMG_16x9, imageView, avi);
+        if (item.getThumbnail() == null || item.getThumbnail().isEmpty()) {
+            LImageUtil.load((Activity) mContext, Constants.URL_IMG_16x9, imageView, avi);
+        } else {
+            LImageUtil.load((Activity) mContext, Constants.PREFIXS + item.getThumbnail(), imageView, avi);
+        }
 
         /*String[] urls = new String[2];
         urls[0] = item.getPoster();
