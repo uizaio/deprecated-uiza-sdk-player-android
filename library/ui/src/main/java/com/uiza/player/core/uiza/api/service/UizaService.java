@@ -6,7 +6,9 @@ import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
 import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.core.uiza.api.model.getposter.GetPoster;
 
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -25,7 +27,8 @@ public interface UizaService {
     @GET("api/public/v1/media/entity/info/{id}")
     Observable<EntityInfo> getEntityInfo(@Path("id") String id);
 
-    @GET("/api/data/v1/entity/detail")
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/entity/detail")
     Observable<DetailEntity> getDetailEntity(@Query("id") int id);
 
     //getPlayerConfig

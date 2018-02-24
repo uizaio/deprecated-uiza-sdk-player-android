@@ -27,7 +27,6 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 public class UizaPlayerActivity extends BaseActivity {
@@ -202,6 +201,7 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     private void getLinkPlay() {
+        TAG = "getLinkPlay";
         LLog.d(TAG, ">>>getLinkPlay " + inputModel.getEntityID());
         UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
@@ -217,6 +217,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
+                LLog.e(TAG, "onFail " + e.toString());
                 handleException(e);
 
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
@@ -264,7 +265,8 @@ public class UizaPlayerActivity extends BaseActivity {
     }*/
 
     private void getEntityInfo() {
-        //LLog.d(TAG, "getEntityInfo");
+        TAG = "getEntityInfo";
+        LLog.d(TAG, ">>>getEntityInfo");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
@@ -293,6 +295,7 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     private void getPlayerConfig() {
+        TAG = "getPlayerConfig";
         LLog.d(TAG, ">>>getPlayerConfig");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
@@ -304,13 +307,13 @@ public class UizaPlayerActivity extends BaseActivity {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
                 //TODO
-                LLog.d(TAG, "getPlayerConfig getEntityInfo onSuccess " + gson.toJson(playerConfig));
+                LLog.d(TAG, "getPlayerConfig onSuccess " + gson.toJson(playerConfig));
 
                 UizaData.getInstance().setPlayerConfig(playerConfig);
 
-                getLinkPlay();
+                //getLinkPlay();
                 // ->getDetailEntity();
-                //getEntityInfo();
+                getEntityInfo();
             }
 
             @Override
