@@ -24,7 +24,6 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
 import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -36,7 +35,7 @@ public class UizaPlayerActivity extends BaseActivity {
     private Gson gson = new Gson();
 
     private boolean isGetLinkPlayDone;
-    private boolean isgetEntityInfoDone;
+    private boolean isGetDetailEntityDone;
 
     private FrameLayout flRootView;
 
@@ -131,12 +130,12 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     private void init() {
-        if (isGetLinkPlayDone && isgetEntityInfoDone) {
+        if (isGetLinkPlayDone && isGetDetailEntityDone) {
             initContainerVideo();
             initContainerVideoInfo();
             removeCoverVideo();
         } else {
-            LLog.d(TAG, "init failed: isGetLinkPlayDone: " + isGetLinkPlayDone + ", isgetEntityInfoDone: " + isgetEntityInfoDone);
+            LLog.d(TAG, "init failed: isGetLinkPlayDone: " + isGetLinkPlayDone + ", isGetDetailEntityDone: " + isGetDetailEntityDone);
         }
     }
 
@@ -243,13 +242,13 @@ public class UizaPlayerActivity extends BaseActivity {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
                 LLog.d(TAG, "onSuccess " + gson.toJson(getDetailEntity));
-                /*if (detailEntity != null) {
-                    UizaData.getInstance().setDetailEntity(detailEntity);
+                if (getDetailEntity != null) {
+                    UizaData.getInstance().setDetailEntity(getDetailEntity);
                 } else {
                     handleException("getDetailEntity onSuccess detailEntity == null");
                 }
-                isgetEntityInfoDone = true;
-                init();*/
+                isGetDetailEntityDone = true;
+                init();
             }
 
             @Override
@@ -279,7 +278,7 @@ public class UizaPlayerActivity extends BaseActivity {
                 } else {
                     handleException("getEntityInfo onSuccess entityInfo == null");
                 }
-                isgetEntityInfoDone = true;
+                isGetDetailEntityDone = true;
                 init();
             }
 

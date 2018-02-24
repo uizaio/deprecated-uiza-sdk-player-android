@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
 
 /**
@@ -22,8 +23,8 @@ public class InputModel implements Serializable {
     private Boolean preferExtensionDecoders;
     private String action;
     private String uri;
-    //private DetailEntity detailEntity;
-    private EntityInfo entityInfo;
+    private GetDetailEntity getDetailEntity;
+    //private EntityInfo entityInfo;
     private String extension;
     private String[] uriStrings;
     private String[] extensionList;
@@ -212,19 +213,19 @@ public class InputModel implements Serializable {
         this.entityID = entityID;
     }
 
-    /*public DetailEntity getDetailEntity() {
-        return detailEntity;
+    public GetDetailEntity getDetailEntity() {
+        return getDetailEntity;
     }
 
-    public void setDetailEntity(DetailEntity detailEntity) {
-        this.detailEntity = detailEntity;
-    }*/
+    public void setDetailEntity(GetDetailEntity getDetailEntity) {
+        this.getDetailEntity = getDetailEntity;
+    }
 
-    public EntityInfo getEntityInfo() {
+    /*public EntityInfo getEntityInfo() {
         return entityInfo;
     }
 
     public void setEntityInfo(EntityInfo entityInfo) {
         this.entityInfo = entityInfo;
-    }
+    }*/
 }

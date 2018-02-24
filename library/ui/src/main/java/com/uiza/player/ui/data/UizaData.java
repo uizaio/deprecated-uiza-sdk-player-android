@@ -9,6 +9,7 @@ import com.uiza.player.ui.views.view.settingview.SettingObject;
 import java.util.ArrayList;
 
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
 
@@ -140,21 +141,21 @@ public class UizaData {
         this.playerConfig = playerConfig;
     }
 
-    /*public void setDetailEntity(DetailEntity detailEntity) {
+    public void setDetailEntity(GetDetailEntity getDetailEntity) {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
-        inputModel.setDetailEntity(detailEntity);
-        notifyObservers();
-    }*/
+        inputModel.setDetailEntity(getDetailEntity);
+        //notifyObservers();
+    }
 
-    public void setEntityInfo(EntityInfo entityInfo) {
+    /*public void setEntityInfo(EntityInfo entityInfo) {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
         inputModel.setEntityInfo(entityInfo);
         //notifyObservers();
-    }
+    }*/
 
     public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
     public final static String PLAYER_ID_SKIN_2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";

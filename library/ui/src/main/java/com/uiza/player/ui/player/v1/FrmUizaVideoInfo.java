@@ -14,7 +14,7 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.uiza.model.getentityinfo.Item;
+import vn.loitp.restapi.uiza.model.getdetailentity.Item;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -73,8 +73,8 @@ public class FrmUizaVideoInfo extends BaseFragment {
         }
         if (mItem == null) {
             //getDetailEntity();
-            if (mInputModel.getEntityInfo() != null) {
-                mItem = mInputModel.getEntityInfo().getItem();
+            if (mInputModel.getDetailEntity() != null) {
+                mItem = mInputModel.getDetailEntity().getItem().get(0);
                 updateUI();
             }
         }
@@ -91,7 +91,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
             tvVideoName.setText(empty);
         }
         try {
-            tvVideoTime.setText(mItem.getCreatedAt());
+            tvVideoTime.setText("TODO: Set time here");
         } catch (NullPointerException e) {
             tvVideoTime.setText(empty);
         }
