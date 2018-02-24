@@ -11,11 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
-import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
-import com.uiza.player.core.uiza.api.model.getlinkplay.GetLinkPlay;
-import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
-import com.uiza.player.core.uiza.api.service.UizaService;
-import com.uiza.player.rxandroid.ApiSubscriber;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
@@ -27,6 +22,11 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
+import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 public class UizaPlayerActivity extends BaseActivity {
@@ -203,7 +203,7 @@ public class UizaPlayerActivity extends BaseActivity {
     private void getLinkPlay() {
         TAG = "getLinkPlay";
         LLog.d(TAG, ">>>getLinkPlay " + inputModel.getEntityID());
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
@@ -228,53 +228,48 @@ public class UizaPlayerActivity extends BaseActivity {
         });
     }
 
-    /*private void getDetailEntity() {
-        LLog.d(TAG, "getDetailEntity");
+    private void getDetailEntity() {
+        TAG = "getDetailEntity";
+        LLog.d(TAG, ">>>getDetailEntity");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
-        UizaService service = RestClient.createService(UizaService.class);
-        int entity;
-        try {
-            entity = Integer.parseInt(inputModel.getEntityID());
-        } catch (Exception e) {
-            LLog.d(TAG, "getDetailEntity Exception " + e.toString());
-            handleException("Exception " + e.toString());
-            return;
-        }
-        subscribe(service.getDetailEntity(entity), new vn.loitp.rxandroid.ApiSubscriber<DetailEntity>() {
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        String entityId = inputModel.getEntityID();
+        LLog.d(TAG, "entityId: " + entityId);
+        subscribe(service.getDetailEntity(entityId), new ApiSubscriber<Object>() {
             @Override
-            public void onSuccess(DetailEntity detailEntity) {
-                LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(detailEntity));
-                if (detailEntity != null) {
-                    //mItem = detailEntity.getItem().get(0);
-                    //updateUI();
+            public void onSuccess(Object detailEntity) {
+                LLog.d(TAG, "onSuccess " + gson.toJson(detailEntity));
+                /*if (detailEntity != null) {
                     UizaData.getInstance().setDetailEntity(detailEntity);
                 } else {
                     handleException("getDetailEntity onSuccess detailEntity == null");
                 }
+                isgetEntityInfoDone = true;
+                init();*/
             }
 
             @Override
             public void onFail(Throwable e) {
-                LLog.d(TAG, "getDetailEntity onFail " + e.toString());
+                LLog.e(TAG, "onFail " + e.toString());
                 handleException(e);
             }
         });
-    }*/
+    }
 
-    private void getEntityInfo() {
+    /*private void getEntityInfo() {
         TAG = "getEntityInfo";
         LLog.d(TAG, ">>>getEntityInfo");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
         String id = inputModel.getEntityID();
         //LLog.d(TAG, "getEntityInfo id " + id);
-        subscribe(service.getEntityInfo(id), new vn.loitp.rxandroid.ApiSubscriber<EntityInfo>() {
+        subscribe(service.getEntityInfo(id), new ApiSubscriber<EntityInfo>() {
             @Override
             public void onSuccess(EntityInfo entityInfo) {
                 LLog.d(TAG, "getEntityInfo onSuccess " + gson.toJson(entityInfo));
@@ -292,7 +287,7 @@ public class UizaPlayerActivity extends BaseActivity {
                 handleException(e);
             }
         });
-    }
+    }*/
 
     private void getPlayerConfig() {
         TAG = "getPlayerConfig";
@@ -302,7 +297,7 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
         setCoverVideo();
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
@@ -312,8 +307,8 @@ public class UizaPlayerActivity extends BaseActivity {
                 UizaData.getInstance().setPlayerConfig(playerConfig);
 
                 //getLinkPlay();
-                // ->getDetailEntity();
-                getEntityInfo();
+                getDetailEntity();
+                //getEntityInfo();
             }
 
             @Override

@@ -1,11 +1,12 @@
 
-package com.uiza.player.core.uiza.api.model.getlinkplay;
+package vn.loitp.restapi.uiza.model.getlinkplay;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.uiza.player.core.uiza.api.model.BaseModel;
 
-public class GetLinkPlay extends BaseModel {
+import java.io.Serializable;
+
+public class GetLinkPlay implements Serializable {
 
     @SerializedName("message")
     @Expose

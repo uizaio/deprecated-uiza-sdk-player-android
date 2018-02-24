@@ -1,5 +1,5 @@
 
-package com.uiza.player.core.uiza.api.model.getentityinfo;
+package vn.loitp.restapi.uiza.model.getentityinfo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

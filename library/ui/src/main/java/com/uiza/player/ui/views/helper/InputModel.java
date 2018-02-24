@@ -2,14 +2,13 @@ package com.uiza.player.ui.views.helper;
 
 import android.net.Uri;
 
-import com.uiza.player.core.uiza.api.model.getdetailentity.DetailEntity;
-import com.uiza.player.core.uiza.api.model.getdetailentity.Item;
-import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
 import com.uiza.player.ui.views.model.Playlist;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+
+import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
 
 /**
  * Created by www.muathu@gmail.com on 10/24/2017.

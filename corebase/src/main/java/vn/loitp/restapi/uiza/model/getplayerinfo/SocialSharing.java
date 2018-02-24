@@ -1,5 +1,5 @@
 
-package com.uiza.player.core.uiza.api.model.getplayerinfo;
+package vn.loitp.restapi.uiza.model.getplayerinfo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

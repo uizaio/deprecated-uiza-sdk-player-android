@@ -1,10 +1,10 @@
 
-package com.uiza.player.core.uiza.api.model.getdetailentity;
-
-import java.util.List;
+package vn.loitp.restapi.uiza.model.getdetailentity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class DetailEntity {
 

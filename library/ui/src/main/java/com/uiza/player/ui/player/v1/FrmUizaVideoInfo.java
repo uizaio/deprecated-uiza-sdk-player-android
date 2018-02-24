@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.uiza.player.core.uiza.api.model.getentityinfo.Item;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -15,6 +14,7 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.uiza.model.getentityinfo.Item;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.

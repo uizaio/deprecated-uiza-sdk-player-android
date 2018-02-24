@@ -3,9 +3,16 @@ package vn.loitp.restapi.uiza;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 import vn.loitp.restapi.uiza.model.auth.Auth;
+import vn.loitp.restapi.uiza.model.getdetailentity.DetailEntity;
+import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
+import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.listallmetadata.JsonBody;
 import vn.loitp.restapi.uiza.model.listallmetadata.ListAllMetadata;
@@ -49,4 +56,23 @@ public interface UizaV2Service {
 
     @POST("/api/resource/v1/media/entity/list")
     Observable<ListAllEntity> listAllEntity(@Body JsonBody jsonBody);
+
+
+    /////for player
+    /*@GET("v1/app/poster")
+    Observable<GetPoster[]> getPoster(@Query("number") int number);*/
+
+    @GET("api/public/v1/media/entity/get-link-play")
+    Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId);
+
+    @GET("api/public/v1/media/entity/info/{id}")
+    Observable<EntityInfo> getEntityInfo(@Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/entity/detail")
+    Observable<Object> getDetailEntity(@Field("id") String id);
+
+    //getPlayerConfig
+    @GET("/api/public/v1/player/info/{id}")
+    Observable<PlayerConfig> getPlayerInfo(@Path("id") String playerId);
 }

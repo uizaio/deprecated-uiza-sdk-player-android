@@ -2,8 +2,6 @@ package com.uiza.player.ui.data;
 
 import android.os.Handler;
 
-import com.uiza.player.core.uiza.api.model.getentityinfo.EntityInfo;
-import com.uiza.player.core.uiza.api.model.getplayerinfo.PlayerConfig;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
@@ -11,6 +9,8 @@ import com.uiza.player.ui.views.view.settingview.SettingObject;
 import java.util.ArrayList;
 
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
+import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
 
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.
