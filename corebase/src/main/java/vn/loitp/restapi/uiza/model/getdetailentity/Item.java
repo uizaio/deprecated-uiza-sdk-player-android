@@ -1,16 +1,15 @@
 
 package vn.loitp.restapi.uiza.model.getdetailentity;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class Item {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private String id;
     @SerializedName("referenceId")
     @Expose
     private String referenceId;
@@ -23,12 +22,15 @@ public class Item {
     @SerializedName("shortDescription")
     @Expose
     private String shortDescription;
-    @SerializedName("extendData")
+    @SerializedName("ingestMetadataId")
     @Expose
-    private ExtendData extendData;
+    private String ingestMetadataId;
+    @SerializedName("adminUserId")
+    @Expose
+    private String adminUserId;
     @SerializedName("poster")
     @Expose
-    private String poster;
+    private Object poster;
     @SerializedName("view")
     @Expose
     private int view;
@@ -37,16 +39,34 @@ public class Item {
     private int status;
     @SerializedName("thumbnail")
     @Expose
-    private String thumbnail;
+    private Object thumbnail;
+    @SerializedName("duration")
+    @Expose
+    private String duration;
+    @SerializedName("extendData")
+    @Expose
+    private ExtendData extendData;
+    @SerializedName("ownerName")
+    @Expose
+    private String ownerName;
+    @SerializedName("ownerEmail")
+    @Expose
+    private String ownerEmail;
+    @SerializedName("ownerAvatar")
+    @Expose
+    private String ownerAvatar;
+    @SerializedName("ownerFullName")
+    @Expose
+    private String ownerFullName;
     @SerializedName("metadata")
     @Expose
     private List<Metadatum> metadata = null;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -82,19 +102,27 @@ public class Item {
         this.shortDescription = shortDescription;
     }
 
-    public ExtendData getExtendData() {
-        return extendData;
+    public String getIngestMetadataId() {
+        return ingestMetadataId;
     }
 
-    public void setExtendData(ExtendData extendData) {
-        this.extendData = extendData;
+    public void setIngestMetadataId(String ingestMetadataId) {
+        this.ingestMetadataId = ingestMetadataId;
     }
 
-    public String getPoster() {
+    public String getAdminUserId() {
+        return adminUserId;
+    }
+
+    public void setAdminUserId(String adminUserId) {
+        this.adminUserId = adminUserId;
+    }
+
+    public Object getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster) {
+    public void setPoster(Object poster) {
         this.poster = poster;
     }
 
@@ -114,12 +142,60 @@ public class Item {
         this.status = status;
     }
 
-    public String getThumbnail() {
+    public Object getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Object thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public ExtendData getExtendData() {
+        return extendData;
+    }
+
+    public void setExtendData(ExtendData extendData) {
+        this.extendData = extendData;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public String getOwnerAvatar() {
+        return ownerAvatar;
+    }
+
+    public void setOwnerAvatar(String ownerAvatar) {
+        this.ownerAvatar = ownerAvatar;
+    }
+
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
     }
 
     public List<Metadatum> getMetadata() {

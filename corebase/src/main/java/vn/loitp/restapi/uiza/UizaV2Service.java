@@ -9,7 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 import vn.loitp.restapi.uiza.model.auth.Auth;
-import vn.loitp.restapi.uiza.model.getdetailentity.DetailEntity;
+import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
@@ -70,7 +70,7 @@ public interface UizaV2Service {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/entity/detail")
-    Observable<Object> getDetailEntity(@Field("id") String id);
+    Observable<GetDetailEntity> getDetailEntity(@Field("id") String id);
 
     //getPlayerConfig
     @GET("/api/public/v1/player/info/{id}")

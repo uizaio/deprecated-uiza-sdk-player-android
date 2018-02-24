@@ -23,6 +23,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
@@ -238,10 +239,10 @@ public class UizaPlayerActivity extends BaseActivity {
         UizaV2Service service = RestClient.createService(UizaV2Service.class);
         String entityId = inputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntity(entityId), new ApiSubscriber<Object>() {
+        subscribe(service.getDetailEntity(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
-            public void onSuccess(Object detailEntity) {
-                LLog.d(TAG, "onSuccess " + gson.toJson(detailEntity));
+            public void onSuccess(GetDetailEntity getDetailEntity) {
+                LLog.d(TAG, "onSuccess " + gson.toJson(getDetailEntity));
                 /*if (detailEntity != null) {
                     UizaData.getInstance().setDetailEntity(detailEntity);
                 } else {
