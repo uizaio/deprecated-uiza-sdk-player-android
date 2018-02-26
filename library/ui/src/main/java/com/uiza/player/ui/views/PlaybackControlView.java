@@ -443,7 +443,7 @@ public class PlaybackControlView extends FrameLayout {
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
         rootView = (RelativeLayout) findViewById(R.id.root_view);
-        setSizeOfPlaybackControlView();
+        //setSizeOfPlaybackControlView();
 
         llTop = (LinearLayout) findViewById(R.id.ll_top);
         llMid = (LinearLayout) findViewById(R.id.ll_mid);
@@ -524,11 +524,11 @@ public class PlaybackControlView extends FrameLayout {
         repeatAllButtonContentDescription = resources.getString(R.string.exo_controls_repeat_all_description);
     }
 
-    public void setSizeOfPlaybackControlView() {
+    public void setSizeOfPlaybackControlView(int height) {
         LLog.d(TAG, "setSizeOfPlaybackControlView");
 
         //rootView.getLayoutParams().width = LDisplayUtils.getScreenW((Activity) getContext());
-        rootView.getLayoutParams().height = 400;
+        rootView.getLayoutParams().height = height;
         rootView.requestLayout();
     }
 
@@ -1391,7 +1391,7 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (fullscreenButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
-                        setSizeOfPlaybackControlView();
+                        //setSizeOfPlaybackControlView();
                     }
                 } else if (exitButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
