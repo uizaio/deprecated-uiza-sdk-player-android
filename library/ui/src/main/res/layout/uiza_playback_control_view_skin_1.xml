@@ -8,15 +8,15 @@
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black_33"
+        android:background="@color/black_65"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="invisible">
 
         <ImageView
             android:id="@id/exo_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size_icon"
+            android:layout_height="@dimen/size_icon"
             android:contentDescription="@string/app_name"
             android:padding="@dimen/padding_5"
             android:src="@drawable/ic_arrow_left" />
@@ -29,7 +29,7 @@
             android:padding="@dimen/padding_5"
             android:singleLine="true"
             android:textColor="@color/White"
-            android:textSize="@dimen/txt_15"
+            android:textSize="@dimen/txt_12"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -39,14 +39,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@color/black_33"
+        android:background="@color/black_65"
         android:orientation="vertical"
         android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_3"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -105,7 +105,8 @@
                 <ImageButton
                     android:id="@id/exo_pause"
                     style="@style/ExoMediaButton.Pause"
-                    android:contentDescription="@string/app_name" />
+                    android:contentDescription="@string/app_name"
+                    android:tint="@color/White" />
 
                 <ImageButton
                     android:id="@id/exo_play"
