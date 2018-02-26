@@ -12,7 +12,6 @@ import com.uiza.player.ui.views.helper.InputModel;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
-import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.getdetailentity.Item;
 
@@ -30,7 +29,9 @@ public class FrmUizaVideoInfo extends BaseFragment {
     private TextView tvVideoStarring;
     private TextView tvVideoDirector;
     private TextView tvVideoGenres;
-    private TextView tvDebugJson;
+
+    private InputModel mInputModel;
+    private Item mItem;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -44,7 +45,6 @@ public class FrmUizaVideoInfo extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LLog.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
 
         ScrollView scrollView = (ScrollView) view.findViewById(R.id.scroll_view);
@@ -60,7 +60,6 @@ public class FrmUizaVideoInfo extends BaseFragment {
         tvVideoStarring = (TextView) view.findViewById(R.id.tv_video_starring);
         tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
         tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
-        tvDebugJson = (TextView) view.findViewById(R.id.tv_debug_json);
 
         mInputModel = UizaData.getInstance().getInputModel();
         setup();
@@ -72,42 +71,42 @@ public class FrmUizaVideoInfo extends BaseFragment {
             return;
         }
         if (mItem == null) {
-            //getDetailEntity();
-            if (mInputModel.getDetailEntity() != null) {
-                mItem = mInputModel.getDetailEntity().getItem().get(0);
-                updateUI();
+            try {
+                if (mInputModel.getDetailEntity() != null) {
+                    mItem = mInputModel.getDetailEntity().getItem().get(0);
+                    updateUI();
+                }
+            } catch (Exception e) {
+                showDialogError("Setup Error\n" + e.toString());
             }
         }
     }
 
-    private InputModel mInputModel;
-    private Item mItem;
-
     private void updateUI() {
-        String empty = "Empty";
+        final String emptyS = "Empty string";
+        final String nullS = "Data is null";
         try {
             tvVideoName.setText(mItem.getName());
         } catch (NullPointerException e) {
-            tvVideoName.setText(empty);
+            tvVideoName.setText(nullS);
         }
         try {
-            tvVideoTime.setText("TODO: Set time here");
+            //TODO
+            tvVideoTime.setText("Dummy Time");
         } catch (NullPointerException e) {
-            tvVideoTime.setText(empty);
+            tvVideoTime.setText(nullS);
         }
-
-        tvVideoRate.setText("18+");
+        //TODO
+        tvVideoRate.setText("Dummy 18+");
         try {
-            tvVideoDescription.setText(mItem.getDescription().isEmpty() ? mItem.getShortDescription().isEmpty() ? empty : mItem.getShortDescription() : mItem.getDescription());
+            tvVideoDescription.setText(mItem.getDescription().isEmpty() ? mItem.getShortDescription().isEmpty() ? emptyS : mItem.getShortDescription() : mItem.getDescription());
         } catch (NullPointerException e) {
-            tvVideoDescription.setText(empty);
+            tvVideoDescription.setText(nullS);
         }
 
         //TODO
-        tvVideoStarring.setText(empty);
-        tvVideoDirector.setText(empty);
-        tvVideoGenres.setText(empty);
-
-        LUIUtil.printBeautyJson(mItem, tvDebugJson);
+        tvVideoStarring.setText(emptyS);
+        tvVideoDirector.setText(emptyS);
+        tvVideoGenres.setText(emptyS);
     }
 }

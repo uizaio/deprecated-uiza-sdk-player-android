@@ -14,9 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_30"
-            android:paddingLeft="@dimen/padding_30"
-            android:paddingRight="@dimen/padding_50"
+            android:paddingBottom="@dimen/padding_50"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingRight="@dimen/padding_10"
             android:paddingTop="@dimen/padding_50">
 
             <TextView
@@ -46,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_15"
                     android:background="@drawable/bt_rate"
+                    android:gravity="center"
                     android:paddingLeft="@dimen/padding_10"
                     android:paddingRight="@dimen/padding_10"
                     android:textColor="@color/White"
@@ -145,13 +146,6 @@
                 android:textSize="@dimen/txt_20"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_debug_json"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:textColor="@color/info_video_description"
-                android:textSize="@dimen/txt_12" />
         </LinearLayout>
     </ScrollView>
 

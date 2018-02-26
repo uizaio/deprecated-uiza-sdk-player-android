@@ -49,22 +49,38 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void handleException(Throwable throwable) {
-        LDialogUtil.showOne(getActivity(), getString(R.string.err), throwable.getMessage(), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+        if (throwable == null || throwable.getMessage() == null) {
+            return;
+        }
+        showDialogError(throwable.getMessage());
+    }
+
+    protected void handleException(final String msgErr) {
+        showDialogError(msgErr);
+    }
+
+    protected void showDialogOne(final String msg) {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onClick() {
-                getActivity().onBackPressed();
+            public void run() {
+                LDialogUtil.showOne(getActivity(), getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+                    @Override
+                    public void onClick() {
+                        //do nothing
+                    }
+                });
             }
         });
     }
 
-    protected void handleException(final String msgErr) {
+    protected void showDialogError(final String msg) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                LDialogUtil.showOne(getActivity(), getString(R.string.err), msgErr, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+                LDialogUtil.showOne(getActivity(), getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
                     @Override
                     public void onClick() {
-                        getActivity().onBackPressed();
+                        //do nothing
                     }
                 });
             }
