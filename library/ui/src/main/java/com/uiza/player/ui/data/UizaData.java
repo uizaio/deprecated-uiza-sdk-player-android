@@ -197,4 +197,16 @@ public class UizaData {
         LLog.d(TAG, "token " + token);
         LLog.d(TAG, "playerId " + playerId);
     }
+
+
+    //size height cua SimpleExoPlayerView se duoc update khi fullscreen hoac tat fullscreen
+    private int sizeHeightOfSimpleExoPlayerView;
+
+    public int getSizeHeightOfSimpleExoPlayerView() {
+        return sizeHeightOfSimpleExoPlayerView;
+    }
+
+    public void setSizeHeightOfSimpleExoPlayerView(int sizeHeightOfSimpleExoPlayerView) {
+        this.sizeHeightOfSimpleExoPlayerView = sizeHeightOfSimpleExoPlayerView;
+    }
 }

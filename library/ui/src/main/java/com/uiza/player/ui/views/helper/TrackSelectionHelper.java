@@ -43,6 +43,7 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedT
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 
@@ -123,19 +124,26 @@ import vn.loitp.core.utilities.LUIUtil;
         alertDialog.show();*/
 
         dialog = new Dialog(activity);
-        Window window = dialog.getWindow();
+        final View view = buildView(activity);
+        dialog.setContentView(view);
+        dialog.setOnDismissListener(callbackDialogDissmiss);
+        final Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-            WindowManager.LayoutParams param = window.getAttributes();
+            final WindowManager.LayoutParams param = window.getAttributes();
             param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-            param.y = 100;
-            window.setAttributes(param);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        }
 
-        dialog.setContentView(buildView(activity));
-        dialog.setOnDismissListener(callbackDialogDissmiss);
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    //LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                    param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
+                    window.setAttributes(param);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                }
+            });
+        }
         dialog.show();
         //UizaScreenUtil.hideNavBar(dialog.getWindow().getDecorView());
     }

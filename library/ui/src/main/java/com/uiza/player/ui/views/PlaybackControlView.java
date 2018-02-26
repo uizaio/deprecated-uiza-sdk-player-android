@@ -525,9 +525,9 @@ public class PlaybackControlView extends FrameLayout {
         repeatAllButtonContentDescription = resources.getString(R.string.exo_controls_repeat_all_description);
     }
 
-    public void setSizeOfPlaybackControlView(int height) {
+    public void setSizeOfPlaybackControlView() {
         LLog.d(TAG, "setSizeOfPlaybackControlView");
-        rootView.getLayoutParams().height = height;
+        rootView.getLayoutParams().height = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView();
         rootView.requestLayout();
     }
 
