@@ -525,8 +525,6 @@ public class PlaybackControlView extends FrameLayout {
 
     public void setSizeOfPlaybackControlView(int height) {
         LLog.d(TAG, "setSizeOfPlaybackControlView");
-
-        //rootView.getLayoutParams().width = LDisplayUtils.getScreenW((Activity) getContext());
         rootView.getLayoutParams().height = height;
         rootView.requestLayout();
     }

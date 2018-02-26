@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.uiza.sdk.ui">
 
+    <!--remove this android:screenOrientation="portrait", video player will change by sensor-->
     <application>
         <activity
             android:name="com.uiza.player.ui.player.v1.UizaPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.google.android.exoplayer.demo.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
