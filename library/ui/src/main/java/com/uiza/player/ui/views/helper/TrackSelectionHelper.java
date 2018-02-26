@@ -25,8 +25,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckedTextView;
 import android.widget.HorizontalScrollView;
@@ -121,8 +123,18 @@ import vn.loitp.core.utilities.LUIUtil;
         alertDialog.show();*/
 
         dialog = new Dialog(activity);
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            param.y = 100;
+            window.setAttributes(param);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
         dialog.setContentView(buildView(activity));
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setOnDismissListener(callbackDialogDissmiss);
         dialog.show();
         //UizaScreenUtil.hideNavBar(dialog.getWindow().getDecorView());
