@@ -767,7 +767,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         if (useController) {
             controller.setPlayer(player);
         } else if (controller != null) {
-            controller.hide();
+            controller.hide(true);
             controller.setPlayer(null);
         }
     }
@@ -812,7 +812,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
      */
     public void hideController() {
         if (controller != null) {
-            controller.hide();
+            controller.hide(true);
         }
     }
 
@@ -998,7 +998,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         if (!controller.isVisible()) {
             maybeShowController(true);
         } else if (controllerHideOnTouch) {
-            controller.hide();
+            controller.hide(true);
         }
         return true;
     }

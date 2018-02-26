@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerLibraryInfo;
@@ -54,6 +55,7 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
@@ -361,7 +363,7 @@ public class PlaybackControlView extends FrameLayout {
     private final Runnable hideAction = new Runnable() {
         @Override
         public void run() {
-            hide();
+            hide(true);
         }
     };
 
@@ -775,6 +777,7 @@ public class PlaybackControlView extends FrameLayout {
     public void show() {
         if (!isVisible()) {
             setVisibility(VISIBLE);
+            LAnimationUtil.play(this, Techniques.FadeIn);
             if (visibilityListener != null) {
                 visibilityListener.onVisibilityChange(getVisibility());
             }
@@ -790,18 +793,50 @@ public class PlaybackControlView extends FrameLayout {
      */
     private boolean isViewHiddenButStillCount = true;
 
-    public void hide() {
+    public void hide(boolean isShowAnimation) {
         LLog.d(TAG, "hide isVisible " + isVisible());
         if (isVisible()) {
-            setVisibility(GONE);
-            if (visibilityListener != null) {
-                visibilityListener.onVisibilityChange(getVisibility());
+            if (isShowAnimation) {
+                LAnimationUtil.play(this, Techniques.FadeOut, new LAnimationUtil.Callback() {
+                    @Override
+                    public void onCancel() {
+                        //do nothing
+                    }
+
+                    @Override
+                    public void onEnd() {
+                        setVisibility(GONE);
+                        if (visibilityListener != null) {
+                            visibilityListener.onVisibilityChange(getVisibility());
+                        }
+                        if (!isViewHiddenButStillCount) {
+                            removeCallbacks(updateProgressAction);
+                        }
+                        removeCallbacks(hideAction);
+                        hideAtMs = C.TIME_UNSET;
+                    }
+
+                    @Override
+                    public void onRepeat() {
+                        //do nothing
+                    }
+
+                    @Override
+                    public void onStart() {
+                        //do nothing
+                    }
+                });
+            } else {
+                setVisibility(GONE);
+                if (visibilityListener != null) {
+                    visibilityListener.onVisibilityChange(getVisibility());
+                }
+                if (!isViewHiddenButStillCount) {
+                    removeCallbacks(updateProgressAction);
+                }
+                removeCallbacks(hideAction);
+                hideAtMs = C.TIME_UNSET;
             }
-            if (!isViewHiddenButStillCount) {
-                removeCallbacks(updateProgressAction);
-            }
-            removeCallbacks(hideAction);
-            hideAtMs = C.TIME_UNSET;
         }
     }
 
@@ -870,7 +905,7 @@ public class PlaybackControlView extends FrameLayout {
                     || timeline.getNextWindowIndex(windowIndex, player.getRepeatMode()) != C.INDEX_UNSET;
             if (player.isPlayingAd()) {
                 // Always hide player controls during ads.
-                hide();
+                hide(true);
             }
         }
         //setButtonEnabled(enablePrevious, previousButton);
@@ -1178,7 +1213,7 @@ public class PlaybackControlView extends FrameLayout {
         if (hideAtMs != C.TIME_UNSET) {
             long delayMs = hideAtMs - SystemClock.uptimeMillis();
             if (delayMs <= 0) {
-                hide();
+                hide(true);
             } else {
                 postDelayed(hideAction, delayMs);
             }
@@ -1388,8 +1423,7 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (fullscreenButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
-                        hide();
-                        hide();
+                        hide(false);
                     }
                 } else if (exitButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
