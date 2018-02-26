@@ -277,7 +277,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
         int resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
         int controllerShowTimeoutMs = PlaybackControlView.DEFAULT_SHOW_TIMEOUT_MS;
         boolean controllerHideOnTouch = true;
-        boolean controllerAutoShow = true;
+        boolean controllerAutoShow = false;
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SimpleExoPlayerView, 0, 0);
             try {
