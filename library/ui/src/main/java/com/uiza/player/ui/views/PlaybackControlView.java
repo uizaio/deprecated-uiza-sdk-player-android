@@ -443,7 +443,6 @@ public class PlaybackControlView extends FrameLayout {
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
         rootView = (RelativeLayout) findViewById(R.id.root_view);
-        //setSizeOfPlaybackControlView();
 
         llTop = (LinearLayout) findViewById(R.id.ll_top);
         llMid = (LinearLayout) findViewById(R.id.ll_mid);
@@ -1391,7 +1390,7 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (fullscreenButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
-                        //setSizeOfPlaybackControlView();
+                        hide();
                         hide();
                     }
                 } else if (exitButton == view) {
