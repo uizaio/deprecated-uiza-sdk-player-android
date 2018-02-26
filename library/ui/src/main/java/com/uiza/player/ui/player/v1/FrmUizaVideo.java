@@ -146,7 +146,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
 
         avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        rootView = (FrameLayout) view.findViewById(R.id.root);
+        rootView = (FrameLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
         debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);

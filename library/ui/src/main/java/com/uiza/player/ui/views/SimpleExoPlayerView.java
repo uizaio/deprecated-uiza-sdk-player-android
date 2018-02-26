@@ -299,6 +299,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         // Content frame.
         contentFrame = (AspectRatioFrameLayout) findViewById(R.id.exo_content_frame);
+
         if (contentFrame != null) {
             setResizeModeRaw(contentFrame, resizeMode);
         }
@@ -1144,7 +1145,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         @Override
         public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
-            LLog.d(TAG, "onVideoSizeChanged");
+            LLog.d(TAG, "onVideoSizeChanged " + width + "x" + height);
             if (contentFrame != null) {
                 float aspectRatio = height == 0 ? 1 : (width * pixelWidthHeightRatio) / height;
                 contentFrame.setAspectRatio(aspectRatio);

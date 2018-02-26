@@ -32,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -54,6 +55,7 @@ import java.util.Locale;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LDialogUtil;
+import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 
 /**
@@ -287,6 +289,7 @@ public class PlaybackControlView extends FrameLayout {
 
     private final ComponentListener componentListener;
 
+    private RelativeLayout rootView;
     private LinearLayout llTop;
     private LinearLayout llMid;
     private LinearLayout llBottom;
@@ -439,6 +442,9 @@ public class PlaybackControlView extends FrameLayout {
         LayoutInflater.from(context).inflate(controllerLayoutId, this);
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
+        rootView = (RelativeLayout) findViewById(R.id.root_view);
+        setSizeOfPlaybackControlView();
+
         llTop = (LinearLayout) findViewById(R.id.ll_top);
         llMid = (LinearLayout) findViewById(R.id.ll_mid);
         llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
@@ -516,6 +522,14 @@ public class PlaybackControlView extends FrameLayout {
         repeatOneButtonContentDescription = resources.getString(
                 R.string.exo_controls_repeat_one_description);
         repeatAllButtonContentDescription = resources.getString(R.string.exo_controls_repeat_all_description);
+    }
+
+    public void setSizeOfPlaybackControlView() {
+        LLog.d(TAG, "setSizeOfPlaybackControlView");
+
+        //rootView.getLayoutParams().width = LDisplayUtils.getScreenW((Activity) getContext());
+        rootView.getLayoutParams().height = 400;
+        rootView.requestLayout();
     }
 
     public void setVisibilityFullscreenButton(boolean isShow) {
@@ -909,6 +923,7 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     private void updateProgress() {
+        //LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>updateProgress");
         if (!isAttachedToWindow) {
             LLog.d(TAG, "updateProgress return isAttachedToWindow " + isAttachedToWindow);
             return;
@@ -1376,6 +1391,7 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (fullscreenButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
+                        setSizeOfPlaybackControlView();
                     }
                 } else if (exitButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
