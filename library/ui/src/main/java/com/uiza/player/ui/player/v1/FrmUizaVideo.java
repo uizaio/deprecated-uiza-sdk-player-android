@@ -172,6 +172,15 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 }
             }
         });
+
+        simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                LLog.d(TAG, "onLayoutChange " + bottom);
+                simpleExoPlayerView.getController().setSizeOfPlaybackControlView(bottom);
+            }
+        });
+
         return view;
     }
 

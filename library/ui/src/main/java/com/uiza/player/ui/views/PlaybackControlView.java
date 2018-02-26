@@ -1392,6 +1392,7 @@ public class PlaybackControlView extends FrameLayout {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
                         //setSizeOfPlaybackControlView();
+                        hide();
                     }
                 } else if (exitButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
