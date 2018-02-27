@@ -1,6 +1,5 @@
 package vn.loitp.app.uiza.home.v2;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
@@ -205,7 +203,7 @@ public class FrmChannel2 extends BaseFragment {
         } else {
             LLog.d(TAG, "do nothing");
         }
-        Movie movie=new Movie();
+        Movie movie = new Movie();
         movie.setTitle("fuck");
         EventBusData.getInstance().sendClickVideoEvent(movie, position);
     }
