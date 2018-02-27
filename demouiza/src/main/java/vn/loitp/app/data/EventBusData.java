@@ -2,6 +2,8 @@ package vn.loitp.app.data;
 
 import org.greenrobot.eventbus.EventBus;
 
+import vn.loitp.app.uiza.home.v2.Movie;
+
 /**
  * Created by www.muathu@gmail.com on 10/21/2017.
  */
@@ -62,5 +64,33 @@ public class EventBusData {
         connectEvent.setConnectedWifi(isConnectedWifi);
         connectEvent.setConnectedMobile(isConnectedMobile);
         EventBus.getDefault().post(connectEvent);
+    }
+
+    public class ClickVideoEvent {
+        private Movie movie;
+        private int position;
+
+        public Movie getMovie() {
+            return movie;
+        }
+
+        public void setMovie(Movie movie) {
+            this.movie = movie;
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+    }
+
+    public void sendClickVideoEvent(Movie movie, int position) {
+        ClickVideoEvent clickVideoEvent = new ClickVideoEvent();
+        clickVideoEvent.setMovie(movie);
+        clickVideoEvent.setPosition(position);
+        EventBus.getDefault().post(clickVideoEvent);
     }
 }

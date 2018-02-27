@@ -1,7 +1,7 @@
-package vn.loitp.app.uiza.home;
+package vn.loitp.app.uiza.home.v2;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -18,13 +19,13 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.common.Constants;
+import vn.loitp.app.data.EventBusData;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
-import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
@@ -41,13 +42,15 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmChannel extends BaseFragment {
+public class FrmChannel2 extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private InfinitePlaceHolderView infinitePlaceHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private final int NUMBER_OF_COLUMN = 2;
+
+    private DraggablePanel draggablePanel;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,9 +64,9 @@ public class FrmChannel extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_frm_channel, container, false);
+        View view = inflater.inflate(R.layout.uiza_frm_channel_2, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
-        tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
+        tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
 
         infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
 
@@ -77,6 +80,31 @@ public class FrmChannel extends BaseFragment {
         avLoadingIndicatorView.smoothToShow();
 
         getData();
+
+        draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
+        initializeDraggablePanel();
+
+        /*draggablePanel.setDraggableListener(new DraggableListener() {
+            @Override
+            public void onMaximized() {
+                LLog.d(TAG, "onMaximized");
+            }
+
+            @Override
+            public void onMinimized() {
+                LLog.d(TAG, "onMinimized");
+            }
+
+            @Override
+            public void onClosedToLeft() {
+                LLog.d(TAG, "onClosedToLeft");
+            }
+
+            @Override
+            public void onClosedToRight() {
+                LLog.d(TAG, "onClosedToRight");
+            }
+        });*/
         return view;
     }
 
@@ -161,11 +189,25 @@ public class FrmChannel extends BaseFragment {
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        InputModel inputModel = createInputModel(item);
+        /*InputModel inputModel = createInputModel(item);
         Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
         intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(getActivity());
+        LUIUtil.transActivityFadeIn(getActivity());*/
+
+
+        if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
+            LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
+            draggablePanel.minimize();
+            if (draggablePanel.getVisibility() != View.VISIBLE) {
+                draggablePanel.setVisibility(View.VISIBLE);
+            }
+        } else {
+            LLog.d(TAG, "do nothing");
+        }
+        Movie movie=new Movie();
+        movie.setTitle("fuck");
+        EventBusData.getInstance().sendClickVideoEvent(movie, position);
     }
 
     /*private InputModel createInputModel(String urlImg) {
@@ -273,5 +315,23 @@ public class FrmChannel extends BaseFragment {
                 handleException(e);
             }
         });
+    }
+
+    private void initializeDraggablePanel() throws Resources.NotFoundException {
+        FrmTop frmTop = new FrmTop();
+        FrmBottom frmBottom = new FrmBottom();
+        draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
+        draggablePanel.setTopFragment(frmTop);
+        draggablePanel.setBottomFragment(frmBottom);
+
+        //draggablePanel.setXScaleFactor(xScaleFactor);
+        //draggablePanel.setYScaleFactor(yScaleFactor);
+        draggablePanel.setTopViewHeight(600);//px
+        //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
+        //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
+        draggablePanel.setClickToMaximizeEnabled(false);
+        draggablePanel.setClickToMinimizeEnabled(false);
+
+        draggablePanel.initializeView();
     }
 }

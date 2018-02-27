@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home;
+package vn.loitp.app.uiza.home.v1;
 
 import android.app.Activity;
 import android.content.Intent;

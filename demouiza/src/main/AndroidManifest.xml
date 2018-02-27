@@ -205,7 +205,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="vn.loitp.app.uiza.home.HomeActivity"
+            android:name="vn.loitp.app.uiza.home.v1.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.login.LoginActivity"
@@ -213,6 +213,9 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="vn.loitp.app.uiza.setting.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="vn.loitp.app.uiza.home.v2.Home2Activity"
             android:screenOrientation="portrait" />
         <!--FOR DEMO UIZA-->
 
