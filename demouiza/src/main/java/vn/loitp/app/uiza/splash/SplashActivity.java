@@ -8,7 +8,6 @@ import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.v1.HomeActivity;
-import vn.loitp.app.uiza.home.v2.Home2Activity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LDateUtils;
 import vn.loitp.core.utilities.LLog;
@@ -19,6 +18,7 @@ import vn.loitp.restapi.uiza.UizaV2Service;
 import vn.loitp.restapi.uiza.model.auth.Auth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
+import vn.loitp.utils.util.ToastUtils;
 
 public class SplashActivity extends BaseActivity {
 
@@ -29,15 +29,7 @@ public class SplashActivity extends BaseActivity {
         if (auth == null) {
             auth();
         } else {
-            //TODO check token is expired
             checkToken(auth);
-
-            /*LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
-                @Override
-                public void doAfter(int mls) {
-                    goToHome(auth);
-                }
-            });*/
         }
     }
 
@@ -110,11 +102,17 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onSuccess(Auth a) {
                 LLog.d(TAG, "checkToken: " + LSApplication.getInstance().getGson().toJson(a));
-                long expiredTime = LDateUtils.convertDateToTimeStamp(auth.getExpired());
+                LLog.d(TAG, "getExpired " + a.getExpired());
+                long expiredTime = LDateUtils.convertDateToTimeStamp(a.getExpired());
                 long currentTime = System.currentTimeMillis();
                 LLog.d(TAG, "expiredTime " + expiredTime);
                 LLog.d(TAG, "currentTime " + currentTime);
-                //TODO logic here
+                if (currentTime > expiredTime) {
+                    showDialogOne("Token đã hết hạn.", true);
+                } else {
+                    ToastUtils.showLong("Token hết hạn vào " + LDateUtils.convertTimestampToDate(expiredTime));
+                    goToHome(a);
+                }
             }
 
             @Override

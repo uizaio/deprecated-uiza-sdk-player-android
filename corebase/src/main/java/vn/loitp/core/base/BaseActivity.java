@@ -130,10 +130,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void showDialogOne(String msg) {
+        showDialogOne(msg, false);
+    }
+
+    protected void showDialogOne(String msg, final boolean isExit) {
         LDialogUtil.showOne(activity, getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
-                //do nothing
+                if (isExit) {
+                    activity.onBackPressed();
+                }
             }
         });
     }

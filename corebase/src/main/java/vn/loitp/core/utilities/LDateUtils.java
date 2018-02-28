@@ -2,6 +2,7 @@ package vn.loitp.core.utilities;
 
 import android.content.Context;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
@@ -21,6 +22,9 @@ import vn.loitp.core.common.Constants;
  */
 public class LDateUtils {
     private static final String TAG = LDateUtils.class.getSimpleName();
+    public final static String FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public final static String FORMAT_2 = "dd/MM/yyyy";
+    public final static String FORMAT_3 = "dd/MM/yyyy HH:mm:ss";
 
     public static String convertFormatDate(String strDate, String fromFormat, String toFormat) {
         Date date = stringToDate(strDate, fromFormat);
@@ -52,7 +56,7 @@ public class LDateUtils {
     }
 
     public static String dateToString(Date date, Context context) {
-        return dateToString(date, "dd/MM/yyyy");
+        return dateToString(date, FORMAT_2);
     }
 
     public static Date getDate(int year, int month, int day) {
@@ -221,6 +225,12 @@ public class LDateUtils {
         }
     }
 
+    public static String convertTimestampToDate(long timestamp) {
+        Timestamp time = new Timestamp(timestamp);
+        Date date = new Date(time.getTime());
+        return dateToString(date, FORMAT_3);
+    }
+
     public static Date zeroTime(final Date date) {
         return setTime(date, 0, 0, 0, 0);
     }
@@ -302,8 +312,9 @@ public class LDateUtils {
     }
 
     public static long convertDateToTimeStamp(String datetime) {
+        //LLog.d(TAG, "convertDateToTimeStamp datetime " + datetime);
         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz");
+        DateFormat dateFormat = new SimpleDateFormat(FORMAT_1);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = null;
         try {
@@ -313,7 +324,7 @@ public class LDateUtils {
             return time;
             //new Timestamp(time).getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
+            LLog.e(TAG, "convertDateToTimeStamp " + e.toString());
             return 0;
         }
     }
