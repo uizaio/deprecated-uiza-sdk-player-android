@@ -2,12 +2,14 @@ package vn.loitp.app.uiza.home.v2;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.pedrovgs.DraggableListener;
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -80,29 +82,32 @@ public class FrmChannel2 extends BaseFragment {
         getData();
 
         draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
-        initializeDraggablePanel();
-
         /*draggablePanel.setDraggableListener(new DraggableListener() {
             @Override
             public void onMaximized() {
-                LLog.d(TAG, "onMaximized");
+                LLog.d(TAG, "draggablePanel onMaximized");
+                updateViewActionBarAndDrawerNavigation(false);
             }
 
             @Override
             public void onMinimized() {
-                LLog.d(TAG, "onMinimized");
+                LLog.d(TAG, "draggablePanel onMinimized");
+                updateViewActionBarAndDrawerNavigation(true);
             }
 
             @Override
             public void onClosedToLeft() {
-                LLog.d(TAG, "onClosedToLeft");
+                LLog.d(TAG, "draggablePanel onClosedToLeft");
+                updateViewActionBarAndDrawerNavigation(true);
             }
 
             @Override
             public void onClosedToRight() {
-                LLog.d(TAG, "onClosedToRight");
+                LLog.d(TAG, "draggablePanel onClosedToRight");
+                updateViewActionBarAndDrawerNavigation(true);
             }
         });*/
+        initializeDraggablePanel();
         return view;
     }
 

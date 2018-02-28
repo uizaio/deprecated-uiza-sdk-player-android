@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 public class Home2Activity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
+    private FrameLayout flLeftContainer;
     private List<Item> itemList = new ArrayList<>();
 
     @Override
@@ -41,6 +44,7 @@ public class Home2Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerView = (PlaceHolderView) findViewById(R.id.drawerView);
+        flLeftContainer = (FrameLayout) findViewById(R.id.fl_left_container);
 
         LUIUtil.setPullLikeIOSVertical(mDrawerView);
 
@@ -68,6 +72,12 @@ public class Home2Activity extends BaseActivity {
         return R.layout.uiza_home_2_activity;
     }
 
+    private void closeDrawer() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawers();
+        }
+    }
+
     private void setupDrawer() {
         UizaDrawerHeader uizaDrawerHeader = new UizaDrawerHeader();
         uizaDrawerHeader.setCallback(new UizaDrawerHeader.Callback() {
@@ -78,9 +88,7 @@ public class Home2Activity extends BaseActivity {
 
             @Override
             public void onClickLogin() {
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawers();
-                }
+                closeDrawer();
                 Intent intent = new Intent(activity, LoginActivity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
@@ -88,9 +96,7 @@ public class Home2Activity extends BaseActivity {
 
             @Override
             public void onClickSetting() {
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawers();
-                }
+                closeDrawer();
                 Intent intent = new Intent(activity, SettingActivity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
