@@ -28,7 +28,9 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -593,5 +595,28 @@ public class LUIUtil {
 
         // Vertical
         OverScrollDecoratorHelper.setUpStaticOverScroll(view, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+    }
+
+    public interface CallbackSearch {
+        public void onSearch();
+    }
+
+    public static void setImeiActionSearch(EditText editText, final CallbackSearch callbackSearch) {
+        if (editText == null) {
+            return;
+        }
+        editText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (callbackSearch != null) {
+                        callbackSearch.onSearch();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -32,7 +32,9 @@
             android:layout_weight="1"
             android:background="@color/transparent"
             android:hint="Tìm kiếm"
+            android:imeOptions="actionSearch"
             android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/LightGrey" />
 

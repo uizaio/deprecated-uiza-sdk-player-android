@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
 
 public class SearchActivity extends BaseActivity implements View.OnClickListener {
@@ -39,16 +40,23 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().isEmpty()) {
                     ivClearText.setVisibility(View.GONE);
-                    resetAllView();
+                    //resetAllView();
                 } else {
                     ivClearText.setVisibility(View.VISIBLE);
-                    search(s.toString());
+                    //search(s.toString());
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 //do nothing
+            }
+        });
+
+        LUIUtil.setImeiActionSearch(etSearch, new LUIUtil.CallbackSearch() {
+            @Override
+            public void onSearch() {
+                search(etSearch.getText().toString());
             }
         });
     }
@@ -88,7 +96,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private void search(String keyword) {
         //TODO
         tv.setText("Không tìm thấy kết quả nào cho\n" + keyword);
-        tv.setText(View.VISIBLE);
+        tv.setVisibility(View.VISIBLE);
     }
 
     private void resetAllView() {
