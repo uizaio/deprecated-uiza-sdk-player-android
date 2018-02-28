@@ -9,6 +9,7 @@ import com.uiza.player.ui.data.UizaData;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.v2.Home2Activity;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LDateUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LUIUtil;
@@ -28,6 +29,7 @@ public class SplashActivity extends BaseActivity {
             auth();
         } else {
             //TODO check token is expired
+            //checkToken(auth);
 
             LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
                 @Override
@@ -98,5 +100,27 @@ public class SplashActivity extends BaseActivity {
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
         finish();
+    }
+
+    private void checkToken(Auth auth) {
+        RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
+        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        subscribe(service.checkToken(), new ApiSubscriber<Auth>() {
+            @Override
+            public void onSuccess(Auth a) {
+                LLog.d(TAG, "checkToken: " + LSApplication.getInstance().getGson().toJson(a));
+                long expiredTime = LDateUtils.convertDateToTimeStamp(auth.getExpired());
+                long currentTime = System.currentTimeMillis();
+                LLog.d(TAG, "expiredTime " + expiredTime);
+                LLog.d(TAG, "currentTime " + currentTime);
+                //TODO logic here
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.e(TAG, "onFail " + e.getMessage());
+                handleException(e);
+            }
+        });
     }
 }
