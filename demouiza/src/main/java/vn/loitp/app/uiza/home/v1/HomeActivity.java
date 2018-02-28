@@ -17,6 +17,7 @@ import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
+import vn.loitp.app.uiza.search.SearchActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
@@ -139,7 +140,9 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onClickRight() {
-                ToastUtils.showShort("Click");
+                Intent intent = new Intent(activity, SearchActivity.class);
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(activity);
             }
         });
         uizaActionBar.showMenuIcon();

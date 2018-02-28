@@ -217,6 +217,9 @@
         <activity
             android:name="vn.loitp.app.uiza.home.v2.Home2Activity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="vn.loitp.app.uiza.search.SearchActivity"
+            android:screenOrientation="portrait" />
         <!--FOR DEMO UIZA-->
 
     </application>
