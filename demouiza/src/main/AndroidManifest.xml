@@ -219,7 +219,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.search.SearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <!--FOR DEMO UIZA-->
 
     </application>
