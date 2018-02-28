@@ -193,7 +193,6 @@ public class FrmChannel2 extends BaseFragment {
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());*/
 
-
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
             draggablePanel.minimize();

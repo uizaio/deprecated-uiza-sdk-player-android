@@ -165,7 +165,7 @@ public class FrmTop extends BaseFragment {
         }
 
         mExoPlayerView.getPlayer().prepare(mVideoSource);
-        mExoPlayerView.getPlayer().setPlayWhenReady(true);
+        mExoPlayerView.getPlayer().setPlayWhenReady(false);
         mExoPlayerView.getPlayer().addListener(new Player.EventListener() {
             @Override
             public void onTimelineChanged(Timeline timeline, Object manifest) {
