@@ -1,4 +1,4 @@
-package vn.loitp.restapi.uiza.model.auth;
+package vn.loitp.restapi.uiza.model.v2.auth;
 
 /**
  * Created by LENOVO on 2/23/2018.

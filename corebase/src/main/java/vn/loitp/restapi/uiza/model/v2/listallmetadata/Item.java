@@ -1,5 +1,5 @@
 
-package vn.loitp.restapi.uiza.model.listallmetadata;
+package vn.loitp.restapi.uiza.model.v2.listallmetadata;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

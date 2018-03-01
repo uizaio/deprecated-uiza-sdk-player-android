@@ -8,14 +8,14 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
-import vn.loitp.restapi.uiza.model.auth.Auth;
-import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
-import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
-import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
-import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
-import vn.loitp.restapi.uiza.model.listallmetadata.JsonBody;
-import vn.loitp.restapi.uiza.model.listallmetadata.ListAllMetadata;
+import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.v2.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 
 /**
  * @author loitp
@@ -77,8 +77,8 @@ public interface UizaService {
     /*@GET("v1/app/poster")
     Observable<GetPoster[]> getPoster(@Query("number") int number);*/
 
-    @GET("api/public/v1/media/entity/get-link-play")
-    Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId);
+    @GET("/api/public/v1/media/entity/get-link-play")
+    Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId, @Query("appId") String appId);
 
     @GET("api/public/v1/media/entity/info/{id}")
     Observable<EntityInfo> getEntityInfo(@Path("id") String id);

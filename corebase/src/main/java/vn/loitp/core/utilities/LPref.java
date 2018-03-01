@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-import vn.loitp.restapi.uiza.model.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 
 /**
  * File created on 11/15/2016.

@@ -8,8 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 
 /**
  * Created by www.muathu@gmail.com on 10/24/2017.

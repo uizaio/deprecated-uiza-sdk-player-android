@@ -7,7 +7,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.loitp.app.uiza.data.HomeData;
-import vn.loitp.restapi.uiza.model.listallmetadata.Item;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.Item;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;

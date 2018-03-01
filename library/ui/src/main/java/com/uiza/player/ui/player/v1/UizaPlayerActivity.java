@@ -21,11 +21,13 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LPref;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
-import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.v2.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -42,7 +44,7 @@ public class UizaPlayerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        TAG = "TAGUizaPlayerActivity";
         flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
 
         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
@@ -201,15 +203,23 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     private void getLinkPlay() {
-        TAG = "getLinkPlay";
-        LLog.d(TAG, ">>>getLinkPlay " + inputModel.getEntityID());
+        LLog.d(TAG, ">>>getLinkPlay entityId: " + inputModel.getEntityID());
         UizaService service = RestClient.createService(UizaService.class);
-        subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
+        Auth auth = LPref.getAuth(activity, gson);
+        if (auth == null || auth.getAppId() == null) {
+            showDialogError("Error auth == null || auth.getAppId() == null");
+            return;
+        }
+        LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getAppId());
+        subscribe(service.getLinkPlay(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
                 LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
+
+                //TODO play link mpd0 (pre cdn la vn) ko dc thi play link mpd1(cdn la QT)
+                LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
                 UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
                 isGetLinkPlayDone = true;
                 init();
@@ -217,20 +227,13 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.toString());
+                LLog.d(TAG, "onFail " + e.toString());
                 handleException(e);
-
-                //TODO remove
-                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
-                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
-                //isGetLinkPlayDone = true;
-                //init();
             }
         });
     }
 
     private void getDetailEntity() {
-        TAG = "getDetailEntity";
         LLog.d(TAG, ">>>getDetailEntity");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
@@ -261,7 +264,6 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     /*private void getEntityInfo() {
-        TAG = "getEntityInfo";
         LLog.d(TAG, ">>>getEntityInfo");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
@@ -291,7 +293,6 @@ public class UizaPlayerActivity extends BaseActivity {
     }*/
 
     private void getPlayerConfig() {
-        TAG = "getPlayerConfig";
         LLog.d(TAG, ">>>getPlayerConfig");
         if (inputModel == null) {
             LLog.d(TAG, "mInputModel == null -> return");
@@ -302,9 +303,8 @@ public class UizaPlayerActivity extends BaseActivity {
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
-                //TODO
+                //TODO custom theme
                 LLog.d(TAG, "getPlayerConfig onSuccess " + gson.toJson(playerConfig));
-
                 UizaData.getInstance().setPlayerConfig(playerConfig);
 
                 getLinkPlay();

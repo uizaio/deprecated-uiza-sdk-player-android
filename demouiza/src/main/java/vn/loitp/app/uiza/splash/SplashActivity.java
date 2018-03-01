@@ -15,7 +15,7 @@ import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;

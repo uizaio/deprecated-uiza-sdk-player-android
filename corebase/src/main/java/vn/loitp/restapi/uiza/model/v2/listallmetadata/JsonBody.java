@@ -1,4 +1,4 @@
-package vn.loitp.restapi.uiza.model.listallmetadata;
+package vn.loitp.restapi.uiza.model.v2.listallmetadata;
 
 /**
  * Created by LENOVO on 2/23/2018.

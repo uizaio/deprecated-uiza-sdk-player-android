@@ -2,7 +2,6 @@ package com.uiza.player.ui.player.v1;
 
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.uiza.model.getdetailentity.Item;
-import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 /**

@@ -1,5 +1,5 @@
 
-package vn.loitp.restapi.uiza.model.getdetailentity;
+package vn.loitp.restapi.uiza.model.v2.getdetailentity;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

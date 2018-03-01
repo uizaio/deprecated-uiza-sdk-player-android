@@ -6,12 +6,9 @@ import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
-import java.util.ArrayList;
-
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.getentityinfo.EntityInfo;
-import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.

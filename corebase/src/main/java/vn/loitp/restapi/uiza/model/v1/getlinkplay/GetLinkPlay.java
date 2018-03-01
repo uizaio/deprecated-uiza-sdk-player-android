@@ -1,12 +1,11 @@
 
-package vn.loitp.restapi.uiza.model.getlinkplay;
+package vn.loitp.restapi.uiza.model.v1.getlinkplay;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class GetLinkPlay implements Serializable {
+public class GetLinkPlay {
 
     @SerializedName("message")
     @Expose
@@ -17,6 +16,12 @@ public class GetLinkPlay implements Serializable {
     @SerializedName("linkplay_mpd")
     @Expose
     private String linkplayMpd;
+    @SerializedName("hls")
+    @Expose
+    private List<String> hls = null;
+    @SerializedName("mpd")
+    @Expose
+    private List<String> mpd = null;
 
     public String getMessage() {
         return message;
@@ -40,6 +45,22 @@ public class GetLinkPlay implements Serializable {
 
     public void setLinkplayMpd(String linkplayMpd) {
         this.linkplayMpd = linkplayMpd;
+    }
+
+    public List<String> getHls() {
+        return hls;
+    }
+
+    public void setHls(List<String> hls) {
+        this.hls = hls;
+    }
+
+    public List<String> getMpd() {
+        return mpd;
+    }
+
+    public void setMpd(List<String> mpd) {
+        this.mpd = mpd;
     }
 
 }
