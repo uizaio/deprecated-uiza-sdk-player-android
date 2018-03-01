@@ -18,7 +18,6 @@ package com.uiza.player.ext.ima;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.android.exoplayer2.C;
@@ -36,6 +35,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import vn.loitp.core.utilities.LLog;
 
 /**
  * A {@link MediaSource} that inserts ads linearly with a provided content media source using the
@@ -246,7 +247,7 @@ public final class ImaAdsMediaSource implements MediaSource {
     }
 
     private void onLoadError(final IOException error) {
-        Log.w(TAG, "Ad load error", error);
+        LLog.d(TAG, "Ad load error" + error.toString());
         if (eventHandler != null && eventListener != null) {
             eventHandler.post(new Runnable() {
                 @Override

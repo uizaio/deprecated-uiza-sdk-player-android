@@ -66,6 +66,7 @@ import com.uiza.player.ui.views.helper.EventLogger;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.helper.TrackSelectionHelper;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -550,7 +551,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         ImaAdsLoader imaAdsLoader = new ImaAdsLoader(getContext(), adTagUri);
         adOverlayViewGroup = new FrameLayout(getContext());
         simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
-
         ImaAdsMediaSource imaAdsMediaSource = new ImaAdsMediaSource(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
         return imaAdsMediaSource;
     }

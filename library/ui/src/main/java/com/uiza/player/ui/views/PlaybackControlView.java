@@ -1502,9 +1502,9 @@ public class PlaybackControlView extends FrameLayout {
         }
     }
 
-    /*public void showOrHideTitleView(boolean isShow) {
+    public void showOrHideTitleView(boolean isShow) {
         LLog.d(TAG, "showOrHideTitleView isShow " + isShow);
         llTop.setVisibility(isShow ? VISIBLE : INVISIBLE);
-    }*/
+    }
 
 }
