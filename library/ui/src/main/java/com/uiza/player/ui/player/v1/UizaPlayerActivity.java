@@ -211,6 +211,7 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
         LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getAppId());
+        //API v1
         subscribe(service.getLinkPlay(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
@@ -231,6 +232,7 @@ public class UizaPlayerActivity extends BaseActivity {
                 handleException(e);
             }
         });
+        //End API v1
     }
 
     private void getDetailEntity() {
@@ -239,6 +241,7 @@ public class UizaPlayerActivity extends BaseActivity {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
+        //API v2
         UizaService service = RestClient.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
@@ -261,6 +264,7 @@ public class UizaPlayerActivity extends BaseActivity {
                 handleException(e);
             }
         });
+        //End API v2
     }
 
     /*private void getEntityInfo() {
