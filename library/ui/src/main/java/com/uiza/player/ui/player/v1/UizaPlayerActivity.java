@@ -22,6 +22,7 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
@@ -136,7 +137,12 @@ public class UizaPlayerActivity extends BaseActivity {
         if (isGetLinkPlayDone && isGetDetailEntityDone) {
             initContainerVideo();
             initContainerVideoInfo();
-            removeCoverVideo();
+            LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
+                @Override
+                public void doAfter(int mls) {
+                    removeCoverVideo();
+                }
+            });
         } else {
             LLog.d(TAG, "init failed: isGetLinkPlayDone: " + isGetLinkPlayDone + ", isGetDetailEntityDone: " + isGetDetailEntityDone);
         }
