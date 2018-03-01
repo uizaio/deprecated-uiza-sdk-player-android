@@ -66,7 +66,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/entity/detail")
-    Observable<GetDetailEntity> getDetailEntity(@Field("id") String id);
+    Observable<GetDetailEntity> getDetailEntityV2(@Field("id") String id);
 
     @GET("/api/public/v2/media/entity/get-link-play")
     Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);
@@ -75,10 +75,6 @@ public interface UizaService {
 
 
     //=====================================================v1 http://dev-api.uiza.io/data/index.html
-    /////for player
-    /*@GET("v1/app/poster")
-    Observable<GetPoster[]> getPoster(@Query("number") int number);*/
-
     @GET("/api/public/v1/media/entity/get-link-play")
     Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId, @Query("appId") String appId);
 
@@ -88,5 +84,11 @@ public interface UizaService {
     //getPlayerConfig
     @GET("/api/public/v1/player/info/{id}")
     Observable<PlayerConfig> getPlayerInfo(@Path("id") String playerId);
+
+    //http://dev-api.uiza.io/data/index.html#api-Entity-Get_Detail_Entity
+    @FormUrlEncoded
+    @POST("/api/data/v1/entity/detail")
+    Observable<Object> getDetailEntity(@Field("id") String id);
+
     //=====================================================end v1 http://dev-api.uiza.io/data/index.html
 }

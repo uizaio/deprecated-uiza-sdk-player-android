@@ -24,7 +24,6 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
@@ -272,14 +271,40 @@ public class UizaPlayerActivity extends BaseActivity {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
+        //API v1
+        /*UizaService service = RestClient.createService(UizaService.class);
+        String entityId = inputModel.getEntityID();
+        LLog.d(TAG, "entityId: " + entityId);
+        subscribe(service.getDetailEntity(entityId), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object getDetailEntity) {
+                //TODO
+                LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(getDetailEntity));
+                *//*if (getDetailEntity != null) {
+                    UizaData.getInstance().setDetailEntity(getDetailEntity);
+                } else {
+                    showDialogError("Error: getDetailEntity onSuccess detailEntity == null");
+                }*//*
+                isGetDetailEntityDone = true;
+                init();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.e(TAG, "onFail " + e.toString());
+                handleException(e);
+            }
+        });*/
+        //End API v1
+
         //API v2
         UizaService service = RestClient.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntity(entityId), new ApiSubscriber<GetDetailEntity>() {
+        subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
-                LLog.d(TAG, "onSuccess " + gson.toJson(getDetailEntity));
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
                 if (getDetailEntity != null) {
                     UizaData.getInstance().setDetailEntity(getDetailEntity);
                 } else {
@@ -295,7 +320,7 @@ public class UizaPlayerActivity extends BaseActivity {
                 handleException(e);
             }
         });
-        //End API v2
+        //EndAPI v2
     }
 
     /*private void getEntityInfo() {
