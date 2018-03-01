@@ -881,12 +881,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onAdClicked() {
+        //TODO onAdClicked
         LLog.d(TAG, "onAdClicked");
         showToast("onAdClicked");
     }
 
     @Override
     public void onAdTapped() {
+        //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
         showToast("onAdTapped");
     }
