@@ -29,7 +29,15 @@ public class SplashActivity extends BaseActivity {
         if (auth == null) {
             auth();
         } else {
-            checkToken(auth);
+            //TODO
+            //checkToken(auth);
+
+            LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+                @Override
+                public void doAfter(int mls) {
+                    goToHome(auth);
+                }
+            });
         }
     }
 

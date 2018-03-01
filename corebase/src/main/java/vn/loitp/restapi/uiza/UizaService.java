@@ -69,7 +69,7 @@ public interface UizaService {
     Observable<GetDetailEntity> getDetailEntity(@Field("id") String id);
 
     @GET("/api/public/v2/media/entity/get-link-play")
-    Observable<Object> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);
+    Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);
 
     //=====================================================end v2 dev-api.uiza.io/resource/index.html
 

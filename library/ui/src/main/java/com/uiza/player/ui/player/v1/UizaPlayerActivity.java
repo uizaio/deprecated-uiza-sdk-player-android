@@ -27,6 +27,7 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -235,17 +236,25 @@ public class UizaPlayerActivity extends BaseActivity {
         //End API v1
 
         //API v2
-        subscribe(service.getLinkPlayV2(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<Object>() {
+        subscribe(service.getLinkPlayV2(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay>() {
             @Override
-            public void onSuccess(Object getLinkPlay) {
+            public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
                 LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
 
-                //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
-                //UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
-                isGetLinkPlayDone = true;
-                init();
+                try {
+                    //Mpd mpdVN = getLinkPlay.getMpd().get(0);
+                    Mpd mpdInter = getLinkPlay.getMpd().get(1);
+
+                    String linkPlay = mpdInter.getUrl();
+                    LLog.d(TAG, "linkPlay " + linkPlay);
+                    UizaData.getInstance().setLinkPlay(linkPlay);
+                    isGetLinkPlayDone = true;
+                    init();
+                } catch (NullPointerException e) {
+                    showDialogError("Error NullPointerException " + e.toString());
+                }
             }
 
             @Override
