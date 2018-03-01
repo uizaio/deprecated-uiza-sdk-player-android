@@ -32,12 +32,12 @@
             android:layout_height="match_parent"
             android:layout_gravity="left">
 
-            <vn.loitp.views.realtimeblurview.RealtimeBlurView
+            <!--<vn.loitp.views.realtimeblurview.RealtimeBlurView
                 android:id="@+id/blur_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:realtimeBlurRadius="@dimen/round_55"
-                app:realtimeOverlayColor="@color/black_5" />
+                app:realtimeOverlayColor="@color/black_5" />-->
 
             <vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView
                 android:id="@+id/drawerView"
