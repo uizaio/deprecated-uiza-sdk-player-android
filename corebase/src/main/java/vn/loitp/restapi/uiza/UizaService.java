@@ -67,8 +67,11 @@ public interface UizaService {
     @FormUrlEncoded
     @POST("/api/resource/v1/media/entity/detail")
     Observable<GetDetailEntity> getDetailEntity(@Field("id") String id);
-    //=====================================================end v2 dev-api.uiza.io/resource/index.html
 
+    @GET("/api/public/v2/media/entity/get-link-play")
+    Observable<Object> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);
+
+    //=====================================================end v2 dev-api.uiza.io/resource/index.html
 
 
     //=====================================================v1 http://dev-api.uiza.io/data/index.html
