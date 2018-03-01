@@ -16,6 +16,7 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -23,7 +24,7 @@ import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 public class FrmUizaVideoInfo extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
-    //private AVLoadingIndicatorView avLoadingIndicatorView;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
     private TextView tvVideoName;
     private TextView tvVideoTime;
     private TextView tvVideoRate;
@@ -54,8 +55,8 @@ public class FrmUizaVideoInfo extends BaseFragment {
         NestedScrollView nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
         LUIUtil.setPullLikeIOSVertical(nestedScrollView);
 
-        //avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        //avLoadingIndicatorView.smoothToShow();
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        avLoadingIndicatorView.smoothToShow();
 
         tvVideoName = (TextView) view.findViewById(R.id.tv_video_name);
         tvVideoTime = (TextView) view.findViewById(R.id.tv_video_time);
@@ -127,5 +128,11 @@ public class FrmUizaVideoInfo extends BaseFragment {
 
     private void getListAllEntityRelation(){
         //TODO http://dev-api.uiza.io/resource/index.html#api-Entity-List_All_Entity_Relation
+        LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                avLoadingIndicatorView.smoothToHide();
+            }
+        });
     }
 }
