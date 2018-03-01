@@ -398,9 +398,18 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         } else {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
         }
+        //set icon color
         try {
             int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
             playbackControlView.setColorAllIcons(color);
+        } catch (Exception e) {
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor " + e.toString());
+        }
+
+        //set buffer color
+        try {
+            int color = Color.parseColor(mPlayerConfig.getStyling().getBuffer());
+            playbackControlView.setBufferColor(color);
         } catch (Exception e) {
             LLog.e(TAG, "setConfigUIPlayer Color.parseColor " + e.toString());
         }

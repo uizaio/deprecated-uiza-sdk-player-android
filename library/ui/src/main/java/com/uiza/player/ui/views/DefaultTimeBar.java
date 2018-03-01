@@ -613,4 +613,7 @@ public class DefaultTimeBar extends View implements TimeBar {
         //return 0x33000000 | (Color.CYAN & 0x00FFFFFF);
     }
 
+    public void setBufferedColor(int color) {
+        bufferedPaint.setColor(color);
+    }
 }

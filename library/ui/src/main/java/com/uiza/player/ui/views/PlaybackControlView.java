@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -1488,6 +1489,12 @@ public class PlaybackControlView extends FrameLayout {
         llBottom.setVisibility(INVISIBLE);
         if (llMid != null) {
             llMid.setVisibility(INVISIBLE);
+        }
+    }
+
+    public void setBufferColor(int color) {
+        if (timeBar != null) {
+            timeBar.setBufferedColor(color);
         }
     }
 }
