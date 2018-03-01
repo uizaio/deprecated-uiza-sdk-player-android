@@ -616,4 +616,8 @@ public class DefaultTimeBar extends View implements TimeBar {
     public void setBufferedColor(int color) {
         bufferedPaint.setColor(color);
     }
+
+    public void setProgressColor(int color) {
+        playedPaint.setColor(color);
+    }
 }

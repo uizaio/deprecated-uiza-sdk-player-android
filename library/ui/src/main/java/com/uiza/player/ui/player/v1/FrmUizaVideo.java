@@ -403,7 +403,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
             playbackControlView.setColorAllIcons(color);
         } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor " + e.toString());
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setColorAllIcons " + e.toString());
         }
 
         //set buffer color
@@ -411,8 +411,21 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             int color = Color.parseColor(mPlayerConfig.getStyling().getBuffer());
             playbackControlView.setBufferColor(color);
         } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor " + e.toString());
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setBufferColor " + e.toString());
         }
+
+        //set progress color
+        try {
+            int color = Color.parseColor(mPlayerConfig.getStyling().getProgress());
+            playbackControlView.setProgressColor(color);
+        } catch (Exception e) {
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setProgressColor " + e.toString());
+        }
+
+        //TODO set background???
+        //mPlayerConfig.getStyling().getBackground()
+
+
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {

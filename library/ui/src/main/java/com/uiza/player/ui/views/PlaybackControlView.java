@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -58,7 +57,6 @@ import java.util.Locale;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LDialogUtil;
-import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 
 /**
@@ -1495,6 +1493,12 @@ public class PlaybackControlView extends FrameLayout {
     public void setBufferColor(int color) {
         if (timeBar != null) {
             timeBar.setBufferedColor(color);
+        }
+    }
+
+    public void setProgressColor(int color) {
+        if (timeBar != null) {
+            timeBar.setProgressColor(color);
         }
     }
 }
