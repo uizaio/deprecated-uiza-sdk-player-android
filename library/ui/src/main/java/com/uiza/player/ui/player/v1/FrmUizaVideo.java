@@ -383,6 +383,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private PlayerConfig mPlayerConfig;
 
     private void setConfigUIPlayer() {
+        //freuss47 customize UI
         PlaybackControlView playbackControlView = getPlayerView().getController();
         if (playbackControlView == null) {
             return;
@@ -470,6 +471,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         return buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
+    //freuss47 set userAgent
     private String userAgent = "ExoPlayerDemoUiza";
 
     private DataSource.Factory buildDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
