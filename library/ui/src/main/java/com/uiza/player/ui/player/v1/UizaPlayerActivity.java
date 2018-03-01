@@ -249,7 +249,7 @@ public class UizaPlayerActivity extends BaseActivity {
                 if (getDetailEntity != null) {
                     UizaData.getInstance().setDetailEntity(getDetailEntity);
                 } else {
-                    handleException("getDetailEntity onSuccess detailEntity == null");
+                    showDialogError("Error: getDetailEntity onSuccess detailEntity == null");
                 }
                 isGetDetailEntityDone = true;
                 init();

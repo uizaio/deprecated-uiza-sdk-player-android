@@ -49,9 +49,6 @@ public interface UizaService {
     //=====================================================End Sample
 
 
-
-
-
     //=====================================================v2 dev-api.uiza.io/resource/index.html
     @FormUrlEncoded
     @POST("/api/public/v1/auth/credentical")
@@ -66,9 +63,11 @@ public interface UizaService {
 
     @POST("/api/resource/v1/media/entity/list")
     Observable<ListAllEntity> listAllEntity(@Body JsonBody jsonBody);
+
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/entity/detail")
+    Observable<GetDetailEntity> getDetailEntity(@Field("id") String id);
     //=====================================================end v2 dev-api.uiza.io/resource/index.html
-
-
 
 
 
@@ -82,10 +81,6 @@ public interface UizaService {
 
     @GET("api/public/v1/media/entity/info/{id}")
     Observable<EntityInfo> getEntityInfo(@Path("id") String id);
-
-    @FormUrlEncoded
-    @POST("/api/resource/v1/media/entity/detail")
-    Observable<GetDetailEntity> getDetailEntity(@Field("id") String id);
 
     //getPlayerConfig
     @GET("/api/public/v1/player/info/{id}")
