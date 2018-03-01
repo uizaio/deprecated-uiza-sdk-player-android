@@ -285,11 +285,11 @@ public final class ImaAdsMediaSource implements MediaSource {
     /**
      * Listener for ad loading events. All methods are called on the main thread.
      */
-    private final class AdsLoaderListener implements ImaAdsLoader.EventListener,
-            ExtractorMediaSource.EventListener {
+    private final class AdsLoaderListener implements ImaAdsLoader.EventListener, ExtractorMediaSource.EventListener {
 
         @Override
         public void onAdPlaybackState(final AdPlaybackState adPlaybackState) {
+            LLog.d(TAG, "AdsLoaderListener onAdPlaybackState");
             if (released) {
                 return;
             }
@@ -306,6 +306,7 @@ public final class ImaAdsMediaSource implements MediaSource {
 
         @Override
         public void onLoadError(final IOException error) {
+            LLog.d(TAG, "AdsLoaderListener onLoadError");
             if (released) {
                 return;
             }
@@ -322,6 +323,7 @@ public final class ImaAdsMediaSource implements MediaSource {
 
         @Override
         public void onAdClicked() {
+            LLog.d(TAG, "AdsLoaderListener onAdClicked");
             if (eventHandler != null && eventListener != null) {
                 eventHandler.post(new Runnable() {
                     @Override
@@ -336,6 +338,7 @@ public final class ImaAdsMediaSource implements MediaSource {
 
         @Override
         public void onAdTapped() {
+            LLog.d(TAG, "AdsLoaderListener onAdTapped");
             if (eventHandler != null && eventListener != null) {
                 eventHandler.post(new Runnable() {
                     @Override
