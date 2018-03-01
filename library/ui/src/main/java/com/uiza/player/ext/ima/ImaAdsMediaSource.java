@@ -67,10 +67,9 @@ public final class ImaAdsMediaSource implements MediaSource {
          * Called when the user taps a non-clickthrough part of an ad.
          */
         void onAdTapped();
-
     }
 
-    private static final String TAG = "ImaAdsMediaSource";
+    private static final String TAG = ImaAdsMediaSource.class.getSimpleName();
 
     private final MediaSource contentMediaSource;
     private final DataSource.Factory dataSourceFactory;
@@ -83,7 +82,7 @@ public final class ImaAdsMediaSource implements MediaSource {
     @Nullable
     private final Handler eventHandler;
     @Nullable
-    private final AdsListener eventListener;
+    private AdsListener eventListener;
 
     private Handler playerHandler;
     private ExoPlayer player;
@@ -108,6 +107,11 @@ public final class ImaAdsMediaSource implements MediaSource {
      */
     public ImaAdsMediaSource(MediaSource contentMediaSource, DataSource.Factory dataSourceFactory,
                              ImaAdsLoader imaAdsLoader, ViewGroup adUiViewGroup) {
+        this(contentMediaSource, dataSourceFactory, imaAdsLoader, adUiViewGroup, null, null);
+    }
+
+    public ImaAdsMediaSource(MediaSource contentMediaSource, DataSource.Factory dataSourceFactory,
+                             ImaAdsLoader imaAdsLoader, ViewGroup adUiViewGroup, AdsLoaderListener adsLoaderListener) {
         this(contentMediaSource, dataSourceFactory, imaAdsLoader, adUiViewGroup, null, null);
     }
 
@@ -285,7 +289,7 @@ public final class ImaAdsMediaSource implements MediaSource {
     /**
      * Listener for ad loading events. All methods are called on the main thread.
      */
-    private final class AdsLoaderListener implements ImaAdsLoader.EventListener, ExtractorMediaSource.EventListener {
+    public class AdsLoaderListener implements ImaAdsLoader.EventListener, ExtractorMediaSource.EventListener {
 
         @Override
         public void onAdPlaybackState(final AdPlaybackState adPlaybackState) {
@@ -340,6 +344,7 @@ public final class ImaAdsMediaSource implements MediaSource {
         public void onAdTapped() {
             LLog.d(TAG, "AdsLoaderListener onAdTapped");
             if (eventHandler != null && eventListener != null) {
+                LLog.d(TAG, "fuck if");
                 eventHandler.post(new Runnable() {
                     @Override
                     public void run() {

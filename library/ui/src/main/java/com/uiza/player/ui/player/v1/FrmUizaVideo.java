@@ -54,6 +54,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.ext.ima.AdPlaybackState;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
@@ -84,7 +85,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener {
+public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -551,7 +552,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         ImaAdsLoader imaAdsLoader = new ImaAdsLoader(getContext(), adTagUri);
         adOverlayViewGroup = new FrameLayout(getContext());
         simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
-        ImaAdsMediaSource imaAdsMediaSource = new ImaAdsMediaSource(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
+        //ImaAdsMediaSource imaAdsMediaSource = new ImaAdsMediaSource(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup);
+        ImaAdsMediaSource imaAdsMediaSource = new ImaAdsMediaSource(mediaSource, mediaDataSourceFactory, imaAdsLoader, adOverlayViewGroup, new Handler(), this);
         return imaAdsMediaSource;
     }
 
@@ -870,5 +872,22 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 }
             });
         }
+    }
+
+    @Override
+    public void onAdLoadError(IOException error) {
+        LLog.d(TAG, "onAdLoadError");
+    }
+
+    @Override
+    public void onAdClicked() {
+        LLog.d(TAG, "onAdClicked");
+        showToast("onAdClicked");
+    }
+
+    @Override
+    public void onAdTapped() {
+        LLog.d(TAG, "onAdTapped");
+        showToast("onAdTapped");
     }
 }

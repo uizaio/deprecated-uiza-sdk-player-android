@@ -24,7 +24,7 @@ import java.util.Arrays;
 /**
  * Represents the structure of ads to play and the state of loaded/played ads.
  */
-/* package */ final class AdPlaybackState {
+/* package */public final class AdPlaybackState {
 
     /**
      * The number of ad groups.
