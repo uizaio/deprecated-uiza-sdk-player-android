@@ -425,7 +425,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         //TODO set background???
         //mPlayerConfig.getStyling().getBackground()
 
-
+        //TODO show hide title
+        /*try {
+            playbackControlView.showOrHideTitleView(false);
+            //playbackControlView.showOrHideTitleView(mPlayerConfig.getStyling().getTitle().equals(UizaData.T));
+        } catch (NullPointerException e) {
+            LLog.e(TAG, "setConfigUIPlayer NullPointerException " + e.toString());
+        }*/
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {

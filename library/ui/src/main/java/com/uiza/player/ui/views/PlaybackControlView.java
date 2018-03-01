@@ -1475,7 +1475,7 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     public void showAllViews() {
-        llTop.setVisibility(VISIBLE);
+        showOrHideTitleView(true);
         llBottom.setVisibility(VISIBLE);
         if (llMid != null) {
             llMid.setVisibility(VISIBLE);
@@ -1483,7 +1483,7 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     public void hideAllViews() {
-        llTop.setVisibility(INVISIBLE);
+        showOrHideTitleView(false);
         llBottom.setVisibility(INVISIBLE);
         if (llMid != null) {
             llMid.setVisibility(INVISIBLE);
@@ -1501,4 +1501,10 @@ public class PlaybackControlView extends FrameLayout {
             timeBar.setProgressColor(color);
         }
     }
+
+    /*public void showOrHideTitleView(boolean isShow) {
+        LLog.d(TAG, "showOrHideTitleView isShow " + isShow);
+        llTop.setVisibility(isShow ? VISIBLE : INVISIBLE);
+    }*/
+
 }
