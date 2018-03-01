@@ -24,7 +24,7 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.listallmetadata.Item;
 import vn.loitp.restapi.uiza.model.listallmetadata.ListAllMetadata;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -166,7 +166,7 @@ public class HomeActivity extends BaseActivity {
 
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
 
         int limit = 100;
 

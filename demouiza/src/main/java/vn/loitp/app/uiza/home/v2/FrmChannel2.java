@@ -2,14 +2,12 @@ package vn.loitp.app.uiza.home.v2;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.pedrovgs.DraggableListener;
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -29,7 +27,7 @@ import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.listallentity.Item;
 import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.listallmetadata.JsonBody;
@@ -284,7 +282,7 @@ public class FrmChannel2 extends BaseFragment {
 
     private void getData() {
         LLog.d(TAG, ">>>getData");
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
         jsonBody.setLimit(100);

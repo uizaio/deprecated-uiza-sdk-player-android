@@ -21,7 +21,8 @@ import vn.loitp.restapi.uiza.model.listallmetadata.ListAllMetadata;
  * @author loitp
  */
 
-public interface UizaV2Service {
+public interface UizaService {
+    //=====================================================Sample
     /*@GET("v1/app/poster")
     Observable<GetPoster[]> getPoster(@Query("number") int number);
 
@@ -45,7 +46,13 @@ public interface UizaV2Service {
 
     @GET("/api/data/v1/entity/list")
     Observable<Object> testGetAll();*/
+    //=====================================================End Sample
 
+
+
+
+
+    //=====================================================v2 dev-api.uiza.io/resource/index.html
     @FormUrlEncoded
     @POST("/api/public/v1/auth/credentical")
     Observable<Auth> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
@@ -59,8 +66,13 @@ public interface UizaV2Service {
 
     @POST("/api/resource/v1/media/entity/list")
     Observable<ListAllEntity> listAllEntity(@Body JsonBody jsonBody);
+    //=====================================================end v2 dev-api.uiza.io/resource/index.html
 
 
+
+
+
+    //=====================================================v1 http://dev-api.uiza.io/data/index.html
     /////for player
     /*@GET("v1/app/poster")
     Observable<GetPoster[]> getPoster(@Query("number") int number);*/
@@ -78,4 +90,5 @@ public interface UizaV2Service {
     //getPlayerConfig
     @GET("/api/public/v1/player/info/{id}")
     Observable<PlayerConfig> getPlayerInfo(@Path("id") String playerId);
+    //=====================================================end v1 http://dev-api.uiza.io/data/index.html
 }

@@ -1,6 +1,5 @@
 package vn.loitp.app.uiza.home.v1;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,11 +23,10 @@ import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
-import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.listallentity.Item;
 import vn.loitp.restapi.uiza.model.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.listallmetadata.JsonBody;
@@ -240,7 +238,7 @@ public class FrmChannel extends BaseFragment {
 
     private void getData() {
         LLog.d(TAG, ">>>getData");
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
         jsonBody.setLimit(100);

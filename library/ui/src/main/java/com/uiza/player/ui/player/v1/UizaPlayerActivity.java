@@ -22,7 +22,7 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.restclient.RestClient;
-import vn.loitp.restapi.uiza.UizaV2Service;
+import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.getplayerinfo.PlayerConfig;
@@ -203,7 +203,7 @@ public class UizaPlayerActivity extends BaseActivity {
     private void getLinkPlay() {
         TAG = "getLinkPlay";
         LLog.d(TAG, ">>>getLinkPlay " + inputModel.getEntityID());
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getLinkPlay(inputModel.getEntityID()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
@@ -236,7 +236,7 @@ public class UizaPlayerActivity extends BaseActivity {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntity(entityId), new ApiSubscriber<GetDetailEntity>() {
@@ -267,7 +267,7 @@ public class UizaPlayerActivity extends BaseActivity {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
         String id = inputModel.getEntityID();
         //LLog.d(TAG, "getEntityInfo id " + id);
         subscribe(service.getEntityInfo(id), new ApiSubscriber<EntityInfo>() {
@@ -298,7 +298,7 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
         setCoverVideo();
-        UizaV2Service service = RestClient.createService(UizaV2Service.class);
+        UizaService service = RestClient.createService(UizaService.class);
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
