@@ -33,6 +33,7 @@ import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -115,7 +116,7 @@ public class FrmChannel extends BaseFragment {
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
 
-        getData();
+        getData(false);
         return view;
     }
 
@@ -131,7 +132,7 @@ public class FrmChannel extends BaseFragment {
         return items;
     }*/
 
-    private void setupData(List<Item> itemList) {
+    private void setupData(List<Item> itemList, boolean isCallFromLoadMore) {
         /*//poster
         List<Item> itemListPoster = getSubList(itemList, 0, 5);
         placeHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
@@ -179,7 +180,11 @@ public class FrmChannel extends BaseFragment {
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
 
-        addBlankView();
+        if (isCallFromLoadMore) {
+            placeHolderView.removeView(getListSize() - 1);//remove loading view
+        } else {
+            addBlankView();
+        }
         for (Item item : itemList) {
             placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
@@ -188,8 +193,11 @@ public class FrmChannel extends BaseFragment {
                 }
             }));
         }
-        addBlankView();
-        avLoadingIndicatorView.smoothToHide();
+        if (!isCallFromLoadMore) {
+            avLoadingIndicatorView.smoothToHide();
+        } else {
+            isLoadMoreCalling = false;
+        }
     }
 
     private int getListSize() {
@@ -200,11 +208,6 @@ public class FrmChannel extends BaseFragment {
         for (int i = 0; i < NUMBER_OF_COLUMN_2; i++) {
             placeHolderView.addView(new BlankView());
         }
-    }
-
-    private void removeBlankViewFooter() {
-        placeHolderView.removeView(getListSize() - 1);
-        placeHolderView.removeView(getListSize() - 1);
     }
 
     private void onClickVideo(Item item, int position) {
@@ -286,14 +289,28 @@ public class FrmChannel extends BaseFragment {
         return inputModel;
     }
 
-    private void getData() {
-        LLog.d(TAG, ">>>getData");
-        UizaService service = RestClient.createService(UizaService.class);
+    private final int limit = 10;
+    private int page = 0;
+    private int totalPage = Integer.MAX_VALUE;
+    private final String orderBy = "name";
+    private final String orderType = "ASC";
 
-        final int limit = 20;
-        final int page = 0;
-        final String orderBy = "name";
-        final String orderType = "ASC";
+    private void getData(boolean isCallFromLoadMore) {
+        LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
+
+        if (page >= totalPage) {
+            LLog.d(TAG, "page >= totalPage -> return");
+            ToastUtils.showShort("This is last page");
+            placeHolderView.removeView(getListSize() - 1);//remove loading view
+            if (isCallFromLoadMore) {
+                isLoadMoreCalling = false;
+            }
+            return;
+        }
+
+        ToastUtils.showShort("getData page " + page);
+
+        UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
         List<String> metadataId = new ArrayList<>();
@@ -315,34 +332,38 @@ public class FrmChannel extends BaseFragment {
                 LLog.d(TAG, "getTotal " + listAllEntity.getTotal());
                 LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
 
-                int totalItem = listAllEntity.getTotal();
-                int totalPage = 0;
-                float ratio = (float) (totalItem / limit);
-                LLog.d(TAG, "ratio: " + ratio);
-                if (ratio == 0) {
-                    totalPage = (int) ratio;
-                } else if (ratio > 0) {
-                    totalPage = (int) ratio + 1;
-                } else {
-                    totalPage = (int) ratio;
+                if (totalPage == Integer.MAX_VALUE) {
+                    int totalItem = listAllEntity.getTotal();
+                    float ratio = (float) (totalItem / limit);
+                    LLog.d(TAG, "ratio: " + ratio);
+                    if (ratio == 0) {
+                        totalPage = (int) ratio;
+                    } else if (ratio > 0) {
+                        totalPage = (int) ratio + 1;
+                    } else {
+                        totalPage = (int) ratio;
+                    }
+                    LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
-                LLog.d(TAG, ">>>totalPage: " + totalPage);
 
                 List<Item> itemList = listAllEntity.getItems();
                 if (itemList == null || itemList.isEmpty()) {
                     LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
                         @Override
                         public void onClick() {
-                            getActivity().onBackPressed();
+                            //getActivity().onBackPressed();
                         }
                     });
                 } else {
-                    setupData(itemList);
+                    setupData(itemList, isCallFromLoadMore);
                 }
             }
 
             @Override
             public void onFail(Throwable e) {
+                if (isCallFromLoadMore) {
+                    isLoadMoreCalling = false;
+                }
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
                 handleException(e);
             }
@@ -371,17 +392,9 @@ public class FrmChannel extends BaseFragment {
             return;
         }
         isLoadMoreCalling = true;
-        removeBlankViewFooter();//xoa 2 item blank cuoi list
         placeHolderView.addView(new LoadingView());
-
-        //TODO loadMore
-        LUIUtil.setDelay(3000, new LUIUtil.DelayCallback() {
-            @Override
-            public void doAfter(int mls) {
-                placeHolderView.removeView(getListSize() - 1);
-                addBlankView();//add lai 2 item blank vua xoa vao cuoi list
-                isLoadMoreCalling = false;
-            }
-        });
+        placeHolderView.smoothScrollToPosition(getListSize() - 1);
+        page++;
+        getData(true);
     }
 }
