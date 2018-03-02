@@ -1,7 +1,10 @@
 package vn.loitp.app.uiza.home.view;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,6 +30,9 @@ public class UizaDrawerMenuItem {
     @View(R.id.tv_name)
     private TextView tvName;
 
+    @View(R.id.mainView)
+    private LinearLayout mainView;
+
     @View(R.id.iv_press)
     private ImageView ivPress;
 
@@ -46,8 +52,10 @@ public class UizaDrawerMenuItem {
         tvName.setText(itemList.get(mPos).getName());
         if (mPos == HomeData.getInstance().getCurrentPosition()) {
             ivPress.setVisibility(android.view.View.VISIBLE);
+            mainView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.drawer_hightlight));
         } else {
             ivPress.setVisibility(android.view.View.INVISIBLE);
+            mainView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 

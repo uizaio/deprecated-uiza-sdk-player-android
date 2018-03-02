@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainView"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/w_80"
+    android:layout_height="@dimen/w_70"
     android:gravity="center|left"
     android:orientation="horizontal"
-    android:padding="@dimen/padding_10">
+    android:paddingBottom="@dimen/padding_10"
+    android:paddingLeft="0dp"
+    android:paddingRight="@dimen/padding_10"
+    android:paddingTop="@dimen/padding_10">
 
     <ImageView
         android:id="@+id/iv_press"
-        android:layout_width="@dimen/w_15"
-        android:layout_height="@dimen/w_50"
+        android:layout_width="@dimen/w_5"
+        android:layout_height="@dimen/w_40"
         android:background="@color/Blue"
         android:contentDescription="@string/app_name"
         android:visibility="invisible" />
