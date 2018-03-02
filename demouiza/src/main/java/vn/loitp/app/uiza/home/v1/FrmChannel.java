@@ -290,7 +290,7 @@ public class FrmChannel extends BaseFragment {
         LLog.d(TAG, ">>>getData");
         UizaService service = RestClient.createService(UizaService.class);
 
-        final int limit = 50;
+        final int limit = 20;
         final int page = 0;
         final String orderBy = "name";
         final String orderType = "ASC";
