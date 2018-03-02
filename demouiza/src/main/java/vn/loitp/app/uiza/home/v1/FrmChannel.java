@@ -345,16 +345,17 @@ public class FrmChannel extends BaseFragment {
             return;
         }
         isLoadMoreCalling = true;
-        removeBlankViewFooter();
-        /*placeHolderView.addView( new LoadingView());
+        removeBlankViewFooter();//xoa 2 item blank cuoi list
+        placeHolderView.addView(new LoadingView());
 
         //TODO loadMore
         LUIUtil.setDelay(3000, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {
-                placeHolderView.removeView(POSITION_OF_LOADING_REFRESH);
+                placeHolderView.removeView(getListSize() - 1);
+                addBlankView();//add lai 2 item blank vua xoa vao cuoi list
                 isLoadMoreCalling = false;
             }
-        });*/
+        });
     }
 }
