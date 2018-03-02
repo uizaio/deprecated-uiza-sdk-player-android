@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.Gravity;
@@ -98,7 +99,7 @@ import vn.loitp.core.utilities.LUIUtil;
      * @param rendererIndex The index of the renderer.
      */
 
-    public void showSelectionDialog(Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, final DialogInterface.OnDismissListener callbackDialogDissmiss) {
+    public void showSelectionDialog(final Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, final DialogInterface.OnDismissListener callbackDialogDissmiss) {
         this.trackInfo = trackInfo;
         this.rendererIndex = rendererIndex;
 
@@ -114,15 +115,6 @@ import vn.loitp.core.utilities.LUIUtil;
         LLog.d(TAG, "showSelectionDialog isDisabled " + isDisabled);
         override = selector.getSelectionOverride(rendererIndex, trackGroups);
 
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder
-                .setTitle(title)
-                .setView(buildView(builder.getContext()))
-                .setPositiveButton(android.R.string.ok, this)
-                .setNegativeButton(android.R.string.cancel, null);
-        alertDialog = builder.create();
-        alertDialog.show();*/
-
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);
@@ -133,7 +125,6 @@ import vn.loitp.core.utilities.LUIUtil;
 
             final WindowManager.LayoutParams param = window.getAttributes();
             param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-
             view.post(new Runnable() {
                 @Override
                 public void run() {
@@ -141,13 +132,25 @@ import vn.loitp.core.utilities.LUIUtil;
                     param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                     window.setAttributes(param);
                     window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    //UizaScreenUtil.hideStatusBar(activity);
                 }
             });
+
+            if (UizaData.getInstance().isLandscape()) {
+                if (Build.VERSION.SDK_INT < 16) {
+                    window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                } else {
+                    View decorView = window.getDecorView();
+                    int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+                    decorView.setSystemUiVisibility(uiOptions);
+                }
+            } else {
+                //do nothing
+            }
         }
         dialog.show();
     }
 
-    //private AlertDialog alertDialog;
     private Dialog dialog;
 
     @SuppressLint("InflateParams")

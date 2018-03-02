@@ -773,7 +773,11 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                         if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
                         }
-                        //UizaScreenUtil.hideNavBar(getActivity().getWindow().getDecorView());
+                        if (UizaData.getInstance().isLandscape()) {
+                            ((UizaPlayerActivity) getActivity()).updateUIStatusNavigationBar(false);
+                        } else {
+                            //do nothing
+                        }
                     }
                 });
             }

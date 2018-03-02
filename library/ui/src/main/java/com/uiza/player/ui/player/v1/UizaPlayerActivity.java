@@ -171,7 +171,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
-    private void updateUIStatusNavigationBar(boolean isShow){
+    public void updateUIStatusNavigationBar(boolean isShow){
         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
         if(isShow){
             UizaScreenUtil.showStatusBar(activity);
