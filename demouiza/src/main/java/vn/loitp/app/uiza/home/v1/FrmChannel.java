@@ -289,7 +289,7 @@ public class FrmChannel extends BaseFragment {
         return inputModel;
     }
 
-    private final int limit = 10;
+    private final int limit = 15;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
     private final String orderBy = "name";
