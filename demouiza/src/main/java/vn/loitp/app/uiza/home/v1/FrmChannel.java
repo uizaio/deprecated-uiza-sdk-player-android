@@ -46,10 +46,12 @@ public class FrmChannel extends BaseFragment {
     private PlaceHolderView placeHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
-    private final int NUMBER_OF_COLUMN = 2;
+    private final int NUMBER_OF_COLUMN_1 = 1;
+    private final int NUMBER_OF_COLUMN_2 = 2;
     private final int POSITION_OF_LOADING_REFRESH = 2;
 
     private boolean isRefreshing;
+    private boolean isLoadMoreCalling;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class FrmChannel extends BaseFragment {
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
         placeHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
@@ -80,9 +82,9 @@ public class FrmChannel extends BaseFragment {
             public int getSpanSize(int position) {
                 switch (position) {
                     case POSITION_OF_LOADING_REFRESH:
-                        return isRefreshing ? 2 : 1;
+                        return isRefreshing ? NUMBER_OF_COLUMN_2 : NUMBER_OF_COLUMN_1;
                     default:
-                        return 1;
+                        return NUMBER_OF_COLUMN_1;
                 }
             }
         });
@@ -106,6 +108,7 @@ public class FrmChannel extends BaseFragment {
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
+                loadMore();
             }
         });
 
@@ -189,10 +192,19 @@ public class FrmChannel extends BaseFragment {
         avLoadingIndicatorView.smoothToHide();
     }
 
+    private int getListSize() {
+        return placeHolderView.getAllViewResolvers().size();
+    }
+
     private void addBlankView() {
-        for (int i = 0; i < NUMBER_OF_COLUMN; i++) {
+        for (int i = 0; i < NUMBER_OF_COLUMN_2; i++) {
             placeHolderView.addView(new BlankView());
         }
+    }
+
+    private void removeBlankViewFooter() {
+        placeHolderView.removeView(getListSize() - 1);
+        placeHolderView.removeView(getListSize() - 1);
     }
 
     private void onClickVideo(Item item, int position) {
@@ -326,5 +338,23 @@ public class FrmChannel extends BaseFragment {
                 isRefreshing = false;
             }
         });
+    }
+
+    private void loadMore() {
+        if (isLoadMoreCalling) {
+            return;
+        }
+        isLoadMoreCalling = true;
+        removeBlankViewFooter();
+        /*placeHolderView.addView( new LoadingView());
+
+        //TODO loadMore
+        LUIUtil.setDelay(3000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                placeHolderView.removeView(POSITION_OF_LOADING_REFRESH);
+                isLoadMoreCalling = false;
+            }
+        });*/
     }
 }
