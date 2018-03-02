@@ -49,6 +49,7 @@ public class UizaPlayerActivity extends BaseActivity {
         flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
 
         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
+
         RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
@@ -150,7 +151,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
     @Override
     protected boolean setFullScreen() {
-        return true;
+        return false;
     }
 
     @Override

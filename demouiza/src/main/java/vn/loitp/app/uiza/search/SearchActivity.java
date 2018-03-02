@@ -63,7 +63,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected boolean setFullScreen() {
-        return true;
+        return false;
     }
 
     @Override

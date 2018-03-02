@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected boolean setFullScreen() {
-        return true;
+        return false;
     }
 
     @Override
