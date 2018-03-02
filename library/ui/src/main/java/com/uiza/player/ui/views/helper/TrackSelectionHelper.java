@@ -145,7 +145,6 @@ import vn.loitp.core.utilities.LUIUtil;
             });
         }
         dialog.show();
-        //UizaScreenUtil.hideNavBar(dialog.getWindow().getDecorView());
     }
 
     //private AlertDialog alertDialog;
