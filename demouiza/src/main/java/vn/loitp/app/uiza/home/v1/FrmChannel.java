@@ -32,7 +32,7 @@ import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
+import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -42,7 +42,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 public class FrmChannel extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
-    private InfinitePlaceHolderView infinitePlaceHolderView;
+    private PlaceHolderView placeHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private final int NUMBER_OF_COLUMN = 2;
@@ -63,13 +63,13 @@ public class FrmChannel extends BaseFragment {
         tv = (TextView) view.findViewById(R.id.tv);
         tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
 
-        infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
+        placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
-        infinitePlaceHolderView.getBuilder()
+        placeHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN));
-        LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
+        LUIUtil.setPullLikeIOSVertical(placeHolderView);
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
@@ -93,7 +93,7 @@ public class FrmChannel extends BaseFragment {
     private void setupData(List<Item> itemList) {
         /*//poster
         List<Item> itemListPoster = getSubList(itemList, 0, 5);
-        infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
+        placeHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -105,7 +105,7 @@ public class FrmChannel extends BaseFragment {
         channelObjectTopMovies.setChannelName("Top Movies");
         List<Item> itemListTopMovies = getSubList(itemList, 6, 15);
         channelObjectTopMovies.setItemList(itemListTopMovies);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
+        placeHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -117,7 +117,7 @@ public class FrmChannel extends BaseFragment {
         channelObjectNewestMovies.setChannelName("Newest Movies");
         List<Item> itemListNewestMovies = getSubList(itemList, 16, itemList.size() - 1);
         channelObjectNewestMovies.setItemList(itemListNewestMovies);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
+        placeHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -128,7 +128,7 @@ public class FrmChannel extends BaseFragment {
         ChannelObject channelObjectAllMovies = new ChannelObject();
         channelObjectAllMovies.setChannelName("All Movies");
         channelObjectAllMovies.setItemList(itemList);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectAllMovies, new ChannelItem.Callback() {
+        placeHolderView.addView(new ChannelList(getActivity(), channelObjectAllMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -140,7 +140,7 @@ public class FrmChannel extends BaseFragment {
 
         addBlankView();
         for (Item item : itemList) {
-            infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
+            placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
@@ -153,7 +153,7 @@ public class FrmChannel extends BaseFragment {
 
     private void addBlankView() {
         for (int i = 0; i < NUMBER_OF_COLUMN; i++) {
-            infinitePlaceHolderView.addView(new BlankView());
+            placeHolderView.addView(new BlankView());
         }
     }
 
