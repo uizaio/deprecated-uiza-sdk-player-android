@@ -69,7 +69,26 @@ public class FrmChannel extends BaseFragment {
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN));
-        LUIUtil.setPullLikeIOSVertical(placeHolderView);
+        LUIUtil.setPullLikeIOSVertical(placeHolderView, new LUIUtil.Callback() {
+            @Override
+            public void onUpOrLeft(float offset) {
+                //do nothing
+            }
+
+            @Override
+            public void onUpOrLeftRefresh(float offset) {
+                LLog.d(TAG, "onUpOrLeftRefresh");            }
+
+            @Override
+            public void onDownOrRight(float offset) {
+                //do nothing
+            }
+
+            @Override
+            public void onDownOrRightRefresh(float offset) {
+                LLog.d(TAG, "onDownOrRightRefresh");
+            }
+        });
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
