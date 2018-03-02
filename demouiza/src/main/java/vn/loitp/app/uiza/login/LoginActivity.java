@@ -38,6 +38,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         LUIUtil.setTextViewUnderLine(tvForgotPw);
         LUIUtil.setTextViewUnderLine(tvDontHaveAcc);
+
+        findViewById(R.id.iv_close_activity).setOnClickListener(this);
     }
 
     @Override
@@ -90,6 +92,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.tv_login:
                 login();
+                break;
+            case R.id.iv_close_activity:
+                onBackPressed();
                 break;
         }
     }
