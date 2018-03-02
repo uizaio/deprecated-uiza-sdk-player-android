@@ -1,6 +1,7 @@
 package com.uiza.player.ui.player.v1;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -45,10 +46,9 @@ public class UizaPlayerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TAG = "TAGUizaPlayerActivity";
         flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
 
-        UizaScreenUtil.hideNavBar(getWindow().getDecorView());
+        updateUIStatusNavigationBar(true);
 
         RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
@@ -156,7 +156,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
     @Override
     protected String setTag() {
-        return getClass().getSimpleName();
+        return "TAGUizaPlayerActivity";
     }
 
     @Override
@@ -167,6 +167,30 @@ public class UizaPlayerActivity extends BaseActivity {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.uiza_player_activity;
+    }
+
+    //true: show status bar, hide navigation bar
+    //false: hide status bar, hide navigation bar
+    private void updateUIStatusNavigationBar(boolean isShow){
+        UizaScreenUtil.hideNavBar(getWindow().getDecorView());
+        if(isShow){
+            UizaScreenUtil.showStatusBar(activity);
+        }else{
+            UizaScreenUtil.hideStatusBar(activity);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
+            updateUIStatusNavigationBar(false);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
+            updateUIStatusNavigationBar(true);
+        }
     }
 
     /*@Override
