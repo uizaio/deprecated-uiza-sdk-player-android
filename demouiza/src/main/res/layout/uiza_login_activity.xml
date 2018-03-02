@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/White">
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -29,18 +30,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_55"
                 android:layout_marginRight="@dimen/margin_55"
-                android:gravity="center"
-                android:padding="@dimen/padding_5"
                 android:text="@string/login_form"
-                android:textColor="@color/White"
-                android:textSize="@dimen/txt_25"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/txt_20"
                 android:textStyle="bold" />
 
-            <View
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/w_1"
-                android:layout_marginTop="@dimen/margin_5"
-                android:background="@color/black_33" />
+                android:layout_height="@dimen/w_10"
+                android:layout_marginTop="@dimen/margin_5">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/w_1"
+                    android:layout_centerVertical="true"
+                    android:background="@color/black_33" />
+
+                <View
+                    android:layout_width="@dimen/w_30"
+                    android:layout_height="@dimen/w_7"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_55"
+                    android:background="@drawable/bt_login" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -50,7 +63,7 @@
                 android:layout_marginTop="@dimen/margin_30"
                 android:padding="@dimen/padding_5"
                 android:text="@string/input_email_or_phone"
-                android:textColor="@color/White"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/txt_15" />
 
             <LinearLayout
@@ -88,7 +101,7 @@
                 android:layout_marginTop="@dimen/margin_20"
                 android:padding="@dimen/padding_5"
                 android:text="@string/input_password"
-                android:textColor="@color/White"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/txt_15" />
 
             <LinearLayout
@@ -150,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/forgot_password"
-                    android:textColor="@drawable/text_blue_white"
+                    android:textColor="@drawable/text_blue_black"
                     android:textSize="@dimen/txt_12" />
 
                 <TextView
@@ -159,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/don_t_have_account"
-                    android:textColor="@drawable/text_blue_white"
+                    android:textColor="@drawable/text_blue_black"
                     android:textSize="@dimen/txt_12" />
             </LinearLayout>
 

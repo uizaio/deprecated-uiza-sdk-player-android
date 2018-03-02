@@ -9,6 +9,7 @@ import android.widget.TextView;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.restapi.ls.corev3.api.service.LSService;
@@ -34,6 +35,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tvForgotPw.setOnClickListener(this);
         tvDontHaveAcc.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
+
+        LUIUtil.setTextViewUnderLine(tvForgotPw);
+        LUIUtil.setTextViewUnderLine(tvDontHaveAcc);
     }
 
     @Override
