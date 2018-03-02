@@ -291,16 +291,34 @@ public class FrmChannel extends BaseFragment {
         UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
-        jsonBody.setLimit(100);
-        jsonBody.setPage(0);
         List<String> metadataId = new ArrayList<>();
         metadataId.add(HomeData.getInstance().getItem().getId());
         jsonBody.setMetadataId(metadataId);
+        LLog.d(TAG, "metadataId " + LSApplication.getInstance().getGson().toJson(metadataId));
+
+        int limit = 50;
+        int page = 1;
 
         subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
+                LLog.d(TAG, "getLimit " + listAllEntity.getLimit());
+                LLog.d(TAG, "getPage " + listAllEntity.getPage());
+                LLog.d(TAG, "getTotal " + listAllEntity.getTotal());
+
+                int totalItem = listAllEntity.getTotal();
+                int totalPage = 0;
+                float ratio = (float) (totalItem / limit);
+                LLog.d(TAG, "ratio: " + ratio);
+                if (ratio == 0) {
+                    totalPage = (int) ratio;
+                } else if (ratio > 0) {
+                    totalPage = (int) ratio + 1;
+                } else {
+                    totalPage = (int) ratio;
+                }
+                LLog.d(TAG, ">>>totalPage: " + totalPage);
 
                 List<Item> itemList = listAllEntity.getItems();
                 if (itemList == null || itemList.isEmpty()) {

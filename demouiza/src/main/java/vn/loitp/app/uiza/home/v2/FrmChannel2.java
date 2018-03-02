@@ -285,8 +285,6 @@ public class FrmChannel2 extends BaseFragment {
         UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
-        jsonBody.setLimit(100);
-        jsonBody.setPage(0);
         List<String> metadataId = new ArrayList<>();
         metadataId.add(HomeData.getInstance().getItem().getId());
         jsonBody.setMetadataId(metadataId);
