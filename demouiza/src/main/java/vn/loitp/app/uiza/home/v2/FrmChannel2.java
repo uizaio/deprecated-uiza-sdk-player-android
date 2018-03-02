@@ -289,7 +289,7 @@ public class FrmChannel2 extends BaseFragment {
         metadataId.add(HomeData.getInstance().getItem().getId());
         jsonBody.setMetadataId(metadataId);
 
-        subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
+        /*subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
@@ -312,7 +312,7 @@ public class FrmChannel2 extends BaseFragment {
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
                 handleException(e);
             }
-        });
+        });*/
     }
 
     private void initializeDraggablePanel() throws Resources.NotFoundException {

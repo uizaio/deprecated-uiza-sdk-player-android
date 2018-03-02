@@ -290,14 +290,21 @@ public class FrmChannel extends BaseFragment {
         LLog.d(TAG, ">>>getData");
         UizaService service = RestClient.createService(UizaService.class);
 
+        final int limit = 50;
+        final int page = 0;
+        final String orderBy = "name";
+        final String orderType = "ASC";
+
         JsonBody jsonBody = new JsonBody();
         List<String> metadataId = new ArrayList<>();
         metadataId.add(HomeData.getInstance().getItem().getId());
         jsonBody.setMetadataId(metadataId);
-        LLog.d(TAG, "metadataId " + LSApplication.getInstance().getGson().toJson(metadataId));
-
-        int limit = 50;
-        int page = 1;
+        jsonBody.setLimit(limit);
+        jsonBody.setPage(page);
+        jsonBody.setOrderBy(orderBy);
+        jsonBody.setOrderType(orderType);
+        LLog.d(TAG, "jsonBody " + LSApplication.getInstance().getGson().toJson(jsonBody));
+        LLog.d(TAG, "<<<<<<<<<<<<<<<<<<<<<<<<");
 
         subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
@@ -306,6 +313,7 @@ public class FrmChannel extends BaseFragment {
                 LLog.d(TAG, "getLimit " + listAllEntity.getLimit());
                 LLog.d(TAG, "getPage " + listAllEntity.getPage());
                 LLog.d(TAG, "getTotal " + listAllEntity.getTotal());
+                LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
 
                 int totalItem = listAllEntity.getTotal();
                 int totalPage = 0;

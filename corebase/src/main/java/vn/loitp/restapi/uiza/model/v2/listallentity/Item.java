@@ -1,10 +1,9 @@
 
 package vn.loitp.restapi.uiza.model.v2.listallentity;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class Item {
 
@@ -31,7 +30,7 @@ public class Item {
     private String adminUserId;
     @SerializedName("poster")
     @Expose
-    private Object poster;
+    private String poster;
     @SerializedName("view")
     @Expose
     private int view;
@@ -43,10 +42,10 @@ public class Item {
     private String thumbnail;
     @SerializedName("duration")
     @Expose
-    private String duration;
+    private Object duration;
     @SerializedName("extendData")
     @Expose
-    private Object extendData;
+    private ExtendData extendData;
     @SerializedName("ownerName")
     @Expose
     private String ownerName;
@@ -119,11 +118,11 @@ public class Item {
         this.adminUserId = adminUserId;
     }
 
-    public Object getPoster() {
+    public String getPoster() {
         return poster;
     }
 
-    public void setPoster(Object poster) {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 
@@ -151,19 +150,19 @@ public class Item {
         this.thumbnail = thumbnail;
     }
 
-    public String getDuration() {
+    public Object getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Object duration) {
         this.duration = duration;
     }
 
-    public Object getExtendData() {
+    public ExtendData getExtendData() {
         return extendData;
     }
 
-    public void setExtendData(Object extendData) {
+    public void setExtendData(ExtendData extendData) {
         this.extendData = extendData;
     }
 

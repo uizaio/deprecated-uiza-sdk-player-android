@@ -10,9 +10,38 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class JsonBody {
+
+    @SerializedName("limit")
+    @Expose
+    private int limit;
+    @SerializedName("orderBy")
+    @Expose
+    private String orderBy;
+    @SerializedName("orderType")
+    @Expose
+    private String orderType;
+    @SerializedName("page")
+    @Expose
+    private int page;
     @SerializedName("metadataId")
     @Expose
     private List<String> metadataId = null;
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public List<String> getMetadataId() {
         return metadataId;
@@ -22,4 +51,19 @@ public class JsonBody {
         this.metadataId = metadataId;
     }
 
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
 }

@@ -4,6 +4,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -61,6 +62,7 @@ public interface UizaService {
     @POST("/api/resource/v1/media/metadata/list")
     Observable<ListAllMetadata> listAllMetadata(@Field("limit") int limit);
 
+    @Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/list")
     Observable<ListAllEntity> listAllEntity(@Body JsonBody jsonBody);
 
