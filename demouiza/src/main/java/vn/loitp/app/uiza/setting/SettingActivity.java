@@ -2,10 +2,14 @@ package vn.loitp.app.uiza.setting;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.uiza.player.ui.data.UizaData;
+
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.uiza.R;
 
 public class SettingActivity extends BaseActivity {
@@ -22,15 +26,15 @@ public class SettingActivity extends BaseActivity {
         radio2 = (RadioButton) findViewById(R.id.radio_2);
         radio3 = (RadioButton) findViewById(R.id.radio_3);
 
-        /*int currentSkin = UizaData.getInstance().getSkinNo();
+        String currentSkin = UizaData.getInstance().getPlayerId();
         switch (currentSkin) {
-            case UizaData.SKIN_1:
+            case UizaData.PLAYER_ID_SKIN_1:
                 radio1.setChecked(true);
                 break;
-            case UizaData.SKIN_2:
+            case UizaData.PLAYER_ID_SKIN_2:
                 radio2.setChecked(true);
                 break;
-            case UizaData.SKIN_3:
+            case UizaData.PLAYER_ID_SKIN_3:
                 radio3.setChecked(true);
                 break;
             default:
@@ -42,23 +46,23 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
-                Log.d(TAG, "selectedId " + selectedId);
+                LLog.d(TAG, "selectedId " + selectedId);
                 switch (selectedId) {
                     case R.id.radio_1:
-                        UizaData.getInstance().setSkinNo(UizaData.SKIN_1);
+                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
                         break;
                     case R.id.radio_2:
-                        UizaData.getInstance().setSkinNo(UizaData.SKIN_2);
+                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_2);
                         break;
                     case R.id.radio_3:
-                        UizaData.getInstance().setSkinNo(UizaData.SKIN_3);
+                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_3);
                         break;
                     default:
-                        UizaData.getInstance().setSkinNo(UizaData.SKIN_1);
+                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
                         break;
                 }
             }
-        });*/
+        });
     }
 
     @Override

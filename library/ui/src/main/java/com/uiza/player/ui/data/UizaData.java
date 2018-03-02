@@ -185,6 +185,10 @@ public class UizaData {
         return playerId;
     }
 
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
+    }
+
     public void init(String apiEndPoint, String token, String playerId) {
         this.apiEndPoint = apiEndPoint;
         this.token = token;
