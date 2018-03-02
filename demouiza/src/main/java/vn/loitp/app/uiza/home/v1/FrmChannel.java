@@ -20,6 +20,7 @@ import vn.loitp.app.common.Constants;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
+import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
@@ -46,6 +47,9 @@ public class FrmChannel extends BaseFragment {
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private final int NUMBER_OF_COLUMN = 2;
+    private final int POSITION_OF_LOADING_REFRESH = 2;
+
+    private boolean isRefreshing;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -65,10 +69,23 @@ public class FrmChannel extends BaseFragment {
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN);
         placeHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
-                .setLayoutManager(new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN));
+                .setLayoutManager(gridLayoutManager);
+
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (position) {
+                    case POSITION_OF_LOADING_REFRESH:
+                        return isRefreshing ? 2 : 1;
+                    default:
+                        return 1;
+                }
+            }
+        });
         LUIUtil.setPullLikeIOSVertical(placeHolderView, new LUIUtil.Callback() {
             @Override
             public void onUpOrLeft(float offset) {
@@ -77,7 +94,9 @@ public class FrmChannel extends BaseFragment {
 
             @Override
             public void onUpOrLeftRefresh(float offset) {
-                LLog.d(TAG, "onUpOrLeftRefresh");            }
+                LLog.d(TAG, "onUpOrLeftRefresh");
+                swipeToRefresh();
+            }
 
             @Override
             public void onDownOrRight(float offset) {
@@ -288,6 +307,23 @@ public class FrmChannel extends BaseFragment {
             public void onFail(Throwable e) {
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
                 handleException(e);
+            }
+        });
+    }
+
+    private void swipeToRefresh() {
+        if (isRefreshing) {
+            return;
+        }
+        isRefreshing = true;
+        placeHolderView.addView(POSITION_OF_LOADING_REFRESH, new LoadingView());
+
+        //TODO refresh
+        LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                placeHolderView.removeView(POSITION_OF_LOADING_REFRESH);
+                isRefreshing = false;
             }
         });
     }
