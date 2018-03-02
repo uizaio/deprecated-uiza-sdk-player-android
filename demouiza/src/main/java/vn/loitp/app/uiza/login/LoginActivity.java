@@ -57,7 +57,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
-        LSService service = RestClient.createService(LSService.class);
+        //TODO
+        ToastUtils.showShort("Click");
+        /*LSService service = RestClient.createService(LSService.class);
         String id = "fuck";
         String pw = "fuck";
         subscribe(service.login(id, pw), new ApiSubscriber<Object>() {
@@ -70,7 +72,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onFail(Throwable e) {
                 handleException(e);
             }
-        });
+        });*/
     }
 
     @Override
