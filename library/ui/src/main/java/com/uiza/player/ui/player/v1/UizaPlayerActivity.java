@@ -36,6 +36,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class UizaPlayerActivity extends BaseActivity {
     private InputModel inputModel;
@@ -56,6 +57,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
         String entityId = getIntent().getStringExtra(KEY_UIZA_ENTITY_ID);
         String entityCover = getIntent().getStringExtra(KEY_UIZA_ENTITY_COVER);
+        String entityTitle = getIntent().getStringExtra(KEY_UIZA_ENTITY_TITLE);
         LLog.d(TAG, "entityId " + entityId);
         if (entityId == null || entityId.isEmpty()) {
             showDialogError("entityId == null || entityId.isEmpty()");
@@ -63,19 +65,14 @@ public class UizaPlayerActivity extends BaseActivity {
         }
 
         RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
-        /*inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
-        if (inputModel == null) {
-            showDialogError("Error inputModel == null");
-            return;
-        }*/
 
-        inputModel = createInputModel(entityId, entityCover);
+        inputModel = createInputModel(entityId, entityCover, entityTitle);
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
     }
 
-    private InputModel createInputModel(String entityId, String entityCover) {
+    private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
         InputModel inputModel = new InputModel();
         inputModel.setEntityID(entityId);
 
@@ -84,6 +81,7 @@ public class UizaPlayerActivity extends BaseActivity {
         } else {
             inputModel.setUrlImg(Constants.PREFIXS + entityCover);
         }
+        inputModel.setTitle(entityTitle + "");
 
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");

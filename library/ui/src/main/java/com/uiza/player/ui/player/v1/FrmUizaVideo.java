@@ -389,9 +389,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (playbackControlView == null) {
             return;
         }
-        //TODO
-        playbackControlView.setTitle("Fuckkkkkk");
-        //playbackControlView.setTitle(inputModel.getTitle());
+        playbackControlView.setTitle(inputModel.getTitle());
 
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
         playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));

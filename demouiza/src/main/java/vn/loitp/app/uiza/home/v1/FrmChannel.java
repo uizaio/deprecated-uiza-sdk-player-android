@@ -39,6 +39,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -223,6 +224,7 @@ public class FrmChannel extends BaseFragment {
         Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
+        intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
         LUIUtil.transActivityFadeIn(getActivity());
     }

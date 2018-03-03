@@ -114,17 +114,6 @@ public class InputModel implements Serializable {
         this.adTagUri = adTagUri;
     }
 
-    //uiza variable
-    private String urlImg;
-
-    public String getUrlImg() {
-        return urlImg;
-    }
-
-    public void setUrlImg(String urlImg) {
-        this.urlImg = urlImg;
-    }
-
     public List<Playlist> getPlaylist() {
         return playlist;
     }
@@ -156,4 +145,24 @@ public class InputModel implements Serializable {
     public void setEntityInfo(EntityInfo entityInfo) {
         this.entityInfo = entityInfo;
     }*/
+
+    //uiza variable
+    private String urlImg;
+    private String title;
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
