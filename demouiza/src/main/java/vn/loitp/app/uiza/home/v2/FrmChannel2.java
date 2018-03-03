@@ -389,7 +389,7 @@ public class FrmChannel2 extends BaseFragment {
         FrmBottom frmBottom = new FrmBottom();
         draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
         draggablePanel.setTopFragment(new FrmDummy());
-        draggablePanel.setBottomFragment(new FrmDummy());
+        draggablePanel.setBottomFragment(frmBottom);
 
         //draggablePanel.setXScaleFactor(xScaleFactor);
         //draggablePanel.setYScaleFactor(yScaleFactor);
