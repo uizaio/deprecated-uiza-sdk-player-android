@@ -5,30 +5,25 @@ package vn.loitp.app.uiza.home.v2;
  */
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -40,7 +35,6 @@ import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
 import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.extractor.mp3.Mp3Extractor;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
@@ -58,12 +52,9 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
@@ -414,9 +405,11 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
         playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
         if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
-            simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
+            shouldAutoPlay = true;
+            simpleExoPlayerView.getPlayer().setPlayWhenReady(shouldAutoPlay);
         } else {
-            simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
+            shouldAutoPlay = false;
+            simpleExoPlayerView.getPlayer().setPlayWhenReady(shouldAutoPlay);
         }
         //set icon color
         try {
@@ -822,6 +815,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             initializePlayer();
         }
         super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     /*public void onResumeUizaVideo() {
@@ -867,6 +861,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
+        EventBus.getDefault().unregister(this);
     }
 
     /*public void onDestroyUizaVideo() {
@@ -915,5 +910,19 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
         showToast("onAdTapped");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventBusData.ClickVideoEvent clickVideoEvent) {
+        LLog.d(TAG, TAG + " clickVideoEvent");
+        if (clickVideoEvent != null) {
+            if (simpleExoPlayerView != null) {
+                LLog.d(TAG, "clickVideoEvent if");
+                shouldAutoPlay = true;
+                initializePlayer();
+            } else {
+                LLog.d(TAG, "clickVideoEvent else");
+            }
+        }
     }
 }

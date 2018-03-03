@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.pedrovgs.DraggablePanel;
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -106,7 +107,8 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onUpOrLeftRefresh(float offset) {
                 LLog.d(TAG, "onUpOrLeftRefresh");
-                swipeToRefresh();
+                //TODO
+                //swipeToRefresh();
             }
 
             @Override
@@ -117,16 +119,17 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
-                loadMore();
+
+                //TODO
+                //loadMore();
             }
         });
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
         avLoadingIndicatorView.smoothToShow();
 
         getData(false);
-
-        draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
         /*draggablePanel.setDraggableListener(new DraggableListener() {
             @Override
             public void onMaximized() {
@@ -152,7 +155,8 @@ public class FrmChannel2 extends BaseFragment {
                 updateViewActionBarAndDrawerNavigation(true);
             }
         });*/
-        initializeDraggablePanel();
+
+        //initializeDraggablePanel();
         return view;
     }
 
@@ -234,6 +238,7 @@ public class FrmChannel2 extends BaseFragment {
         } else {
             isLoadMoreCalling = false;
         }
+        initializeDraggablePanel();
     }
 
     private int getListSize() {
@@ -261,44 +266,12 @@ public class FrmChannel2 extends BaseFragment {
                 draggablePanel.setVisibility(View.VISIBLE);
             }
         } else {
-            LLog.d(TAG, "do nothing");
+            //TODO load new video
         }
         Movie movie = new Movie();
         movie.setTitle("fuck");
         EventBusData.getInstance().sendClickVideoEvent(movie, position);
     }
-
-    /*private InputModel createInputModel(String urlImg) {
-        InputModel inputModel = new InputModel();
-        inputModel.setEntityID("81");
-        inputModel.setUrlImg(urlImg);
-        inputModel.setTitle("Spider - Man: Homecoming (2017)");
-        inputModel.setTime("2015");
-        inputModel.setDuration("2h 13min");
-        inputModel.setRate(13);
-        inputModel.setDescription("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
-                "\n" +
-                "Đây là \"bộ truyện dài đầu tiên mà cốt truyện hoàn toàn là hư cấu sáng tạo của một cá nhân\". Trước đó, các truyện kể đều dựa ít nhiều vào sử sách hoặc truyện kể dân gian, và đều là sự chắp nối công công sức của nhiều người[2]. Tên truyện do tên ba nhân vật nữ là Phan Kim Liên, Lý Bình Nhi và Bàng Xuân Mai mà thành.\n" +
-                "\n" +
-                "Theo một số nhà nghiên cứu văn học, thì tác giả là một người ở Sơn Đông không rõ họ tên, có bút hiệu là Tiếu Tiếu Sinh (có nghĩa là \"Ông thầy cười\") [3].\n" +
-                "\n" +
-                "Có thể nói trong các tiểu thuyết viết về \"nhân tình thế thái\" (nói gọn là \"thế tình\", tức \"tình đời\") ở Trung Quốc, thì đây là truyện có tiếng nhất, đã khiến cho nhiều người bàn luận [4].");
-        inputModel.setStarring("Tom Holland, Michael Keaton, Robert Downey Jr.");
-        inputModel.setDirector("Jon Watts");
-        inputModel.setGenres("Action, Adventure, Sci-Fi");
-        inputModel.setExtension("mpd");
-        //inputModel.setDrmLicenseUrl("");
-        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
-        inputModel.setPreferExtensionDecoders(false);
-
-        //TODO remove this code below
-        inputModel.setUri("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
-
-        //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
-
-        inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
-        return inputModel;
-    }*/
 
     private InputModel createInputModel(Item item) {
         InputModel inputModel = new InputModel();
@@ -419,7 +392,7 @@ public class FrmChannel2 extends BaseFragment {
 
         //draggablePanel.setXScaleFactor(xScaleFactor);
         //draggablePanel.setYScaleFactor(yScaleFactor);
-        draggablePanel.setTopViewHeight(600);//px
+        draggablePanel.setTopViewHeight(800);//px
         draggablePanel.setEnableHorizontalAlphaEffect(false);
         //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
         //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
