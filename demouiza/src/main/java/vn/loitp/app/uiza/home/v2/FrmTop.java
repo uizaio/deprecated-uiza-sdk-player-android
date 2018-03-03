@@ -408,9 +408,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         if (playbackControlView == null) {
             return;
         }
-        //TODO
-        playbackControlView.setTitle("Fickdkjwdnc");
-        //playbackControlView.setTitle(inputModel.getTitle());
+        playbackControlView.setTitle(inputModel.getTitle());
 
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
         playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
