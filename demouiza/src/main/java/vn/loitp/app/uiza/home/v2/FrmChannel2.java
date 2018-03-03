@@ -21,6 +21,7 @@ import vn.loitp.app.data.EventBusData;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
+import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
@@ -79,11 +80,46 @@ public class FrmChannel2 extends BaseFragment {
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
         placeHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
-                .setLayoutManager(new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN));
-        LUIUtil.setPullLikeIOSVertical(placeHolderView);
+                .setLayoutManager(gridLayoutManager);
+
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (position) {
+                    case POSITION_OF_LOADING_REFRESH:
+                        return isRefreshing ? NUMBER_OF_COLUMN_2 : NUMBER_OF_COLUMN_1;
+                    default:
+                        return NUMBER_OF_COLUMN_1;
+                }
+            }
+        });
+        LUIUtil.setPullLikeIOSVertical(placeHolderView, new LUIUtil.Callback() {
+            @Override
+            public void onUpOrLeft(float offset) {
+                //do nothing
+            }
+
+            @Override
+            public void onUpOrLeftRefresh(float offset) {
+                LLog.d(TAG, "onUpOrLeftRefresh");
+                swipeToRefresh();
+            }
+
+            @Override
+            public void onDownOrRight(float offset) {
+                //do nothing
+            }
+
+            @Override
+            public void onDownOrRightRefresh(float offset) {
+                LLog.d(TAG, "onDownOrRightRefresh");
+                loadMore();
+            }
+        });
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
@@ -132,7 +168,7 @@ public class FrmChannel2 extends BaseFragment {
         return items;
     }*/
 
-    private void setupData(List<Item> itemList) {
+    private void setupData(List<Item> itemList, boolean isCallFromLoadMore) {
         /*//poster
         List<Item> itemListPoster = getSubList(itemList, 0, 5);
         placeHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
@@ -180,7 +216,11 @@ public class FrmChannel2 extends BaseFragment {
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
 
-        addBlankView();
+        if (isCallFromLoadMore) {
+            placeHolderView.removeView(getListSize() - 1);//remove loading view
+        } else {
+            addBlankView();
+        }
         for (Item item : itemList) {
             placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
@@ -189,8 +229,11 @@ public class FrmChannel2 extends BaseFragment {
                 }
             }));
         }
-        addBlankView();
-        avLoadingIndicatorView.smoothToHide();
+        if (!isCallFromLoadMore) {
+            avLoadingIndicatorView.smoothToHide();
+        } else {
+            isLoadMoreCalling = false;
+        }
     }
 
     private int getListSize() {
@@ -327,7 +370,24 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
+                LLog.d(TAG, "getLimit " + listAllEntity.getLimit());
+                LLog.d(TAG, "getPage " + listAllEntity.getPage());
+                LLog.d(TAG, "getTotal " + listAllEntity.getTotal());
+                LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
 
+                if (totalPage == Integer.MAX_VALUE) {
+                    int totalItem = listAllEntity.getTotal();
+                    float ratio = (float) (totalItem / limit);
+                    LLog.d(TAG, "ratio: " + ratio);
+                    if (ratio == 0) {
+                        totalPage = (int) ratio;
+                    } else if (ratio > 0) {
+                        totalPage = (int) ratio + 1;
+                    } else {
+                        totalPage = (int) ratio;
+                    }
+                    LLog.d(TAG, ">>>totalPage: " + totalPage);
+                }
                 List<Item> itemList = listAllEntity.getItems();
                 if (itemList == null || itemList.isEmpty()) {
                     LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
@@ -337,7 +397,7 @@ public class FrmChannel2 extends BaseFragment {
                         }
                     });
                 } else {
-                    setupData(itemList);
+                    setupData(itemList, isCallFromLoadMore);
                 }
             }
 
@@ -366,5 +426,34 @@ public class FrmChannel2 extends BaseFragment {
         draggablePanel.setClickToMinimizeEnabled(false);
 
         draggablePanel.initializeView();
+    }
+
+    private void swipeToRefresh() {
+        if (isRefreshing) {
+            return;
+        }
+        isRefreshing = true;
+        placeHolderView.addView(POSITION_OF_LOADING_REFRESH, new LoadingView());
+
+        //TODO refresh
+        LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                placeHolderView.removeView(POSITION_OF_LOADING_REFRESH);
+                isRefreshing = false;
+            }
+        });
+    }
+
+    private void loadMore() {
+        if (isLoadMoreCalling) {
+            LLog.d(TAG, "isLoadMoreCalling true -> return");
+            return;
+        }
+        isLoadMoreCalling = true;
+        placeHolderView.addView(new LoadingView());
+        placeHolderView.smoothScrollToPosition(getListSize() - 1);
+        page++;
+        getData(true);
     }
 }
