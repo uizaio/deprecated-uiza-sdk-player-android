@@ -66,7 +66,7 @@ public class EventBusData {
         EventBus.getDefault().post(connectEvent);
     }
 
-    public class ClickVideoEvent {
+    /*public class ClickVideoEvent {
         private Movie movie;
         private int position;
 
@@ -91,6 +91,25 @@ public class EventBusData {
         ClickVideoEvent clickVideoEvent = new ClickVideoEvent();
         clickVideoEvent.setMovie(movie);
         clickVideoEvent.setPosition(position);
+        EventBus.getDefault().post(clickVideoEvent);
+    }*/
+
+
+    public class ClickVideoEvent {
+        private String entityId;
+
+        public String getEntityId() {
+            return entityId;
+        }
+
+        public void setEntityId(String entityId) {
+            this.entityId = entityId;
+        }
+    }
+
+    public void sendClickVideoEvent(String entityId) {
+        ClickVideoEvent clickVideoEvent = new ClickVideoEvent();
+        clickVideoEvent.setEntityId(entityId);
         EventBus.getDefault().post(clickVideoEvent);
     }
 }

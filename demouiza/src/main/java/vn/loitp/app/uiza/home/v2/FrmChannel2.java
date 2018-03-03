@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.pedrovgs.DraggablePanel;
-import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -271,7 +270,7 @@ public class FrmChannel2 extends BaseFragment {
         }
         Movie movie = new Movie();
         movie.setTitle("fuck");
-        EventBusData.getInstance().sendClickVideoEvent(movie, position);
+        EventBusData.getInstance().sendClickVideoEvent(item.getId());
     }
 
     private InputModel createInputModel(Item item) {

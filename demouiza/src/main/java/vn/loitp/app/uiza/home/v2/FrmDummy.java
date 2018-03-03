@@ -53,7 +53,7 @@ public class FrmDummy extends BaseFragment {
     public void onMessageEvent(EventBusData.ClickVideoEvent clickVideoEvent) {
         LLog.d(TAG, TAG + " clickVideoEvent");
         if (clickVideoEvent != null) {
-            tv.setText(clickVideoEvent.getPosition() + " - " + clickVideoEvent.getMovie().getTitle());
+            tv.setText(clickVideoEvent.getEntityId());
         }
     }
 
