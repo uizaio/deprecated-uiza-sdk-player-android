@@ -30,8 +30,12 @@ import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
 
 public class UizaPlayerActivity extends BaseActivity {
     private InputModel inputModel;
@@ -50,17 +54,49 @@ public class UizaPlayerActivity extends BaseActivity {
 
         updateUIStatusNavigationBar(true);
 
+        String entityId = getIntent().getStringExtra(KEY_UIZA_ENTITY_ID);
+        String entityCover = getIntent().getStringExtra(KEY_UIZA_ENTITY_COVER);
+        LLog.d(TAG, "entityId " + entityId);
+        if (entityId == null || entityId.isEmpty()) {
+            showDialogError("entityId == null || entityId.isEmpty()");
+            return;
+        }
+
         RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
-        inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
+        /*inputModel = (InputModel) getIntent().getSerializableExtra(Constants.KEY_UIZA_PLAYER);
         if (inputModel == null) {
             showDialogError("Error inputModel == null");
             return;
-        }
-        //orientVideoDescriptionFragment(getResources().getConfiguration().orientation);
+        }*/
 
+        inputModel = createInputModel(entityId, entityCover);
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
+    }
+
+    private InputModel createInputModel(String entityId, String entityCover) {
+        InputModel inputModel = new InputModel();
+        inputModel.setEntityID(entityId);
+
+        if (entityCover == null || entityCover.isEmpty()) {
+            inputModel.setUrlImg(Constants.URL_IMG_9x16);
+        } else {
+            inputModel.setUrlImg(Constants.PREFIXS + entityCover);
+        }
+
+        inputModel.setExtension("mpd");
+        //inputModel.setDrmLicenseUrl("");
+        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
+        inputModel.setPreferExtensionDecoders(false);
+
+        //TODO remove this code below
+        //inputModel.setUri("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
+        //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
+        //inputModel.setUri("http://cdn-broadcast.yuptv.vn/ba_dash/0c45905848ca4ec99d2ed7c11bc8f8ad-a1556c60605a4fe4a1a22eafb4e89b44/index.mpd");
+
+        //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
+        return inputModel;
     }
 
     private void initContainerVideo() {
@@ -171,11 +207,11 @@ public class UizaPlayerActivity extends BaseActivity {
 
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
-    public void updateUIStatusNavigationBar(boolean isShow){
+    public void updateUIStatusNavigationBar(boolean isShow) {
         UizaScreenUtil.hideNavBar(getWindow().getDecorView());
-        if(isShow){
+        if (isShow) {
             UizaScreenUtil.showStatusBar(activity);
-        }else{
+        } else {
             UizaScreenUtil.hideStatusBar(activity);
         }
     }

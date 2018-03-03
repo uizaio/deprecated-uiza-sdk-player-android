@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.common.Constants;
 import vn.loitp.app.data.EventBusData;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
@@ -310,7 +310,7 @@ public class FrmChannel2 extends BaseFragment {
             inputModel.setUrlImg(Constants.PREFIXS + item.getThumbnail());
         }
 
-        inputModel.setTitle(item.getName());
+        /*inputModel.setTitle(item.getName());
         inputModel.setTime("2015");
         inputModel.setDuration("2h 13min");
         inputModel.setRate(13);
@@ -323,7 +323,8 @@ public class FrmChannel2 extends BaseFragment {
                 "Có thể nói trong các tiểu thuyết viết về \"nhân tình thế thái\" (nói gọn là \"thế tình\", tức \"tình đời\") ở Trung Quốc, thì đây là truyện có tiếng nhất, đã khiến cho nhiều người bàn luận [4].");
         inputModel.setStarring("Tom Holland, Michael Keaton, Robert Downey Jr.");
         inputModel.setDirector("Jon Watts");
-        inputModel.setGenres("Action, Adventure, Sci-Fi");
+        inputModel.setGenres("Action, Adventure, Sci-Fi");*/
+
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");
         inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);

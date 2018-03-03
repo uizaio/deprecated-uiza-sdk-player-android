@@ -1,12 +1,12 @@
 
 package vn.loitp.app.uiza.home.model;
 
-import vn.loitp.app.common.Constants;
-
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import vn.loitp.core.common.Constants;
 
 public class Item {
 

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import vn.loitp.app.activity.demo.video.videodemo5.VideoDemo5Activity;
 import vn.loitp.app.activity.demo.video.videodemo5.model.Sample;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.common.Constants;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
