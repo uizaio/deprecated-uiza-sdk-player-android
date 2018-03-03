@@ -13,6 +13,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
@@ -32,11 +33,13 @@ public class FrmUizaVideoInfo extends BaseFragment {
     private TextView tvVideoStarring;
     private TextView tvVideoDirector;
     private TextView tvVideoGenres;
+    private TextView tvDebug;
 
     private InputModel mInputModel;
     private Item mItem;
 
     private PlaceHolderView placeHolderView;
+    //private NestedScrollView nestedScrollView;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -51,10 +54,8 @@ public class FrmUizaVideoInfo extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
-
-        NestedScrollView nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
-        LUIUtil.setPullLikeIOSVertical(nestedScrollView);
-
+        //nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
+        //nestedScrollView.setNestedScrollingEnabled(false);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
 
@@ -65,6 +66,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
         tvVideoStarring = (TextView) view.findViewById(R.id.tv_video_starring);
         tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
         tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
+        tvDebug = (TextView) view.findViewById(R.id.tv_debug);
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
@@ -121,12 +123,18 @@ public class FrmUizaVideoInfo extends BaseFragment {
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        LUIUtil.setPullLikeIOSVertical(placeHolderView);
+        LUIUtil.setPullLikeIOSHorizontal(placeHolderView);
+        //LUIUtil.setPullLikeIOSVertical(nestedScrollView);
 
         getListAllEntityRelation();
+
+        if (Constants.IS_DEBUG) {
+            tvDebug.setVisibility(View.VISIBLE);
+            LUIUtil.printBeautyJson(mInputModel, tvDebug);
+        }
     }
 
-    private void getListAllEntityRelation(){
+    private void getListAllEntityRelation() {
         //TODO http://dev-api.uiza.io/resource/index.html#api-Entity-List_All_Entity_Relation
         LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
             @Override

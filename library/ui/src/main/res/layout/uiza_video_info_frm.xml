@@ -137,6 +137,15 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_debug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:textColor="@color/info_video_description"
+                android:textSize="@dimen/txt_10"
+                android:visibility="gone" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_55"
