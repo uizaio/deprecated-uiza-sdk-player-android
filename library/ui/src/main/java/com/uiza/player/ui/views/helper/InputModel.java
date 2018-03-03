@@ -16,18 +16,19 @@ import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 
 public class InputModel implements Serializable {
     private String entityID;
+    private GetDetailEntity getDetailEntity;
+    //private EntityInfo entityInfo;
+    private String adTagUri;
+
     private UUID drmSchemeUuid;
     private String drmLicenseUrl;
     private String[] keyRequestPropertiesArray;
     private Boolean preferExtensionDecoders;
     private String action;
     private String uri;
-    private GetDetailEntity getDetailEntity;
-    //private EntityInfo entityInfo;
     private String extension;
     private String[] uriStrings;
     private String[] extensionList;
-    private String adTagUri;
     private List<Playlist> playlist = null;
 
     public UUID getDrmSchemeUuid() {
