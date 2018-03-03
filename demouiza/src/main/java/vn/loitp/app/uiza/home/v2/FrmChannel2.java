@@ -33,7 +33,8 @@ import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.views.placeholderview.lib.placeholderview.InfinitePlaceHolderView;
+import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -43,12 +44,22 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 public class FrmChannel2 extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
-    private InfinitePlaceHolderView infinitePlaceHolderView;
+    private PlaceHolderView placeHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
+    private DraggablePanel draggablePanel;
 
     private final int NUMBER_OF_COLUMN = 2;
+    private final int NUMBER_OF_COLUMN_1 = 1;
+    private final int NUMBER_OF_COLUMN_2 = 2;
+    private final int POSITION_OF_LOADING_REFRESH = 2;
 
-    private DraggablePanel draggablePanel;
+    private boolean isRefreshing;
+    private boolean isLoadMoreCalling;
+    private final int limit = 15;
+    private int page = 0;
+    private int totalPage = Integer.MAX_VALUE;
+    private final String orderBy = "name";
+    private final String orderType = "ASC";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -66,18 +77,18 @@ public class FrmChannel2 extends BaseFragment {
         tv = (TextView) view.findViewById(R.id.tv);
         tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
 
-        infinitePlaceHolderView = (InfinitePlaceHolderView) view.findViewById(R.id.place_holder_view);
+        placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
-        infinitePlaceHolderView.getBuilder()
+        placeHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
                 .setLayoutManager(new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN));
-        LUIUtil.setPullLikeIOSVertical(infinitePlaceHolderView);
+        LUIUtil.setPullLikeIOSVertical(placeHolderView);
 
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
 
-        getData();
+        getData(false);
 
         draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
         /*draggablePanel.setDraggableListener(new DraggableListener() {
@@ -124,7 +135,7 @@ public class FrmChannel2 extends BaseFragment {
     private void setupData(List<Item> itemList) {
         /*//poster
         List<Item> itemListPoster = getSubList(itemList, 0, 5);
-        infinitePlaceHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
+        placeHolderView.addView(new PosterView(getActivity(), itemListPoster, new PosterView.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -136,7 +147,7 @@ public class FrmChannel2 extends BaseFragment {
         channelObjectTopMovies.setChannelName("Top Movies");
         List<Item> itemListTopMovies = getSubList(itemList, 6, 15);
         channelObjectTopMovies.setItemList(itemListTopMovies);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
+        placeHolderView.addView(new ChannelList(getActivity(), channelObjectTopMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -148,7 +159,7 @@ public class FrmChannel2 extends BaseFragment {
         channelObjectNewestMovies.setChannelName("Newest Movies");
         List<Item> itemListNewestMovies = getSubList(itemList, 16, itemList.size() - 1);
         channelObjectNewestMovies.setItemList(itemListNewestMovies);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
+        placeHolderView.addView(new ChannelList(getActivity(), channelObjectNewestMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -159,7 +170,7 @@ public class FrmChannel2 extends BaseFragment {
         ChannelObject channelObjectAllMovies = new ChannelObject();
         channelObjectAllMovies.setChannelName("All Movies");
         channelObjectAllMovies.setItemList(itemList);
-        infinitePlaceHolderView.addView(new ChannelList(getActivity(), channelObjectAllMovies, new ChannelItem.Callback() {
+        placeHolderView.addView(new ChannelList(getActivity(), channelObjectAllMovies, new ChannelItem.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 onClickVideo(item, position);
@@ -171,7 +182,7 @@ public class FrmChannel2 extends BaseFragment {
 
         addBlankView();
         for (Item item : itemList) {
-            infinitePlaceHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
+            placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
@@ -182,9 +193,13 @@ public class FrmChannel2 extends BaseFragment {
         avLoadingIndicatorView.smoothToHide();
     }
 
+    private int getListSize() {
+        return placeHolderView.getAllViewResolvers().size();
+    }
+
     private void addBlankView() {
         for (int i = 0; i < NUMBER_OF_COLUMN; i++) {
-            infinitePlaceHolderView.addView(new BlankView());
+            placeHolderView.addView(new BlankView());
         }
     }
 
@@ -280,16 +295,35 @@ public class FrmChannel2 extends BaseFragment {
         return inputModel;
     }
 
-    private void getData() {
-        LLog.d(TAG, ">>>getData");
+    private void getData(boolean isCallFromLoadMore) {
+        LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
+
+        if (page >= totalPage) {
+            LLog.d(TAG, "page >= totalPage -> return");
+            ToastUtils.showShort("This is last page");
+            placeHolderView.removeView(getListSize() - 1);//remove loading view
+            if (isCallFromLoadMore) {
+                isLoadMoreCalling = false;
+            }
+            return;
+        }
+
+        ToastUtils.showShort("getData page " + page);
+
         UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
         List<String> metadataId = new ArrayList<>();
         metadataId.add(HomeData.getInstance().getItem().getId());
         jsonBody.setMetadataId(metadataId);
+        jsonBody.setLimit(limit);
+        jsonBody.setPage(page);
+        jsonBody.setOrderBy(orderBy);
+        jsonBody.setOrderType(orderType);
+        LLog.d(TAG, "jsonBody " + LSApplication.getInstance().getGson().toJson(jsonBody));
+        LLog.d(TAG, "<<<<<<<<<<<<<<<<<<<<<<<<");
 
-        /*subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
+        subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
@@ -312,7 +346,7 @@ public class FrmChannel2 extends BaseFragment {
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
                 handleException(e);
             }
-        });*/
+        });
     }
 
     private void initializeDraggablePanel() throws Resources.NotFoundException {

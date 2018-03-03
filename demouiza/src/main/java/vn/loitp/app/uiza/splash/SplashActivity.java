@@ -8,6 +8,7 @@ import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.v1.HomeActivity;
+import vn.loitp.app.uiza.home.v2.Home2Activity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LDateUtils;
 import vn.loitp.core.utilities.LLog;
@@ -94,10 +95,10 @@ public class SplashActivity extends BaseActivity {
         UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
 
         //v1
-        Intent intent = new Intent(activity, HomeActivity.class);
+        //Intent intent = new Intent(activity, HomeActivity.class);
 
         //v2
-        //Intent intent = new Intent(activity, Home2Activity.class);
+        Intent intent = new Intent(activity, Home2Activity.class);
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
         finish();
