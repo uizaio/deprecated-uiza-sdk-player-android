@@ -267,6 +267,7 @@ public class FrmChannel2 extends BaseFragment {
             }
         } else {
             //TODO load new video
+            LLog.d(TAG, "load new video");
         }
         Movie movie = new Movie();
         movie.setTitle("fuck");
@@ -387,8 +388,8 @@ public class FrmChannel2 extends BaseFragment {
         FrmTop frmTop = new FrmTop();
         FrmBottom frmBottom = new FrmBottom();
         draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
-        draggablePanel.setTopFragment(frmTop);
-        draggablePanel.setBottomFragment(frmBottom);
+        draggablePanel.setTopFragment(new FrmDummy());
+        draggablePanel.setBottomFragment(new FrmDummy());
 
         //draggablePanel.setXScaleFactor(xScaleFactor);
         //draggablePanel.setYScaleFactor(yScaleFactor);

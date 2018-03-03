@@ -30,6 +30,7 @@ import vn.loitp.uiza.R;
 
 public class FrmDummy extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
+    private TextView tv;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -43,9 +44,28 @@ public class FrmDummy extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frm_bottom, container, false);
-
-
+        View view = inflater.inflate(R.layout.frm_dummy, container, false);
+        tv = (TextView) view.findViewById(R.id.tv);
         return view;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventBusData.ClickVideoEvent clickVideoEvent) {
+        LLog.d(TAG, TAG + " clickVideoEvent");
+        if (clickVideoEvent != null) {
+            tv.setText(clickVideoEvent.getPosition() + " - " + clickVideoEvent.getMovie().getTitle());
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }
