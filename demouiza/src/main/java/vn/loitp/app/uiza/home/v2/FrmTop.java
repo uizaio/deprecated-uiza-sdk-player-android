@@ -266,9 +266,9 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     public void initializePlayer() {
         if (inputModel == null) {
-            ToastUtils.showShort("initializePlayer inputModel == null return");
+            //ToastUtils.showShort("initializePlayer inputModel == null return");
+            LLog.d(TAG, "initializePlayer inputModel == null return");
             return;
-            //inputModel = UizaData.getInstance().getInputModel();
         }
         if (inputModel.getUri() == null) {
             LLog.d(TAG, "inputModel.getUri() == null -> return");
