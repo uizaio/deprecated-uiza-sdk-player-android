@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -24,8 +23,6 @@ import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
-import vn.loitp.core.utilities.LAnimationUtil;
-import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
