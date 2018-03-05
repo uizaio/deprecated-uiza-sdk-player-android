@@ -26,6 +26,7 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
@@ -439,7 +440,13 @@ public class FrmChannel2 extends BaseFragment {
 
         //draggablePanel.setXScaleFactor(xScaleFactor);
         //draggablePanel.setYScaleFactor(yScaleFactor);
-        draggablePanel.setTopViewHeight(800);//px
+
+        int widthScreen = LDisplayUtils.getScreenW(getActivity());
+        LLog.d(TAG, "widthScreen " + widthScreen);
+        int heightFrmTop = widthScreen * 9 / 16;
+        LLog.d(TAG, "heightFrmTop " + heightFrmTop);
+
+        draggablePanel.setTopViewHeight(heightFrmTop);//px
         draggablePanel.setEnableHorizontalAlphaEffect(false);
         //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
         //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
