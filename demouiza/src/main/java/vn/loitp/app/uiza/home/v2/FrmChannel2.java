@@ -106,8 +106,7 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onUpOrLeftRefresh(float offset) {
                 LLog.d(TAG, "onUpOrLeftRefresh");
-                //TODO
-                //swipeToRefresh();
+                swipeToRefresh();
             }
 
             @Override
@@ -118,9 +117,7 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
-
-                //TODO
-                //loadMore();
+                loadMore();
             }
         });
 
@@ -367,7 +364,11 @@ public class FrmChannel2 extends BaseFragment {
                     LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
                         @Override
                         public void onClick() {
-                            getActivity().onBackPressed();
+                            if (!isCallFromLoadMore) {
+                                avLoadingIndicatorView.smoothToHide();
+                            } else {
+                                isLoadMoreCalling = false;
+                            }
                         }
                     });
                 } else {
