@@ -115,19 +115,40 @@
 
                 <ImageButton
                     android:id="@id/exo_play"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_play_arrow_black_48dp"
+                    android:tint="@color/White" />
+
+                <!--<ImageButton
+                    android:id="@id/exo_play"
                     style="@style/ExoMediaButton.Play"
                     android:contentDescription="@string/app_name"
-                    android:tint="@color/White" />
+                    android:tint="@color/White" />-->
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <ImageButton
+                <!--<ImageButton
                     android:id="@id/exo_prev"
                     style="@style/ExoMediaButton.Previous"
                     android:contentDescription="@string/app_name"
+                    android:visibility="gone" />-->
+
+                <ImageButton
+                    android:id="@id/exo_prev"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_fast_rewind_black_48dp"
+                    android:tint="@color/White"
                     android:visibility="gone" />
 
                 <TextView
@@ -139,20 +160,50 @@
                     android:textColor="@color/White"
                     android:textSize="@dimen/txt_8" />
 
-                <ImageButton
+                <!--<ImageButton
                     android:id="@id/exo_rew"
                     style="@style/ExoMediaButton.Rewind"
-                    android:contentDescription="@string/app_name" />
+                    android:contentDescription="@string/app_name" />-->
+
+                <ImageButton
+                    android:id="@id/exo_rew"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_fast_rewind_black_48dp"
+                    android:tint="@color/White" />
+
+                <!--<ImageButton
+                    android:id="@id/exo_repeat_toggle"
+                    style="@style/ExoMediaButton"
+                    android:contentDescription="@string/app_name" />-->
 
                 <ImageButton
                     android:id="@id/exo_repeat_toggle"
-                    style="@style/ExoMediaButton"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_fast_rewind_black_48dp"
+                    android:tint="@color/White" />
+
+                <!--<ImageButton
+                    android:id="@id/exo_ffwd"
+                    style="@style/ExoMediaButton.FastForward"
+                    android:contentDescription="@string/app_name" />-->
 
                 <ImageButton
                     android:id="@id/exo_ffwd"
-                    style="@style/ExoMediaButton.FastForward"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_fast_forward_black_48dp"
+                    android:tint="@color/White" />
 
                 <TextView
                     android:id="@+id/tv_ffwd_num"
@@ -163,40 +214,105 @@
                     android:textColor="@color/White"
                     android:textSize="@dimen/txt_8" />
 
-                <ImageButton
+                <!--<ImageButton
                     android:id="@id/exo_next"
                     style="@style/ExoMediaButton.Next"
                     android:contentDescription="@string/app_name"
-                    android:visibility="gone" />
+                    android:visibility="gone" />-->
 
                 <ImageButton
+                    android:id="@id/exo_next"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_skip_next_black_48dp"
+                    android:tint="@color/White"
+                    android:visibility="gone" />
+
+                <!--<ImageButton
                     android:id="@id/exo_question"
                     style="@style/ExoMediaButton.Question"
                     android:contentDescription="@string/app_name"
-                    android:visibility="gone" />
+                    android:visibility="gone" />-->
 
                 <ImageButton
+                    android:id="@id/exo_question"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_help_outline_black_48dp"
+                    android:tint="@color/White"
+                    android:visibility="gone" />
+
+                <!--<ImageButton
                     android:id="@id/exo_playlist"
                     style="@style/ExoMediaButton.Playlist"
                     android:contentDescription="@string/app_name"
-                    android:visibility="gone" />
+                    android:visibility="gone" />-->
 
                 <ImageButton
+                    android:id="@id/exo_playlist"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_playlist_play_black_48dp"
+                    android:tint="@color/White"
+                    android:visibility="gone" />
+
+                <!--<ImageButton
                     android:id="@id/exo_language"
                     style="@style/ExoMediaButton.Language"
                     android:contentDescription="@string/app_name"
-                    android:visibility="gone" />
+                    android:visibility="gone" />-->
 
                 <ImageButton
+                    android:id="@id/exo_language"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_explicit_black_48dp"
+                    android:tint="@color/White"
+                    android:visibility="gone" />
+
+                <!--<ImageButton
                     android:id="@id/exo_setting"
                     style="@style/ExoMediaButton.Setting"
                     android:contentDescription="@string/app_name"
+                    android:visibility="gone" />-->
+
+                <ImageButton
+                    android:id="@id/exo_setting"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_settings_black_48dp"
+                    android:tint="@color/White"
                     android:visibility="gone" />
+
+                <!--<ImageButton
+                    android:id="@id/exo_fullscreen"
+                    style="@style/ExoMediaButton.Fullscreen"
+                    android:contentDescription="@string/app_name" />-->
 
                 <ImageButton
                     android:id="@id/exo_fullscreen"
-                    style="@style/ExoMediaButton.Fullscreen"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_fullscreen_black_48dp"
+                    android:tint="@color/White" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
