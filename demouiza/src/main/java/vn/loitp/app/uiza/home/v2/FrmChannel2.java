@@ -144,20 +144,25 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onClosedToLeft() {
                 LLog.d(TAG, "draggablePanel onClosedToLeft");
-                if (frmTop == null) {
-                    LLog.d(TAG, "draggablePanel frmTop == null");
-                } else {
-                    LLog.d(TAG, "draggablePanel frmTop != null");
-                    frmTop.releasePlayer();
-                }
+                releasePlayer();
             }
 
             @Override
             public void onClosedToRight() {
                 LLog.d(TAG, "draggablePanel onClosedToRight");
+                releasePlayer();
             }
         });
         return view;
+    }
+
+    private void releasePlayer() {
+        if (frmTop == null) {
+            LLog.d(TAG, "draggablePanel frmTop == null");
+        } else {
+            LLog.d(TAG, "draggablePanel frmTop != null");
+            frmTop.releasePlayer();
+        }
     }
 
     /*private List<Item> getSubList(List<Item> itemList, int startIndex, int endIndex) {
