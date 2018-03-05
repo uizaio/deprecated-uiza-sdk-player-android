@@ -21,6 +21,7 @@ import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
@@ -213,5 +214,16 @@ public class Home2Activity extends BaseActivity {
         //init data first
         HomeData.getInstance().setItem(itemList.get(0));
         replaceFragment(new FrmChannel2());
+    }
+
+    @Override
+    public void onBackPressed() {
+        LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+            @Override
+            public void onClick() {
+                finish();
+                LUIUtil.transActivityFadeIn(activity);
+            }
+        });
     }
 }
