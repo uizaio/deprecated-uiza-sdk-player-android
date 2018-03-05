@@ -53,7 +53,7 @@
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="log_in">Log in</string>
     <string name="noti">Warning</string>
-    <string name="empty_list">No data</string>
+    <string name="empty_list">Không có dữ liệu</string>
     <string name="confirm">Confirm</string>
     <string name="open_drawer">open_drawer</string>
     <string name="close_drawer">close_drawer</string>

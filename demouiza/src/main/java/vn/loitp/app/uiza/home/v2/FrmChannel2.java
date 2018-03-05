@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -23,6 +24,7 @@ import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
@@ -45,6 +47,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 public class FrmChannel2 extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
+    private TextView tvMsg;
     private PlaceHolderView placeHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
     private DraggablePanel draggablePanel;
@@ -76,6 +79,7 @@ public class FrmChannel2 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_frm_channel_2, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
+        tvMsg = (TextView) view.findViewById(R.id.tv_msg);
         tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
@@ -323,6 +327,9 @@ public class FrmChannel2 extends BaseFragment {
         }
 
         ToastUtils.showShort("getData page " + page);
+        if (tvMsg.getVisibility() != View.GONE) {
+            tvMsg.setVisibility(View.GONE);
+        }
 
         UizaService service = RestClient.createService(UizaService.class);
 
@@ -361,16 +368,15 @@ public class FrmChannel2 extends BaseFragment {
                 }
                 List<Item> itemList = listAllEntity.getItems();
                 if (itemList == null || itemList.isEmpty()) {
-                    LDialogUtil.showOne(getActivity(), getString(R.string.noti), getString(R.string.empty_list), getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
-                        @Override
-                        public void onClick() {
-                            if (!isCallFromLoadMore) {
-                                avLoadingIndicatorView.smoothToHide();
-                            } else {
-                                isLoadMoreCalling = false;
-                            }
-                        }
-                    });
+                    if (tvMsg.getVisibility() != View.VISIBLE) {
+                        tvMsg.setVisibility(View.VISIBLE);
+                        tvMsg.setText(getString(R.string.empty_list));
+                    }
+                    if (!isCallFromLoadMore) {
+                        avLoadingIndicatorView.smoothToHide();
+                    } else {
+                        isLoadMoreCalling = false;
+                    }
                 } else {
                     setupData(itemList, isCallFromLoadMore);
                 }
@@ -379,7 +385,13 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onFail(Throwable e) {
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
-                handleException(e);
+                //handleException(e);
+                if (tvMsg.getVisibility() != View.VISIBLE) {
+                    tvMsg.setVisibility(View.VISIBLE);
+                    if (e != null && e.getMessage() != null) {
+                        tvMsg.setText(e.getMessage());
+                    }
+                }
             }
         });
     }
