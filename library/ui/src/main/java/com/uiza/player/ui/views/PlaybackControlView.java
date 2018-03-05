@@ -305,7 +305,7 @@ public class PlaybackControlView extends FrameLayout {
     private final ImageButton languageButton;
     private final ImageButton settingButton;
     private final ImageButton fullscreenButton;
-    private final ImageView exitButton;
+    private final ImageButton exitButton;
 
     private final ImageView repeatToggleButton;
     private final TextView tvDuration;
@@ -508,7 +508,7 @@ public class PlaybackControlView extends FrameLayout {
         if (fullscreenButton != null) {
             fullscreenButton.setOnClickListener(componentListener);
         }
-        exitButton = (ImageView) findViewById(R.id.exo_exit);
+        exitButton = (ImageButton) findViewById(R.id.exo_exit);
         if (exitButton != null) {
             exitButton.setOnClickListener(componentListener);
         }

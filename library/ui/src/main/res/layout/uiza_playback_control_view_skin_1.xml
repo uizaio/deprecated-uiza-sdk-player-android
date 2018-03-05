@@ -13,13 +13,14 @@
         android:orientation="horizontal"
         android:visibility="invisible">
 
-        <ImageView
+        <ImageButton
             android:id="@id/exo_exit"
             android:layout_width="@dimen/size_icon"
             android:layout_height="@dimen/size_icon"
+            android:background="@color/transparent"
             android:contentDescription="@string/app_name"
-            android:padding="@dimen/padding_5"
-            android:src="@drawable/ic_arrow_left" />
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_keyboard_backspace_black_48dp" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -104,8 +105,12 @@
 
                 <ImageButton
                     android:id="@id/exo_pause"
-                    style="@style/ExoMediaButton.Pause"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
                     android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_pause_white_48dp"
                     android:tint="@color/White" />
 
                 <ImageButton

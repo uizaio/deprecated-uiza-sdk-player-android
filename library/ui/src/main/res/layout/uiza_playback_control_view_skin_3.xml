@@ -14,10 +14,12 @@
         android:orientation="horizontal"
         android:visibility="invisible">
 
-        <ImageView
+        <ImageButton
             android:id="@id/exo_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size_icon"
+            android:layout_height="@dimen/size_icon"
+            android:background="@color/transparent"
+            android:contentDescription="@string/app_name"
             android:padding="@dimen/padding_5"
             android:src="@drawable/ic_arrow_left" />
 
