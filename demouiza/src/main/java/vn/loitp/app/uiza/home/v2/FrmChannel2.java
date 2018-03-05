@@ -266,8 +266,6 @@ public class FrmChannel2 extends BaseFragment {
             //TODO load new video
             LLog.d(TAG, "load new video");
         }
-        Movie movie = new Movie();
-        movie.setTitle("fuck");
         EventBusData.getInstance().sendClickVideoEvent(item.getId());
     }
 

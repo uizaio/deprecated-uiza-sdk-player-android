@@ -2,8 +2,6 @@ package vn.loitp.app.data;
 
 import org.greenrobot.eventbus.EventBus;
 
-import vn.loitp.app.uiza.home.v2.Movie;
-
 /**
  * Created by www.muathu@gmail.com on 10/21/2017.
  */
