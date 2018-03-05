@@ -387,6 +387,11 @@ public class FrmChannel2 extends BaseFragment {
                         tvMsg.setText(e.getMessage());
                     }
                 }
+                if (!isCallFromLoadMore) {
+                    avLoadingIndicatorView.smoothToHide();
+                } else {
+                    isLoadMoreCalling = false;
+                }
             }
         });
     }

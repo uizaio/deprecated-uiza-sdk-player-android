@@ -15,6 +15,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.data.EventBusData;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
@@ -198,7 +199,7 @@ public class FrmBottom extends BaseFragment {
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
-                //LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + LSApplication.getInstance().getGson().toJson(getDetailEntity));
                 /*if (getDetailEntity != null) {
                     UizaData.getInstance().setDetailEntity(getDetailEntity);
                 } else {
