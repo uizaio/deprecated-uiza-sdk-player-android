@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/w_1"
                     android:layout_centerVertical="true"
-                    android:background="@color/black_33" />
+                    android:background="@color/black_65" />
 
                 <View
                     android:layout_width="@dimen/w_30"
