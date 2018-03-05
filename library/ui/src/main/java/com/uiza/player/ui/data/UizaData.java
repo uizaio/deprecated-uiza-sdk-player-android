@@ -128,9 +128,9 @@ public class UizaData {
     private PlayerConfig playerConfig;
 
     public PlayerConfig getPlayerConfig() {
-        if (playerConfig == null) {
+        /*if (playerConfig == null) {
             throw new NullPointerException("Error playerConfig null");
-        }
+        }*/
         return playerConfig;
     }
 

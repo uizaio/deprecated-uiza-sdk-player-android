@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.pedrovgs.DraggablePanel;
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -28,6 +29,7 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
@@ -36,6 +38,10 @@ import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -266,33 +272,65 @@ public class FrmChannel2 extends BaseFragment {
             //TODO load new video
             LLog.d(TAG, "load new video");
         }
+        onClick(item.getId(), item.getThumbnail(), item.getName());
         EventBusData.getInstance().sendClickVideoEvent(item.getId());
     }
 
-    private InputModel createInputModel(Item item) {
-        InputModel inputModel = new InputModel();
-        inputModel.setEntityID(item.getId() + "");
-
-        if (item.getThumbnail() == null || item.getThumbnail().isEmpty()) {
-            inputModel.setUrlImg(Constants.URL_IMG_16x9);
-        } else {
-            inputModel.setUrlImg(Constants.PREFIXS + item.getThumbnail());
+    private void onClick(String entityId, String entityCover, String entityTitle) {
+        LLog.d(TAG, "entityId " + entityId);
+        if (entityId == null || entityId.isEmpty()) {
+            showDialogError("entityId == null || entityId.isEmpty()");
+            return;
         }
 
-        /*inputModel.setTitle(item.getName());
-        inputModel.setTime("2015");
-        inputModel.setDuration("2h 13min");
-        inputModel.setRate(13);
-        inputModel.setDescription("Kim Bình Mai (金瓶梅, Jīnpíngméi), tên đầy đủ là Kim Bình Mai từ thoại (Truyện kể có xen thi từ về Kim Bình Mai); là bộ tiểu thuyết dài gồm 100 hồi [1] của Trung Quốc.\n" +
-                "\n" +
-                "Đây là \"bộ truyện dài đầu tiên mà cốt truyện hoàn toàn là hư cấu sáng tạo của một cá nhân\". Trước đó, các truyện kể đều dựa ít nhiều vào sử sách hoặc truyện kể dân gian, và đều là sự chắp nối công công sức của nhiều người[2]. Tên truyện do tên ba nhân vật nữ là Phan Kim Liên, Lý Bình Nhi và Bàng Xuân Mai mà thành.\n" +
-                "\n" +
-                "Theo một số nhà nghiên cứu văn học, thì tác giả là một người ở Sơn Đông không rõ họ tên, có bút hiệu là Tiếu Tiếu Sinh (có nghĩa là \"Ông thầy cười\") [3].\n" +
-                "\n" +
-                "Có thể nói trong các tiểu thuyết viết về \"nhân tình thế thái\" (nói gọn là \"thế tình\", tức \"tình đời\") ở Trung Quốc, thì đây là truyện có tiếng nhất, đã khiến cho nhiều người bàn luận [4].");
-        inputModel.setStarring("Tom Holland, Michael Keaton, Robert Downey Jr.");
-        inputModel.setDirector("Jon Watts");
-        inputModel.setGenres("Action, Adventure, Sci-Fi");*/
+        RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
+        getPlayerConfig(entityId, entityCover, entityTitle);
+
+        //inputModel = createInputModel(entityId, entityCover, entityTitle);
+        //UizaData.getInstance().setInputModel(inputModel);
+    }
+
+    private InputModel inputModel;
+
+    private void getPlayerConfig(String entityId, String entityCover, String entityTitle) {
+        LLog.d(TAG, ">>>getPlayerConfig");
+        if (UizaData.getInstance().getPlayerConfig() == null) {
+            LLog.d(TAG, "UizaData.getInstance().getPlayerConfig() == null");
+            UizaService service = RestClient.createService(UizaService.class);
+            subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
+                @Override
+                public void onSuccess(PlayerConfig playerConfig) {
+                    //TODO custom theme
+                    LLog.d(TAG, "getPlayerConfig onSuccess " + LSApplication.getInstance().getGson().toJson(playerConfig));
+                    UizaData.getInstance().setPlayerConfig(playerConfig);
+
+                    inputModel = createInputModel(entityId, entityCover, entityTitle);
+                    UizaData.getInstance().setInputModel(inputModel);
+                }
+
+                @Override
+                public void onFail(Throwable e) {
+                    LLog.e(TAG, "getPlayerConfig onFail " + e.toString());
+                    handleException(e);
+                }
+            });
+        } else {
+            LLog.d(TAG, "UizaData.getInstance().getPlayerConfig() != null -> play new");
+            inputModel = createInputModel(entityId, entityCover, entityTitle);
+            UizaData.getInstance().setInputModel(inputModel);
+        }
+    }
+
+    private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
+        InputModel inputModel = new InputModel();
+        inputModel.setEntityID(entityId);
+
+        if (entityCover == null || entityCover.isEmpty()) {
+            inputModel.setUrlImg(Constants.URL_IMG_9x16);
+        } else {
+            inputModel.setUrlImg(Constants.PREFIXS + entityCover);
+        }
+        inputModel.setTitle(entityTitle + "");
 
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");
@@ -400,7 +438,7 @@ public class FrmChannel2 extends BaseFragment {
         FrmTop frmTop = new FrmTop();
         FrmBottom frmBottom = new FrmBottom();
         draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
-        draggablePanel.setTopFragment(new FrmDummy());
+        draggablePanel.setTopFragment(frmTop);
         draggablePanel.setBottomFragment(frmBottom);
 
         //draggablePanel.setXScaleFactor(xScaleFactor);
