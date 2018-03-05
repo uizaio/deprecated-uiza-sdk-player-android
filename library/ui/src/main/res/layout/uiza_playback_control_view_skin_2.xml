@@ -239,7 +239,6 @@
         <ImageButton
             android:id="@id/exo_play"
             android:layout_width="@dimen/w_80"
-            android:padding="@dimen/padding_15"
             android:layout_height="@dimen/w_80"
             android:background="@color/transparent"
             android:contentDescription="@string/app_name"
