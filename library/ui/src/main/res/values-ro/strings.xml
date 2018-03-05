@@ -15,13 +15,7 @@
      limitations under the License.
 -->
 <resources>
-  <string name="exo_controls_previous_description">"Melodia anterioară"</string>
-  <string name="exo_controls_next_description">"Melodia următoare"</string>
-  <string name="exo_controls_pause_description">"Pauză"</string>
-  <string name="exo_controls_play_description">"Redați"</string>
-    <string name="exo_controls_rewind_description">"Derulați"</string>
-  <string name="exo_controls_fastforward_description">"Derulați rapid înainte"</string>
-  <string name="exo_controls_repeat_all_description">"Repetați toate"</string>
+    <string name="exo_controls_repeat_all_description">"Repetați toate"</string>
   <string name="exo_controls_repeat_off_description">"Repetați niciuna"</string>
   <string name="exo_controls_repeat_one_description">"Repetați unul"</string>
 </resources>
