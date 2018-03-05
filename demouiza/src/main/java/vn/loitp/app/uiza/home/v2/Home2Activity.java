@@ -54,7 +54,7 @@ public class Home2Activity extends BaseActivity {
 
     @Override
     protected boolean setFullScreen() {
-        return true;
+        return false;
     }
 
     @Override
@@ -212,7 +212,7 @@ public class Home2Activity extends BaseActivity {
         }
 
         //init data first
-        HomeData.getInstance().setItem(itemList.get(0));
+        HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
         replaceFragment(new FrmChannel2());
     }
 
