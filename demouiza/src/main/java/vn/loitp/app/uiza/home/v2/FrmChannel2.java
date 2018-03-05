@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.pedrovgs.DraggableListener;
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
@@ -129,33 +130,27 @@ public class FrmChannel2 extends BaseFragment {
         avLoadingIndicatorView.smoothToShow();
 
         getData(false);
-        /*draggablePanel.setDraggableListener(new DraggableListener() {
+        draggablePanel.setDraggableListener(new DraggableListener() {
             @Override
             public void onMaximized() {
                 LLog.d(TAG, "draggablePanel onMaximized");
-                updateViewActionBarAndDrawerNavigation(false);
             }
 
             @Override
             public void onMinimized() {
                 LLog.d(TAG, "draggablePanel onMinimized");
-                updateViewActionBarAndDrawerNavigation(true);
             }
 
             @Override
             public void onClosedToLeft() {
                 LLog.d(TAG, "draggablePanel onClosedToLeft");
-                updateViewActionBarAndDrawerNavigation(true);
             }
 
             @Override
             public void onClosedToRight() {
                 LLog.d(TAG, "draggablePanel onClosedToRight");
-                updateViewActionBarAndDrawerNavigation(true);
             }
-        });*/
-
-        //initializeDraggablePanel();
+        });
         return view;
     }
 
@@ -252,21 +247,12 @@ public class FrmChannel2 extends BaseFragment {
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        /*InputModel inputModel = createInputModel(item);
-        Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
-        intent.putExtra(vn.loitp.core.common.Constants.KEY_UIZA_PLAYER, inputModel);
-        startActivity(intent);
-        LUIUtil.transActivityFadeIn(getActivity());*/
-
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
             draggablePanel.minimize();
             if (draggablePanel.getVisibility() != View.VISIBLE) {
                 draggablePanel.setVisibility(View.VISIBLE);
             }
-        } else {
-            //TODO load new video
-            LLog.d(TAG, "load new video");
         }
         onClick(item.getId(), item.getThumbnail(), item.getName());
         EventBusData.getInstance().sendClickVideoEvent(item.getId());
