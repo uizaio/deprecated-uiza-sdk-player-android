@@ -2,6 +2,7 @@ package vn.loitp.app.uiza.home.v2;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,6 +145,12 @@ public class FrmChannel2 extends BaseFragment {
             @Override
             public void onClosedToLeft() {
                 LLog.d(TAG, "draggablePanel onClosedToLeft");
+                if (frmTop == null) {
+                    LLog.d(TAG, "draggablePanel frmTop == null");
+                } else {
+                    LLog.d(TAG, "draggablePanel frmTop != null");
+                    frmTop.releasePlayer();
+                }
             }
 
             @Override
@@ -416,9 +423,12 @@ public class FrmChannel2 extends BaseFragment {
         });
     }
 
+    private FrmTop frmTop;
+    private FrmBottom frmBottom;
+
     private void initializeDraggablePanel() throws Resources.NotFoundException {
-        FrmTop frmTop = new FrmTop();
-        FrmBottom frmBottom = new FrmBottom();
+        frmTop = new FrmTop();
+        frmBottom = new FrmBottom();
         draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
         draggablePanel.setTopFragment(frmTop);
         draggablePanel.setBottomFragment(frmBottom);
