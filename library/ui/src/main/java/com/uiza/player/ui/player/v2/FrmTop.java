@@ -246,11 +246,6 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     public void onVisibilityChange(int visibility) {
         //LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
-        /*if (visibility == View.VISIBLE) {
-            LLog.d(TAG, "onVisibilityChange VISIBLE " + visibility);
-        } else {
-            LLog.d(TAG, "onVisibilityChange !VISIBLE " + visibility);
-        }*/
         if (visibilityChange != null) {
             visibilityChange.onVisibilityChange(visibility);
         }
