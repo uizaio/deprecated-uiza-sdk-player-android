@@ -9,15 +9,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 public class SearchActivity extends BaseActivity implements View.OnClickListener {
     private ImageView ivBack;
     private ImageView ivClearText;
     private EditText etSearch;
     private TextView tv;
+    private AVLoadingIndicatorView avi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         ivClearText = (ImageView) findViewById(R.id.iv_clear_text);
         etSearch = (EditText) findViewById(R.id.et_search);
         tv = (TextView) findViewById(R.id.tv);
+        avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        avi.hide();//dont smoothToHide();
 
         ivBack.setOnClickListener(this);
         ivClearText.setOnClickListener(this);
@@ -94,9 +103,32 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void search(String keyword) {
-        //TODO
-        tv.setText("Không tìm thấy kết quả nào cho\n" + keyword);
-        tv.setVisibility(View.VISIBLE);
+        tv.setVisibility(View.GONE);
+        avi.smoothToShow();
+
+        UizaService service = RestClient.createService(UizaService.class);
+
+        int limit = 20;
+        int page = 0;
+
+        subscribe(service.searchEntity(keyword, limit, page), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object listAllEntity) {
+                LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
+                avi.smoothToHide();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                if (e == null || e.toString() == null) {
+                    return;
+                }
+                LLog.e(TAG, "listAllEntity onFail " + e.toString());
+                tv.setText("Error search " + e.toString());
+                tv.setVisibility(View.VISIBLE);
+                avi.smoothToHide();
+            }
+        });
     }
 
     private void resetAllView() {

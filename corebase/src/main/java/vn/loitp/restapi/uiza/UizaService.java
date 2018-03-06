@@ -78,6 +78,10 @@ public interface UizaService {
     @POST("/api/resource/v1/media/entity/related")
     Observable<ListAllEntityRelation> getListAllEntityRalationV2(@Field("id") String id);
 
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/search")
+    Observable<Object> searchEntity(@Field("keyword") String keyword, @Field("limit") int limit, @Field("page") int page);
+
     //=====================================================end v2 dev-api.uiza.io/resource/index.html
 
 
