@@ -321,32 +321,21 @@ public class DraggablePanel extends FrameLayout {
      */
     private void initializeAttrs(AttributeSet attrs) {
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.draggable_panel);
-        this.topFragmentHeight =
-                attributes.getDimensionPixelSize(R.styleable.draggable_panel_top_fragment_height,
-                        DEFAULT_TOP_FRAGMENT_HEIGHT);
-        this.xScaleFactor =
-                attributes.getFloat(R.styleable.draggable_panel_x_scale_factor, DEFAULT_SCALE_FACTOR);
-        this.yScaleFactor =
-                attributes.getFloat(R.styleable.draggable_panel_y_scale_factor, DEFAULT_SCALE_FACTOR);
-        this.topFragmentMarginRight =
-                attributes.getDimensionPixelSize(R.styleable.draggable_panel_top_fragment_margin_right,
-                        DEFAULT_TOP_FRAGMENT_MARGIN);
-        this.topFragmentMarginBottom =
-                attributes.getDimensionPixelSize(R.styleable.draggable_panel_top_fragment_margin_bottom,
-                        DEFAULT_TOP_FRAGMENT_MARGIN);
-        this.enableHorizontalAlphaEffect =
-                attributes.getBoolean(R.styleable.draggable_panel_enable_horizontal_alpha_effect,
-                        DEFAULT_ENABLE_HORIZONTAL_ALPHA_EFFECT);
-        this.enableClickToMaximize =
-                attributes.getBoolean(R.styleable.draggable_panel_enable_click_to_maximize_panel,
-                        DEFAULT_ENABLE_CLICK_TO_MAXIMIZE);
-        this.enableClickToMinimize =
-                attributes.getBoolean(R.styleable.draggable_panel_enable_click_to_minimize_panel,
-                        DEFAULT_ENABLE_CLICK_TO_MINIMIZE);
-        this.enableTouchListener =
-                attributes.getBoolean(R.styleable.draggable_panel_enable_touch_listener_panel,
-                        DEFAULT_ENABLE_TOUCH_LISTENER);
+        this.topFragmentHeight = attributes.getDimensionPixelSize(R.styleable.draggable_panel_top_fragment_height, DEFAULT_TOP_FRAGMENT_HEIGHT);
+        this.xScaleFactor = attributes.getFloat(R.styleable.draggable_panel_x_scale_factor, DEFAULT_SCALE_FACTOR);
+        this.yScaleFactor = attributes.getFloat(R.styleable.draggable_panel_y_scale_factor, DEFAULT_SCALE_FACTOR);
+        this.topFragmentMarginRight = attributes.getDimensionPixelSize(R.styleable.draggable_panel_top_fragment_margin_right, DEFAULT_TOP_FRAGMENT_MARGIN);
+        this.topFragmentMarginBottom = attributes.getDimensionPixelSize(R.styleable.draggable_panel_top_fragment_margin_bottom, DEFAULT_TOP_FRAGMENT_MARGIN);
+        this.enableHorizontalAlphaEffect = attributes.getBoolean(R.styleable.draggable_panel_enable_horizontal_alpha_effect, DEFAULT_ENABLE_HORIZONTAL_ALPHA_EFFECT);
+        this.enableClickToMaximize = attributes.getBoolean(R.styleable.draggable_panel_enable_click_to_maximize_panel, DEFAULT_ENABLE_CLICK_TO_MAXIMIZE);
+        this.enableClickToMinimize = attributes.getBoolean(R.styleable.draggable_panel_enable_click_to_minimize_panel, DEFAULT_ENABLE_CLICK_TO_MINIMIZE);
+        this.enableTouchListener = attributes.getBoolean(R.styleable.draggable_panel_enable_touch_listener_panel, DEFAULT_ENABLE_TOUCH_LISTENER);
         attributes.recycle();
+    }
+
+    public void setEnableTouchListener(boolean enableTouchListener) {
+        this.enableTouchListener = enableTouchListener;
+        draggableView.setTouchEnabled(enableTouchListener);
     }
 
     /**
@@ -355,8 +344,7 @@ public class DraggablePanel extends FrameLayout {
      */
     private void checkSupportFragmentManagerConsistency() {
         if (fragmentManager == null) {
-            throw new IllegalStateException(
-                    "You have to set the support FragmentManager before initialize DraggablePanel");
+            throw new IllegalStateException("You have to set the support FragmentManager before initialize DraggablePanel");
         }
     }
 

@@ -434,6 +434,18 @@ public class FrmChannel2 extends BaseFragment {
 
     private void initializeDraggablePanel() throws Resources.NotFoundException {
         frmTop = new FrmTop();
+        frmTop.setVisibilityChange(new FrmTop.VisibilityChange() {
+            @Override
+            public void onVisibilityChange(int visibility) {
+                if (visibility == View.VISIBLE) {
+                    LLog.d(TAG, ">>>onVisibilityChange VISIBLE " + visibility);
+                    draggablePanel.setEnableTouchListener(false);
+                } else {
+                    LLog.d(TAG, ">>>onVisibilityChange !VISIBLE " + visibility);
+                    draggablePanel.setEnableTouchListener(false);
+                }
+            }
+        });
         frmBottom = new FrmBottom();
         draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
         draggablePanel.setTopFragment(frmTop);

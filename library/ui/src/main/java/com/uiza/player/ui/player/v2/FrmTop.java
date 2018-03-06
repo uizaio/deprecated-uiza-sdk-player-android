@@ -142,7 +142,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     private AVLoadingIndicatorView avi;
     //TODO remove gson later
-    private Gson gson=new Gson();
+    private Gson gson = new Gson();
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -243,8 +244,26 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onVisibilityChange(int visibility) {
-        LLog.d(TAG, "onVisibilityChange " + visibility);
+        //LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
+        /*if (visibility == View.VISIBLE) {
+            LLog.d(TAG, "onVisibilityChange VISIBLE " + visibility);
+        } else {
+            LLog.d(TAG, "onVisibilityChange !VISIBLE " + visibility);
+        }*/
+        if (visibilityChange != null) {
+            visibilityChange.onVisibilityChange(visibility);
+        }
+    }
+
+    public interface VisibilityChange {
+        public void onVisibilityChange(int visibility);
+    }
+
+    private VisibilityChange visibilityChange;
+
+    public void setVisibilityChange(VisibilityChange visibilityChange) {
+        this.visibilityChange = visibilityChange;
     }
 
     private InputModel inputModel;

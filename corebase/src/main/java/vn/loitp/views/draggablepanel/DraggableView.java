@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import com.nineoldandroids.view.ViewHelper;
 
 import loitp.core.R;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.views.draggablepanel.transformer.Transformer;
 import vn.loitp.views.draggablepanel.transformer.TransformerFactory;
 
@@ -40,7 +41,7 @@ import vn.loitp.views.draggablepanel.transformer.TransformerFactory;
  * @author Pedro Vicente Gómez Sánchez
  */
 public class DraggableView extends RelativeLayout {
-
+    private final String TAG = getClass().getSimpleName();
     private static final int DEFAULT_SCALE_FACTOR = 2;
     private static final int DEFAULT_TOP_VIEW_MARGIN = 30;
     private static final int DEFAULT_TOP_VIEW_HEIGHT = -1;
@@ -142,6 +143,7 @@ public class DraggableView extends RelativeLayout {
      * @param touchEnabled to enable or disable the touch event.
      */
     public void setTouchEnabled(boolean touchEnabled) {
+        LLog.d(TAG, "setTouchEnabled " + touchEnabled);
         this.touchEnabled = touchEnabled;
     }
 
