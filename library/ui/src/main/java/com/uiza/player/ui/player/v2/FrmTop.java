@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.v2;
+package com.uiza.player.ui.player.v2;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
@@ -58,6 +58,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
@@ -82,11 +83,11 @@ import java.net.CookiePolicy;
 import java.util.UUID;
 
 import io.uiza.sdk.ui.BuildConfig;
-import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.data.EventBusData;
+import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
+import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
@@ -94,8 +95,6 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -142,7 +141,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     private FrameLayout rootView;
 
     private AVLoadingIndicatorView avi;
-
+    //TODO remove gson later
+    private Gson gson=new Gson();
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -939,7 +939,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     private void getLinkPlay(String entityId) {
         UizaService service = RestClient.createService(UizaService.class);
-        Auth auth = LPref.getAuth(getActivity(), LSApplication.getInstance().getGson());
+        Auth auth = LPref.getAuth(getActivity(), gson);
         if (auth == null || auth.getAppId() == null) {
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;

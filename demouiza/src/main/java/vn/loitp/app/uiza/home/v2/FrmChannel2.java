@@ -12,13 +12,14 @@ import com.github.pedrovgs.DraggableListener;
 import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
+import com.uiza.player.ui.player.v2.FrmBottom;
+import com.uiza.player.ui.player.v2.FrmTop;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.data.EventBusData;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
@@ -28,6 +29,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;

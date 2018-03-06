@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.v2;
+package com.uiza.player.ui.player.v2;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
@@ -11,22 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.data.EventBusData;
+import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -46,6 +47,9 @@ public class FrmBottom extends BaseFragment {
     private TextView tvVideoGenres;
     private TextView tvDebug;
 
+    //TODO remove gson later
+    private Gson gson = new Gson();
+
     private PlaceHolderView placeHolderView;
     //private NestedScrollView nestedScrollView;
 
@@ -64,18 +68,18 @@ public class FrmBottom extends BaseFragment {
         View view = inflater.inflate(R.layout.frm_bottom, container, false);
         //nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
         //nestedScrollView.setNestedScrollingEnabled(false);
-        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(io.uiza.sdk.ui.R.id.avi);
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
 
-        tvVideoName = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_name);
-        tvVideoTime = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_time);
-        tvVideoRate = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_rate);
-        tvVideoDescription = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_description);
-        tvVideoStarring = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_starring);
-        tvVideoDirector = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_director);
-        tvVideoGenres = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_video_genres);
-        tvDebug = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.tv_debug);
-        placeHolderView = (PlaceHolderView) view.findViewById(io.uiza.sdk.ui.R.id.place_holder_view);
+        tvVideoName = (TextView) view.findViewById(R.id.tv_video_name);
+        tvVideoTime = (TextView) view.findViewById(R.id.tv_video_time);
+        tvVideoRate = (TextView) view.findViewById(R.id.tv_video_rate);
+        tvVideoDescription = (TextView) view.findViewById(R.id.tv_video_description);
+        tvVideoStarring = (TextView) view.findViewById(R.id.tv_video_starring);
+        tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
+        tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
+        tvDebug = (TextView) view.findViewById(R.id.tv_debug);
+        placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
         return view;
     }
 
@@ -199,7 +203,7 @@ public class FrmBottom extends BaseFragment {
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
-                LLog.d(TAG, "getDetailEntityV2 onSuccess " + LSApplication.getInstance().getGson().toJson(getDetailEntity));
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
                 /*if (getDetailEntity != null) {
                     UizaData.getInstance().setDetailEntity(getDetailEntity);
                 } else {

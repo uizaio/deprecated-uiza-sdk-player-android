@@ -1,28 +1,23 @@
-package vn.loitp.app.uiza.home.v2;
+package com.uiza.player.ui.player.v2;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import vn.loitp.app.data.EventBusData;
+import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.uiza.R;
+import vn.loitp.data.EventBusData;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
