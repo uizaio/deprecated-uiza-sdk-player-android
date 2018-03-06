@@ -1,7 +1,6 @@
 package com.uiza.player.ui.player.v1;
 
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,16 @@ import android.widget.TextView;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.views.helper.InputModel;
 
+import java.util.List;
+
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -40,6 +41,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
     private TextView tvVideoDirector;
     private TextView tvVideoGenres;
     private TextView tvDebug;
+    private TextView tvMoreLikeThisMsg;
 
     private InputModel mInputModel;
     private Item mItem;
@@ -73,6 +75,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
         tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
         tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
         tvDebug = (TextView) view.findViewById(R.id.tv_debug);
+        tvMoreLikeThisMsg = (TextView) view.findViewById(R.id.tv_more_like_this_msg);
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
@@ -152,6 +155,16 @@ public class FrmUizaVideoInfo extends BaseFragment {
             @Override
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
                 LLog.d(TAG, "getDetailEntityV2 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(getDetailEntity));
+                if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
+                    tvMoreLikeThisMsg.setText("Data is empty");
+                    tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
+                    placeHolderView.setVisibility(View.GONE);
+                } else {
+                    tvMoreLikeThisMsg.setVisibility(View.GONE);
+                    placeHolderView.setVisibility(View.VISIBLE);
+                    setupUIMoreLikeThis(getDetailEntity.getItems());
+                }
+                avLoadingIndicatorView.smoothToHide();
             }
 
             @Override
@@ -161,5 +174,11 @@ public class FrmUizaVideoInfo extends BaseFragment {
             }
         });
         //EndAPI v2
+    }
+
+    private void setupUIMoreLikeThis(List<Item> itemList) {
+        int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
+        int sizeH = sizeW * 9 / 16;
+
     }
 }
