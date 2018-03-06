@@ -15,6 +15,7 @@ import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 
@@ -72,6 +73,10 @@ public interface UizaService {
 
     @GET("/api/public/v2/media/entity/get-link-play")
     Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);
+
+    @FormUrlEncoded
+    @POST("/api/resource/v1/media/entity/related")
+    Observable<ListAllEntityRelation> getListAllEntityRalationV2(@Field("id") String id);
 
     //=====================================================end v2 dev-api.uiza.io/resource/index.html
 

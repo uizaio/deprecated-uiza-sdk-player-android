@@ -14,8 +14,14 @@ import com.uiza.player.ui.views.helper.InputModel;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -135,12 +141,25 @@ public class FrmUizaVideoInfo extends BaseFragment {
     }
 
     private void getListAllEntityRelation() {
-        //TODO http://dev-api.uiza.io/resource/index.html#api-Entity-List_All_Entity_Relation
-        LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+        //API v2
+        if (mInputModel == null) {
+            return;
+        }
+        UizaService service = RestClient.createService(UizaService.class);
+        String entityId = mInputModel.getEntityID();
+        LLog.d(TAG, "entityId: " + entityId);
+        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
-            public void doAfter(int mls) {
-                avLoadingIndicatorView.smoothToHide();
+            public void onSuccess(ListAllEntityRelation getDetailEntity) {
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(getDetailEntity));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.e(TAG, "getListAllEntityRelation onFail " + e.toString());
+                handleException(e);
             }
         });
+        //EndAPI v2
     }
 }

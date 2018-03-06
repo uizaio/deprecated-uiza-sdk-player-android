@@ -42,6 +42,10 @@ public class UizaPlayerActivity extends BaseActivity {
     //TODO remove gson later
     private Gson gson = new Gson();
 
+    public Gson getGson() {
+        return gson;
+    }
+
     private boolean isGetLinkPlayDone;
     private boolean isGetDetailEntityDone;
 
