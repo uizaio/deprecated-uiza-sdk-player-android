@@ -1,9 +1,10 @@
 
 package vn.loitp.restapi.uiza.model.v2.getdetailentity;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Item {
 
@@ -30,7 +31,7 @@ public class Item {
     private String adminUserId;
     @SerializedName("poster")
     @Expose
-    private Object poster;
+    private String poster;
     @SerializedName("view")
     @Expose
     private int view;
@@ -39,7 +40,7 @@ public class Item {
     private int status;
     @SerializedName("thumbnail")
     @Expose
-    private Object thumbnail;
+    private String thumbnail;
     @SerializedName("duration")
     @Expose
     private String duration;
@@ -122,7 +123,7 @@ public class Item {
         return poster;
     }
 
-    public void setPoster(Object poster) {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 
@@ -142,11 +143,11 @@ public class Item {
         this.status = status;
     }
 
-    public Object getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(Object thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 

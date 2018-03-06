@@ -19,13 +19,12 @@ import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
-import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -304,7 +303,7 @@ public class FrmChannel extends BaseFragment {
                 if (tvMsg.getVisibility() != View.VISIBLE) {
                     tvMsg.setVisibility(View.VISIBLE);
                     if (e != null && e.getMessage() != null) {
-                        tvMsg.setText(e.getMessage());
+                        tvMsg.setText("onFail " + e.getMessage());
                     }
                 }
                 if (!isCallFromLoadMore) {
