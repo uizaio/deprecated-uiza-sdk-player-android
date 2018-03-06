@@ -1,7 +1,10 @@
 package com.uiza.player.ui.player.v1;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.views.helper.InputModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
@@ -23,7 +27,6 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -46,8 +49,10 @@ public class FrmUizaVideoInfo extends BaseFragment {
     private InputModel mInputModel;
     private Item mItem;
 
-    private PlaceHolderView placeHolderView;
     //private NestedScrollView nestedScrollView;
+    private List<Item> itemList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ItemAdapter mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -66,7 +71,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
         //nestedScrollView.setNestedScrollingEnabled(false);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
-
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv);
         tvVideoName = (TextView) view.findViewById(R.id.tv_video_name);
         tvVideoTime = (TextView) view.findViewById(R.id.tv_video_time);
         tvVideoRate = (TextView) view.findViewById(R.id.tv_video_rate);
@@ -77,9 +82,27 @@ public class FrmUizaVideoInfo extends BaseFragment {
         tvDebug = (TextView) view.findViewById(R.id.tv_debug);
         tvMoreLikeThisMsg = (TextView) view.findViewById(R.id.tv_more_like_this_msg);
 
-        placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
-
         mInputModel = UizaData.getInstance().getInputModel();
+        int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
+        int sizeH = sizeW * 9 / 16;
+        mAdapter = new ItemAdapter(getActivity(), itemList, sizeW, sizeH, new ItemAdapter.Callback() {
+            @Override
+            public void onClick(Item item, int position) {
+                LLog.d(TAG, "onClick " + position);
+            }
+
+            @Override
+            public void onLoadMore() {
+                loadMore();
+            }
+        });
+
+        recyclerView.setNestedScrollingEnabled(false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
         setup();
         return view;
     }
@@ -127,14 +150,6 @@ public class FrmUizaVideoInfo extends BaseFragment {
         tvVideoDirector.setText(emptyS);
         tvVideoGenres.setText(emptyS);
 
-        //list more like this
-        placeHolderView.getBuilder()
-                .setHasFixedSize(false)
-                .setItemViewCacheSize(10)
-                .setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        LUIUtil.setPullLikeIOSHorizontal(placeHolderView);
-        //LUIUtil.setPullLikeIOSVertical(nestedScrollView);
-
         getListAllEntityRelation();
 
         if (Constants.IS_DEBUG) {
@@ -158,10 +173,8 @@ public class FrmUizaVideoInfo extends BaseFragment {
                 if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
                     tvMoreLikeThisMsg.setText("Data is empty");
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
-                    placeHolderView.setVisibility(View.GONE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
-                    placeHolderView.setVisibility(View.VISIBLE);
                     setupUIMoreLikeThis(getDetailEntity.getItems());
                 }
                 avLoadingIndicatorView.smoothToHide();
@@ -177,8 +190,13 @@ public class FrmUizaVideoInfo extends BaseFragment {
     }
 
     private void setupUIMoreLikeThis(List<Item> itemList) {
-        int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
-        int sizeH = sizeW * 9 / 16;
+        LLog.d(TAG, "setupUIMoreLikeThis " + itemList.size());
+        this.itemList.addAll(itemList);
+        mAdapter.notifyDataSetChanged();
+    }
 
+    private void loadMore() {
+        //TODO
+        LLog.d(TAG, "loadMore");
     }
 }

@@ -15,14 +15,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="@dimen/padding_50"
-            android:paddingLeft="@dimen/padding_10"
-            android:paddingRight="@dimen/padding_10"
             android:paddingTop="@dimen/padding_50">
 
             <TextView
                 android:id="@+id/tv_video_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
                 android:textColor="@color/White"
                 android:textSize="@dimen/txt_20"
                 android:textStyle="bold" />
@@ -31,7 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10">
 
                 <TextView
                     android:id="@+id/tv_video_time"
@@ -58,6 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
                 android:textColor="@color/info_video_description"
                 android:textSize="@dimen/txt_14" />
 
@@ -71,7 +75,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,7 +100,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,7 +125,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,6 +159,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_55"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
                 android:text="@string/more_like_this"
                 android:textAllCaps="true"
                 android:textColor="@color/White"
@@ -159,17 +171,17 @@
                 android:id="@+id/tv_more_like_this_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
                 android:textColor="@color/info_video_description"
                 android:textSize="@dimen/txt_14"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-            <vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView
-                android:id="@+id/place_holder_view"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:visibility="gone" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
