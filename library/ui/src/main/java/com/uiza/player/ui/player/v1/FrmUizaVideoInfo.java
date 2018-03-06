@@ -1,5 +1,6 @@
 package com.uiza.player.ui.player.v1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +29,10 @@ import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -89,6 +94,12 @@ public class FrmUizaVideoInfo extends BaseFragment {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
+                Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
+                intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
+                intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(getActivity());
             }
 
             @Override
