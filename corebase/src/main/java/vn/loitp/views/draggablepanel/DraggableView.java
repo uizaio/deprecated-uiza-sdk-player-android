@@ -143,7 +143,6 @@ public class DraggableView extends RelativeLayout {
      * @param touchEnabled to enable or disable the touch event.
      */
     public void setTouchEnabled(boolean touchEnabled) {
-        LLog.d(TAG, "setTouchEnabled " + touchEnabled);
         this.touchEnabled = touchEnabled;
     }
 
@@ -363,6 +362,18 @@ public class DraggableView extends RelativeLayout {
         return viewDragHelper.shouldInterceptTouchEvent(ev) || interceptTap;
     }
 
+    //TODO freuss47
+    private int visibilityOfPlayController;
+
+    public void setVisibilityChangeOfPlayController(int visibilityOfPlayController) {
+        this.visibilityOfPlayController = visibilityOfPlayController;
+        if (this.visibilityOfPlayController == VISIBLE) {
+            LLog.d(TAG, "setVisibilityChangeOfPlayController VISIBLE");
+        } else {
+            LLog.d(TAG, "setVisibilityChangeOfPlayController !VISIBLE");
+        }
+    }
+
     /**
      * Override method to dispatch touch event to the dragged view.
      *
@@ -381,12 +392,6 @@ public class DraggableView extends RelativeLayout {
             return false;
         }
         viewDragHelper.processTouchEvent(ev);
-
-        /*if(touchEnabled){
-            viewDragHelper.processTouchEvent(ev);
-        }else{
-            viewDragHelper.cancel();
-        }*/
         if (isClosed()) {
             LLog.d(TAG, "onTouchEvent isClosed return false");
             return false;

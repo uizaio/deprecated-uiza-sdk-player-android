@@ -333,9 +333,8 @@ public class DraggablePanel extends FrameLayout {
         attributes.recycle();
     }
 
-    public void setEnableTouchListener(boolean enableTouchListener) {
-        this.enableTouchListener = enableTouchListener;
-        draggableView.setTouchEnabled(enableTouchListener);
+    public void setVisibilityChangeOfPlayController(int visibilityOfPlayController) {
+        draggableView.setVisibilityChangeOfPlayController(visibilityOfPlayController);
     }
 
     /**

@@ -446,10 +446,10 @@ public class FrmChannel2 extends BaseFragment {
             public void onVisibilityChange(int visibility) {
                 if (visibility == View.VISIBLE) {
                     LLog.d(TAG, ">>>onVisibilityChange VISIBLE " + visibility);
-                    draggablePanel.setEnableTouchListener(false);
+                    draggablePanel.setVisibilityChangeOfPlayController(visibility);
                 } else {
                     LLog.d(TAG, ">>>onVisibilityChange !VISIBLE " + visibility);
-                    draggablePanel.setEnableTouchListener(true);
+                    draggablePanel.setVisibilityChangeOfPlayController(visibility);
                 }
             }
         });
