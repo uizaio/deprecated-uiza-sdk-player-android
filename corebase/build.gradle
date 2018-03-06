@@ -77,5 +77,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:11.0.4'
 
     //https://github.com/pedrovgs/DraggablePanel
-    compile 'com.github.pedrovgs:draggablepanel:1.9'
+    //compile 'com.github.pedrovgs:draggablepanel:1.9'
+    compile 'com.nineoldandroids:library:2.4.0'
 }

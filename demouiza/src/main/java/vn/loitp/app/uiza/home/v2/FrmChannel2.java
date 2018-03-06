@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.pedrovgs.DraggableListener;
-import com.github.pedrovgs.DraggablePanel;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.player.v2.FrmBottom;
@@ -39,6 +37,8 @@ import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.draggablepanel.DraggableListener;
+import vn.loitp.views.draggablepanel.DraggablePanel;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
