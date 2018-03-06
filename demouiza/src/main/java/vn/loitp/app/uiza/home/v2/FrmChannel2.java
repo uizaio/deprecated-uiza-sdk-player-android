@@ -470,7 +470,7 @@ public class FrmChannel2 extends BaseFragment {
         draggablePanel.setEnableHorizontalAlphaEffect(false);
         //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
         //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
-        draggablePanel.setClickToMaximizeEnabled(false);
+        draggablePanel.setClickToMaximizeEnabled(true);
         draggablePanel.setClickToMinimizeEnabled(false);
 
         draggablePanel.initializeView();
