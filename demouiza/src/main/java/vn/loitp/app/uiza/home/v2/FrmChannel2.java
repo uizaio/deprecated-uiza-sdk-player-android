@@ -266,6 +266,13 @@ public class FrmChannel2 extends BaseFragment {
             if (draggablePanel.getVisibility() != View.VISIBLE) {
                 draggablePanel.setVisibility(View.VISIBLE);
             }
+        } else {
+            LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
+                @Override
+                public void doAfter(int mls) {
+                    draggablePanel.maximize();
+                }
+            });
         }
         onClick(item.getId(), item.getThumbnail(), item.getName());
         EventBusData.getInstance().sendClickVideoEvent(item.getId());
@@ -463,7 +470,7 @@ public class FrmChannel2 extends BaseFragment {
         draggablePanel.setEnableHorizontalAlphaEffect(false);
         //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
         //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
-        draggablePanel.setClickToMaximizeEnabled(true);
+        draggablePanel.setClickToMaximizeEnabled(false);
         draggablePanel.setClickToMinimizeEnabled(false);
 
         draggablePanel.initializeView();
