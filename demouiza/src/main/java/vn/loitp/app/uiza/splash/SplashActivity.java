@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.v1.HomeActivity;
@@ -20,6 +21,10 @@ import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
+
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class SplashActivity extends BaseActivity {
 
@@ -102,6 +107,16 @@ public class SplashActivity extends BaseActivity {
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
         finish();
+
+        //Test
+        /*RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
+        UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
+        Intent intent = new Intent(activity, UizaPlayerActivity.class);
+        intent.putExtra(KEY_UIZA_ENTITY_ID, "f5dd9c0a-87fd-4bf8-be44-fe8cf394a885");
+        intent.putExtra(KEY_UIZA_ENTITY_COVER, "");
+        intent.putExtra(KEY_UIZA_ENTITY_TITLE, "KEY_UIZA_ENTITY_TITLE");
+        startActivity(intent);
+        LUIUtil.transActivityFadeIn(activity);*/
     }
 
     private void checkToken(Auth auth) {
