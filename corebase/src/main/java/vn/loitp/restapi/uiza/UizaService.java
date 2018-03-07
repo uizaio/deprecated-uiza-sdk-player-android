@@ -18,6 +18,7 @@ import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
+import vn.loitp.restapi.uiza.model.v2.search.Search;
 
 /**
  * @author loitp
@@ -80,7 +81,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/search")
-    Observable<Object> searchEntity(@Field("keyword") String keyword, @Field("limit") int limit, @Field("page") int page);
+    Observable<Search> searchEntity(@Field("keyword") String keyword, @Field("limit") int limit, @Field("page") int page);
 
     //=====================================================end v2 dev-api.uiza.io/resource/index.html
 

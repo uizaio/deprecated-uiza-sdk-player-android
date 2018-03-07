@@ -74,5 +74,12 @@
         android:layout_marginTop="@dimen/margin_5"
         app:indicatorColor="@color/White"
         app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+    <vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView
+        android:id="@+id/place_holder_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_search"
+        android:scrollbars="none" />
 </RelativeLayout>
 
