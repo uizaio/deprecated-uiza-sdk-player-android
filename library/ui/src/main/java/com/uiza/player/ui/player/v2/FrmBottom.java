@@ -4,22 +4,31 @@ package com.uiza.player.ui.player.v2;
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.uiza.player.ui.player.v1.ItemAdapter;
+import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
@@ -27,9 +36,13 @@ import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -46,12 +59,14 @@ public class FrmBottom extends BaseFragment {
     private TextView tvVideoDirector;
     private TextView tvVideoGenres;
     private TextView tvDebug;
-
+    private TextView tvMoreLikeThisMsg;
     //TODO remove gson later
     private Gson gson = new Gson();
 
-    private PlaceHolderView placeHolderView;
     //private NestedScrollView nestedScrollView;
+    private List<Item> itemList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ItemAdapter mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -70,7 +85,7 @@ public class FrmBottom extends BaseFragment {
         //nestedScrollView.setNestedScrollingEnabled(false);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
-
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv);
         tvVideoName = (TextView) view.findViewById(R.id.tv_video_name);
         tvVideoTime = (TextView) view.findViewById(R.id.tv_video_time);
         tvVideoRate = (TextView) view.findViewById(R.id.tv_video_rate);
@@ -79,7 +94,34 @@ public class FrmBottom extends BaseFragment {
         tvVideoDirector = (TextView) view.findViewById(R.id.tv_video_director);
         tvVideoGenres = (TextView) view.findViewById(R.id.tv_video_genres);
         tvDebug = (TextView) view.findViewById(R.id.tv_debug);
-        placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
+        tvMoreLikeThisMsg = (TextView) view.findViewById(R.id.tv_more_like_this_msg);
+
+        int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
+        int sizeH = sizeW * 9 / 16;
+        mAdapter = new ItemAdapter(getActivity(), itemList, sizeW, sizeH, new ItemAdapter.Callback() {
+            @Override
+            public void onClick(Item item, int position) {
+                LLog.d(TAG, "onClick " + position);
+                Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
+                intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
+                intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
+                startActivity(intent);
+                LUIUtil.transActivityFadeIn(getActivity());
+            }
+
+            @Override
+            public void onLoadMore() {
+                loadMore();
+            }
+        });
+
+        recyclerView.setNestedScrollingEnabled(false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
         return view;
     }
 
@@ -111,15 +153,7 @@ public class FrmBottom extends BaseFragment {
         tvVideoDirector.setText(emptyS);
         tvVideoGenres.setText(emptyS);
 
-        //list more like this
-        placeHolderView.getBuilder()
-                .setHasFixedSize(false)
-                .setItemViewCacheSize(10)
-                .setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        LUIUtil.setPullLikeIOSHorizontal(placeHolderView);
-        //LUIUtil.setPullLikeIOSVertical(nestedScrollView);
-
-        getListAllEntityRelation();
+        getListAllEntityRelation(mItem.getId());
 
         if (Constants.IS_DEBUG) {
             tvDebug.setVisibility(View.VISIBLE);
@@ -127,15 +161,33 @@ public class FrmBottom extends BaseFragment {
         }
     }
 
-    private void getListAllEntityRelation() {
-        //TODO http://dev-api.uiza.io/resource/index.html#api-Entity-List_All_Entity_Relation
-        //TODO
-        LUIUtil.setDelay(1000, new LUIUtil.DelayCallback() {
+    private void getListAllEntityRelation(String entityId) {
+        //API v2
+        this.itemList.clear();
+        mAdapter.notifyDataSetChanged();
+        UizaService service = RestClient.createService(UizaService.class);
+        LLog.d(TAG, "entityId: " + entityId);
+        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
-            public void doAfter(int mls) {
+            public void onSuccess(ListAllEntityRelation getDetailEntity) {
+                LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
+                if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
+                    tvMoreLikeThisMsg.setText("Data is empty");
+                    tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
+                } else {
+                    tvMoreLikeThisMsg.setVisibility(View.GONE);
+                    setupUIMoreLikeThis(getDetailEntity.getItems());
+                }
                 avLoadingIndicatorView.smoothToHide();
             }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.e(TAG, "getListAllEntityRelation onFail " + e.toString());
+                handleException(e);
+            }
         });
+        //EndAPI v2
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -219,5 +271,16 @@ public class FrmBottom extends BaseFragment {
             }
         });
         //EndAPI v2
+    }
+
+    private void setupUIMoreLikeThis(List<Item> itemList) {
+        LLog.d(TAG, "setupUIMoreLikeThis " + itemList.size());
+        this.itemList.addAll(itemList);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void loadMore() {
+        //TODO
+        LLog.d(TAG, "loadMore");
     }
 }
