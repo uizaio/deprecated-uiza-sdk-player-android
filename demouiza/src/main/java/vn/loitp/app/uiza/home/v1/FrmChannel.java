@@ -291,9 +291,8 @@ public class FrmChannel extends BaseFragment {
                     } else {
                         isLoadMoreCalling = false;
                     }
-                } else {
-                    setupData(itemList, isCallFromLoadMore);
                 }
+                setupData(itemList, isCallFromLoadMore);
             }
 
             @Override

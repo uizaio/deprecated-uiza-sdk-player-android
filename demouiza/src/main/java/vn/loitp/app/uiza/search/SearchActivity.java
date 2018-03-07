@@ -17,6 +17,7 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.view.EntityItem;
+import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LKeyBoardUtil;
@@ -42,7 +43,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private TextView tv;
     private AVLoadingIndicatorView avi;
     private PlaceHolderView placeHolderView;
+    private final int NUMBER_OF_COLUMN_1 = 1;
     private final int NUMBER_OF_COLUMN_2 = 2;
+    private final int POSITION_OF_LOADING_REFRESH = 0;
+    private boolean isRefreshing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,18 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 .setItemViewCacheSize(10)
                 .setLayoutManager(gridLayoutManager);
 
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (position) {
+                    case POSITION_OF_LOADING_REFRESH:
+                        return isRefreshing ? NUMBER_OF_COLUMN_2 : NUMBER_OF_COLUMN_1;
+                    default:
+                        return NUMBER_OF_COLUMN_1;
+                }
+            }
+        });
+
         LUIUtil.setPullLikeIOSVertical(placeHolderView, new LUIUtil.Callback() {
             @Override
             public void onUpOrLeft(float offset) {
@@ -71,7 +87,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onUpOrLeftRefresh(float offset) {
                 LLog.d(TAG, "onUpOrLeftRefresh");
-                //swipeToRefresh();
+                swipeToRefresh();
             }
 
             @Override
@@ -225,5 +241,22 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
+    }
+
+    private void swipeToRefresh() {
+        if (isRefreshing) {
+            return;
+        }
+        isRefreshing = true;
+        placeHolderView.addView(POSITION_OF_LOADING_REFRESH, new LoadingView());
+
+        //TODO refresh
+        LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                placeHolderView.removeView(POSITION_OF_LOADING_REFRESH);
+                isRefreshing = false;
+            }
+        });
     }
 }
