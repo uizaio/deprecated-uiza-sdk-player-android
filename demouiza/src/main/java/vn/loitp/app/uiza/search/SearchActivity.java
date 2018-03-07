@@ -29,8 +29,8 @@ import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
+import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
-import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
@@ -41,12 +41,16 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private ImageView ivClearText;
     private EditText etSearch;
     private TextView tv;
-    private AVLoadingIndicatorView avi;
+    //private AVLoadingIndicatorView avi;
     private PlaceHolderView placeHolderView;
     private final int NUMBER_OF_COLUMN_1 = 1;
     private final int NUMBER_OF_COLUMN_2 = 2;
     private final int POSITION_OF_LOADING_REFRESH = 0;
     private boolean isRefreshing;
+    private boolean isLoadMoreCalling;
+    private final int limit = 50;
+    private int page = 0;
+    private int totalPage = Integer.MAX_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         ivClearText = (ImageView) findViewById(R.id.iv_clear_text);
         etSearch = (EditText) findViewById(R.id.et_search);
         tv = (TextView) findViewById(R.id.tv);
-        avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
-        avi.hide();//dont smoothToHide();
+        //avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        //avi.hide();//dont smoothToHide();
 
         placeHolderView = (PlaceHolderView) findViewById(R.id.place_holder_view);
 
@@ -98,7 +102,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
-                //loadMore();
+                loadMore();
             }
         });
 
@@ -133,7 +137,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         LUIUtil.setImeiActionSearch(etSearch, new LUIUtil.CallbackSearch() {
             @Override
             public void onSearch() {
-                search(etSearch.getText().toString());
+                search(etSearch.getText().toString(), false);
             }
         });
     }
@@ -170,35 +174,59 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void search(String keyword) {
+    private void search(String keyword, boolean isCallFromLoadMore) {
+        LLog.d(TAG, "search keyword: " + keyword);
         tv.setVisibility(View.GONE);
-        avi.smoothToShow();
-        placeHolderView.removeAllViews();
+        //avi.smoothToShow();
+        if (isCallFromLoadMore) {
+            //do nothing
+        } else {
+            placeHolderView.removeAllViews();
+            page = 0;
+            totalPage = Integer.MAX_VALUE;
+        }
+
+        LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
+
+        if (page >= totalPage) {
+            LLog.d(TAG, "page >= totalPage -> return");
+            ToastUtils.showShort("This is last page");
+            if (isCallFromLoadMore) {
+                placeHolderView.removeView(getListSize() - 1);//remove loading view
+                isLoadMoreCalling = false;
+            }
+            return;
+        }
+
+        ToastUtils.showShort("getData page " + page);
 
         UizaService service = RestClient.createService(UizaService.class);
-
-        int limit = 20;
-        int page = 0;
-
         subscribe(service.searchEntity(keyword, limit, page), new ApiSubscriber<Search>() {
             @Override
             public void onSuccess(Search search) {
                 LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
-                /*for (Item item : itemList) {
-                    placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
-                        @Override
-                        public void onClick(Item item, int position) {
-                            onClickVideo(item, position);
-                        }
-                    }));
-                }*/
+
+                if (totalPage == Integer.MAX_VALUE) {
+                    int totalItem = search.getTotal();
+                    float ratio = (float) (totalItem / limit);
+                    LLog.d(TAG, "ratio: " + ratio);
+                    if (ratio == 0) {
+                        totalPage = (int) ratio;
+                    } else if (ratio > 0) {
+                        totalPage = (int) ratio + 1;
+                    } else {
+                        totalPage = (int) ratio;
+                    }
+                    LLog.d(TAG, ">>>totalPage: " + totalPage);
+                }
+
                 if (search == null || search.getItems().isEmpty()) {
                     tv.setText(getString(R.string.empty_list));
                     tv.setVisibility(View.VISIBLE);
                 } else {
                     setupUIList(search.getItems());
                 }
-                avi.smoothToHide();
+                //avi.smoothToHide();
             }
 
             @Override
@@ -209,7 +237,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 LLog.e(TAG, "listAllEntity onFail " + e.toString());
                 tv.setText("Error search " + e.toString());
                 tv.setVisibility(View.VISIBLE);
-                avi.smoothToHide();
+                //avi.smoothToHide();
             }
         });
     }
@@ -258,5 +286,21 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 isRefreshing = false;
             }
         });
+    }
+
+    private void loadMore() {
+        if (isLoadMoreCalling) {
+            return;
+        }
+        isLoadMoreCalling = true;
+        placeHolderView.addView(new LoadingView());
+        placeHolderView.smoothScrollToPosition(getListSize() - 1);
+        page++;
+        search(etSearch.getText().toString().trim(), true);
+    }
+
+    private int getListSize() {
+        LLog.d(TAG, "getListSize " + placeHolderView.getAllViewResolvers().size());
+        return placeHolderView.getAllViewResolvers().size();
     }
 }
