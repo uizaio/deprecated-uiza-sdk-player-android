@@ -15,9 +15,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Handler;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -29,8 +26,10 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -47,20 +46,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.Random;
 
 import loitp.core.R;
 import vn.loitp.core.common.Constants;
 import vn.loitp.views.overscroll.lib.overscroll.IOverScrollDecor;
-import vn.loitp.views.overscroll.lib.overscroll.IOverScrollStateListener;
 import vn.loitp.views.overscroll.lib.overscroll.IOverScrollUpdateListener;
 import vn.loitp.views.overscroll.lib.overscroll.OverScrollDecoratorHelper;
-
-import static vn.loitp.views.overscroll.lib.overscroll.IOverScrollState.STATE_BOUNCE_BACK;
-import static vn.loitp.views.overscroll.lib.overscroll.IOverScrollState.STATE_DRAG_END_SIDE;
-import static vn.loitp.views.overscroll.lib.overscroll.IOverScrollState.STATE_DRAG_START_SIDE;
-import static vn.loitp.views.overscroll.lib.overscroll.IOverScrollState.STATE_IDLE;
 
 /**
  * File created on 11/3/2016.
@@ -623,5 +615,18 @@ public class LUIUtil {
 
     public static void setTextViewUnderLine(TextView textView) {
         textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+    }
+
+    public static void setMarginsInDp(View view, int leftDp, int topDp, int rightDp, int bottomDp) {
+        int marginLeftInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDp, view.getContext().getResources().getDisplayMetrics());
+        int marginTopInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, topDp, view.getContext().getResources().getDisplayMetrics());
+        int marginRightInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDp, view.getContext().getResources().getDisplayMetrics());
+        int marginBottomInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bottomDp, view.getContext().getResources().getDisplayMetrics());
+
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(marginLeftInDp, marginTopInDp, marginRightInDp, marginBottomInDp);
+            view.requestLayout();
+        }
     }
 }

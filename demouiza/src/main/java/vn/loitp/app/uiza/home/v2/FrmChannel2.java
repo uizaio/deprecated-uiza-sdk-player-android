@@ -1,17 +1,24 @@
 package vn.loitp.app.uiza.home.v2;
 
+import android.app.Activity;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.player.v2.FrmBottom;
 import com.uiza.player.ui.player.v2.FrmTop;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
@@ -85,6 +92,11 @@ public class FrmChannel2 extends BaseFragment {
         tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
+        avLoadingIndicatorView.smoothToShow();
+        
+        updateUIStatusNavigationBar(true);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
         placeHolderView.getBuilder()
@@ -126,10 +138,6 @@ public class FrmChannel2 extends BaseFragment {
                 loadMore();
             }
         });
-
-        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
-        avLoadingIndicatorView.smoothToShow();
 
         getData(false);
         draggablePanel.setDraggableListener(new DraggableListener() {
@@ -502,5 +510,43 @@ public class FrmChannel2 extends BaseFragment {
         placeHolderView.smoothScrollToPosition(getListSize() - 1);
         page++;
         getData(true);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Checking the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //First Hide other objects (listview or recyclerview), better hide them using Gone.
+            /*FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mExoPlayerView.getLayoutParams();
+            params.width = params.MATCH_PARENT;
+            params.height = params.MATCH_PARENT;
+            mExoPlayerView.setLayoutParams(params);*/
+            LLog.d(TAG, "ORIENTATION_LANDSCAPE");
+            updateUIStatusNavigationBar(false);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //unhide your objects here.
+            /*FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mExoPlayerView.getLayoutParams();
+            params.width = params.MATCH_PARENT;
+            params.height = LDisplayUtils.getDialogW(activity) * 9 / 16;
+            mExoPlayerView.setLayoutParams(params);*/
+            LLog.d(TAG, "ORIENTATION_PORTRAIT");
+            updateUIStatusNavigationBar(true);
+        }
+    }
+
+    //true: show status bar, hide navigation bar
+    //false: hide status bar, hide navigation bar
+    private void updateUIStatusNavigationBar(boolean isShow) {
+        UizaScreenUtil.hideNavBar(getActivity().getWindow().getDecorView());
+        if (isShow) {
+            UizaScreenUtil.showStatusBar(getActivity());
+            LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
+            ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+        } else {
+            UizaScreenUtil.hideStatusBar(getActivity());
+            LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
+            ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.GONE);
+        }
     }
 }

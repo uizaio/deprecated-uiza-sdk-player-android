@@ -39,6 +39,7 @@ public class Home2Activity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private FrameLayout flLeftContainer;
     private List<Item> itemList = new ArrayList<>();
+    private UizaActionBar uizaActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class Home2Activity extends BaseActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerView = (PlaceHolderView) findViewById(R.id.drawerView);
         flLeftContainer = (FrameLayout) findViewById(R.id.fl_left_container);
+        uizaActionBar = (UizaActionBar) findViewById(R.id.uiza_action_bar);
 
         LUIUtil.setPullLikeIOSVertical(mDrawerView);
 
@@ -131,8 +133,11 @@ public class Home2Activity extends BaseActivity {
         getListAllMetadata();
     }
 
+    public void setVisibilityOfActionBar(int visibilityOfActionBar) {
+        uizaActionBar.setVisibility(visibilityOfActionBar);
+    }
+
     private void setupActionBar() {
-        UizaActionBar uizaActionBar = (UizaActionBar) findViewById(R.id.uiza_action_bar);
         uizaActionBar.hideTvTitle();
         uizaActionBar.setOnClickBack(new UizaActionBar.Callback() {
             @Override
