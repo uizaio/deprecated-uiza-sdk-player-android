@@ -57,6 +57,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -772,7 +773,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                             simpleExoPlayerView.resumePlayVideo();
                         }
                         if (UizaData.getInstance().isLandscape()) {
-                            ((UizaPlayerActivity) getActivity()).updateUIStatusNavigationBar(false);
+                            UizaScreenUtil.updateUIStatusNavigationBar(getActivity(), false);
                         } else {
                             //do nothing
                         }

@@ -95,7 +95,7 @@ public class FrmChannel2 extends BaseFragment {
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
         avLoadingIndicatorView.smoothToShow();
-        
+
         updateUIStatusNavigationBar(true);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
@@ -448,18 +448,16 @@ public class FrmChannel2 extends BaseFragment {
 
     private void initializeDraggablePanel() throws Resources.NotFoundException {
         frmTop = new FrmTop();
-        frmTop.setVisibilityChange(new FrmTop.VisibilityChange() {
+        /*frmTop.setVisibilityChange(new FrmTop.VisibilityChange() {
             @Override
             public void onVisibilityChange(int visibility) {
                 if (visibility == View.VISIBLE) {
                     LLog.d(TAG, ">>>onVisibilityChange VISIBLE " + visibility);
-                    draggablePanel.setVisibilityChangeOfPlayController(visibility);
                 } else {
                     LLog.d(TAG, ">>>onVisibilityChange !VISIBLE " + visibility);
-                    draggablePanel.setVisibilityChangeOfPlayController(visibility);
                 }
             }
-        });
+        });*/
         frmBottom = new FrmBottom();
         draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
         draggablePanel.setTopFragment(frmTop);
@@ -543,10 +541,17 @@ public class FrmChannel2 extends BaseFragment {
             UizaScreenUtil.showStatusBar(getActivity());
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+
+            int widthScreen = LDisplayUtils.getScreenW(getActivity());
+            LLog.d(TAG, "widthScreen " + widthScreen);
+            int heightFrmTop = widthScreen * 9 / 16;
+            LLog.d(TAG, "heightFrmTop " + heightFrmTop);
+            draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
         } else {
             UizaScreenUtil.hideStatusBar(getActivity());
             LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
             ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.GONE);
+            draggablePanel.setTopViewHeightApllyNow(LDisplayUtils.getScreenH(getActivity()));//px
         }
     }
 }

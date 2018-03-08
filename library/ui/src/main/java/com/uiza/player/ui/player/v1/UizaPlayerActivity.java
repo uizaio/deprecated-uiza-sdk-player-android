@@ -56,7 +56,7 @@ public class UizaPlayerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
 
-        updateUIStatusNavigationBar(true);
+        UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
 
         String entityId = getIntent().getStringExtra(KEY_UIZA_ENTITY_ID);
         String entityCover = getIntent().getStringExtra(KEY_UIZA_ENTITY_COVER);
@@ -206,16 +206,6 @@ public class UizaPlayerActivity extends BaseActivity {
         return R.layout.uiza_player_activity;
     }
 
-    //true: show status bar, hide navigation bar
-    //false: hide status bar, hide navigation bar
-    public void updateUIStatusNavigationBar(boolean isShow) {
-        UizaScreenUtil.hideNavBar(getWindow().getDecorView());
-        if (isShow) {
-            UizaScreenUtil.showStatusBar(activity);
-        } else {
-            UizaScreenUtil.hideStatusBar(activity);
-        }
-    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -223,10 +213,10 @@ public class UizaPlayerActivity extends BaseActivity {
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
-            updateUIStatusNavigationBar(false);
+            UizaScreenUtil.updateUIStatusNavigationBar(activity, false);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
-            updateUIStatusNavigationBar(true);
+            UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
         }
     }
 

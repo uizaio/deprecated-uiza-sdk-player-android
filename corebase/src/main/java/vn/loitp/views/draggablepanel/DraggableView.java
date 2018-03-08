@@ -362,18 +362,6 @@ public class DraggableView extends RelativeLayout {
         return viewDragHelper.shouldInterceptTouchEvent(ev) || interceptTap;
     }
 
-    //TODO freuss47
-    private int visibilityOfPlayController;
-
-    public void setVisibilityChangeOfPlayController(int visibilityOfPlayController) {
-        this.visibilityOfPlayController = visibilityOfPlayController;
-        if (this.visibilityOfPlayController == VISIBLE) {
-            LLog.d(TAG, "setVisibilityChangeOfPlayController VISIBLE");
-        } else {
-            LLog.d(TAG, "setVisibilityChangeOfPlayController !VISIBLE");
-        }
-    }
-
     /**
      * Override method to dispatch touch event to the dragged view.
      *

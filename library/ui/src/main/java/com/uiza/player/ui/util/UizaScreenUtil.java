@@ -112,4 +112,15 @@ public class UizaScreenUtil {
             decorView.setSystemUiVisibility(uiOptions);
         }
     }
+
+    //true: show status bar, hide navigation bar
+    //false: hide status bar, hide navigation bar
+    public static void updateUIStatusNavigationBar(Activity activity, boolean isShow) {
+        UizaScreenUtil.hideNavBar(activity.getWindow().getDecorView());
+        if (isShow) {
+            UizaScreenUtil.showStatusBar(activity);
+        } else {
+            UizaScreenUtil.hideStatusBar(activity);
+        }
+    }
 }

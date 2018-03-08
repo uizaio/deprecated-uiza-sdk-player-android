@@ -23,6 +23,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import loitp.core.R;
+import vn.loitp.core.utilities.LLog;
 
 /**
  * Custom view created to handle DraggableView using fragments. With this custom view the client
@@ -109,6 +110,13 @@ public class DraggablePanel extends FrameLayout {
      */
     public void setTopViewHeight(int topFragmentHeight) {
         this.topFragmentHeight = topFragmentHeight;
+    }
+
+    public void setTopViewHeightApllyNow(int topFragmentHeight) {
+        this.topFragmentHeight = topFragmentHeight;
+        if (draggableView != null) {
+            draggableView.setTopViewHeight(topFragmentHeight);
+        }
     }
 
     /**
@@ -333,8 +341,10 @@ public class DraggablePanel extends FrameLayout {
         attributes.recycle();
     }
 
-    public void setVisibilityChangeOfPlayController(int visibilityOfPlayController) {
-        draggableView.setVisibilityChangeOfPlayController(visibilityOfPlayController);
+    public void setTouchEnabled(boolean touchEnable) {
+        if (draggableView != null) {
+            draggableView.setTouchEnabled(touchEnable);
+        }
     }
 
     /**
