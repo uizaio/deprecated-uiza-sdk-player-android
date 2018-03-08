@@ -216,6 +216,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.home.v2.Home2Activity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.search.SearchActivity"
