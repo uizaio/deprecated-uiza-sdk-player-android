@@ -23,7 +23,6 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import loitp.core.R;
-import vn.loitp.core.utilities.LLog;
 
 /**
  * Custom view created to handle DraggableView using fragments. With this custom view the client
@@ -344,6 +343,12 @@ public class DraggablePanel extends FrameLayout {
     public void setTouchEnabled(boolean touchEnable) {
         if (draggableView != null) {
             draggableView.setTouchEnabled(touchEnable);
+        }
+    }
+
+    public void setEnableSlide(boolean isEnableSlide) {
+        if (draggableView != null) {
+            draggableView.setEnableSlide(isEnableSlide);
         }
     }
 

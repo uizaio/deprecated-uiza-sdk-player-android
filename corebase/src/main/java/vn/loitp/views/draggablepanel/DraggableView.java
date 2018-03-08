@@ -146,6 +146,13 @@ public class DraggableView extends RelativeLayout {
         this.touchEnabled = touchEnabled;
     }
 
+    private boolean isEnableSlide = true;
+
+    public void setEnableSlide(boolean isEnableSlide) {
+        LLog.d(TAG, "setEnableSlide " + isEnableSlide);
+        this.isEnableSlide = isEnableSlide;
+    }
+
     /**
      * Slide the view based on scroll of the nav drawer.
      * "setEnableTouch" user prevents click to expand while the drawer is moving, it will be
@@ -358,8 +365,15 @@ public class DraggableView extends RelativeLayout {
             default:
                 break;
         }
-        boolean interceptTap = viewDragHelper.isViewUnder(dragView, (int) ev.getX(), (int) ev.getY());
-        return viewDragHelper.shouldInterceptTouchEvent(ev) || interceptTap;
+        /*boolean interceptTap = viewDragHelper.isViewUnder(dragView, (int) ev.getX(), (int) ev.getY());
+        return viewDragHelper.shouldInterceptTouchEvent(ev) || interceptTap;*/
+
+        if (isEnableSlide) {
+            boolean interceptTap = viewDragHelper.isViewUnder(dragView, (int) ev.getX(), (int) ev.getY());
+            return viewDragHelper.shouldInterceptTouchEvent(ev) || interceptTap;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -388,8 +402,10 @@ public class DraggableView extends RelativeLayout {
         boolean isSecondViewHit = isViewHit(secondView, (int) ev.getX(), (int) ev.getY());
         analyzeTouchToMaximizeIfNeeded(ev, isDragViewHit);
         if (isMaximized()) {
+            LLog.d(TAG, "isMaximized");
             dragView.dispatchTouchEvent(ev);
         } else {
+            LLog.d(TAG, "!isMaximized");
             dragView.dispatchTouchEvent(cloneMotionEventWithAction(ev, MotionEvent.ACTION_CANCEL));
         }
         return isDragViewHit || isSecondViewHit;
