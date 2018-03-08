@@ -552,6 +552,7 @@ public class FrmChannel2 extends BaseFragment {
             LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
             ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.GONE);
             draggablePanel.setTopViewHeightApllyNow(LDisplayUtils.getScreenH(getActivity()));//px
+            draggablePanel.setTouchEnabled(false);
         }
     }
 }
