@@ -29,7 +29,7 @@ public class Constants {
 
     public final static String URL_IMG = "https://c1.staticflickr.com/9/8438/28818520263_c7ea1b3e3f_b.jpg";
     public final static String URL_IMG_16x9 = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
-    public final static String URL_IMG_9x16 = "https://kenh14cdn.com/2018/757c920c2696d3cc6854391be7da21a2-1516711888902.jpg";
+    public final static String URL_IMG_9x16 = "https://c1.staticflickr.com/5/4771/38893576530_b585463c07_b.jpg";
     public final static String URL_IMG_LONG = "https://c2.staticflickr.com/6/5476/29412311793_8067369e64_b.jpg";
 
     public final static String KEY_UIZA = "KEY_UIZA";

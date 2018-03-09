@@ -193,7 +193,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
     @Override
     protected String setTag() {
-        return "TAGUizaPlayerActivity";
+        return "TAG" + getClass().getSimpleName();
     }
 
     @Override
@@ -262,7 +262,7 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     private void getLinkPlay() {
-        //LLog.d(TAG, ">>>getLinkPlay entityId: " + inputModel.getEntityID());
+        LLog.d(TAG, ">>>getLinkPlay entityId: " + inputModel.getEntityID());
         UizaService service = RestClient.createService(UizaService.class);
         Auth auth = LPref.getAuth(activity, gson);
         if (auth == null || auth.getAppId() == null) {
@@ -318,7 +318,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                //LLog.d(TAG, "onFail " + e.toString());
+                LLog.d(TAG, "onFail getLinkPlay " + e.toString());
                 handleException(e);
             }
         });
@@ -376,7 +376,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                //LLog.e(TAG, "onFail " + e.toString());
+                LLog.e(TAG, "onFail " + e.toString());
                 handleException(e);
             }
         });
@@ -434,6 +434,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
+                LLog.e(TAG, "getPlayerConfig " + e.toString());
                 handleException(e);
             }
         });
