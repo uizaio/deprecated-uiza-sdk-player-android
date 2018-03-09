@@ -588,20 +588,17 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         super.onFragmentResume();
         LLog.d(TAG, TAG + " onFragmentResume");
         ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+        if (frmTop != null && frmTop.getPlayerView() != null && frmTop.getPlayerView().getPlayer() != null) {
+            frmTop.getPlayerView().getPlayer().setPlayWhenReady(true);
+        }
     }
 
     @Override
     public void onFragmentPause() {
         super.onFragmentPause();
         LLog.d(TAG, TAG + " onFragmentPause");
-    }
-
-    /*@Override
-    public void onPause() {
-        LLog.d(TAG, TAG + " onPause");
-        super.onPause();
-        if (frmTop != null) {
+        if (frmTop != null && frmTop.getPlayerView() != null && frmTop.getPlayerView().getPlayer() != null) {
             frmTop.getPlayerView().getPlayer().setPlayWhenReady(false);
         }
-    }*/
+    }
 }
