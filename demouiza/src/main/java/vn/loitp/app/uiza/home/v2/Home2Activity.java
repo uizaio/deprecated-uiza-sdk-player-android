@@ -205,7 +205,7 @@ public class Home2Activity extends BaseActivity {
                 }
 
                 uizaActionBar.setVisibility(View.GONE);
-                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmDummy());
+                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmDummy(), true);
             }
         });
         uizaActionBar.showMenuIcon();
@@ -270,7 +270,7 @@ public class Home2Activity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2());
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2(), true);
                 }
             }));
         }
@@ -278,7 +278,7 @@ public class Home2Activity extends BaseActivity {
         //init data first
         HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
         currentFrm = new FrmChannel2();
-        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm);
+        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm, true);
     }
 
     @Override

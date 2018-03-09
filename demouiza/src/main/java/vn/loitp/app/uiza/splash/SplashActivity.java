@@ -99,11 +99,17 @@ public class SplashActivity extends BaseActivity {
         RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
         UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
 
-        //v1
-        //Intent intent = new Intent(activity, HomeActivity.class);
+        boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_TEST, false);
 
-        //v2
-        Intent intent = new Intent(activity, Home2Activity.class);
+        Intent intent;
+        if (isSlide) {
+            //v2
+            intent = new Intent(activity, Home2Activity.class);
+        } else {
+            //v1
+            intent = new Intent(activity, HomeActivity.class);
+        }
+
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
         finish();

@@ -142,17 +142,21 @@ public class UizaScreenUtil {
         }
     }
 
-    public static void replaceFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment) {
+    public static void replaceFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment, boolean isAddToBackStack) {
         FragmentTransaction transaction = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
         transaction.replace(containerFrameLayoutIdRes, fragment);
-        transaction.addToBackStack(null);
+        if (isAddToBackStack) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 
-    public static void addFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment) {
+    public static void addFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment, boolean isAddToBackStack) {
         FragmentTransaction transaction = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
         transaction.add(containerFrameLayoutIdRes, fragment);
-        transaction.addToBackStack(null);
+        if (isAddToBackStack) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 }

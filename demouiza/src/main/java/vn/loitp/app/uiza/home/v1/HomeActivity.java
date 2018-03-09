@@ -208,13 +208,13 @@ public class HomeActivity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel());
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel(), false);
                 }
             }));
         }
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(0));
-        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel());
+        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel(), false);
     }
 }

@@ -195,7 +195,7 @@
         </receiver>
 
         <!--FOR DEMO UIZA-->
-        <activity
+        <!--<activity
             android:name="vn.loitp.app.uiza.splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -203,7 +203,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>-->
+
+        <activity
+            android:name="vn.loitp.app.uiza.splash.OptionActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name="vn.loitp.app.uiza.splash.SplashActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="vn.loitp.app.uiza.home.v1.HomeActivity"
             android:screenOrientation="portrait" />
