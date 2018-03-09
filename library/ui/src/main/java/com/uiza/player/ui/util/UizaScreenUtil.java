@@ -2,6 +2,7 @@ package com.uiza.player.ui.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Build;
 import android.view.KeyCharacterMap;
@@ -9,6 +10,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+
+import com.uiza.player.ui.data.UizaData;
 
 /**
  * File created on 8/31/2017.
@@ -121,6 +124,16 @@ public class UizaScreenUtil {
             UizaScreenUtil.showStatusBar(activity);
         } else {
             UizaScreenUtil.hideStatusBar(activity);
+        }
+    }
+
+    public static void setFullScreen(Context context, boolean isFullScreen) {
+        if (isFullScreen) {
+            ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            UizaData.getInstance().setLandscape(false);
+        } else {
+            ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            UizaData.getInstance().setLandscape(true);
         }
     }
 }

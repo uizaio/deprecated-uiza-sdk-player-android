@@ -59,6 +59,7 @@ import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.view.language.LanguageView;
 import com.uiza.player.ui.views.view.listview.PlayListView;
 
@@ -407,7 +408,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 @Override
                 public void onClickFullScreen(View view) {
                     hideAllOtherControlView();
-                    setFullScreen(isFullScreen(getContext()));
+                    UizaScreenUtil.setFullScreen(getContext(), isFullScreen(getContext()));
                 }
 
                 @Override
@@ -576,16 +577,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
         if (player != null) {
             player.setPlayWhenReady(true);
             //player.getPlaybackState();
-        }
-    }
-
-    public void setFullScreen(boolean isFullScreen) {
-        if (isFullScreen) {
-            ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            UizaData.getInstance().setLandscape(false);
-        } else {
-            ((Activity) getContext()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            UizaData.getInstance().setLandscape(true);
         }
     }
 

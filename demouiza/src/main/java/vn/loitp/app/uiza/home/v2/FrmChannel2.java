@@ -14,6 +14,7 @@ import com.uiza.player.ui.player.v1.FrmUizaVideo;
 import com.uiza.player.ui.player.v2.FrmBottom;
 import com.uiza.player.ui.player.v2.FrmTop;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
@@ -565,9 +566,19 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     @Override
     public boolean onBackPressed() {
         LLog.d(TAG, TAG + " onBackPressed");
-        if (draggablePanel.isMaximized()) {
-            draggablePanel.minimize();
+        if (UizaData.getInstance().isLandscape()) {
+            if (frmTop != null) {
+                SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
+                simpleExoPlayerView.getController().getFullscreenButton().performClick();
+                LLog.d(TAG, "isLandscape");
+            }
             return true;
+        } else {
+            LLog.d(TAG, "!isLandscape");
+            if (draggablePanel.isMaximized()) {
+                draggablePanel.minimize();
+                return true;
+            }
         }
         return false;
     }

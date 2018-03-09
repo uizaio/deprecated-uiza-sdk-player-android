@@ -1507,4 +1507,7 @@ public class PlaybackControlView extends FrameLayout {
         llTop.setVisibility(isShow ? VISIBLE : INVISIBLE);
     }
 
+    public ImageButton getFullscreenButton() {
+        return fullscreenButton;
+    }
 }
