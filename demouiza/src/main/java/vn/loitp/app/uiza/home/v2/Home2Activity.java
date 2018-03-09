@@ -10,6 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.uiza.player.ui.player.v2.FrmDummy;
+import com.uiza.player.ui.util.UizaScreenUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,9 +155,10 @@ public class Home2Activity extends BaseActivity {
 
             @Override
             public void onClickRight() {
-                Intent intent = new Intent(activity, SearchActivity.class);
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                //Intent intent = new Intent(activity, SearchActivity.class);
+                //startActivity(intent);
+                //LUIUtil.transActivityFadeIn(activity);
+                UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmDummy());
             }
         });
         uizaActionBar.showMenuIcon();
@@ -167,13 +171,6 @@ public class Home2Activity extends BaseActivity {
         if (mDrawerView != null) {
             mDrawerView.refresh();
         }
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        //transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     private void getListAllMetadata() {
@@ -223,14 +220,14 @@ public class Home2Activity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    replaceFragment(new FrmChannel2());
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2());
                 }
             }));
         }
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
-        replaceFragment(new FrmChannel2());
+        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2());
     }
 
     @Override

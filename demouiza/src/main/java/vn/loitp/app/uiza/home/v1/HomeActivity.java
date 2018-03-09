@@ -9,11 +9,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
+import com.uiza.player.ui.util.UizaScreenUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.v2.FrmChannel2;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
@@ -158,13 +161,6 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        //transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
         UizaService service = RestClient.createService(UizaService.class);
@@ -212,13 +208,13 @@ public class HomeActivity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    replaceFragment(new FrmChannel());
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel());
                 }
             }));
         }
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(0));
-        replaceFragment(new FrmChannel());
+        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel());
     }
 }

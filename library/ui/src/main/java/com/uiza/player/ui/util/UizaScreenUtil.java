@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,6 +14,9 @@ import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
 import com.uiza.player.ui.data.UizaData;
+
+import io.uiza.sdk.ui.R;
+import vn.loitp.core.base.BaseActivity;
 
 /**
  * File created on 8/31/2017.
@@ -135,5 +140,12 @@ public class UizaScreenUtil {
             ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             UizaData.getInstance().setLandscape(true);
         }
+    }
+
+    public static void replaceFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment) {
+        FragmentTransaction transaction = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
+        transaction.replace(containerFrameLayoutIdRes, fragment);
+        //transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
