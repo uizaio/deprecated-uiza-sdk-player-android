@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.uiza.player.ui.player.v2.FrmDummy;
 import com.uiza.player.ui.util.UizaScreenUtil;
 
 import java.util.ArrayList;
@@ -21,7 +19,6 @@ import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
-import vn.loitp.app.uiza.search.SearchActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
@@ -158,7 +155,7 @@ public class Home2Activity extends BaseActivity {
                 //Intent intent = new Intent(activity, SearchActivity.class);
                 //startActivity(intent);
                 //LUIUtil.transActivityFadeIn(activity);
-                UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmDummy());
+                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmDummy());
             }
         });
         uizaActionBar.showMenuIcon();
@@ -232,7 +229,7 @@ public class Home2Activity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        //LLog.d(TAG, TAG + " onBackPressed");
+        LLog.d(TAG, TAG + " onBackPressed");
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
             //super.onBackPressed();

@@ -145,7 +145,14 @@ public class UizaScreenUtil {
     public static void replaceFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment) {
         FragmentTransaction transaction = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
         transaction.replace(containerFrameLayoutIdRes, fragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public static void addFragment(Activity activity, int containerFrameLayoutIdRes, Fragment fragment) {
+        FragmentTransaction transaction = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
+        transaction.add(containerFrameLayoutIdRes, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
