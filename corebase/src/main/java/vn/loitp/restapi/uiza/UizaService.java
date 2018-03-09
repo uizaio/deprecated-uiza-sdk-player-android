@@ -16,7 +16,7 @@ import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
-import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBody;
+import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 

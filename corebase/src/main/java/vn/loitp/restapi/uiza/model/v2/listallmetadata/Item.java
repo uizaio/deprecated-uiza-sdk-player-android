@@ -4,7 +4,7 @@ package vn.loitp.restapi.uiza.model.v2.listallmetadata;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Metadatum {
+public class Item {
 
     @SerializedName("id")
     @Expose
@@ -15,6 +15,15 @@ public class Metadatum {
     @SerializedName("type")
     @Expose
     private String type;
+    @SerializedName("status")
+    @Expose
+    private int status;
+    @SerializedName("icon")
+    @Expose
+    private Object icon;
+    @SerializedName("orderNumber")
+    @Expose
+    private int orderNumber;
 
     public String getId() {
         return id;
@@ -38,6 +47,30 @@ public class Metadatum {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Object getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Object icon) {
+        this.icon = icon;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
 }
