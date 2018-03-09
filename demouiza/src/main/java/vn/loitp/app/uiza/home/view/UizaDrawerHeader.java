@@ -4,6 +4,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import vn.loitp.core.common.Constants;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
@@ -36,6 +37,12 @@ public class UizaDrawerHeader {
     @Resolve
     private void onResolved() {
         tvName.setText("Bạn Chưa Đăng Nhập");
+
+        if (Constants.IS_DEBUG) {
+            tvSetting.setVisibility(android.view.View.VISIBLE);
+        } else {
+            tvSetting.setVisibility(android.view.View.GONE);
+        }
     }
 
     @Click(R.id.iv_log_out)

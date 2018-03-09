@@ -89,7 +89,12 @@ public class FrmChannel2 extends BaseFragment {
         View view = inflater.inflate(R.layout.uiza_frm_channel_2, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
         tvMsg = (TextView) view.findViewById(R.id.tv_msg);
-        tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
+        if (Constants.IS_DEBUG) {
+            tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
+            tv.setVisibility(View.VISIBLE);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
