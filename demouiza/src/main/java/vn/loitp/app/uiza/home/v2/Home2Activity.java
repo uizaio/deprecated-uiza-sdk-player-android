@@ -199,6 +199,11 @@ public class Home2Activity extends BaseActivity {
                 //Intent intent = new Intent(activity, SearchActivity.class);
                 //startActivity(intent);
                 //LUIUtil.transActivityFadeIn(activity);
+
+                if (draggablePanel.isMaximized()) {
+                    draggablePanel.minimize();
+                }
+
                 uizaActionBar.setVisibility(View.GONE);
                 UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmDummy());
             }
@@ -259,8 +264,9 @@ public class Home2Activity extends BaseActivity {
             mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItem.Callback() {
                 @Override
                 public void onMenuItemClick(int pos) {
-                    //draggablePanel.minimize();
-                    //draggablePanel.setVisibility(View.GONE);
+                    if (draggablePanel.isMaximized()) {
+                        draggablePanel.minimize();
+                    }
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
