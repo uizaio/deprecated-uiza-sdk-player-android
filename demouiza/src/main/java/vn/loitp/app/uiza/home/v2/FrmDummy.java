@@ -71,4 +71,10 @@ public class FrmDummy extends BaseFragment implements IOnBackPressed {
         getActivity().getSupportFragmentManager().popBackStack();
         return true;
     }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        LLog.d(TAG, TAG + " onFragmentResume");
+    }
 }

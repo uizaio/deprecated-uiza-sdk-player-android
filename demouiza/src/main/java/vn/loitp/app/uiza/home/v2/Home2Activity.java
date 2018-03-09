@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -22,6 +23,7 @@ import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
@@ -54,6 +56,8 @@ public class Home2Activity extends BaseActivity {
 
         setupDrawer();
         setupActionBar();
+
+        getSupportFragmentManager().addOnBackStackChangedListener(onBackStackChangedListener());
     }
 
     @Override
@@ -155,6 +159,7 @@ public class Home2Activity extends BaseActivity {
                 //Intent intent = new Intent(activity, SearchActivity.class);
                 //startActivity(intent);
                 //LUIUtil.transActivityFadeIn(activity);
+                uizaActionBar.setVisibility(View.GONE);
                 UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmDummy());
             }
         });
@@ -241,5 +246,18 @@ public class Home2Activity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private FragmentManager.OnBackStackChangedListener onBackStackChangedListener() {
+        FragmentManager.OnBackStackChangedListener result = new FragmentManager.OnBackStackChangedListener() {
+            public void onBackStackChanged() {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if (fragmentManager != null) {
+                    BaseFragment currFrag = (BaseFragment) fragmentManager.findFragmentById(R.id.fragment_container);
+                    currFrag.onFragmentResume();
+                }
+            }
+        };
+        return result;
     }
 }

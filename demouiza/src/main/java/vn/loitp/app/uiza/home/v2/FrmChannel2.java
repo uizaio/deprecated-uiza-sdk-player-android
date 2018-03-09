@@ -582,4 +582,11 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         }
         return false;
     }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        LLog.d(TAG, TAG + " onFragmentResume");
+        ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+    }
 }
