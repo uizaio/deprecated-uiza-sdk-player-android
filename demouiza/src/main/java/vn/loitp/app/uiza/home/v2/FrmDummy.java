@@ -77,4 +77,10 @@ public class FrmDummy extends BaseFragment implements IOnBackPressed {
         super.onFragmentResume();
         LLog.d(TAG, TAG + " onFragmentResume");
     }
+
+    @Override
+    public void onFragmentPause() {
+        super.onFragmentPause();
+        LLog.d(TAG, TAG + " onFragmentPause");
+    }
 }

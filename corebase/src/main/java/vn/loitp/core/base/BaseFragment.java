@@ -89,4 +89,7 @@ public abstract class BaseFragment extends Fragment {
 
     public void onFragmentResume() {
     }
+
+    public void onFragmentPause() {
+    }
 }

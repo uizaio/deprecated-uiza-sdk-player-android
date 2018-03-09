@@ -67,7 +67,7 @@ public class Home2Activity extends BaseActivity {
 
     @Override
     protected String setTag() {
-        return getClass().getSimpleName();
+        return "TAG" + getClass().getSimpleName();
     }
 
     @Override
@@ -229,7 +229,8 @@ public class Home2Activity extends BaseActivity {
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
-        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2());
+        currentFrm = new FrmChannel2();
+        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm);
     }
 
     @Override
@@ -255,9 +256,19 @@ public class Home2Activity extends BaseActivity {
                 if (fragmentManager != null) {
                     BaseFragment currFrag = (BaseFragment) fragmentManager.findFragmentById(R.id.fragment_container);
                     currFrag.onFragmentResume();
+                    if (currentFrm != null) {
+                        if (currentFrm == currFrag) {
+                            //do nothing
+                        } else {
+                            currentFrm.onFragmentPause();
+                            currentFrm = currFrag;
+                        }
+                    }
                 }
             }
         };
         return result;
     }
+
+    private BaseFragment currentFrm;
 }
