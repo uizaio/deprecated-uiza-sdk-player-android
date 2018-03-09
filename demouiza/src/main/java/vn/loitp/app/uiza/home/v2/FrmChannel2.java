@@ -48,7 +48,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmChannel2 extends BaseFragment {
+public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private TextView tvMsg;
@@ -560,5 +560,15 @@ public class FrmChannel2 extends BaseFragment {
             draggablePanel.setTopViewHeightApllyNow(LDisplayUtils.getScreenH(getActivity()));//px
             draggablePanel.setEnableSlide(false);
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        LLog.d(TAG, TAG + " onBackPressed");
+        if (draggablePanel.isMaximized()) {
+            draggablePanel.minimize();
+            return true;
+        }
+        return false;
     }
 }

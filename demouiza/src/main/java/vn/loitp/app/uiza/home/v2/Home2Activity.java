@@ -235,12 +235,17 @@ public class Home2Activity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
-            @Override
-            public void onClick() {
-                finish();
-                LUIUtil.transActivityFadeIn(activity);
-            }
-        });
+        //LLog.d(TAG, TAG + " onBackPressed");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+            //super.onBackPressed();
+            LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+                @Override
+                public void onClick() {
+                    finish();
+                    LUIUtil.transActivityFadeIn(activity);
+                }
+            });
+        }
     }
 }
