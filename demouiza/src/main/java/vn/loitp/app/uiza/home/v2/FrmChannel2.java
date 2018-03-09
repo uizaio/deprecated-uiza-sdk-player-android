@@ -377,11 +377,11 @@ public class FrmChannel2 extends BaseFragment {
         UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
-        List<String> metadataId = new ArrayList<>();
         if (HomeData.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
             LLog.d(TAG, "HOME category");
         } else {
             LLog.d(TAG, "!HOME category");
+            List<String> metadataId = new ArrayList<>();
             metadataId.add(HomeData.getInstance().getItem().getId());
             jsonBody.setMetadataId(metadataId);
         }

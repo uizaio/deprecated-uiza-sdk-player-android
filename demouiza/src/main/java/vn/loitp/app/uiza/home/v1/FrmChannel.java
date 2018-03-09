@@ -19,6 +19,7 @@ import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItem;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
@@ -54,7 +55,7 @@ public class FrmChannel extends BaseFragment {
 
     private boolean isRefreshing;
     private boolean isLoadMoreCalling;
-    private final int limit = 15;
+    private final int limit = 50;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
     private final String orderBy = "name";
@@ -247,9 +248,14 @@ public class FrmChannel extends BaseFragment {
         UizaService service = RestClient.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
-        List<String> metadataId = new ArrayList<>();
-        metadataId.add(HomeData.getInstance().getItem().getId());
-        jsonBody.setMetadataId(metadataId);
+        if (HomeData.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
+            LLog.d(TAG, "HOME category");
+        } else {
+            LLog.d(TAG, "!HOME category");
+            List<String> metadataId = new ArrayList<>();
+            metadataId.add(HomeData.getInstance().getItem().getId());
+            jsonBody.setMetadataId(metadataId);
+        }
         jsonBody.setLimit(limit);
         jsonBody.setPage(page);
         jsonBody.setOrderBy(orderBy);
