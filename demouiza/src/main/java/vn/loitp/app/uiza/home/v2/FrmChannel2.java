@@ -1,21 +1,11 @@
 package vn.loitp.app.uiza.home.v2;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.FrmUizaVideo;
-import com.uiza.player.ui.player.v2.FrmBottom;
-import com.uiza.player.ui.player.v2.FrmTop;
-import com.uiza.player.ui.util.UizaScreenUtil;
-import com.uiza.player.ui.views.SimpleExoPlayerView;
-import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +20,14 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
-import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
-import vn.loitp.views.draggablepanel.DraggableListener;
 import vn.loitp.views.draggablepanel.DraggablePanel;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -55,7 +42,6 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     private TextView tvMsg;
     private PlaceHolderView placeHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
-    private DraggablePanel draggablePanel;
 
     private final int NUMBER_OF_COLUMN = 2;
     private final int NUMBER_OF_COLUMN_1 = 1;
@@ -94,10 +80,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        draggablePanel = (DraggablePanel) view.findViewById(R.id.draggable_panel);
         avLoadingIndicatorView.smoothToShow();
-
-        updateUIStatusNavigationBar(true);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
         placeHolderView.getBuilder()
@@ -141,39 +124,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         });
 
         getData(false);
-        draggablePanel.setDraggableListener(new DraggableListener() {
-            @Override
-            public void onMaximized() {
-                LLog.d(TAG, "draggablePanel onMaximized");
-            }
-
-            @Override
-            public void onMinimized() {
-                LLog.d(TAG, "draggablePanel onMinimized");
-            }
-
-            @Override
-            public void onClosedToLeft() {
-                LLog.d(TAG, "draggablePanel onClosedToLeft");
-                releasePlayer();
-            }
-
-            @Override
-            public void onClosedToRight() {
-                LLog.d(TAG, "draggablePanel onClosedToRight");
-                releasePlayer();
-            }
-        });
         return view;
-    }
-
-    private void releasePlayer() {
-        if (frmTop == null) {
-            LLog.d(TAG, "draggablePanel frmTop == null");
-        } else {
-            LLog.d(TAG, "draggablePanel frmTop != null");
-            frmTop.releasePlayer();
-        }
     }
 
     /*private List<Item> getSubList(List<Item> itemList, int startIndex, int endIndex) {
@@ -245,7 +196,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
-                    onClickVideo(item, position);
+                    ((Home2Activity) getActivity()).onClickVideo(item, position);
                 }
             }));
         }
@@ -253,7 +204,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             isLoadMoreCalling = false;
         } else {
             avLoadingIndicatorView.smoothToHide();
-            initializeDraggablePanel();
+            ((Home2Activity) getActivity()).initializeDraggablePanel();
         }
     }
 
@@ -265,96 +216,6 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         for (int i = 0; i < NUMBER_OF_COLUMN; i++) {
             placeHolderView.addView(new BlankView());
         }
-    }
-
-    private void onClickVideo(Item item, int position) {
-        LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
-            LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
-            draggablePanel.minimize();
-            if (draggablePanel.getVisibility() != View.VISIBLE) {
-                draggablePanel.setVisibility(View.VISIBLE);
-            }
-        } else {
-            LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
-                @Override
-                public void doAfter(int mls) {
-                    draggablePanel.maximize();
-                }
-            });
-        }
-        onClick(item.getId(), item.getThumbnail(), item.getName());
-        EventBusData.getInstance().sendClickVideoEvent(item.getId());
-    }
-
-    private void onClick(String entityId, String entityCover, String entityTitle) {
-        LLog.d(TAG, "entityId " + entityId);
-        if (entityId == null || entityId.isEmpty()) {
-            showDialogError("entityId == null || entityId.isEmpty()");
-            return;
-        }
-
-        RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
-        getPlayerConfig(entityId, entityCover, entityTitle);
-
-        //inputModel = createInputModel(entityId, entityCover, entityTitle);
-        //UizaData.getInstance().setInputModel(inputModel);
-    }
-
-    private InputModel inputModel;
-
-    private void getPlayerConfig(String entityId, String entityCover, String entityTitle) {
-        LLog.d(TAG, ">>>getPlayerConfig");
-        if (UizaData.getInstance().getPlayerConfig() == null) {
-            LLog.d(TAG, "UizaData.getInstance().getPlayerConfig() == null");
-            UizaService service = RestClient.createService(UizaService.class);
-            subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
-                @Override
-                public void onSuccess(PlayerConfig playerConfig) {
-                    //TODO custom theme
-                    LLog.d(TAG, "getPlayerConfig onSuccess " + LSApplication.getInstance().getGson().toJson(playerConfig));
-                    UizaData.getInstance().setPlayerConfig(playerConfig);
-
-                    inputModel = createInputModel(entityId, entityCover, entityTitle);
-                    UizaData.getInstance().setInputModel(inputModel);
-                }
-
-                @Override
-                public void onFail(Throwable e) {
-                    LLog.e(TAG, "getPlayerConfig onFail " + e.toString());
-                    handleException(e);
-                }
-            });
-        } else {
-            LLog.d(TAG, "UizaData.getInstance().getPlayerConfig() != null -> play new");
-            inputModel = createInputModel(entityId, entityCover, entityTitle);
-            UizaData.getInstance().setInputModel(inputModel);
-        }
-    }
-
-    private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
-        InputModel inputModel = new InputModel();
-        inputModel.setEntityID(entityId);
-
-        if (entityCover == null || entityCover.isEmpty()) {
-            inputModel.setUrlImg(Constants.URL_IMG_9x16);
-        } else {
-            inputModel.setUrlImg(Constants.PREFIXS + entityCover);
-        }
-        inputModel.setTitle(entityTitle + "");
-
-        inputModel.setExtension("mpd");
-        //inputModel.setDrmLicenseUrl("");
-        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
-        inputModel.setPreferExtensionDecoders(false);
-
-        //TODO remove this code below
-        //inputModel.setUri("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
-        //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
-        //inputModel.setUri("http://cdn-broadcast.yuptv.vn/ba_dash/0c45905848ca4ec99d2ed7c11bc8f8ad-a1556c60605a4fe4a1a22eafb4e89b44/index.mpd");
-
-        //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
-        return inputModel;
     }
 
     private void getData(boolean isCallFromLoadMore) {
@@ -449,44 +310,6 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         });
     }
 
-    private FrmTop frmTop;
-    private FrmBottom frmBottom;
-
-    private void initializeDraggablePanel() throws Resources.NotFoundException {
-        frmTop = new FrmTop();
-        /*frmTop.setVisibilityChange(new FrmTop.VisibilityChange() {
-            @Override
-            public void onVisibilityChange(int visibility) {
-                if (visibility == View.VISIBLE) {
-                    LLog.d(TAG, ">>>onVisibilityChange VISIBLE " + visibility);
-                } else {
-                    LLog.d(TAG, ">>>onVisibilityChange !VISIBLE " + visibility);
-                }
-            }
-        });*/
-        frmBottom = new FrmBottom();
-        draggablePanel.setFragmentManager(getActivity().getSupportFragmentManager());
-        draggablePanel.setTopFragment(frmTop);
-        draggablePanel.setBottomFragment(frmBottom);
-
-        //draggablePanel.setXScaleFactor(xScaleFactor);
-        //draggablePanel.setYScaleFactor(yScaleFactor);
-
-        int widthScreen = LDisplayUtils.getScreenW(getActivity());
-        LLog.d(TAG, "widthScreen " + widthScreen);
-        int heightFrmTop = widthScreen * 9 / 16;
-        LLog.d(TAG, "heightFrmTop " + heightFrmTop);
-
-        draggablePanel.setTopViewHeight(heightFrmTop);//px
-        draggablePanel.setEnableHorizontalAlphaEffect(false);
-        //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
-        //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
-        draggablePanel.setClickToMaximizeEnabled(true);
-        draggablePanel.setClickToMinimizeEnabled(false);
-
-        draggablePanel.initializeView();
-    }
-
     private void swipeToRefresh() {
         if (isRefreshing) {
             return;
@@ -516,57 +339,12 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         getData(true);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Checking the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //First Hide other objects (listview or recyclerview), better hide them using Gone.
-            /*FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mExoPlayerView.getLayoutParams();
-            params.width = params.MATCH_PARENT;
-            params.height = params.MATCH_PARENT;
-            mExoPlayerView.setLayoutParams(params);*/
-            LLog.d(TAG, "ORIENTATION_LANDSCAPE");
-            updateUIStatusNavigationBar(false);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //unhide your objects here.
-            /*FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mExoPlayerView.getLayoutParams();
-            params.width = params.MATCH_PARENT;
-            params.height = LDisplayUtils.getDialogW(activity) * 9 / 16;
-            mExoPlayerView.setLayoutParams(params);*/
-            LLog.d(TAG, "ORIENTATION_PORTRAIT");
-            updateUIStatusNavigationBar(true);
-        }
-    }
-
-    //true: show status bar, hide navigation bar
-    //false: hide status bar, hide navigation bar
-    private void updateUIStatusNavigationBar(boolean isShow) {
-        UizaScreenUtil.hideNavBar(getActivity().getWindow().getDecorView());
-        if (isShow) {
-            UizaScreenUtil.showStatusBar(getActivity());
-            LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
-            ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
-
-            int widthScreen = LDisplayUtils.getScreenW(getActivity());
-            LLog.d(TAG, "widthScreen " + widthScreen);
-            int heightFrmTop = widthScreen * 9 / 16;
-            LLog.d(TAG, "heightFrmTop " + heightFrmTop);
-            draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
-            draggablePanel.setEnableSlide(true);
-        } else {
-            UizaScreenUtil.hideStatusBar(getActivity());
-            LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
-            ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.GONE);
-            draggablePanel.setTopViewHeightApllyNow(LDisplayUtils.getScreenH(getActivity()));//px
-            draggablePanel.setEnableSlide(false);
-        }
-    }
 
     @Override
     public boolean onBackPressed() {
         LLog.d(TAG, TAG + " onBackPressed");
-        if (UizaData.getInstance().isLandscape()) {
+        //TODO
+        /*if (UizaData.getInstance().isLandscape()) {
             if (frmTop != null) {
                 SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
                 simpleExoPlayerView.getController().getFullscreenButton().performClick();
@@ -575,11 +353,12 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             return true;
         } else {
             LLog.d(TAG, "!isLandscape");
+            //TODO
             if (draggablePanel.isMaximized()) {
                 draggablePanel.minimize();
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
@@ -587,18 +366,20 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     public void onFragmentResume() {
         super.onFragmentResume();
         LLog.d(TAG, TAG + " onFragmentResume");
-        ((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+        //TODO
+        /*((Home2Activity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
         if (frmTop != null && frmTop.getPlayerView() != null && frmTop.getPlayerView().getPlayer() != null) {
             frmTop.getPlayerView().getPlayer().setPlayWhenReady(true);
-        }
+        }*/
     }
 
     @Override
     public void onFragmentPause() {
         super.onFragmentPause();
         LLog.d(TAG, TAG + " onFragmentPause");
-        if (frmTop != null && frmTop.getPlayerView() != null && frmTop.getPlayerView().getPlayer() != null) {
+        //TODO
+        /*if (frmTop != null && frmTop.getPlayerView() != null && frmTop.getPlayerView().getPlayer() != null) {
             frmTop.getPlayerView().getPlayer().setPlayWhenReady(false);
-        }
+        }*/
     }
 }

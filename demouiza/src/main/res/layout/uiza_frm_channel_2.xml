@@ -35,12 +35,6 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <vn.loitp.views.draggablepanel.DraggablePanel
-        android:id="@+id/draggable_panel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
     <vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
         style="@style/AVLoadingIndicatorView"

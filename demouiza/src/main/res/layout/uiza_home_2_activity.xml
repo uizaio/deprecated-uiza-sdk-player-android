@@ -24,6 +24,12 @@
                 android:id="@+id/uiza_action_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize" />
+
+            <vn.loitp.views.draggablepanel.DraggablePanel
+                android:id="@+id/draggable_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <FrameLayout
