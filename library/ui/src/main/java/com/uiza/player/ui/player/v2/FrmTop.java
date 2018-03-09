@@ -86,6 +86,7 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.data.EventBusData;
@@ -430,6 +431,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
         playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
         playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
+
         if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
             shouldAutoPlay = true;
             simpleExoPlayerView.getPlayer().setPlayWhenReady(shouldAutoPlay);

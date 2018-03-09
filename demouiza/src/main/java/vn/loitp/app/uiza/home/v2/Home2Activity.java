@@ -507,20 +507,9 @@ public class Home2Activity extends BaseActivity {
         if (frmTop != null) {
             SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                //First Hide other objects (listview or recyclerview), better hide them using Gone.
-
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) simpleExoPlayerView.getLayoutParams();
-                params.width = params.MATCH_PARENT;
-                params.height = params.MATCH_PARENT;
-                simpleExoPlayerView.setLayoutParams(params);
                 LLog.d(TAG, "ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);
             } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                //unhide your objects here.
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) simpleExoPlayerView.getLayoutParams();
-                params.width = params.MATCH_PARENT;
-                params.height = LDisplayUtils.getDialogW(activity) * 9 / 16;
-                simpleExoPlayerView.setLayoutParams(params);
                 LLog.d(TAG, "ORIENTATION_PORTRAIT");
                 updateUIStatusNavigationBar(true);
             }
