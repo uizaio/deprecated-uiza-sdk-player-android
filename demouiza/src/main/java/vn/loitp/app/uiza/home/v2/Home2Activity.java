@@ -178,9 +178,7 @@ public class Home2Activity extends BaseActivity {
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
         UizaService service = RestClient.createService(UizaService.class);
-
         int limit = 100;
-
         subscribe(service.listAllMetadata(limit), new ApiSubscriber<ListAllMetadata>() {
             @Override
             public void onSuccess(ListAllMetadata listAllMetadata) {
@@ -206,6 +204,10 @@ public class Home2Activity extends BaseActivity {
             showDialogOne("itemList == null || itemList.isEmpty()");
             return;
         }
+
+        //add home menu
+
+        //emd add home menu
 
         for (int i = 0; i < this.itemList.size(); i++) {
             mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItem.Callback() {
