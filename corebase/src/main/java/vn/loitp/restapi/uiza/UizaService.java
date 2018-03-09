@@ -62,7 +62,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/metadata/list")
-    Observable<ListAllMetadata> listAllMetadata(@Field("limit") int limit);
+    Observable<ListAllMetadata> listAllMetadata(@Field("limit") int limit, @Field("orderBy") String orderBy, @Field("orderType") String orderType);
 
     @Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/list")

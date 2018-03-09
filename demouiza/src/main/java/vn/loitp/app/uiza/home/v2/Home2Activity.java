@@ -22,6 +22,7 @@ import vn.loitp.app.uiza.search.SearchActivity;
 import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
@@ -179,7 +180,9 @@ public class Home2Activity extends BaseActivity {
         LLog.d(TAG, "getListAllMetadata");
         UizaService service = RestClient.createService(UizaService.class);
         int limit = 100;
-        subscribe(service.listAllMetadata(limit), new ApiSubscriber<ListAllMetadata>() {
+        String orderBy = "orderNumber";
+        String orderType = "ASC";
+        subscribe(service.listAllMetadata(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
             @Override
             public void onSuccess(ListAllMetadata listAllMetadata) {
                 LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(listAllMetadata));
@@ -206,7 +209,11 @@ public class Home2Activity extends BaseActivity {
         }
 
         //add home menu
-
+        Item item = new Item();
+        item.setName("Home");
+        item.setId(String.valueOf(Constants.NOT_FOUND));
+        item.setType("folder");
+        itemList.add(0, item);
         //emd add home menu
 
         for (int i = 0; i < this.itemList.size(); i++) {

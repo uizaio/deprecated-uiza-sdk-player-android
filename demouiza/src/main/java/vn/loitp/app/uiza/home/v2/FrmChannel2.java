@@ -63,7 +63,7 @@ public class FrmChannel2 extends BaseFragment {
 
     private boolean isRefreshing;
     private boolean isLoadMoreCalling;
-    private final int limit = 15;
+    private final int limit = 50;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
     private final String orderBy = "name";
@@ -378,8 +378,13 @@ public class FrmChannel2 extends BaseFragment {
 
         JsonBody jsonBody = new JsonBody();
         List<String> metadataId = new ArrayList<>();
-        metadataId.add(HomeData.getInstance().getItem().getId());
-        jsonBody.setMetadataId(metadataId);
+        if (HomeData.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
+            LLog.d(TAG, "HOME category");
+        } else {
+            LLog.d(TAG, "!HOME category");
+            metadataId.add(HomeData.getInstance().getItem().getId());
+            jsonBody.setMetadataId(metadataId);
+        }
         jsonBody.setLimit(limit);
         jsonBody.setPage(page);
         jsonBody.setOrderBy(orderBy);
