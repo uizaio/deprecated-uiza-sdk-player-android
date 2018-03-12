@@ -383,7 +383,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.toString());
+                LLog.e(TAG, "getDetailEntity onFail " + e.toString());
                 handleException(e);
             }
         });

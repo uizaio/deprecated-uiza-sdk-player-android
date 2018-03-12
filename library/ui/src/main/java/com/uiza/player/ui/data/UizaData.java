@@ -176,7 +176,7 @@ public class UizaData {
         if (apiTrackingEndPoint == null || apiTrackingEndPoint.isEmpty()) {
             throw new NullPointerException("Pls init apiTrackingEndPoint first");
         }
-        return apiEndPoint;
+        return apiTrackingEndPoint;
     }
 
     public String getToken() {

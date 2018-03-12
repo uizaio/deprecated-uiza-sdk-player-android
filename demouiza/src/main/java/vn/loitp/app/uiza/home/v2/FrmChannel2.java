@@ -52,8 +52,8 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     private final int limit = 50;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
-    private final String orderBy = "name";
-    private final String orderType = "ASC";
+    private final String orderBy = "createdAt";
+    private final String orderType = "DESC";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

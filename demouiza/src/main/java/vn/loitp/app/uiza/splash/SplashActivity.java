@@ -93,7 +93,7 @@ public class SplashActivity extends BaseActivity {
 
     private void goToHome(Auth auth) {
         RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
-        UizaData.getInstance().init(Constants.URL_TRACKING_DEV, Constants.URL_DEV_UIZA2, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
+        UizaData.getInstance().init(Constants.URL_DEV_UIZA2, Constants.URL_TRACKING_DEV, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
 
         boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_TEST, false);
 
