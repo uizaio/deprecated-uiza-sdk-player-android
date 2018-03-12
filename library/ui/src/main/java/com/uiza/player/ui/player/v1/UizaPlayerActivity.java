@@ -80,6 +80,9 @@ public class UizaPlayerActivity extends BaseActivity {
 
         //track eventype display
         trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_DISPLAY));
+
+        //track plays_requested
+        trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
     }
 
     private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
@@ -450,16 +453,18 @@ public class UizaPlayerActivity extends BaseActivity {
     }
 
     private void trackUiza(UizaTracking uizaTracking) {
+        LLog.d(TAG, ">>>>>>>>>>>>>>>> getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
         RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
         UizaService service = RestClientTracking.createService(UizaService.class);
         subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
             @Override
             public void onSuccess(Object tracking) {
-                LLog.d(TAG, "trackUiza onSuccess " + gson.toJson(tracking));
+                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess " + gson.toJson(tracking));
             }
 
             @Override
             public void onFail(Throwable e) {
+                //TODO send event fail? Try to send again
                 LLog.d(TAG, "trackUiza onFail " + e.toString());
                 handleException(e);
             }
