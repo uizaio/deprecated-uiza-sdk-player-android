@@ -78,23 +78,23 @@ public class Home2Activity extends BaseActivity {
         draggablePanel.setDraggableListener(new DraggableListener() {
             @Override
             public void onMaximized() {
-                LLog.d(TAG, "draggablePanel onMaximized");
+                LLog.d(TAG, "setDraggableListener draggablePanel onMaximized");
             }
 
             @Override
             public void onMinimized() {
-                LLog.d(TAG, "draggablePanel onMinimized");
+                LLog.d(TAG, "setDraggableListener draggablePanel onMinimized");
             }
 
             @Override
             public void onClosedToLeft() {
-                LLog.d(TAG, "draggablePanel onClosedToLeft");
+                LLog.d(TAG, "setDraggableListener draggablePanel onClosedToLeft");
                 releasePlayer();
             }
 
             @Override
             public void onClosedToRight() {
-                LLog.d(TAG, "draggablePanel onClosedToRight");
+                LLog.d(TAG, "setDraggableListener draggablePanel onClosedToRight");
                 releasePlayer();
             }
         });
@@ -291,24 +291,37 @@ public class Home2Activity extends BaseActivity {
         } else {
             LLog.d(TAG, "!isLandscape");
             if (draggablePanel != null) {
+                LLog.d(TAG, "draggablePanel != null");
                 if (draggablePanel.isMaximized()) {
-                    draggablePanel.minimize();
-                    return;
+                    if (draggablePanel.getVisibility() == View.VISIBLE) {
+                        LLog.d(TAG, "draggablePanel.isMaximized()");
+                        draggablePanel.minimize();
+                        return;
+                    } else {
+                        confirmExit();
+                    }
                 }
+            } else {
+                LLog.d(TAG, "draggablePanel == null");
+                confirmExit();
+                return;
             }
         }
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
-            //super.onBackPressed();
-            LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
-                @Override
-                public void onClick() {
-                    finish();
-                    LUIUtil.transActivityFadeIn(activity);
-                }
-            });
+            confirmExit();
         }
+    }
+
+    private void confirmExit() {
+        LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+            @Override
+            public void onClick() {
+                finish();
+                LUIUtil.transActivityFadeIn(activity);
+            }
+        });
     }
 
     private FragmentManager.OnBackStackChangedListener onBackStackChangedListener() {
