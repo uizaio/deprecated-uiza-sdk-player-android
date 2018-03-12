@@ -23,7 +23,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
@@ -245,7 +245,7 @@ public class FrmChannel extends BaseFragment {
         if (tvMsg.getVisibility() != View.GONE) {
             tvMsg.setVisibility(View.GONE);
         }
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
         if (HomeData.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {

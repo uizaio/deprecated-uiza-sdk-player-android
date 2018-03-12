@@ -9,6 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
+import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
@@ -103,4 +104,10 @@ public interface UizaService {
     Observable<Object> getDetailEntity(@Field("id") String id);
 
     //=====================================================end v1 http://dev-api.uiza.io/data/index.html
+
+    //=====================================================tracking
+    @Headers("Content-Type: application/json")
+    @POST("v1/tracking/mobile")
+    Observable<Object> track(@Body Object uizaTracking);
+    //end =====================================================tracking
 }

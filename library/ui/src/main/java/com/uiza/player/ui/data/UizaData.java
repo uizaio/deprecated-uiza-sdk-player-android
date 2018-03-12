@@ -161,12 +161,20 @@ public class UizaData {
     public final static String F = "false";
 
     private String apiEndPoint;
+    private String apiTrackingEndPoint;
     private String token;
     private String playerId;//for select theme
 
     public String getApiEndPoint() {
         if (apiEndPoint == null || apiEndPoint.isEmpty()) {
             throw new NullPointerException("Pls init apiEndPoint first");
+        }
+        return apiEndPoint;
+    }
+
+    public String getApiTrackingEndPoint() {
+        if (apiTrackingEndPoint == null || apiTrackingEndPoint.isEmpty()) {
+            throw new NullPointerException("Pls init apiTrackingEndPoint first");
         }
         return apiEndPoint;
     }
@@ -189,12 +197,14 @@ public class UizaData {
         this.playerId = playerId;
     }
 
-    public void init(String apiEndPoint, String token, String playerId) {
+    public void init(String apiEndPoint, String apiTrackingEndPoint, String token, String playerId) {
         this.apiEndPoint = apiEndPoint;
+        this.apiTrackingEndPoint = apiTrackingEndPoint;
         this.token = token;
         this.playerId = playerId;
 
         LLog.d(TAG, "apiEndPoint " + apiEndPoint);
+        LLog.d(TAG, "apiTrackingEndPoint " + apiTrackingEndPoint);
         LLog.d(TAG, "token " + token);
         LLog.d(TAG, "playerId " + playerId);
     }

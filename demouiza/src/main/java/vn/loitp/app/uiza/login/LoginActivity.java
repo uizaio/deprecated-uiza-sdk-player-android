@@ -6,14 +6,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import vn.loitp.app.app.LSApplication;
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.restapi.ls.corev3.api.service.LSService;
-import vn.loitp.restapi.restclient.RestClient;
 import vn.loitp.utils.util.ToastUtils;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -65,7 +60,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void login() {
         //TODO
         ToastUtils.showShort("Click");
-        /*LSService service = RestClient.createService(LSService.class);
+        /*LSService service = RestClientV2.createService(LSService.class);
         String id = "fuck";
         String pw = "fuck";
         subscribe(service.login(id, pw), new ApiSubscriber<Object>() {

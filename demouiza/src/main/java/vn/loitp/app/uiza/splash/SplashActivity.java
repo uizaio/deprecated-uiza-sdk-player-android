@@ -5,26 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.v1.HomeActivity;
 import vn.loitp.app.uiza.home.v2.Home2Activity;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDateUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
-
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class SplashActivity extends BaseActivity {
 
@@ -68,8 +64,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void auth() {
-        RestClient.init(getString(R.string.dev_uiza_v2_URL));
-        UizaService service = RestClient.createService(UizaService.class);
+        RestClientV2.init(Constants.URL_DEV_UIZA2);
+        UizaService service = RestClientV2.createService(UizaService.class);
         String accessKeyId = "BNEU77HJAPWYVIF1DEU5";
         String secretKeyId = "8yro1j369cCj6VR7cD2kzQbzJ2vDiswt7jxhtGjp";
         subscribe(service.auth(accessKeyId, secretKeyId), new ApiSubscriber<Auth>() {
@@ -96,8 +92,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goToHome(Auth auth) {
-        RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
-        UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
+        RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+        UizaData.getInstance().init(Constants.URL_TRACKING_DEV, Constants.URL_DEV_UIZA2, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
 
         boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_TEST, false);
 
@@ -115,7 +111,7 @@ public class SplashActivity extends BaseActivity {
         finish();
 
         //Test
-        /*RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
+        /*RestClientV2.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
         UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
         Intent intent = new Intent(activity, UizaPlayerActivity.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, "f5dd9c0a-87fd-4bf8-be44-fe8cf394a885");
@@ -126,8 +122,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void checkToken(Auth auth) {
-        RestClient.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
-        UizaService service = RestClient.createService(UizaService.class);
+        RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+        UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.checkToken(), new ApiSubscriber<Auth>() {
             @Override
             public void onSuccess(Auth a) {

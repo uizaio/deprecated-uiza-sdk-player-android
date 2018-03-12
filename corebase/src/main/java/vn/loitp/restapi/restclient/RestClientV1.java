@@ -17,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.DateTypeDeserializer;
 
-public class RestClient {
-    private static final String TAG = RestClient.class.getSimpleName();
+public class RestClientV1 {
+    private static final String TAG = RestClientV1.class.getSimpleName();
     private static final int TIMEOUT_TIME = 1;
     private static final int CONNECT_TIMEOUT_TIME = 20;//20s
     private static final String AUTHORIZATION = "Authorization";

@@ -32,7 +32,7 @@ import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
@@ -165,7 +165,7 @@ public class FrmBottom extends BaseFragment {
         //API v2
         this.itemList.clear();
         mAdapter.notifyDataSetChanged();
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
@@ -224,7 +224,7 @@ public class FrmBottom extends BaseFragment {
         avLoadingIndicatorView.smoothToShow();
 
         //API v1
-        /*UizaService service = RestClient.createService(UizaService.class);
+        /*UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntity(entityId), new ApiSubscriber<Object>() {
@@ -250,7 +250,7 @@ public class FrmBottom extends BaseFragment {
         //End API v1
 
         //API v2
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         //LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override

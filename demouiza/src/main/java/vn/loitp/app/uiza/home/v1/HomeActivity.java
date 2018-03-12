@@ -3,8 +3,6 @@ package vn.loitp.app.uiza.home.v1;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
-import vn.loitp.app.uiza.home.v2.FrmChannel2;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
@@ -27,7 +24,7 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.Item;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
@@ -163,7 +160,7 @@ public class HomeActivity extends BaseActivity {
 
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         int limit = 100;
         String orderBy = "orderNumber";
         String orderType = "ASC";
@@ -188,10 +185,6 @@ public class HomeActivity extends BaseActivity {
 
     private void genListDrawerLayout(ListAllMetadata listAllMetadata) {
         itemList = listAllMetadata.getItems();
-        if (itemList == null || itemList.isEmpty()) {
-            showDialogOne("itemList == null || itemList.isEmpty()");
-            return;
-        }
 
         //add home menu
         Item item = new Item();

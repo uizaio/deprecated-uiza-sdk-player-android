@@ -125,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (throwable == null) {
             return;
         }
-        LLog.e("handleException", throwable.toString());
+        LLog.e(TAG, throwable.toString());
         showDialogError(throwable.getMessage());
     }
 

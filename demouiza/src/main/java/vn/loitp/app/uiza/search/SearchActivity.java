@@ -23,7 +23,7 @@ import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LKeyBoardUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
@@ -200,7 +200,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         ToastUtils.showShort("getData page " + page);
 
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.searchEntity(keyword, limit, page), new ApiSubscriber<Search>() {
             @Override
             public void onSuccess(Search search) {

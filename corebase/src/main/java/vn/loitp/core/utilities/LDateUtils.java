@@ -83,6 +83,12 @@ public class LDateUtils {
         return formatter.format(cal.getTime());
     }
 
+    public static String getCurrent(String format) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat(format);
+        return df.format(c.getTime());
+    }
+
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("ddMM_HHmm");

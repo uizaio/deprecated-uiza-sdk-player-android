@@ -16,6 +16,7 @@ import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import io.uiza.sdk.ui.R;
@@ -24,8 +25,11 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientTracking;
+import vn.loitp.restapi.restclient.RestClientV1;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
@@ -67,12 +71,15 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
 
-        RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
+        RestClientV2.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
 
         inputModel = createInputModel(entityId, entityCover, entityTitle);
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
+
+        //track eventype display
+        trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_DISPLAY));
     }
 
     private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
@@ -263,13 +270,13 @@ public class UizaPlayerActivity extends BaseActivity {
 
     private void getLinkPlay() {
         LLog.d(TAG, ">>>getLinkPlay entityId: " + inputModel.getEntityID());
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         Auth auth = LPref.getAuth(activity, gson);
         if (auth == null || auth.getAppId() == null) {
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;
         }
-        //LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getAppId());
+        LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getAppId());
 
         //API v1
         /*subscribe(service.getLinkPlay(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
@@ -298,7 +305,7 @@ public class UizaPlayerActivity extends BaseActivity {
         subscribe(service.getLinkPlayV2(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay>() {
             @Override
             public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
-                //LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
+                LLog.d(TAG, "getLinkPlay onSuccess " + gson.toJson(getLinkPlay));
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
 
@@ -318,7 +325,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.d(TAG, "onFail getLinkPlay " + e.toString());
+                LLog.e(TAG, "onFail getLinkPlay " + e.toString());
                 handleException(e);
             }
         });
@@ -332,7 +339,7 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
         //API v1
-        /*UizaService service = RestClient.createService(UizaService.class);
+        /*UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntity(entityId), new ApiSubscriber<Object>() {
@@ -358,7 +365,7 @@ public class UizaPlayerActivity extends BaseActivity {
         //End API v1
 
         //API v2
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
         //LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
@@ -389,7 +396,7 @@ public class UizaPlayerActivity extends BaseActivity {
             LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         String id = inputModel.getEntityID();
         //LLog.d(TAG, "getEntityInfo id " + id);
         subscribe(service.getEntityInfo(id), new ApiSubscriber<EntityInfo>() {
@@ -419,22 +426,41 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
         setCoverVideo();
-        UizaService service = RestClient.createService(UizaService.class);
+        RestClientV1.init(Constants.URL_DEV_UIZA);
+        UizaService service = RestClientV1.createService(UizaService.class);
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
                 //TODO custom theme
-                //LLog.d(TAG, "getPlayerConfig onSuccess " + gson.toJson(playerConfig));
+                LLog.d(TAG, "getPlayerConfig onSuccess " + gson.toJson(playerConfig));
                 UizaData.getInstance().setPlayerConfig(playerConfig);
 
                 getLinkPlay();
                 getDetailEntity();
+
                 //getEntityInfo();
             }
 
             @Override
             public void onFail(Throwable e) {
                 LLog.e(TAG, "getPlayerConfig " + e.toString());
+                handleException(e);
+            }
+        });
+    }
+
+    private void trackUiza(UizaTracking uizaTracking) {
+        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
+        UizaService service = RestClientTracking.createService(UizaService.class);
+        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object tracking) {
+                LLog.d(TAG, "trackUiza onSuccess " + gson.toJson(tracking));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.d(TAG, "trackUiza onFail " + e.toString());
                 handleException(e);
             }
         });

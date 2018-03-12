@@ -4,7 +4,7 @@ package vn.loitp.core.common;
  * Created by loitp
  */
 public class Constants {
-    public final static boolean IS_DEBUG = false;
+    public final static boolean IS_DEBUG = true;
 
     public static final int NOT_FOUND = -6969;
 
@@ -39,4 +39,11 @@ public class Constants {
     public final static String URL_IMG_THUMBNAIL = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
 
     public final static String PREFIXS = "https://";
+
+    public static String URL_TRACKING_DEV = "http://dev-tracking.uiza.io/analytic-tracking/";
+    public static String URL_TRACKING_PROD = "http://tracking.uiza.io/analytic-tracking/";
+
+    public static String URL_DEV_UIZA = "https://demo-api.uiza.io/";
+    public static String URL_DEV_UIZA2 = "http://dev-api.uiza.io/";
+    public static String URL_WTT = "http://wtt-api.uiza.io/";
 }

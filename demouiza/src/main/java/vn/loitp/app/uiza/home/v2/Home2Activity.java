@@ -38,7 +38,7 @@ import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
-import vn.loitp.restapi.restclient.RestClient;
+import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.Item;
@@ -222,7 +222,7 @@ public class Home2Activity extends BaseActivity {
 
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
-        UizaService service = RestClient.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         int limit = 100;
         String orderBy = "orderNumber";
         String orderType = "ASC";
@@ -247,10 +247,6 @@ public class Home2Activity extends BaseActivity {
 
     private void genListDrawerLayout(ListAllMetadata listAllMetadata) {
         itemList = listAllMetadata.getItems();
-        if (itemList == null || itemList.isEmpty()) {
-            showDialogOne("itemList == null || itemList.isEmpty()");
-            return;
-        }
 
         //add home menu
         Item item = new Item();
@@ -294,9 +290,11 @@ public class Home2Activity extends BaseActivity {
             }
         } else {
             LLog.d(TAG, "!isLandscape");
-            if (draggablePanel.isMaximized()) {
-                draggablePanel.minimize();
-                return;
+            if (draggablePanel != null) {
+                if (draggablePanel.isMaximized()) {
+                    draggablePanel.minimize();
+                    return;
+                }
             }
         }
 
@@ -371,7 +369,7 @@ public class Home2Activity extends BaseActivity {
             showDialogError("entityId == null || entityId.isEmpty()");
             return;
         }
-        RestClient.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
+        RestClientV2.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         getPlayerConfig(entityId, entityCover, entityTitle);
 
         //inputModel = createInputModel(entityId, entityCover, entityTitle);
@@ -384,7 +382,7 @@ public class Home2Activity extends BaseActivity {
         LLog.d(TAG, ">>>getPlayerConfig");
         if (UizaData.getInstance().getPlayerConfig() == null) {
             LLog.d(TAG, "UizaData.getInstance().getPlayerConfig() == null");
-            UizaService service = RestClient.createService(UizaService.class);
+            UizaService service = RestClientV2.createService(UizaService.class);
             subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
                 @Override
                 public void onSuccess(PlayerConfig playerConfig) {
