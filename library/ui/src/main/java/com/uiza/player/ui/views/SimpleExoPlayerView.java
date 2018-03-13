@@ -420,19 +420,31 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     switch ((int) (progress * 100 / duration)) {
                         case 25:
                             //LLog.d(TAG, ">>>>play_through 25");
-                            ToastUtils.showShort("play_through 25");
+                            //ToastUtils.showShort("play_through 25");
+                            if (callback != null) {
+                                callback.onPlayThrough(25);
+                            }
                             break;
                         case 50:
                             //LLog.d(TAG, ">>>>play_through 50");
-                            ToastUtils.showShort("play_through 50");
+                            //ToastUtils.showShort("play_through 50");
+                            if (callback != null) {
+                                callback.onPlayThrough(50);
+                            }
                             break;
                         case 75:
                             //LLog.d(TAG, ">>>>play_through 75");
-                            ToastUtils.showShort("play_through 75");
+                            //ToastUtils.showShort("play_through 75");
+                            if (callback != null) {
+                                callback.onPlayThrough(75);
+                            }
                             break;
-                        case 98:
+                        case 99:
                             //LLog.d(TAG, ">>>>play_through 100");
-                            ToastUtils.showShort("play_through 100");
+                            //ToastUtils.showShort("play_through 100");
+                            if (callback != null) {
+                                callback.onPlayThrough(100);
+                            }
                             break;
                     }
 
@@ -450,6 +462,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
     public interface Callback {
         public void onClickSetting();
+
+        public void onPlayThrough(int percent);
     }
 
     private Callback callback;

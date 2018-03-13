@@ -191,6 +191,11 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                     getBtVideo().performClick();
                 }
             }
+
+            @Override
+            public void onPlayThrough(int percent) {
+                //TODO
+            }
         });
 
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {

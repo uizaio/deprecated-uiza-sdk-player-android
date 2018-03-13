@@ -179,6 +179,12 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                     getBtVideo().performClick();
                 }
             }
+
+            @Override
+            public void onPlayThrough(int percent) {
+                //track play_through
+                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+            }
         });
 
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
