@@ -614,7 +614,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        LLog.d(TAG, "Video is played about 5000mls");
+                        //LLog.d(TAG, "Video is played about 5000mls");
                         ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
                     }
                 };
