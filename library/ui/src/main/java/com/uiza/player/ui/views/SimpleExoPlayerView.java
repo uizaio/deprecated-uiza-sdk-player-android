@@ -235,6 +235,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private LanguageView languageView;
     private PlayListView playListView;
 
+    private int lastPercentPlayThrough;
+
     public SimpleExoPlayerView(Context context) {
         this(context, null);
     }
@@ -417,6 +419,13 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onProgressChange(long progress) {
                     long duration = player.getDuration();
                     //LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + progress + ", duration: " + duration + ", play_through: " + (int) (progress * 100 / duration));
+                    int currentPlayThrough = (int) (progress * 100 / duration);
+                    LLog.d(TAG, "lastPercentPlayThrough " + lastPercentPlayThrough + ", currentPlayThrough: " + currentPlayThrough);
+                    if (lastPercentPlayThrough == currentPlayThrough) {
+                        LLog.d(TAG, "lastPercentPlayThrough == currentPlayThrough -> return");
+                        return;
+                    }
+                    lastPercentPlayThrough = currentPlayThrough;
                     switch ((int) (progress * 100 / duration)) {
                         case 25:
                             //LLog.d(TAG, ">>>>play_through 25");
