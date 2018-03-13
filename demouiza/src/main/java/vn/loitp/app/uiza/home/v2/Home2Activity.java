@@ -369,7 +369,9 @@ public class Home2Activity extends BaseActivity {
             LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
                 @Override
                 public void doAfter(int mls) {
-                    draggablePanel.maximize();
+                    if (!draggablePanel.isMaximized()) {
+                        draggablePanel.maximize();
+                    }
                 }
             });
         }
@@ -466,6 +468,13 @@ public class Home2Activity extends BaseActivity {
             }
         });*/
         frmBottom = new FrmBottom();
+        frmBottom.setClickCallback(new FrmBottom.ClickCallback() {
+            @Override
+            public void onClick(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
+                LLog.d(TAG, "setClickCallback onClick " + item.getName());
+                onClickVideo(item, position);
+            }
+        });
         draggablePanel.setFragmentManager(getSupportFragmentManager());
         draggablePanel.setTopFragment(frmTop);
         draggablePanel.setBottomFragment(frmBottom);

@@ -102,12 +102,18 @@ public class FrmBottom extends BaseFragment {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                //V1
+                /*Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
                 intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(getActivity());
+                LUIUtil.transActivityFadeIn(getActivity());*/
+
+                //V2
+                if (clickCallback != null) {
+                    clickCallback.onClick(item, position);
+                }
             }
 
             @Override
@@ -123,6 +129,16 @@ public class FrmBottom extends BaseFragment {
         recyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    public interface ClickCallback {
+        public void onClick(Item item, int position);
+    }
+
+    private ClickCallback clickCallback;
+
+    public void setClickCallback(ClickCallback clickCallback) {
+        this.clickCallback = clickCallback;
     }
 
     private void updateUI(GetDetailEntity getDetailEntity) {
