@@ -80,6 +80,7 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -128,6 +129,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private FrameLayout rootView;
 
     private AVLoadingIndicatorView avi;
+
+    private boolean isVideoStarted;//detect video is has ready state or not
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -604,12 +607,23 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 isVideoStarted = true;
                 //track plays_requested
                 ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+
+                //track event view
+                mRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        LLog.d(TAG, "Video is played about 5000mls");
+                        ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                    }
+                };
+                mHandler.postDelayed(mRunnable, 5000);
             }
         }
         updateButtonVisibilities();
     }
 
-    private boolean isVideoStarted;
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable;
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
@@ -849,6 +863,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onDestroy() {
+        mHandler.removeCallbacks(mRunnable);
         releaseAdsLoader();
         super.onDestroy();
     }

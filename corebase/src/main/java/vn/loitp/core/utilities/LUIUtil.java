@@ -328,6 +328,22 @@ public class LUIUtil {
         }, mls);
     }
 
+    public interface CheckScreenIsLiveInTimeCallback {
+        public void doAfter(int mls, boolean isActivityNull);
+    }
+
+    public static void checkScreenIsLiveInTime(final Activity activity, final int mls, final CheckScreenIsLiveInTimeCallback checkScreenIsLiveInTimeCallback) {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (checkScreenIsLiveInTimeCallback != null) {
+                    checkScreenIsLiveInTimeCallback.doAfter(mls, activity == null);
+                }
+            }
+        }, mls);
+    }
+
     public static void setSoftInputMode(Activity activity, int mode) {
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);

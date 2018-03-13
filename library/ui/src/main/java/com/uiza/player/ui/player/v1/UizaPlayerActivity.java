@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.View;
@@ -78,10 +79,10 @@ public class UizaPlayerActivity extends BaseActivity {
 
         getPlayerConfig();
 
-        //track eventype display
+        //track event eventype display
         trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_DISPLAY));
 
-        //track plays_requested
+        //track event plays_requested
         trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
     }
 
