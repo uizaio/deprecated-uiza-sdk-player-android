@@ -353,6 +353,7 @@ public class Home2Activity extends BaseActivity {
         } else {
             LLog.d(TAG, "draggablePanel frmTop != null");
             frmTop.releasePlayer();
+            frmTop.removeCallbacks();
         }
     }
 

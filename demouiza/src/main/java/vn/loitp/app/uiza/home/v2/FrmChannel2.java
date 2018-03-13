@@ -342,7 +342,6 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     @Override
     public boolean onBackPressed() {
         LLog.d(TAG, TAG + " onBackPressed");
-        //TODO
         /*if (UizaData.getInstance().isLandscape()) {
             if (frmTop != null) {
                 SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
@@ -352,7 +351,6 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             return true;
         } else {
             LLog.d(TAG, "!isLandscape");
-            //TODO
             if (draggablePanel.isMaximized()) {
                 draggablePanel.minimize();
                 return true;

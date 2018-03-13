@@ -935,9 +935,16 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onDestroy() {
-        mHandler.removeCallbacks(mRunnable);
+        removeCallbacks();
         releaseAdsLoader();
         super.onDestroy();
+    }
+
+    public void removeCallbacks() {
+        if (mHandler != null && mRunnable != null) {
+            LLog.d(TAG, "removeCallbacks");
+            mHandler.removeCallbacks(mRunnable);
+        }
     }
 
     public SimpleExoPlayerView getPlayerView() {
