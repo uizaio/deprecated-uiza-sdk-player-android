@@ -453,6 +453,7 @@ public class Home2Activity extends BaseActivity {
     private FrmBottom frmBottom;
 
     public void initializeDraggablePanel() throws Resources.NotFoundException {
+        LLog.d(TAG, "initializeDraggablePanel");
         if (frmTop != null && frmBottom != null) {
             LLog.d(TAG, "initializeDraggablePanel done before");
             return;
@@ -484,9 +485,9 @@ public class Home2Activity extends BaseActivity {
         //draggablePanel.setYScaleFactor(yScaleFactor);
 
         int widthScreen = LDisplayUtils.getScreenW(activity);
-        LLog.d(TAG, "widthScreen " + widthScreen);
+        LLog.d(TAG, "initializeDraggablePanel widthScreen " + widthScreen);
         int heightFrmTop = widthScreen * 9 / 16;
-        LLog.d(TAG, "heightFrmTop " + heightFrmTop);
+        LLog.d(TAG, "initializeDraggablePanel heightFrmTop " + heightFrmTop);
 
         draggablePanel.setTopViewHeight(heightFrmTop);//px
         draggablePanel.setEnableHorizontalAlphaEffect(false);
@@ -501,6 +502,7 @@ public class Home2Activity extends BaseActivity {
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
     private void updateUIStatusNavigationBar(boolean isShow) {
+        LLog.d(TAG, "updateUIStatusNavigationBar " + isShow);
         UizaScreenUtil.hideNavBar(activity.getWindow().getDecorView());
         if (isShow) {
             UizaScreenUtil.showStatusBar(activity);
@@ -508,9 +510,9 @@ public class Home2Activity extends BaseActivity {
             setVisibilityOfActionBar(View.VISIBLE);
 
             int widthScreen = LDisplayUtils.getScreenW(activity);
-            LLog.d(TAG, "widthScreen " + widthScreen);
+            LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
             int heightFrmTop = widthScreen * 9 / 16;
-            LLog.d(TAG, "heightFrmTop " + heightFrmTop);
+            LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
             draggablePanel.setEnableSlide(true);
         } else {
