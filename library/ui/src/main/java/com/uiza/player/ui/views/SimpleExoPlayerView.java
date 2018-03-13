@@ -1187,7 +1187,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onRepeatModeChanged(int repeatMode) {
             LLog.d(TAG, "onRepeatModeChanged repeatMode " + repeatMode);
-
         }
 
         @Override

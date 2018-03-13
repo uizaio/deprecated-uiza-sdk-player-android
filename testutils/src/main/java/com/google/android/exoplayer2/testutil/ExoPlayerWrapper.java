@@ -18,6 +18,7 @@ package com.google.android.exoplayer2.testutil;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Pair;
+
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -29,10 +30,12 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+
 import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
 import junit.framework.Assert;
 
 /**
@@ -40,153 +43,153 @@ import junit.framework.Assert;
  */
 public class ExoPlayerWrapper implements Player.EventListener {
 
-  private final CountDownLatch sourceInfoCountDownLatch;
-  private final CountDownLatch endedCountDownLatch;
-  private final HandlerThread playerThread;
-  private final Handler handler;
-  private final LinkedList<Pair<Timeline, Object>> sourceInfos;
+    private final CountDownLatch sourceInfoCountDownLatch;
+    private final CountDownLatch endedCountDownLatch;
+    private final HandlerThread playerThread;
+    private final Handler handler;
+    private final LinkedList<Pair<Timeline, Object>> sourceInfos;
 
-  public ExoPlayer player;
-  public TrackGroupArray trackGroups;
-  public Exception exception;
+    public ExoPlayer player;
+    public TrackGroupArray trackGroups;
+    public Exception exception;
 
-  // Written only on the main thread.
-  public volatile int positionDiscontinuityCount;
+    // Written only on the main thread.
+    public volatile int positionDiscontinuityCount;
 
-  public ExoPlayerWrapper() {
-    sourceInfoCountDownLatch = new CountDownLatch(1);
-    endedCountDownLatch = new CountDownLatch(1);
-    playerThread = new HandlerThread("ExoPlayerTest thread");
-    playerThread.start();
-    handler = new Handler(playerThread.getLooper());
-    sourceInfos = new LinkedList<>();
-  }
-
-  // Called on the test thread.
-
-  public void blockUntilEnded(long timeoutMs) throws Exception {
-    if (!endedCountDownLatch.await(timeoutMs, TimeUnit.MILLISECONDS)) {
-      exception = new TimeoutException("Test playback timed out waiting for playback to end.");
+    public ExoPlayerWrapper() {
+        sourceInfoCountDownLatch = new CountDownLatch(1);
+        endedCountDownLatch = new CountDownLatch(1);
+        playerThread = new HandlerThread("ExoPlayerTest thread");
+        playerThread.start();
+        handler = new Handler(playerThread.getLooper());
+        sourceInfos = new LinkedList<>();
     }
-    release();
-    // Throw any pending exception (from playback, timing out or releasing).
-    if (exception != null) {
-      throw exception;
-    }
-  }
 
-  public void blockUntilSourceInfoRefreshed(long timeoutMs) throws Exception {
-    if (!sourceInfoCountDownLatch.await(timeoutMs, TimeUnit.MILLISECONDS)) {
-      throw new TimeoutException("Test playback timed out waiting for source info.");
-    }
-  }
+    // Called on the test thread.
 
-  public void setup(final MediaSource mediaSource, final Renderer... renderers) {
-    handler.post(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          player = ExoPlayerFactory.newInstance(renderers, new DefaultTrackSelector());
-          player.addListener(ExoPlayerWrapper.this);
-          player.setPlayWhenReady(true);
-          player.prepare(mediaSource);
-        } catch (Exception e) {
-          handleError(e);
+    public void blockUntilEnded(long timeoutMs) throws Exception {
+        if (!endedCountDownLatch.await(timeoutMs, TimeUnit.MILLISECONDS)) {
+            exception = new TimeoutException("Test playback timed out waiting for playback to end.");
         }
-      }
-    });
-  }
-
-  public void prepare(final MediaSource mediaSource) {
-    handler.post(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          player.prepare(mediaSource);
-        } catch (Exception e) {
-          handleError(e);
+        release();
+        // Throw any pending exception (from playback, timing out or releasing).
+        if (exception != null) {
+            throw exception;
         }
-      }
-    });
-  }
+    }
 
-  public void release() throws InterruptedException {
-    handler.post(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          if (player != null) {
-            player.release();
-          }
-        } catch (Exception e) {
-          handleError(e);
-        } finally {
-          playerThread.quit();
+    public void blockUntilSourceInfoRefreshed(long timeoutMs) throws Exception {
+        if (!sourceInfoCountDownLatch.await(timeoutMs, TimeUnit.MILLISECONDS)) {
+            throw new TimeoutException("Test playback timed out waiting for source info.");
         }
-      }
-    });
-    playerThread.join();
-  }
-
-  private void handleError(Exception exception) {
-    if (this.exception == null) {
-      this.exception = exception;
     }
-    endedCountDownLatch.countDown();
-  }
 
-  @SafeVarargs
-  public final void assertSourceInfosEquals(Pair<Timeline, Object>... sourceInfos) {
-    Assert.assertEquals(sourceInfos.length, this.sourceInfos.size());
-    for (Pair<Timeline, Object> sourceInfo : sourceInfos) {
-      Assert.assertEquals(sourceInfo, this.sourceInfos.remove());
+    public void setup(final MediaSource mediaSource, final Renderer... renderers) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    player = ExoPlayerFactory.newInstance(renderers, new DefaultTrackSelector());
+                    player.addListener(ExoPlayerWrapper.this);
+                    player.setPlayWhenReady(true);
+                    player.prepare(mediaSource);
+                } catch (Exception e) {
+                    handleError(e);
+                }
+            }
+        });
     }
-  }
 
-  // Player.EventListener implementation.
-
-  @Override
-  public void onLoadingChanged(boolean isLoading) {
-    // Do nothing.
-  }
-
-  @Override
-  public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-    if (playbackState == Player.STATE_ENDED) {
-      endedCountDownLatch.countDown();
+    public void prepare(final MediaSource mediaSource) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    player.prepare(mediaSource);
+                } catch (Exception e) {
+                    handleError(e);
+                }
+            }
+        });
     }
-  }
 
-  @Override
-  public void onRepeatModeChanged(int repeatMode) {
-    // Do nothing.
-  }
+    public void release() throws InterruptedException {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (player != null) {
+                        player.release();
+                    }
+                } catch (Exception e) {
+                    handleError(e);
+                } finally {
+                    playerThread.quit();
+                }
+            }
+        });
+        playerThread.join();
+    }
 
-  @Override
-  public void onTimelineChanged(Timeline timeline, Object manifest) {
-    sourceInfos.add(Pair.create(timeline, manifest));
-    sourceInfoCountDownLatch.countDown();
-  }
+    private void handleError(Exception exception) {
+        if (this.exception == null) {
+            this.exception = exception;
+        }
+        endedCountDownLatch.countDown();
+    }
 
-  @Override
-  public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-    this.trackGroups = trackGroups;
-  }
+    @SafeVarargs
+    public final void assertSourceInfosEquals(Pair<Timeline, Object>... sourceInfos) {
+        Assert.assertEquals(sourceInfos.length, this.sourceInfos.size());
+        for (Pair<Timeline, Object> sourceInfo : sourceInfos) {
+            Assert.assertEquals(sourceInfo, this.sourceInfos.remove());
+        }
+    }
 
-  @Override
-  public void onPlayerError(ExoPlaybackException exception) {
-    handleError(exception);
-  }
+    // Player.EventListener implementation.
 
-  @SuppressWarnings("NonAtomicVolatileUpdate")
-  @Override
-  public void onPositionDiscontinuity() {
-    positionDiscontinuityCount++;
-  }
+    @Override
+    public void onLoadingChanged(boolean isLoading) {
+        // Do nothing.
+    }
 
-  @Override
-  public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-    // Do nothing.
-  }
+    @Override
+    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+        if (playbackState == Player.STATE_ENDED) {
+            endedCountDownLatch.countDown();
+        }
+    }
+
+    @Override
+    public void onRepeatModeChanged(int repeatMode) {
+        // Do nothing.
+    }
+
+    @Override
+    public void onTimelineChanged(Timeline timeline, Object manifest) {
+        sourceInfos.add(Pair.create(timeline, manifest));
+        sourceInfoCountDownLatch.countDown();
+    }
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+        this.trackGroups = trackGroups;
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException exception) {
+        handleError(exception);
+    }
+
+    @SuppressWarnings("NonAtomicVolatileUpdate")
+    @Override
+    public void onPositionDiscontinuity() {
+        positionDiscontinuityCount++;
+    }
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+        // Do nothing.
+    }
 
 }
