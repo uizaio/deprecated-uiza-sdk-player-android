@@ -62,6 +62,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
@@ -357,8 +358,9 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             player.addMetadataOutput(eventLogger);
             player.setAudioDebugListener(eventLogger);
             player.setVideoDebugListener(eventLogger);
-            player.setRepeatMode(Player.REPEAT_MODE_ALL);
+            player.setRepeatMode(Player.REPEAT_MODE_OFF);
 
+            //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
             player.setPlayWhenReady(shouldAutoPlay);
             debugViewHelper = new DebugTextViewHelper(player, debugTextView);
@@ -654,10 +656,23 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 isVideoStarted = true;
                 //track plays_requested
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+
+                //track event view
+                mRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        //LLog.d(TAG, "Video is played about 5000mls");
+                        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                    }
+                };
+                mHandler.postDelayed(mRunnable, 5000);
             }
         }
         updateButtonVisibilities();
     }
+
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable;
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
@@ -920,6 +935,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onDestroy() {
+        mHandler.removeCallbacks(mRunnable);
         releaseAdsLoader();
         super.onDestroy();
     }
