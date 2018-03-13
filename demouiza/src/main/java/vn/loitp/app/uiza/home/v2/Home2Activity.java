@@ -205,7 +205,7 @@ public class Home2Activity extends BaseActivity {
                 }
 
                 uizaActionBar.setVisibility(View.GONE);
-                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmDummy(), true);
+                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmSearch(), true);
             }
         });
         uizaActionBar.showMenuIcon();
@@ -293,12 +293,13 @@ public class Home2Activity extends BaseActivity {
             if (draggablePanel != null) {
                 LLog.d(TAG, "draggablePanel != null");
                 if (draggablePanel.isMaximized()) {
+                    LLog.d(TAG, "isMaximized");
                     if (draggablePanel.getVisibility() == View.VISIBLE) {
-                        LLog.d(TAG, "draggablePanel.isMaximized()");
+                        LLog.d(TAG, "draggablePanel VISIBLE");
                         draggablePanel.minimize();
                         return;
                     } else {
-                        confirmExit();
+                        LLog.d(TAG, "draggablePanel !VISIBLE");
                     }
                 }
             } else {

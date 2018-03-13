@@ -338,7 +338,6 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         getData(true);
     }
 
-
     @Override
     public boolean onBackPressed() {
         LLog.d(TAG, TAG + " onBackPressed");
