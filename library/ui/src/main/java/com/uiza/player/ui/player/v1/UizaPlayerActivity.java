@@ -452,14 +452,14 @@ public class UizaPlayerActivity extends BaseActivity {
         });
     }
 
-    private void trackUiza(UizaTracking uizaTracking) {
-        LLog.d(TAG, ">>>>>>>>>>>>>>>> getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
+    private void trackUiza(final UizaTracking uizaTracking) {
+        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
         RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
         UizaService service = RestClientTracking.createService(UizaService.class);
         subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
             @Override
             public void onSuccess(Object tracking) {
-                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess " + gson.toJson(tracking));
+                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
             }
 
             @Override
