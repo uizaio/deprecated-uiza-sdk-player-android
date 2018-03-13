@@ -525,9 +525,10 @@ public class Home2Activity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        LLog.d(TAG, "onConfigurationChanged");
         // Checking the orientation of the screen
         if (frmTop != null) {
-            SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
+            //SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 LLog.d(TAG, "ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);
