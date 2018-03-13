@@ -62,7 +62,6 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
