@@ -234,7 +234,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private LanguageView languageView;
     private PlayListView playListView;
 
-    public final static int PLAYTHROUGH_5 = 5;
     public final static int PLAYTHROUGH_25 = 25;
     public final static int PLAYTHROUGH_50 = 50;
     public final static int PLAYTHROUGH_75 = 75;
@@ -431,13 +430,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     }
                     lastPercentPlayThrough = currentPlayThrough;
                     switch ((int) (progress * 100 / duration)) {
-                        case PLAYTHROUGH_5:
-                            //LLog.d(TAG, ">>>>play_through 5");
-                            //ToastUtils.showShort("play_through 5");
-                            if (callback != null) {
-                                callback.onPlayThrough(PLAYTHROUGH_5);
-                            }
-                            break;
                         case PLAYTHROUGH_25:
                             //LLog.d(TAG, ">>>>play_through 25");
                             //ToastUtils.showShort("play_through 25");

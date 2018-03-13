@@ -178,13 +178,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
             @Override
             public void onPlayThrough(int percent) {
-                if (percent == SimpleExoPlayerView.PLAYTHROUGH_5) {
-                    //track event view
-                    ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_VIEW));
-                } else {
-                    //track play_through
-                    ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
-                }
+                //track play_through
+                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
         });
 
@@ -614,10 +609,23 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 isVideoStarted = true;
                 //track plays_requested
                 ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+
+                //track event view
+                mRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        LLog.d(TAG, "Video is played about 5000mls");
+                        ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                    }
+                };
+                mHandler.postDelayed(mRunnable, 5000);
             }
         }
         updateButtonVisibilities();
     }
+
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable;
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
@@ -857,6 +865,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onDestroy() {
+        mHandler.removeCallbacks(mRunnable);
         releaseAdsLoader();
         super.onDestroy();
     }
