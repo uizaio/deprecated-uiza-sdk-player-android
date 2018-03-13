@@ -58,6 +58,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivClearText = (ImageView) findViewById(R.id.iv_clear_text);
         etSearch = (EditText) findViewById(R.id.et_search);
+        etSearch.requestFocus();
         tv = (TextView) findViewById(R.id.tv);
         //avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         //avi.hide();//dont smoothToHide();
