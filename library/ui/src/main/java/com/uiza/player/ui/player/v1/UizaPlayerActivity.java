@@ -452,7 +452,7 @@ public class UizaPlayerActivity extends BaseActivity {
         });
     }
 
-    private void trackUiza(final UizaTracking uizaTracking) {
+    public void trackUiza(final UizaTracking uizaTracking) {
         LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
         RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
         UizaService service = RestClientTracking.createService(UizaService.class);

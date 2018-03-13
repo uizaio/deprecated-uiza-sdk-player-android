@@ -60,6 +60,7 @@ import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -597,9 +598,18 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "onPlayerStateChanged STATE_READY");
             avi.smoothToHide();
+
+            //only track video_starts once time
+            if (!isVideoStarted) {
+                isVideoStarted = true;
+                //track plays_requested
+                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+            }
         }
         updateButtonVisibilities();
     }
+
+    private boolean isVideoStarted;
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
