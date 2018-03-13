@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -54,7 +52,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
@@ -80,7 +77,6 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -182,8 +178,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
             @Override
             public void onPlayThrough(int percent) {
-                //track play_through
-                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                if (percent == SimpleExoPlayerView.PLAYTHROUGH_5) {
+                    //track event view
+                    ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                } else {
+                    //track play_through
+                    ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                }
             }
         });
 
@@ -613,23 +614,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 isVideoStarted = true;
                 //track plays_requested
                 ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
-
-                //track event view
-                mRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        LLog.d(TAG, "Video is played about 5000mls");
-                        ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
-                    }
-                };
-                mHandler.postDelayed(mRunnable, 5000);
             }
         }
         updateButtonVisibilities();
     }
-
-    private Handler mHandler = new Handler();
-    private Runnable mRunnable;
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
@@ -869,7 +857,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onDestroy() {
-        mHandler.removeCallbacks(mRunnable);
         releaseAdsLoader();
         super.onDestroy();
     }

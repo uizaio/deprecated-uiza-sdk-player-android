@@ -63,7 +63,6 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.utils.util.ToastUtils;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -235,6 +234,11 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private LanguageView languageView;
     private PlayListView playListView;
 
+    public final static int PLAYTHROUGH_5 = 5;
+    public final static int PLAYTHROUGH_25 = 25;
+    public final static int PLAYTHROUGH_50 = 50;
+    public final static int PLAYTHROUGH_75 = 75;
+    public final static int PLAYTHROUGH_100 = 100;
     private int lastPercentPlayThrough;
 
     public SimpleExoPlayerView(Context context) {
@@ -427,32 +431,39 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     }
                     lastPercentPlayThrough = currentPlayThrough;
                     switch ((int) (progress * 100 / duration)) {
-                        case 25:
+                        case PLAYTHROUGH_5:
+                            //LLog.d(TAG, ">>>>play_through 5");
+                            //ToastUtils.showShort("play_through 5");
+                            if (callback != null) {
+                                callback.onPlayThrough(PLAYTHROUGH_5);
+                            }
+                            break;
+                        case PLAYTHROUGH_25:
                             //LLog.d(TAG, ">>>>play_through 25");
                             //ToastUtils.showShort("play_through 25");
                             if (callback != null) {
-                                callback.onPlayThrough(25);
+                                callback.onPlayThrough(PLAYTHROUGH_25);
                             }
                             break;
-                        case 50:
+                        case PLAYTHROUGH_50:
                             //LLog.d(TAG, ">>>>play_through 50");
                             //ToastUtils.showShort("play_through 50");
                             if (callback != null) {
-                                callback.onPlayThrough(50);
+                                callback.onPlayThrough(PLAYTHROUGH_50);
                             }
                             break;
-                        case 75:
+                        case PLAYTHROUGH_75:
                             //LLog.d(TAG, ">>>>play_through 75");
                             //ToastUtils.showShort("play_through 75");
                             if (callback != null) {
-                                callback.onPlayThrough(75);
+                                callback.onPlayThrough(PLAYTHROUGH_75);
                             }
                             break;
-                        case 99:
+                        case PLAYTHROUGH_100 - 1://should -1 here
                             //LLog.d(TAG, ">>>>play_through 100");
                             //ToastUtils.showShort("play_through 100");
                             if (callback != null) {
-                                callback.onPlayThrough(100);
+                                callback.onPlayThrough(PLAYTHROUGH_100);
                             }
                             break;
                     }
