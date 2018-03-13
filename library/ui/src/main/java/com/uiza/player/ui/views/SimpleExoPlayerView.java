@@ -18,12 +18,10 @@ package com.uiza.player.ui.views;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -36,7 +34,6 @@ import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -58,7 +55,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
-import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.view.language.LanguageView;
 import com.uiza.player.ui.views.view.listview.PlayListView;
@@ -419,12 +415,33 @@ public final class SimpleExoPlayerView extends FrameLayout {
             controller.setOnProgressEvent(new PlaybackControlView.OnProgressEvent() {
                 @Override
                 public void onProgressChange(long progress) {
-                    int sec = Math.round((float) ((float) progress / 1000));
-                    LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + sec);
-                    if (sec % 20 == 0) {
+                    long duration = player.getDuration();
+                    //LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + progress + ", duration: " + duration + ", play_through: " + (int) (progress * 100 / duration));
+                    switch ((int) (progress * 100 / duration)) {
+                        case 25:
+                            //LLog.d(TAG, ">>>>play_through 25");
+                            ToastUtils.showShort("play_through 25");
+                            break;
+                        case 50:
+                            //LLog.d(TAG, ">>>>play_through 50");
+                            ToastUtils.showShort("play_through 50");
+                            break;
+                        case 75:
+                            //LLog.d(TAG, ">>>>play_through 75");
+                            ToastUtils.showShort("play_through 75");
+                            break;
+                        case 98:
+                            //LLog.d(TAG, ">>>>play_through 100");
+                            ToastUtils.showShort("play_through 100");
+                            break;
+                    }
+
+                    //int sec = Math.round((float) ((float) progress / 1000));//sec
+                    //LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + sec + ", duration: " + duration + ", play_through: " + (int) (sec * 100 / duration));
+                    /*if (sec % 20 == 0) {
                         //freuss47 event every 20s
                         ToastUtils.showShort("sec " + sec);
-                    }
+                    }*/
                 }
             });
         }
