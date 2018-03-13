@@ -62,7 +62,9 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
 import com.uiza.player.ui.views.PlaybackControlView;
@@ -88,8 +90,10 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.data.EventBusData;
+import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
@@ -143,6 +147,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     private AVLoadingIndicatorView avi;
     //TODO remove gson later
     private Gson gson = new Gson();
+
+    private boolean isVideoStarted;//detect video is has ready state or not
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -268,7 +274,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     private InputModel inputModel;
 
-    public void setInputModel(InputModel ip, boolean reloadData) {
+    private void setInputModel(InputModel ip, boolean reloadData) {
+        LLog.d(TAG, "setInputModel");
         if (ip == null) {
             this.inputModel = UizaData.getInstance().getInputModel();
         } else {
@@ -281,6 +288,12 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
             initializePlayer();
         }
+
+        //track event eventype display
+        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_DISPLAY));
+
+        //track event plays_requested
+        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
     }
 
     public void initializePlayer() {
@@ -636,6 +649,13 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "STATE_READY");
             avi.smoothToHide();
+
+            //only track video_starts once time
+            if (!isVideoStarted) {
+                isVideoStarted = true;
+                //track plays_requested
+                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+            }
         }
         updateButtonVisibilities();
     }
@@ -950,6 +970,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             if (simpleExoPlayerView != null) {
                 LLog.d(TAG, "clickVideoEvent if");
                 shouldAutoPlay = true;
+                isVideoStarted = false;
                 getLinkPlay(clickVideoEvent.getEntityId());
             } else {
                 LLog.d(TAG, "clickVideoEvent else");
@@ -1019,5 +1040,24 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             }
         });
         //End API v2
+    }
+
+    public void trackUiza(final UizaTracking uizaTracking) {
+        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
+        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
+        UizaService service = RestClientTracking.createService(UizaService.class);
+        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object tracking) {
+                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                //TODO send event fail? Try to send again
+                LLog.d(TAG, "trackUiza onFail " + e.toString());
+                handleException(e);
+            }
+        });
     }
 }
