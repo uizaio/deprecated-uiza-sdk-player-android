@@ -17,6 +17,7 @@ import com.uiza.player.ui.data.UizaData;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LScreenUtil;
 
 /**
  * File created on 8/31/2017.
@@ -132,6 +133,18 @@ public class UizaScreenUtil {
         }
     }*/
 
+    public static void toggleFullscreen(Activity activity) {
+        /*if (UizaData.getInstance().isLandscape()) {
+            LScreenUtil.hideSystemUI(activity);
+        } else {
+            LScreenUtil.showSystemUI(activity);
+        }*/
+        WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
+        attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        activity.getWindow().setAttributes(attrs);
+    }
+
+    //rotate screen
     public static void setFullScreen(Context context, boolean isFullScreen) {
         if (isFullScreen) {
             ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

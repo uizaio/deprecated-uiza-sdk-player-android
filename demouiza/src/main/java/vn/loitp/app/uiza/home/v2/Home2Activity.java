@@ -531,7 +531,7 @@ public class Home2Activity extends BaseActivity {
             }
         }
 
-        LScreenUtil.toggleFullscreen(activity);
+        UizaScreenUtil.toggleFullscreen(activity);
     }
 
     public DraggablePanel getDraggablePanel() {

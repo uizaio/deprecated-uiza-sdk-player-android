@@ -55,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setCustomStatusBar(true);
+
         super.onCreate(savedInstanceState);
         setContentView(setLayoutResourceId());
 

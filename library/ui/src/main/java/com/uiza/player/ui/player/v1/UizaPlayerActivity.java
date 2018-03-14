@@ -230,7 +230,7 @@ public class UizaPlayerActivity extends BaseActivity {
             LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
             UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
         }*/
-        LScreenUtil.toggleFullscreen(activity);
+        UizaScreenUtil.toggleFullscreen(activity);
     }
 
     /*@Override
