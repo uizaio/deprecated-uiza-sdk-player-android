@@ -151,7 +151,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
-        view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.GONE);
+        view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
 
         avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avi.smoothToShow();
