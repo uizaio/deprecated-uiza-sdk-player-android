@@ -36,6 +36,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -196,10 +197,6 @@ public class Home2Activity extends BaseActivity {
 
             @Override
             public void onClickRight() {
-                //Intent intent = new Intent(activity, SearchActivity.class);
-                //startActivity(intent);
-                //LUIUtil.transActivityFadeIn(activity);
-
                 if (draggablePanel.isMaximized()) {
                     draggablePanel.minimize();
                 }
@@ -388,9 +385,6 @@ public class Home2Activity extends BaseActivity {
         }
         RestClientV2.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
         getPlayerConfig(entityId, entityCover, entityTitle);
-
-        //inputModel = createInputModel(entityId, entityCover, entityTitle);
-        //UizaData.getInstance().setInputModel(inputModel);
     }
 
     private InputModel inputModel;
@@ -501,11 +495,9 @@ public class Home2Activity extends BaseActivity {
 
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
-    private void updateUIStatusNavigationBar(boolean isShow) {
-        LLog.d(TAG, "updateUIStatusNavigationBar " + isShow);
-        UizaScreenUtil.hideNavBar(activity.getWindow().getDecorView());
-        if (isShow) {
-            UizaScreenUtil.showStatusBar(activity);
+    private void updateUIStatusNavigationBar(boolean isShowStatusNavigationBar) {
+        LLog.d(TAG, "updateUIStatusNavigationBar " + isShowStatusNavigationBar);
+        if (isShowStatusNavigationBar) {
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             setVisibilityOfActionBar(View.VISIBLE);
 
@@ -516,7 +508,6 @@ public class Home2Activity extends BaseActivity {
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
             draggablePanel.setEnableSlide(true);
         } else {
-            UizaScreenUtil.hideStatusBar(activity);
             LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
             setVisibilityOfActionBar(View.GONE);
             draggablePanel.setTopViewHeightApllyNow(LDisplayUtils.getScreenH(activity));//px
@@ -539,6 +530,8 @@ public class Home2Activity extends BaseActivity {
                 updateUIStatusNavigationBar(true);
             }
         }
+
+        LScreenUtil.toggleFullscreen(activity);
     }
 
     public DraggablePanel getDraggablePanel() {

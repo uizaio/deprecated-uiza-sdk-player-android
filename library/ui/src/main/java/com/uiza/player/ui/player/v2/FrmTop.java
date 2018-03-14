@@ -847,14 +847,14 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                     public void onDismiss(DialogInterface dialog) {
                         if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
+                            simpleExoPlayerView.hideAllOtherControlView();
+                            simpleExoPlayerView.hideController();
                         }
-                        if (UizaData.getInstance().isLandscape()) {
+                        /*if (UizaData.getInstance().isLandscape()) {
                             UizaScreenUtil.updateUIStatusNavigationBar(getActivity(), false);
                         } else {
                             //do nothing
-                        }
-                        simpleExoPlayerView.hideAllOtherControlView();
-                        simpleExoPlayerView.hideController();
+                        }*/
                     }
                 });
             }

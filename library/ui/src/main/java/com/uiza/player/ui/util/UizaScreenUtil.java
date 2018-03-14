@@ -123,14 +123,14 @@ public class UizaScreenUtil {
 
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
-    public static void updateUIStatusNavigationBar(Activity activity, boolean isShow) {
+    /*public static void updateUIStatusNavigationBar(Activity activity, boolean isShow) {
         UizaScreenUtil.hideNavBar(activity.getWindow().getDecorView());
         if (isShow) {
             UizaScreenUtil.showStatusBar(activity);
         } else {
             UizaScreenUtil.hideStatusBar(activity);
         }
-    }
+    }*/
 
     public static void setFullScreen(Context context, boolean isFullScreen) {
         if (isFullScreen) {
