@@ -82,8 +82,8 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         //avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         //avi.hide();//dont smoothToHide();
 
-        etSearch.requestFocus();
-        LKeyBoardUtil.show(getActivity());
+        //etSearch.requestFocus();
+        //LKeyBoardUtil.show(getActivity());
 
         placeHolderView = (PlaceHolderView) view.findViewById(vn.loitp.uiza.R.id.place_holder_view);
 
