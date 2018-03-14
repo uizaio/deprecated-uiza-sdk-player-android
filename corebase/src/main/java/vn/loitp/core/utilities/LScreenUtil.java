@@ -1,11 +1,13 @@
 package vn.loitp.core.utilities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.WindowManager;
 
 /**
  * File created on 8/31/2017.
@@ -51,5 +53,11 @@ public class LScreenUtil {
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    public static void toggleFullscreen(Activity activity) {
+        WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
+        attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        activity.getWindow().setAttributes(attrs);
     }
 }

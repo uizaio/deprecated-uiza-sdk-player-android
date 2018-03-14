@@ -52,7 +52,9 @@ import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LDeviceUtil;
+import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 
 /**
@@ -137,15 +139,18 @@ import vn.loitp.core.utilities.LUIUtil;
             });
 
             if (UizaData.getInstance().isLandscape()) {
-                if (Build.VERSION.SDK_INT < 16) {
+                LLog.d(TAG, "isLandscape");
+                /*if (Build.VERSION.SDK_INT < 16) {
                     window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 } else {
                     View decorView = window.getDecorView();
                     int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
                     decorView.setSystemUiVisibility(uiOptions);
-                }
+                }*/
+
+                LScreenUtil.toggleFullscreen(activity);
             } else {
-                //do nothing
+                LLog.d(TAG, "!isLandscape -> do nothing");
             }
         }
         dialog.show();

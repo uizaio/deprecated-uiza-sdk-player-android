@@ -77,6 +77,7 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -781,7 +782,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                             simpleExoPlayerView.resumePlayVideo();
                         }
                         if (UizaData.getInstance().isLandscape()) {
-                            UizaScreenUtil.updateUIStatusNavigationBar(getActivity(), false);
+                            //UizaScreenUtil.updateUIStatusNavigationBar(getActivity(), false);
                         } else {
                             //do nothing
                         }
