@@ -25,6 +25,7 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV1;
@@ -61,7 +62,7 @@ public class UizaPlayerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
 
-        UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
+        //UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
 
         String entityId = getIntent().getStringExtra(KEY_UIZA_ENTITY_ID);
         String entityCover = getIntent().getStringExtra(KEY_UIZA_ENTITY_COVER);
@@ -222,13 +223,14 @@ public class UizaPlayerActivity extends BaseActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        /*if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
             UizaScreenUtil.updateUIStatusNavigationBar(activity, false);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
             UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
-        }
+        }*/
+        LScreenUtil.toggleFullscreen(activity);
     }
 
     /*@Override

@@ -138,20 +138,20 @@ import vn.loitp.core.utilities.LUIUtil;
                 }
             });
 
-            if (UizaData.getInstance().isLandscape()) {
+            /*if (UizaData.getInstance().isLandscape()) {
                 LLog.d(TAG, "isLandscape");
-                /*if (Build.VERSION.SDK_INT < 16) {
+                *//*if (Build.VERSION.SDK_INT < 16) {
                     window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 } else {
                     View decorView = window.getDecorView();
                     int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
                     decorView.setSystemUiVisibility(uiOptions);
-                }*/
+                }*//*
 
                 LScreenUtil.toggleFullscreen(activity);
             } else {
                 LLog.d(TAG, "!isLandscape -> do nothing");
-            }
+            }*/
         }
         dialog.show();
     }
