@@ -16,6 +16,7 @@
 package com.google.android.exoplayer2.upstream;
 
 import android.content.Context;
+
 import com.google.android.exoplayer2.upstream.DataSource.Factory;
 
 /**
@@ -24,45 +25,45 @@ import com.google.android.exoplayer2.upstream.DataSource.Factory;
  */
 public final class DefaultDataSourceFactory implements Factory {
 
-  private final Context context;
-  private final TransferListener<? super DataSource> listener;
-  private final DataSource.Factory baseDataSourceFactory;
+    private final Context context;
+    private final TransferListener<? super DataSource> listener;
+    private final DataSource.Factory baseDataSourceFactory;
 
-  /**
-   * @param context A context.
-   * @param userAgent The User-Agent string that should be used.
-   */
-  public DefaultDataSourceFactory(Context context, String userAgent) {
-    this(context, userAgent, null);
-  }
+    /**
+     * @param context   A context.
+     * @param userAgent The User-Agent string that should be used.
+     */
+    public DefaultDataSourceFactory(Context context, String userAgent) {
+        this(context, userAgent, null);
+    }
 
-  /**
-   * @param context A context.
-   * @param userAgent The User-Agent string that should be used.
-   * @param listener An optional listener.
-   */
-  public DefaultDataSourceFactory(Context context, String userAgent,
-      TransferListener<? super DataSource> listener) {
-    this(context, listener, new DefaultHttpDataSourceFactory(userAgent, listener));
-  }
+    /**
+     * @param context   A context.
+     * @param userAgent The User-Agent string that should be used.
+     * @param listener  An optional listener.
+     */
+    public DefaultDataSourceFactory(Context context, String userAgent,
+                                    TransferListener<? super DataSource> listener) {
+        this(context, listener, new DefaultHttpDataSourceFactory(userAgent, listener));
+    }
 
-  /**
-   * @param context A context.
-   * @param listener An optional listener.
-   * @param baseDataSourceFactory A {@link Factory} to be used to create a base {@link DataSource}
-   *     for {@link DefaultDataSource}.
-   * @see DefaultDataSource#DefaultDataSource(Context, TransferListener, DataSource)
-   */
-  public DefaultDataSourceFactory(Context context, TransferListener<? super DataSource> listener,
-      DataSource.Factory baseDataSourceFactory) {
-    this.context = context.getApplicationContext();
-    this.listener = listener;
-    this.baseDataSourceFactory = baseDataSourceFactory;
-  }
+    /**
+     * @param context               A context.
+     * @param listener              An optional listener.
+     * @param baseDataSourceFactory A {@link Factory} to be used to create a base {@link DataSource}
+     *                              for {@link DefaultDataSource}.
+     * @see DefaultDataSource#DefaultDataSource(Context, TransferListener, DataSource)
+     */
+    public DefaultDataSourceFactory(Context context, TransferListener<? super DataSource> listener,
+                                    DataSource.Factory baseDataSourceFactory) {
+        this.context = context.getApplicationContext();
+        this.listener = listener;
+        this.baseDataSourceFactory = baseDataSourceFactory;
+    }
 
-  @Override
-  public DefaultDataSource createDataSource() {
-    return new DefaultDataSource(context, listener, baseDataSourceFactory.createDataSource());
-  }
+    @Override
+    public DefaultDataSource createDataSource() {
+        return new DefaultDataSource(context, listener, baseDataSourceFactory.createDataSource());
+    }
 
 }

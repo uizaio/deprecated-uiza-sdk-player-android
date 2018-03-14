@@ -56,7 +56,6 @@ import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
@@ -77,7 +76,6 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -122,11 +120,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private Object imaAdsLoader; // ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
-
     private FrameLayout rootView;
-
     private AVLoadingIndicatorView avi;
-
     private boolean isVideoStarted;//detect video is has ready state or not
 
     @Override
@@ -179,6 +174,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
             @Override
             public void onPlayThrough(int percent) {
+                //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
                 ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
@@ -192,10 +188,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
             }
         });
-
         return view;
     }
 
+    //return button video in debug layout
     private View getBtVideo() {
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
@@ -208,6 +204,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         return null;
     }
 
+    //return button audio in debug layout
     private View getBtAudio() {
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
@@ -220,6 +217,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         return null;
     }
 
+    //return button text in debug layout
     private View getBtText() {
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
@@ -231,7 +229,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
         return null;
     }
-
 
     @Override
     public void onVisibilityChange(int visibility) {
