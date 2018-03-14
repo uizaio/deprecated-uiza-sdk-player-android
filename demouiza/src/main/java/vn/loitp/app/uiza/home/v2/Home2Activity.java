@@ -25,6 +25,7 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.v1.FrmChannel;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
@@ -498,7 +499,12 @@ public class Home2Activity extends BaseActivity {
         LLog.d(TAG, "updateUIStatusNavigationBar " + isShowStatusNavigationBar);
         if (isShowStatusNavigationBar) {
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
-            setVisibilityOfActionBar(View.VISIBLE);
+            if (currentFrm != null) {
+                LLog.d(TAG, "updateUIStatusNavigationBar currentFrm " + currentFrm.getClass().getSimpleName());
+                if (currentFrm.getClass().getSimpleName().equals(FrmChannel2.class.getSimpleName())) {
+                    setVisibilityOfActionBar(View.VISIBLE);
+                }
+            }
 
             int widthScreen = LDisplayUtils.getScreenW(activity);
             LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
