@@ -75,6 +75,7 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.utils.util.ToastUtils;
@@ -149,6 +150,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (CookieHandler.getDefault() != DEFAULT_COOKIE_MANAGER) {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
+
+        view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.GONE);
 
         avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avi.smoothToShow();

@@ -84,6 +84,7 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.data.EventBusData;
@@ -171,6 +172,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
+        view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.GONE);
         avi = (AVLoadingIndicatorView) view.findViewById(io.uiza.sdk.ui.R.id.avi);
         avi.smoothToShow();
         rootView = (FrameLayout) view.findViewById(io.uiza.sdk.ui.R.id.root_view);
