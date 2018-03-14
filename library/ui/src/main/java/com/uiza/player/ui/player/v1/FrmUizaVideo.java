@@ -112,7 +112,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private boolean inErrorState;
     private TrackGroupArray lastSeenTrackGroupArray;
 
-    private boolean shouldAutoPlay;
+    //private boolean shouldAutoPlay;
     private int resumeWindow;
     private long resumePosition;
 
@@ -126,6 +126,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
+    //freuss47 set userAgent
+    private String userAgent = "ExoPlayerDemoUiza";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_player_frm, container, false);
-        shouldAutoPlay = true;
+        //shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
         mainHandler = new Handler();
@@ -247,7 +249,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
         if (reloadData) {
             releasePlayer();
-            shouldAutoPlay = true;
+            //shouldAutoPlay = true;
             clearResumePosition();
             initializePlayer();
         }
@@ -308,7 +310,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             player.setAudioDebugListener(eventLogger);
             player.setVideoDebugListener(eventLogger);
             player.setRepeatMode(Player.REPEAT_MODE_OFF);
-            player.setPlayWhenReady(shouldAutoPlay);
+            //player.setPlayWhenReady(shouldAutoPlay);
 
             //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
@@ -378,7 +380,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
         player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
-        updateButtonVisibilities();
+        updateDebugButtonVisibilities();
 
         mPlayerConfig = UizaData.getInstance().getPlayerConfig();
         setConfigUIPlayer();
@@ -395,11 +397,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
         playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
         playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
+
+        //set auto play video or not
         if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
         } else {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
         }
+
         //set icon color
         try {
             int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
@@ -467,7 +472,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (player != null) {
             debugViewHelper.stop();
             debugViewHelper = null;
-            shouldAutoPlay = player.getPlayWhenReady();
+            //shouldAutoPlay = player.getPlayWhenReady();
             updateResumePosition();
             player.release();
             player = null;
@@ -495,14 +500,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
      * @return A new DataSource factory.
      */
 
-
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
         //return ((LSApplication) ((Activity) getContext()).getApplication()).buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
         return buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
     }
-
-    //freuss47 set userAgent
-    private String userAgent = "ExoPlayerDemoUiza";
 
     private DataSource.Factory buildDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
         return new DefaultDataSourceFactory(getContext(), bandwidthMeter, buildHttpDataSourceFactory(bandwidthMeter));
@@ -559,6 +560,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     private void releaseAdsLoader() {
         if (imaAdsLoader != null) {
+            LLog.d(TAG, "releaseAdsLoader");
             try {
                 Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
                 Method releaseMethod = loaderClass.getMethod("release");
@@ -583,7 +585,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (playbackState == Player.STATE_ENDED) {
             LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
             avi.smoothToHide();
-            showControls();
+            showDebugControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
             LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
             avi.smoothToShow();
@@ -600,7 +602,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 //track plays_requested
                 ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
-                //track event view
+                //track event view (after video is played 5s)
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
@@ -611,9 +613,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 mHandler.postDelayed(mRunnable, 5000);
             }
         }
-        updateButtonVisibilities();
+        updateDebugButtonVisibilities();
     }
 
+    //for track event view
     private Handler mHandler = new Handler();
     private Runnable mRunnable;
 
@@ -672,15 +675,15 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             initializePlayer();
         } else {
             updateResumePosition();
-            updateButtonVisibilities();
-            showControls();
+            updateDebugButtonVisibilities();
+            showDebugControls();
         }
     }
 
     @Override
     @SuppressWarnings("ReferenceEquality")
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-        updateButtonVisibilities();
+        updateDebugButtonVisibilities();
         if (trackGroups != lastSeenTrackGroupArray) {
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
@@ -696,7 +699,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     }
 
     // User controls
-    private void updateButtonVisibilities() {
+    private void updateDebugButtonVisibilities() {
         debugRootView.removeAllViews();
 
         retryButton.setVisibility(inErrorState ? View.VISIBLE : View.GONE);
@@ -738,7 +741,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    private void showControls() {
+    private void showDebugControls() {
         debugRootView.setVisibility(View.VISIBLE);
     }
 
@@ -769,14 +772,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                     public void onDismiss(DialogInterface dialog) {
                         if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
+                            simpleExoPlayerView.hideAllOtherControlView();
+                            simpleExoPlayerView.hideController();
                         }
-                        if (UizaData.getInstance().isLandscape()) {
-                            //UizaScreenUtil.updateUIStatusNavigationBar(getActivity(), false);
-                        } else {
-                            //do nothing
-                        }
-                        simpleExoPlayerView.hideAllOtherControlView();
-                        simpleExoPlayerView.hideController();
                     }
                 });
             }
@@ -855,7 +853,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onDestroy() {
+        //remove callback track event view
         mHandler.removeCallbacks(mRunnable);
+        
         releaseAdsLoader();
         super.onDestroy();
     }
@@ -881,7 +881,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onAdLoadError(IOException error) {
-        LLog.d(TAG, "onAdLoadError");
+        LLog.e(TAG, "onAdLoadError");
     }
 
     @Override
