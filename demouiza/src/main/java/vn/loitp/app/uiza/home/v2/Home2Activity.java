@@ -36,7 +36,6 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -530,7 +529,6 @@ public class Home2Activity extends BaseActivity {
                 updateUIStatusNavigationBar(true);
             }
         }
-
         UizaScreenUtil.toggleFullscreen(activity);
     }
 
