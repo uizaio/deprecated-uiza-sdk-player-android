@@ -124,6 +124,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private AVLoadingIndicatorView avi;
     private boolean isVideoStarted;//detect video is has ready state or not
 
+    private InputModel inputModel;
+    private PlayerConfig mPlayerConfig;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -236,8 +239,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         debugRootView.setVisibility(visibility);
     }
 
-    private InputModel inputModel;
-
     public void setInputModel(InputModel ip, boolean reloadData) {
         if (ip == null) {
             this.inputModel = UizaData.getInstance().getInputModel();
@@ -248,7 +249,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             releasePlayer();
             shouldAutoPlay = true;
             clearResumePosition();
-
             initializePlayer();
         }
     }
@@ -261,11 +261,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
         }
-        /*if (inputModel.getDetailEntity() == null) {
-            LLog.d(TAG, "inputModel.getDetailEntity() == null -> return");
-            return;
-        }*/
-
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
@@ -294,7 +289,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                     return;
                 }
             }
-
             boolean preferExtensionDecoders = inputModel.getPreferExtensionDecoders();
             /*@DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode =
                     ((LSApplication) ((Activity) getContext()).getApplication()).useExtensionRenderers()
@@ -314,10 +308,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             player.setAudioDebugListener(eventLogger);
             player.setVideoDebugListener(eventLogger);
             player.setRepeatMode(Player.REPEAT_MODE_OFF);
+            player.setPlayWhenReady(shouldAutoPlay);
 
             //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
-            player.setPlayWhenReady(shouldAutoPlay);
             debugViewHelper = new DebugTextViewHelper(player, debugTextView);
             debugViewHelper.start();
         }
@@ -326,7 +320,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
             uris = new Uri[]{inputModel.getUri()};
-            //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
+            //LLog.d("uris ", ">>>uris: " + gson.toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
@@ -389,8 +383,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         mPlayerConfig = UizaData.getInstance().getPlayerConfig();
         setConfigUIPlayer();
     }
-
-    private PlayerConfig mPlayerConfig;
 
     private void setConfigUIPlayer() {
         //TODO freuss47 customize UI
