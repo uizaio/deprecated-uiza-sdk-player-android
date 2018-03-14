@@ -239,6 +239,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     public void onVisibilityChange(int visibility) {
         LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
+
+        //dismiss dialog choose setting
+        if (visibility != View.VISIBLE) {
+            if (trackSelectionHelper != null) {
+                trackSelectionHelper.dissmissDialog();
+            }
+        }
     }
 
     public void setInputModel(InputModel ip, boolean reloadData) {
@@ -855,7 +862,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     public void onDestroy() {
         //remove callback track event view
         mHandler.removeCallbacks(mRunnable);
-        
+
         releaseAdsLoader();
         super.onDestroy();
     }

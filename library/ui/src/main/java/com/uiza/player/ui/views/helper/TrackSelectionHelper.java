@@ -158,6 +158,10 @@ import vn.loitp.core.utilities.LUIUtil;
 
     private Dialog dialog;
 
+    public Dialog getDialog() {
+        return dialog;
+    }
+
     @SuppressLint("InflateParams")
     private View buildView(Context context) {
         LLog.d(TAG, "buildView");
@@ -282,6 +286,10 @@ import vn.loitp.core.utilities.LUIUtil;
         } else {
             selector.clearSelectionOverrides(rendererIndex);
         }
+        dissmissDialog();
+    }
+
+    public void dissmissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
