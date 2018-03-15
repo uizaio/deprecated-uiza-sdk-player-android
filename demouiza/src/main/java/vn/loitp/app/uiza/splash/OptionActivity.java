@@ -32,6 +32,12 @@ public class OptionActivity extends BaseActivity {
     private RadioButton radioApiEndPoint1;
     private String currentApiEndPoint;
 
+    private RadioGroup radioGroupApiTrackingEndPoint;
+    private RadioButton radioApiTrackingEndPoint1;
+    private RadioButton radioApiTrackingEndPoint2;
+    private RadioButton radioApiTrackingEndPoint3;
+    private String currentApiTrackingEndPoint;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +56,14 @@ public class OptionActivity extends BaseActivity {
                 if (currentApiEndPoint == null) {
                     currentApiEndPoint = Constants.URL_DEV_UIZA2;
                 }
+                if (currentApiTrackingEndPoint == null) {
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
+                }
 
                 LLog.d(TAG, "currentPlayerId " + currentPlayerId);
                 LLog.d(TAG, "canSlide " + canSlide);
                 LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
+                LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
             }
         });
         findViewById(R.id.bt_1).setOnClickListener(new View.OnClickListener() {
@@ -69,6 +79,7 @@ public class OptionActivity extends BaseActivity {
         setupSkin();
         setupSlide();
         setupApiEndpoint();
+        setupApiTrackingEndpoint();
     }
 
     @Override
@@ -160,6 +171,34 @@ public class OptionActivity extends BaseActivity {
                 switch (selectedId) {
                     case R.id.radio_api_end_point_1:
                         currentApiEndPoint = Constants.URL_DEV_UIZA2;
+                        break;
+                }
+            }
+        });
+    }
+
+    private void setupApiTrackingEndpoint() {
+        radioGroupApiTrackingEndPoint = (RadioGroup) findViewById(R.id.radio_api_tracking_end_point);
+        radioApiTrackingEndPoint1 = (RadioButton) findViewById(R.id.radio_api_tracking_end_point_1);
+        radioApiTrackingEndPoint2 = (RadioButton) findViewById(R.id.radio_api_tracking_end_point_2);
+        radioApiTrackingEndPoint3 = (RadioButton) findViewById(R.id.radio_api_tracking_end_point_3);
+
+        //default
+        radioApiTrackingEndPoint1.setChecked(true);
+
+        radioGroupApiTrackingEndPoint.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                int selectedId = radioGroupApiTrackingEndPoint.getCheckedRadioButtonId();
+                switch (selectedId) {
+                    case R.id.radio_api_tracking_end_point_1:
+                        currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
+                        break;
+                    case R.id.radio_api_tracking_end_point_2:
+                        currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
+                        break;
+                    case R.id.radio_api_tracking_end_point_3:
+                        currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
                         break;
                 }
             }

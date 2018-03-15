@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="Choose your Video skin"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/txt_20"
+                    android:textSize="@dimen/txt_15"
                     android:textStyle="bold" />
 
                 <RadioGroup
@@ -66,7 +66,7 @@
                         android:checked="true"
                         android:text="Skin 1"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/txt_20"
+                        android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                     <RadioButton
@@ -76,7 +76,7 @@
                         android:buttonTint="@color/White"
                         android:text="Skin 2"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/txt_20"
+                        android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                     <RadioButton
@@ -86,7 +86,7 @@
                         android:buttonTint="@color/White"
                         android:text="Skin 3"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/txt_20"
+                        android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                 </RadioGroup>
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:text="Video can slide or not?"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/txt_20"
+                    android:textSize="@dimen/txt_15"
                     android:textStyle="bold" />
 
                 <RadioGroup
@@ -118,7 +118,7 @@
                         android:checked="true"
                         android:text="Cannot slide"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/txt_20"
+                        android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                     <RadioButton
@@ -128,7 +128,7 @@
                         android:buttonTint="@color/White"
                         android:text="Can slide"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/txt_20"
+                        android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                 </RadioGroup>
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:text="Select API endpoint"
                     android:textColor="@color/White"
-                    android:textSize="@dimen/txt_20"
+                    android:textSize="@dimen/txt_15"
                     android:textStyle="bold" />
 
                 <RadioGroup
@@ -160,9 +160,62 @@
                         android:checked="true"
                         android:text="http://dev-api.uiza.io/"
                         android:textColor="@color/White"
-                        android:textSize="@dimen/txt_20"
+                        android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/w_1"
+                    android:layout_margin="@dimen/margin_10"
+                    android:background="@color/White" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select API Tracking endpoint"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/txt_15"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radio_api_tracking_end_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radio_api_tracking_end_point_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/White"
+                        android:checked="true"
+                        android:text="http://dev-tracking.uiza.io/analytic-tracking/"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/radio_api_tracking_end_point_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/White"
+                        android:checked="true"
+                        android:text="http://stag-tracking.uiza.io/analytic-tracking/"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/radio_api_tracking_end_point_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/White"
+                        android:checked="true"
+                        android:text="http://tracking.uiza.io/analytic-tracking/"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold" />
                 </RadioGroup>
 
                 <View
