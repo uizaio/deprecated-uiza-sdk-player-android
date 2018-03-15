@@ -1,6 +1,7 @@
 package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.View;
@@ -12,10 +13,14 @@ import com.uiza.player.ui.data.UizaData;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
 
 public class OptionActivity extends BaseActivity {
-    public static final String KEY_SDK_VERSION = "KEY_SDK_VERSION";
+    public static final String KEY_SKIN = "KEY_SKIN";
+    public static final String KEY_CAN_SLIDE = "KEY_CAN_SLIDE";
+    public static final String KEY_API_END_POINT = "KEY_API_END_POINT";
+    public static final String KEY_API_TRACKING_END_POINT = "KEY_API_TRACKING_END_POINT";
 
     private RadioGroup radioGroupSkin;
     private RadioButton radioSkin1;
@@ -41,45 +46,41 @@ public class OptionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        findViewById(R.id.bt_0).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bt_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(activity, SplashActivity.class);
-                intent.putExtra(KEY_SDK_VERSION, false);
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);*/
-
-                if (currentPlayerId == null) {
-                    currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
-                }
-                if (currentApiEndPoint == null) {
-                    currentApiEndPoint = Constants.URL_DEV_UIZA2;
-                }
-                if (currentApiTrackingEndPoint == null) {
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
-                }
-
-                LLog.d(TAG, "currentPlayerId " + currentPlayerId);
-                LLog.d(TAG, "canSlide " + canSlide);
-                LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
-                LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
+                goToSplashScreen();
             }
         });
-        findViewById(R.id.bt_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Intent intent = new Intent(activity, SplashActivity.class);
-                intent.putExtra(KEY_SDK_VERSION, true);
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);*/
-            }
-        });
-
         setupSkin();
         setupSlide();
         setupApiEndpoint();
         setupApiTrackingEndpoint();
+    }
+
+    private void goToSplashScreen() {
+        if (currentPlayerId == null) {
+            currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+        }
+        if (currentApiEndPoint == null) {
+            currentApiEndPoint = Constants.URL_DEV_UIZA2;
+        }
+        if (currentApiTrackingEndPoint == null) {
+            currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
+        }
+
+        LLog.d(TAG, "currentPlayerId " + currentPlayerId);
+        LLog.d(TAG, "canSlide " + canSlide);
+        LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
+        LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
+
+        Intent intent = new Intent(activity, SplashActivity.class);
+        intent.putExtra(KEY_SKIN, currentPlayerId);
+        intent.putExtra(KEY_CAN_SLIDE, canSlide);
+        intent.putExtra(KEY_API_END_POINT, currentApiEndPoint);
+        intent.putExtra(KEY_API_TRACKING_END_POINT, currentApiTrackingEndPoint);
+        startActivity(intent);
+        LUIUtil.transActivityFadeIn(activity);
     }
 
     @Override
@@ -117,14 +118,14 @@ public class OptionActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 int selectedId = radioGroupSkin.getCheckedRadioButtonId();
                 switch (selectedId) {
-                    case R.id.radio_1:
+                    case R.id.radio_skin_1:
                         //UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
                         currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
                         break;
-                    case R.id.radio_2:
+                    case R.id.radio_skin_2:
                         currentPlayerId = UizaData.PLAYER_ID_SKIN_2;
                         break;
-                    case R.id.radio_3:
+                    case R.id.radio_skin_3:
                         currentPlayerId = UizaData.PLAYER_ID_SKIN_3;
                         break;
                 }

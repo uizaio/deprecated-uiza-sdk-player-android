@@ -47,8 +47,4 @@ public class Constants {
     public final static String URL_DEV_UIZA = "https://demo-api.uiza.io/";
     public final static String URL_DEV_UIZA2 = "http://dev-api.uiza.io/";
     public final static String URL_WTT = "http://wtt-api.uiza.io/";
-
-    public static final int VS_SDK_1 = 1;
-    public static final int VS_SDK_2 = 2;
-    public static final int VS_SDK_3 = 3;
 }

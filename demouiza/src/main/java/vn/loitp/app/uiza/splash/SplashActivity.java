@@ -92,17 +92,26 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goToHome(Auth auth) {
-        boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_SDK_VERSION, false);
+        String currentPlayerId = getIntent().getStringExtra(OptionActivity.KEY_SKIN);
+        boolean canSlide = getIntent().getBooleanExtra(OptionActivity.KEY_CAN_SLIDE, false);
+        String currentApiEndPoint = getIntent().getStringExtra(OptionActivity.KEY_API_END_POINT);
+        String currentApiTrackingEndPoint = getIntent().getStringExtra(OptionActivity.KEY_API_TRACKING_END_POINT);
+
+        LLog.d(TAG, "currentPlayerId " + currentPlayerId);
+        LLog.d(TAG, "canSlide " + canSlide);
+        LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
+        LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
+
         Intent intent;
-        if (isSlide) {
+        RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+        UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
+        UizaData.getInstance().setVideoCanSlide(canSlide);
+
+        if (canSlide) {
             //v2
-            RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
-            UizaData.getInstance().init(Constants.VS_SDK_2, Constants.URL_DEV_UIZA2, Constants.URL_TRACKING_DEV, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
             intent = new Intent(activity, Home2Activity.class);
         } else {
             //v1
-            RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
-            UizaData.getInstance().init(Constants.VS_SDK_1, Constants.URL_DEV_UIZA2, Constants.URL_TRACKING_DEV, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
             intent = new Intent(activity, HomeActivity.class);
         }
         startActivity(intent);

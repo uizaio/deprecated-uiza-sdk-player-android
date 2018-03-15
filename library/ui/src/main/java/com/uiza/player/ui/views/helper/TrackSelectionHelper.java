@@ -124,15 +124,7 @@ import vn.loitp.core.utilities.LScreenUtil;
             view.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (UizaData.getInstance().getVersionSDK() == Constants.VS_SDK_1) {
-                        //v1, no silde video
-                        LLog.d(TAG, "isLandscape");
-                        LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
-                        LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
-                        param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
-                        window.setAttributes(param);
-                        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                    } else if (UizaData.getInstance().getVersionSDK() == Constants.VS_SDK_2) {
+                    if (UizaData.getInstance().isVideoCanSlide()) {
                         //v2, video can slide
                         if (UizaData.getInstance().isLandscape()) {
                             LLog.d(TAG, "isLandscape");
@@ -152,6 +144,14 @@ import vn.loitp.core.utilities.LScreenUtil;
                             window.setAttributes(param);
                             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                         }
+                    } else {
+                        //v1, no silde video
+                        LLog.d(TAG, "isLandscape");
+                        LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                        LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                        param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
+                        window.setAttributes(param);
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                     }
                 }
             });

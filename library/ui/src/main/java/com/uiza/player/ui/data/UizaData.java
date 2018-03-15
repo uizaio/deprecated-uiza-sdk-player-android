@@ -6,7 +6,6 @@ import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
-import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
@@ -164,18 +163,18 @@ public class UizaData {
     public final static String T = "true";
     public final static String F = "false";
 
-    private int versionSDK = Constants.VS_SDK_1;
+    private boolean isVideoCanSlide;
     private String apiEndPoint;
     private String apiTrackingEndPoint;
     private String token;
     private String playerId;//for select theme
 
-    public int getVersionSDK() {
-        return versionSDK;
+    public boolean isVideoCanSlide() {
+        return isVideoCanSlide;
     }
 
-    public void setVersionSDK(int versionSDK) {
-        this.versionSDK = versionSDK;
+    public void setVideoCanSlide(boolean videoCanSlide) {
+        isVideoCanSlide = videoCanSlide;
     }
 
     public String getApiEndPoint() {
@@ -210,8 +209,7 @@ public class UizaData {
         this.playerId = playerId;
     }
 
-    public void init(int versionSDK, String apiEndPoint, String apiTrackingEndPoint, String token, String playerId) {
-        this.versionSDK = versionSDK;
+    public void init(String apiEndPoint, String apiTrackingEndPoint, String token, String playerId) {
         this.apiEndPoint = apiEndPoint;
         this.apiTrackingEndPoint = apiTrackingEndPoint;
         this.token = token;
