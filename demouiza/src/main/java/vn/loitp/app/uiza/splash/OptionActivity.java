@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.uiza.R;
 
@@ -20,12 +21,16 @@ public class OptionActivity extends BaseActivity {
     private RadioButton radioSkin1;
     private RadioButton radioSkin2;
     private RadioButton radioSkin3;
-    private String currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+    private String currentPlayerId;
 
     private RadioGroup radioGroupSlide;
     private RadioButton radioCanSlide;
     private RadioButton radioCannotSlide;
-    private boolean canSlide = false;
+    private boolean canSlide;
+
+    private RadioGroup radioGroupApiEndPoint;
+    private RadioButton radioApiEndPoint1;
+    private String currentApiEndPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +43,17 @@ public class OptionActivity extends BaseActivity {
                 intent.putExtra(KEY_SDK_VERSION, false);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);*/
+
+                if (currentPlayerId == null) {
+                    currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+                }
+                if (currentApiEndPoint == null) {
+                    currentApiEndPoint = Constants.URL_DEV_UIZA2;
+                }
+
                 LLog.d(TAG, "currentPlayerId " + currentPlayerId);
                 LLog.d(TAG, "canSlide " + canSlide);
+                LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
             }
         });
         findViewById(R.id.bt_1).setOnClickListener(new View.OnClickListener() {
@@ -54,6 +68,7 @@ public class OptionActivity extends BaseActivity {
 
         setupSkin();
         setupSlide();
+        setupApiEndpoint();
     }
 
     @Override
@@ -112,7 +127,7 @@ public class OptionActivity extends BaseActivity {
         radioCanSlide = (RadioButton) findViewById(R.id.radio_can_slide);
         radioCannotSlide = (RadioButton) findViewById(R.id.radio_cannot_slide);
 
-        //default skin1
+        //default cannot slide
         radioCannotSlide.setChecked(true);
 
         radioGroupSlide.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -125,6 +140,26 @@ public class OptionActivity extends BaseActivity {
                         break;
                     case R.id.radio_cannot_slide:
                         canSlide = false;
+                        break;
+                }
+            }
+        });
+    }
+
+    private void setupApiEndpoint() {
+        radioGroupApiEndPoint = (RadioGroup) findViewById(R.id.radio_api_end_point);
+        radioApiEndPoint1 = (RadioButton) findViewById(R.id.radio_api_end_point_1);
+
+        //default
+        radioApiEndPoint1.setChecked(true);
+
+        radioGroupApiEndPoint.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                int selectedId = radioGroupApiEndPoint.getCheckedRadioButtonId();
+                switch (selectedId) {
+                    case R.id.radio_api_end_point_1:
+                        currentApiEndPoint = Constants.URL_DEV_UIZA2;
                         break;
                 }
             }
