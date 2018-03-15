@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.TypedValue;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
@@ -174,5 +175,12 @@ public class LScreenUtil {
                 }
             });
         }
+    }
+
+    public static int getActionbarSizePx(Context context) {
+        TypedValue tv = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
+        int actionBarHeight = context.getResources().getDimensionPixelSize(tv.resourceId);
+        return actionBarHeight;
     }
 }

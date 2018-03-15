@@ -20,10 +20,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.Gravity;
@@ -45,17 +43,12 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.Selecti
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.util.UizaScreenUtil;
-import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
-import vn.loitp.core.utilities.LDeviceUtil;
-import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LScreenUtil;
-import vn.loitp.core.utilities.LUIUtil;
 
 /**
  * Helper class for displaying track selection dialogs.
@@ -130,28 +123,36 @@ import vn.loitp.core.utilities.LUIUtil;
             view.post(new Runnable() {
                 @Override
                 public void run() {
-                    //LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+
+                    //v1
+                    /*LLog.d(TAG, "isLandscape");
+                    LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                    LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                     param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                     window.setAttributes(param);
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                    //UizaScreenUtil.hideStatusBar(activity);
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);*/
+
+                    //v2
+                    if (UizaData.getInstance().isLandscape()) {
+                        LLog.d(TAG, "isLandscape");
+                        LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                        LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                        param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
+                        window.setAttributes(param);
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    } else {
+                        LLog.d(TAG, "!isLandscape");
+                        LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+
+                        int actionbarSizePx = LScreenUtil.getActionbarSizePx(activity);
+                        LLog.d(TAG, "actionbarSizePx: " + actionbarSizePx);
+                        LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                        param.y = actionbarSizePx + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
+                        window.setAttributes(param);
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    }
                 }
             });
-
-            /*if (UizaData.getInstance().isLandscape()) {
-                LLog.d(TAG, "isLandscape");
-                *//*if (Build.VERSION.SDK_INT < 16) {
-                    window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                } else {
-                    View decorView = window.getDecorView();
-                    int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-                    decorView.setSystemUiVisibility(uiOptions);
-                }*//*
-
-                LScreenUtil.toggleFullscreen(activity);
-            } else {
-                LLog.d(TAG, "!isLandscape -> do nothing");
-            }*/
         }
         dialog.show();
     }

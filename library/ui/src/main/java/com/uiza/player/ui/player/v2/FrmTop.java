@@ -172,7 +172,9 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
-        view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
+        //view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
+        view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
+
         avi = (AVLoadingIndicatorView) view.findViewById(io.uiza.sdk.ui.R.id.avi);
         avi.smoothToShow();
         rootView = (FrameLayout) view.findViewById(io.uiza.sdk.ui.R.id.root_view);

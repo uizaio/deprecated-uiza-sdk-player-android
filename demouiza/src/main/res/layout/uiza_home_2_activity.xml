@@ -24,7 +24,7 @@
             <vn.loitp.app.uiza.view.UizaActionBar
                 android:id="@+id/uiza_action_bar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize" />
+                android:layout_height="wrap_content" />
 
             <vn.loitp.views.draggablepanel.DraggablePanel
                 android:id="@+id/draggable_panel"
