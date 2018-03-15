@@ -6,6 +6,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
@@ -50,6 +51,7 @@ public class UizaData {
         //mObservers = new ArrayList<>();
     }
 
+    //current position of player
     private long currentPosition;
 
     public long getCurrentPosition() {
@@ -60,6 +62,7 @@ public class UizaData {
         this.currentPosition = currentPosition;
     }
 
+    //reset all
     public void reset() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -73,6 +76,7 @@ public class UizaData {
         }, 100);
     }
 
+    //detect screen oritation isLandscape or not
     private boolean isLandscape;
 
     public boolean isLandscape() {
@@ -160,10 +164,19 @@ public class UizaData {
     public final static String T = "true";
     public final static String F = "false";
 
+    private int versionSDK = Constants.VS_SDK_1;
     private String apiEndPoint;
     private String apiTrackingEndPoint;
     private String token;
     private String playerId;//for select theme
+
+    public int getVersionSDK() {
+        return versionSDK;
+    }
+
+    public void setVersionSDK(int versionSDK) {
+        this.versionSDK = versionSDK;
+    }
 
     public String getApiEndPoint() {
         if (apiEndPoint == null || apiEndPoint.isEmpty()) {
@@ -197,7 +210,8 @@ public class UizaData {
         this.playerId = playerId;
     }
 
-    public void init(String apiEndPoint, String apiTrackingEndPoint, String token, String playerId) {
+    public void init(int versionSDK, String apiEndPoint, String apiTrackingEndPoint, String token, String playerId) {
+        this.versionSDK = versionSDK;
         this.apiEndPoint = apiEndPoint;
         this.apiTrackingEndPoint = apiTrackingEndPoint;
         this.token = token;

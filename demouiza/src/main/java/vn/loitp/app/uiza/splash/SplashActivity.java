@@ -92,20 +92,19 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goToHome(Auth auth) {
-        RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
-        UizaData.getInstance().init(Constants.URL_DEV_UIZA2, Constants.URL_TRACKING_DEV, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
-
         boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_TEST, false);
-
         Intent intent;
         if (isSlide) {
             //v2
+            RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+            UizaData.getInstance().init(Constants.VS_SDK_2, Constants.URL_DEV_UIZA2, Constants.URL_TRACKING_DEV, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
             intent = new Intent(activity, Home2Activity.class);
         } else {
             //v1
+            RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+            UizaData.getInstance().init(Constants.VS_SDK_1, Constants.URL_DEV_UIZA2, Constants.URL_TRACKING_DEV, auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
             intent = new Intent(activity, HomeActivity.class);
         }
-
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
         finish();

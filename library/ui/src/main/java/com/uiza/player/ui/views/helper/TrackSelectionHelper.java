@@ -47,6 +47,7 @@ import com.uiza.player.ui.data.UizaData;
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LScreenUtil;
 
@@ -123,33 +124,34 @@ import vn.loitp.core.utilities.LScreenUtil;
             view.post(new Runnable() {
                 @Override
                 public void run() {
-
-                    //v1
-                    /*LLog.d(TAG, "isLandscape");
-                    LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
-                    LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
-                    param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
-                    window.setAttributes(param);
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);*/
-
-                    //v2
-                    if (UizaData.getInstance().isLandscape()) {
+                    if (UizaData.getInstance().getVersionSDK() == Constants.VS_SDK_1) {
+                        //v1, no silde video
                         LLog.d(TAG, "isLandscape");
                         LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
                         LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                         param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                         window.setAttributes(param);
                         window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                    } else {
-                        LLog.d(TAG, "!isLandscape");
-                        LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                    } else if (UizaData.getInstance().getVersionSDK() == Constants.VS_SDK_2) {
+                        //v2, video can slide
+                        if (UizaData.getInstance().isLandscape()) {
+                            LLog.d(TAG, "isLandscape");
+                            LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                            LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                            param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
+                            window.setAttributes(param);
+                            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        } else {
+                            LLog.d(TAG, "!isLandscape");
+                            LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
 
-                        int actionbarSizePx = LScreenUtil.getActionbarSizePx(activity);
-                        LLog.d(TAG, "actionbarSizePx: " + actionbarSizePx);
-                        LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
-                        param.y = actionbarSizePx + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
-                        window.setAttributes(param);
-                        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                            int actionbarSizePx = LScreenUtil.getActionbarSizePx(activity);
+                            LLog.d(TAG, "actionbarSizePx: " + actionbarSizePx);
+                            LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                            param.y = actionbarSizePx + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
+                            window.setAttributes(param);
+                            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        }
                     }
                 }
             });
