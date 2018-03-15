@@ -369,6 +369,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             player.setVideoDebugListener(eventLogger);
             player.setRepeatMode(Player.REPEAT_MODE_OFF);
             //player.setPlayWhenReady(shouldAutoPlay);
+            //player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT);
 
             //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
