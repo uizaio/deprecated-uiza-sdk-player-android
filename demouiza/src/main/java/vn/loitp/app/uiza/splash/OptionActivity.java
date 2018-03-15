@@ -1,16 +1,31 @@
 package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.uiza.R;
 
 public class OptionActivity extends BaseActivity {
-    public static final String KEY_TEST = "isSlide";
+    public static final String KEY_SDK_VERSION = "KEY_SDK_VERSION";
+
+    private RadioGroup radioGroupSkin;
+    private RadioButton radioSkin1;
+    private RadioButton radioSkin2;
+    private RadioButton radioSkin3;
+    private String currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+
+    private RadioGroup radioGroupSlide;
+    private RadioButton radioCanSlide;
+    private RadioButton radioCannotSlide;
+    private boolean canSlide = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,21 +34,26 @@ public class OptionActivity extends BaseActivity {
         findViewById(R.id.bt_0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, SplashActivity.class);
-                intent.putExtra(KEY_TEST, false);
+                /*Intent intent = new Intent(activity, SplashActivity.class);
+                intent.putExtra(KEY_SDK_VERSION, false);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LUIUtil.transActivityFadeIn(activity);*/
+                LLog.d(TAG, "currentPlayerId " + currentPlayerId);
+                LLog.d(TAG, "canSlide " + canSlide);
             }
         });
         findViewById(R.id.bt_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, SplashActivity.class);
-                intent.putExtra(KEY_TEST, true);
+                /*Intent intent = new Intent(activity, SplashActivity.class);
+                intent.putExtra(KEY_SDK_VERSION, true);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LUIUtil.transActivityFadeIn(activity);*/
             }
         });
+
+        setupSkin();
+        setupSlide();
     }
 
     @Override
@@ -54,5 +74,60 @@ public class OptionActivity extends BaseActivity {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.uiza_option_activity;
+    }
+
+    private void setupSkin() {
+        //setting theme
+        radioGroupSkin = (RadioGroup) findViewById(R.id.radio_group_skin);
+        radioSkin1 = (RadioButton) findViewById(R.id.radio_skin_1);
+        radioSkin2 = (RadioButton) findViewById(R.id.radio_skin_2);
+        radioSkin3 = (RadioButton) findViewById(R.id.radio_skin_3);
+
+        //default skin1
+        radioSkin1.setChecked(true);
+
+        radioGroupSkin.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                int selectedId = radioGroupSkin.getCheckedRadioButtonId();
+                switch (selectedId) {
+                    case R.id.radio_1:
+                        //UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
+                        currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+                        break;
+                    case R.id.radio_2:
+                        currentPlayerId = UizaData.PLAYER_ID_SKIN_2;
+                        break;
+                    case R.id.radio_3:
+                        currentPlayerId = UizaData.PLAYER_ID_SKIN_3;
+                        break;
+                }
+            }
+        });
+    }
+
+    private void setupSlide() {
+        //setting slide
+        radioGroupSlide = (RadioGroup) findViewById(R.id.radio_group_slide);
+        radioCanSlide = (RadioButton) findViewById(R.id.radio_can_slide);
+        radioCannotSlide = (RadioButton) findViewById(R.id.radio_cannot_slide);
+
+        //default skin1
+        radioCannotSlide.setChecked(true);
+
+        radioGroupSlide.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                int selectedId = radioGroupSlide.getCheckedRadioButtonId();
+                switch (selectedId) {
+                    case R.id.radio_can_slide:
+                        canSlide = true;
+                        break;
+                    case R.id.radio_cannot_slide:
+                        canSlide = false;
+                        break;
+                }
+            }
+        });
     }
 }

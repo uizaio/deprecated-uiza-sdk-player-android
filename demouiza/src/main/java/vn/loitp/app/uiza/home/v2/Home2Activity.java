@@ -143,13 +143,13 @@ public class Home2Activity extends BaseActivity {
                 LUIUtil.transActivityFadeIn(activity);
             }
 
-            @Override
+            /*@Override
             public void onClickSetting() {
                 closeDrawer();
                 Intent intent = new Intent(activity, SettingActivity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
-            }
+            }*/
         });
         mDrawerView.addView(uizaDrawerHeader);
 

@@ -31,18 +31,18 @@ public class UizaDrawerHeader {
     @View(R.id.ll_login)
     private LinearLayout llLogin;
 
-    @View(R.id.tv_setting)
-    private TextView tvSetting;
+    //@View(R.id.tv_setting)
+    //private TextView tvSetting;
 
     @Resolve
     private void onResolved() {
         tvName.setText("Bạn Chưa Đăng Nhập");
 
-        if (Constants.IS_DEBUG) {
+        /*if (Constants.IS_DEBUG) {
             tvSetting.setVisibility(android.view.View.VISIBLE);
         } else {
             tvSetting.setVisibility(android.view.View.GONE);
-        }
+        }*/
     }
 
     @Click(R.id.iv_log_out)
@@ -59,12 +59,12 @@ public class UizaDrawerHeader {
         }
     }
 
-    @Click(R.id.tv_setting)
+    /*@Click(R.id.tv_setting)
     private void onClickSetting() {
         if (callback != null) {
             callback.onClickSetting();
         }
-    }
+    }*/
 
     private Callback callback;
 
@@ -73,7 +73,7 @@ public class UizaDrawerHeader {
 
         public void onClickLogin();
 
-        public void onClickSetting();
+        //public void onClickSetting();
     }
 
     public void setCallback(Callback callback) {

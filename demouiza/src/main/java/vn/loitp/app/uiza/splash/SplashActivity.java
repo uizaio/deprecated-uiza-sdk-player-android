@@ -92,7 +92,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goToHome(Auth auth) {
-        boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_TEST, false);
+        boolean isSlide = getIntent().getBooleanExtra(OptionActivity.KEY_SDK_VERSION, false);
         Intent intent;
         if (isSlide) {
             //v2
@@ -115,7 +115,8 @@ public class SplashActivity extends BaseActivity {
         Intent intent = new Intent(activity, UizaPlayerActivity.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, "f5dd9c0a-87fd-4bf8-be44-fe8cf394a885");
         intent.putExtra(KEY_UIZA_ENTITY_COVER, "");
-        intent.putExtra(KEY_UIZA_ENTITY_TITLE, "KEY_UIZA_ENTITY_TITLE");
+        intent.putExtra(KEY_UIZA_ENTITY_TITLE, "KEY_
+        UIZA_ENTITY_TITLE");
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);*/
     }

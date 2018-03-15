@@ -88,7 +88,7 @@ public class HomeActivity extends BaseActivity {
                 LUIUtil.transActivityFadeIn(activity);
             }
 
-            @Override
+            /*@Override
             public void onClickSetting() {
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawers();
@@ -96,7 +96,7 @@ public class HomeActivity extends BaseActivity {
                 Intent intent = new Intent(activity, SettingActivity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
-            }
+            }*/
         });
         mDrawerView.addView(uizaDrawerHeader);
 

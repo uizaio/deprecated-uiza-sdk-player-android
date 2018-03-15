@@ -52,7 +52,7 @@
         android:layout_marginTop="@dimen/margin_20"
         android:background="@color/grey" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tv_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,5 +64,5 @@
         android:textColor="@color/White"
         android:textSize="@dimen/txt_20"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="visible" />-->
 </LinearLayout>
