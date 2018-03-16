@@ -98,7 +98,6 @@ public interface UizaService {
     @GET("/api/public/v1/player/info/{id}")
     Observable<PlayerConfig> getPlayerInfo(@Path("id") String playerId);
 
-    //http://dev-api.uiza.io/data/index.html#api-Entity-Get_Detail_Entity
     @FormUrlEncoded
     @POST("/api/data/v1/entity/detail")
     Observable<Object> getDetailEntity(@Field("id") String id);
