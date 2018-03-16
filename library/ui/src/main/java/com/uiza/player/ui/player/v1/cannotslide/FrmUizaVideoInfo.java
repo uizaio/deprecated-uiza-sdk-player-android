@@ -25,6 +25,7 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
+import vn.loitp.restapi.uiza.model.v1.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -178,18 +179,18 @@ public class FrmUizaVideoInfo extends BaseFragment {
         UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = mInputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<Object>() {
+        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
-            public void onSuccess(Object getDetailEntity) {
-                LLog.d(TAG, "getDetailEntityV1 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(getDetailEntity));
-                /*if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
+            public void onSuccess(ListAllEntityRelation listAllEntityRelation) {
+                LLog.d(TAG, "getListAllEntityRalationV1 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(listAllEntityRelation));
+                if (listAllEntityRelation == null || listAllEntityRelation.getItems().isEmpty()) {
                     tvMoreLikeThisMsg.setText("Data is empty");
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
-                    setupUIMoreLikeThis(getDetailEntity.getItems());
+                    setupUIMoreLikeThis(listAllEntityRelation.getItems());
                 }
-                avLoadingIndicatorView.smoothToHide();*/
+                avLoadingIndicatorView.smoothToHide();
             }
 
             @Override

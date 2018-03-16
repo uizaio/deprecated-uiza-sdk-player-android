@@ -112,7 +112,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/data/v1/entity/related")
-    Observable<Object> getListAllEntityRalationV1(@Field("id") String id);
+    Observable<vn.loitp.restapi.uiza.model.v1.listallentityrelation.ListAllEntityRelation> getListAllEntityRalationV1(@Field("id") String id);
 
     //=====================================================end v1 http://dev-api.uiza.io/data/index.html
 
