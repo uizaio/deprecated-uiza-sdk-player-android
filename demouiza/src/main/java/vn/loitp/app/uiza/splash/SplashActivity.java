@@ -1,9 +1,16 @@
 package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.uiza.player.ui.data.UizaData;
+
 import vn.loitp.app.app.LSApplication;
+import vn.loitp.app.uiza.home.v1.cannotslide.HomeV1CannotSlideActivity;
+import vn.loitp.app.uiza.home.v1.cansilde.HomeV1CanSlideActivity;
+import vn.loitp.app.uiza.home.v2.cannotslide.HomeV2CannotSlideActivity;
+import vn.loitp.app.uiza.home.v2.cansilde.HomeV2CanSlideActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDateUtils;
@@ -115,26 +122,30 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, "goToHome token: " + token);
         LLog.d(TAG, "goToHome appId: " + auth.getAppId());
 
-        /*Intent intent = null;
+        Intent intent = null;
         RestClientV2.init(currentApiEndPoint, token);
         UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
         if (currentApiVersion == Constants.API_VERSION_1) {
             if (canSlide) {
+                LLog.d(TAG, "goToHome HomeV1CanSlideActivity");
                 intent = new Intent(activity, HomeV1CanSlideActivity.class);
             } else {
+                LLog.d(TAG, "goToHome HomeV1CannotSlideActivity");
                 intent = new Intent(activity, HomeV1CannotSlideActivity.class);
             }
         } else {
             if (canSlide) {
+                LLog.d(TAG, "goToHome HomeV2CanSlideActivity");
                 intent = new Intent(activity, HomeV2CanSlideActivity.class);
             } else {
+                LLog.d(TAG, "goToHome HomeV2CannotSlideActivity");
                 intent = new Intent(activity, HomeV2CannotSlideActivity.class);
             }
         }
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
-        finish();*/
+        finish();
     }
 
     private void checkToken(Auth auth) {
