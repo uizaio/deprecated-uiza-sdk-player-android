@@ -1,14 +1,9 @@
 package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.uiza.player.ui.data.UizaData;
-
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.cannotslide.HomeCannotSlideActivity;
-import vn.loitp.app.uiza.home.cansilde.HomeCanSlideActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDateUtils;
@@ -29,6 +24,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Auth auth = LPref.getAuth(activity, LSApplication.getInstance().getGson());
         if (auth == null) {
+            //TODO chi lay token neu la apiv2
             auth();
         } else {
             //TODO
@@ -94,11 +90,13 @@ public class SplashActivity extends BaseActivity {
     private void goToHome(Auth auth) {
         String currentPlayerId = getIntent().getStringExtra(OptionActivity.KEY_SKIN);
         boolean canSlide = getIntent().getBooleanExtra(OptionActivity.KEY_CAN_SLIDE, false);
+        int currentApiVersion = getIntent().getIntExtra(OptionActivity.KEY_API_VERSION, Constants.API_VERSION_1);
         String currentApiEndPoint = getIntent().getStringExtra(OptionActivity.KEY_API_END_POINT);
         String currentApiTrackingEndPoint = getIntent().getStringExtra(OptionActivity.KEY_API_TRACKING_END_POINT);
 
         LLog.d(TAG, "currentPlayerId " + currentPlayerId);
         LLog.d(TAG, "canSlide " + canSlide);
+        LLog.d(TAG, "currentApiVersion " + currentApiVersion);
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
@@ -108,24 +106,35 @@ public class SplashActivity extends BaseActivity {
         } else if (currentApiEndPoint.equals(Constants.URL_DEV_UIZA_VERSION_2_STAG)) {
             token = Constants.TOKEN_STAG;
         } else {
-            //token = auth.getToken();
-            token = Constants.TOKEN_DEV_V1;
+            if (currentApiVersion == Constants.API_VERSION_1) {
+                token = Constants.TOKEN_DEV_V1;
+            } else {
+                token = auth.getToken();
+            }
         }
         LLog.d(TAG, "goToHome token: " + token);
         LLog.d(TAG, "goToHome appId: " + auth.getAppId());
 
-        Intent intent = null;
+        /*Intent intent = null;
         RestClientV2.init(currentApiEndPoint, token);
         UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
-        if (canSlide) {
-            intent = new Intent(activity, HomeCanSlideActivity.class);
+        if (currentApiVersion == Constants.API_VERSION_1) {
+            if (canSlide) {
+                intent = new Intent(activity, HomeV1CanSlideActivity.class);
+            } else {
+                intent = new Intent(activity, HomeV1CannotSlideActivity.class);
+            }
         } else {
-            intent = new Intent(activity, HomeCannotSlideActivity.class);
+            if (canSlide) {
+                intent = new Intent(activity, HomeV2CanSlideActivity.class);
+            } else {
+                intent = new Intent(activity, HomeV2CannotSlideActivity.class);
+            }
         }
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
-        finish();
+        finish();*/
     }
 
     private void checkToken(Auth auth) {

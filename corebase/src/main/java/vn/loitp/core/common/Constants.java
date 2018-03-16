@@ -53,6 +53,9 @@ public class Constants {
     public final static String URL_DEV_UIZA_VERSION_2_STAG = "http://uqc-api.uiza.io/";
     public final static String URL_WTT = "https://wtt-api.uiza.io";
 
+    public final static int API_VERSION_1 = 1;
+    public final static int API_VERSION_2 = 2;
+
     public final static int ENVIRONMENT_DEV = 1;
     public final static int ENVIRONMENT_STAG = 2;
     public final static int ENVIRONMENT_PROD = 3;

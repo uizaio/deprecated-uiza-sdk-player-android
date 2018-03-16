@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.cansilde;
+package vn.loitp.app.uiza.home.v2.cansilde;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -49,7 +49,7 @@ import vn.loitp.views.draggablepanel.DraggableListener;
 import vn.loitp.views.draggablepanel.DraggablePanel;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
-public class HomeCanSlideActivity extends BaseActivity {
+public class HomeV2CanSlideActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
     private FrameLayout flLeftContainer;

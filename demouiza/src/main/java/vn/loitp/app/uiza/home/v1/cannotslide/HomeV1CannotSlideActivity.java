@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.cannotslide;
+package vn.loitp.app.uiza.home.v1.cannotslide;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,7 +32,7 @@ import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
-public class HomeCannotSlideActivity extends BaseActivity {
+public class HomeV1CannotSlideActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
     private List<Item> itemList = new ArrayList<>();

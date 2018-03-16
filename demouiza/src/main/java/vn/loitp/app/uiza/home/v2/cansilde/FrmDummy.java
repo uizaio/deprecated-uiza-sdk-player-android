@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.cansilde;
+package vn.loitp.app.uiza.home.v2.cansilde;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.

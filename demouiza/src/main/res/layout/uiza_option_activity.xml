@@ -142,6 +142,48 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Select API Version"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/txt_15"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radio_api_vs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radio_api_vs1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/White"
+                        android:checked="true"
+                        android:text="API version 1"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/radio_api_vs2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/White"
+                        android:checked="true"
+                        android:text="API version 2"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold" />
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/w_1"
+                    android:layout_margin="@dimen/margin_10"
+                    android:background="@color/White" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Select API Environment"
                     android:textColor="@color/White"
                     android:textSize="@dimen/txt_15"

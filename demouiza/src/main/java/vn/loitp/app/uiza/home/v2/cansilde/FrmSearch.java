@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.cansilde;
+package vn.loitp.app.uiza.home.v2.cansilde;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
@@ -289,7 +289,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         LUIUtil.transActivityFadeIn(getActivity());*/
 
         //v2
-        ((HomeCanSlideActivity) getActivity()).onClickVideo(item, position);
+        ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
     }
 
     private void swipeToRefresh() {

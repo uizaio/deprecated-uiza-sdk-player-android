@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.cansilde;
+package vn.loitp.app.uiza.home.v2.cansilde;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -195,7 +195,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
-                    ((HomeCanSlideActivity) getActivity()).onClickVideo(item, position);
+                    ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
                 }
             }));
         }
@@ -203,7 +203,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             isLoadMoreCalling = false;
         } else {
             avLoadingIndicatorView.smoothToHide();
-            ((HomeCanSlideActivity) getActivity()).initializeDraggablePanel();
+            ((HomeV2CanSlideActivity) getActivity()).initializeDraggablePanel();
         }
     }
 
@@ -362,7 +362,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     public void onFragmentResume() {
         super.onFragmentResume();
         LLog.d(TAG, TAG + " onFragmentResume");
-        ((HomeCanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+        ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
     }
 
     @Override
