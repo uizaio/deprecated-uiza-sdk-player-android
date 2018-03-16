@@ -41,7 +41,7 @@ public class LSApplication extends MultiDexApplication {
         //UizaData.getInstance().init(getString(R.string.dev_uiza_wtt_URL), Constants.TOKEN_WTT, UizaData.PLAYER_ID_SKIN_1);
 
         //RestClientV2.init(getString(R.string.dev_uiza_v2_URL));
-        RestClientV2.init(Constants.URL_DEV_UIZA2);
+        RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2);
     }
 
     public Gson getGson() {

@@ -44,7 +44,14 @@ public class Constants {
     public final static String URL_TRACKING_STAG = "http://stag-tracking.uiza.io/analytic-tracking/";
     public final static String URL_TRACKING_PROD = "http://tracking.uiza.io/analytic-tracking/";
 
-    public final static String URL_DEV_UIZA = "https://demo-api.uiza.io/";
-    public final static String URL_DEV_UIZA2 = "http://dev-api.uiza.io/";
+    public final static String URL_DEV_UIZA_VERSION_1 = "https://demo-api.uiza.io/";
+    public final static String URL_DEV_UIZA_VERSION_2 = "http://dev-api.uiza.io/";
     public final static String URL_WTT = "http://wtt-api.uiza.io/";
+
+    public final static int VERSION_API_1 = 1;
+    public final static int VERSION_API_2 = 2;
+
+    public final static int ENVIRONMENT_DEV = 1;
+    public final static int ENVIRONMENT_STAG = 2;
+    public final static int ENVIRONMENT_PROD = 3;
 }

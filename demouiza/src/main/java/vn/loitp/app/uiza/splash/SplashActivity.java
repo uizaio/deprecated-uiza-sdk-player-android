@@ -64,7 +64,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void auth() {
-        RestClientV2.init(Constants.URL_DEV_UIZA2);
+        RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2);
         UizaService service = RestClientV2.createService(UizaService.class);
         String accessKeyId = "BNEU77HJAPWYVIF1DEU5";
         String secretKeyId = "8yro1j369cCj6VR7cD2kzQbzJ2vDiswt7jxhtGjp";
@@ -103,7 +103,7 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
         Intent intent;
-        RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+        RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2, auth.getToken());
         UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
 
@@ -131,7 +131,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void checkToken(Auth auth) {
-        RestClientV2.init(Constants.URL_DEV_UIZA2, auth.getToken());
+        RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2, auth.getToken());
         UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.checkToken(), new ApiSubscriber<Auth>() {
             @Override

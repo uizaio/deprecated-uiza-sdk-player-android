@@ -1,7 +1,6 @@
 package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.uiza.player.ui.data.UizaData;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
 
 public class OptionActivity extends BaseActivity {
@@ -33,15 +31,18 @@ public class OptionActivity extends BaseActivity {
     private RadioButton radioCannotSlide;
     private boolean canSlide;
 
-    private RadioGroup radioGroupApiEndPoint;
-    private RadioButton radioApiEndPoint1;
-    private String currentApiEndPoint;
+    private RadioGroup radioApiVersion;
+    private RadioButton radioApiVs1;
+    private RadioButton radioApiVs2;
+    private int currentApiVersion = Constants.NOT_FOUND;
 
-    private RadioGroup radioGroupApiTrackingEndPoint;
-    private RadioButton radioApiTrackingEndPoint1;
-    private RadioButton radioApiTrackingEndPoint2;
-    private RadioButton radioApiTrackingEndPoint3;
-    private String currentApiTrackingEndPoint;
+    private RadioGroup radioEnvironment;
+    private RadioButton radioEnvironmentDev;
+    private RadioButton radioEnvironmentStag;
+    private RadioButton radioEnvironmentProd;
+    private int currentEnvironment = Constants.NOT_FOUND;
+    String currentApiTrackingEndPoint = null;
+    String currentApiEndPoint = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,35 +53,68 @@ public class OptionActivity extends BaseActivity {
                 goToSplashScreen();
             }
         });
+        findViews();
         setupSkin();
         setupSlide();
-        setupApiEndpoint();
-        setupApiTrackingEndpoint();
+        setupApiVersion();
+        setupEnvironment();
+    }
+
+    private void findViews() {
+        //setting theme
+        radioGroupSkin = (RadioGroup) findViewById(R.id.radio_group_skin);
+        radioSkin1 = (RadioButton) findViewById(R.id.radio_skin_1);
+        radioSkin2 = (RadioButton) findViewById(R.id.radio_skin_2);
+        radioSkin3 = (RadioButton) findViewById(R.id.radio_skin_3);
+        //setting slide
+        radioGroupSlide = (RadioGroup) findViewById(R.id.radio_group_slide);
+        radioCanSlide = (RadioButton) findViewById(R.id.radio_can_slide);
+        radioCannotSlide = (RadioButton) findViewById(R.id.radio_cannot_slide);
+        radioApiVersion = (RadioGroup) findViewById(R.id.radio_api_version);
+        radioApiVs1 = (RadioButton) findViewById(R.id.radio_api_vs_1);
+        radioApiVs2 = (RadioButton) findViewById(R.id.radio_api_vs_2);
+        //setting environment
+        radioEnvironment = (RadioGroup) findViewById(R.id.radio_environment);
+        radioEnvironmentDev = (RadioButton) findViewById(R.id.radio_environment_dev);
+        radioEnvironmentStag = (RadioButton) findViewById(R.id.radio_environment_stag);
+        radioEnvironmentProd = (RadioButton) findViewById(R.id.radio_environment_prod);
     }
 
     private void goToSplashScreen() {
-        if (currentPlayerId == null) {
-            currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
-        }
-        if (currentApiEndPoint == null) {
-            currentApiEndPoint = Constants.URL_DEV_UIZA2;
-        }
-        if (currentApiTrackingEndPoint == null) {
-            currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
+        if (currentApiVersion == Constants.VERSION_API_1) {
+            switch (currentEnvironment) {
+                case Constants.ENVIRONMENT_DEV:
+                    break;
+                case Constants.ENVIRONMENT_STAG:
+                    break;
+                case Constants.ENVIRONMENT_PROD:
+                    break;
+            }
+        } else if (currentApiVersion == Constants.VERSION_API_2) {
+            switch (currentEnvironment) {
+                case Constants.ENVIRONMENT_DEV:
+                    break;
+                case Constants.ENVIRONMENT_STAG:
+                    break;
+                case Constants.ENVIRONMENT_PROD:
+                    break;
+            }
         }
 
         LLog.d(TAG, "currentPlayerId " + currentPlayerId);
         LLog.d(TAG, "canSlide " + canSlide);
+        LLog.d(TAG, "currentApiVersion " + currentApiVersion);
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
-        Intent intent = new Intent(activity, SplashActivity.class);
+        //TODO
+        /*Intent intent = new Intent(activity, SplashActivity.class);
         intent.putExtra(KEY_SKIN, currentPlayerId);
         intent.putExtra(KEY_CAN_SLIDE, canSlide);
         intent.putExtra(KEY_API_END_POINT, currentApiEndPoint);
         intent.putExtra(KEY_API_TRACKING_END_POINT, currentApiTrackingEndPoint);
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(activity);
+        LUIUtil.transActivityFadeIn(activity);*/
     }
 
     @Override
@@ -104,14 +138,9 @@ public class OptionActivity extends BaseActivity {
     }
 
     private void setupSkin() {
-        //setting theme
-        radioGroupSkin = (RadioGroup) findViewById(R.id.radio_group_skin);
-        radioSkin1 = (RadioButton) findViewById(R.id.radio_skin_1);
-        radioSkin2 = (RadioButton) findViewById(R.id.radio_skin_2);
-        radioSkin3 = (RadioButton) findViewById(R.id.radio_skin_3);
-
         //default skin1
         radioSkin1.setChecked(true);
+        currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
 
         radioGroupSkin.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -134,13 +163,9 @@ public class OptionActivity extends BaseActivity {
     }
 
     private void setupSlide() {
-        //setting slide
-        radioGroupSlide = (RadioGroup) findViewById(R.id.radio_group_slide);
-        radioCanSlide = (RadioButton) findViewById(R.id.radio_can_slide);
-        radioCannotSlide = (RadioButton) findViewById(R.id.radio_cannot_slide);
-
         //default cannot slide
         radioCannotSlide.setChecked(true);
+        canSlide = false;
 
         radioGroupSlide.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -158,48 +183,52 @@ public class OptionActivity extends BaseActivity {
         });
     }
 
-    private void setupApiEndpoint() {
-        radioGroupApiEndPoint = (RadioGroup) findViewById(R.id.radio_api_end_point);
-        radioApiEndPoint1 = (RadioButton) findViewById(R.id.radio_api_end_point_1);
-
+    private void setupApiVersion() {
         //default
-        radioApiEndPoint1.setChecked(true);
+        radioApiVs1.setChecked(true);
+        currentApiVersion = Constants.VERSION_API_1;
 
-        radioGroupApiEndPoint.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioApiVersion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                int selectedId = radioGroupApiEndPoint.getCheckedRadioButtonId();
+                int selectedId = radioApiVersion.getCheckedRadioButtonId();
                 switch (selectedId) {
-                    case R.id.radio_api_end_point_1:
-                        currentApiEndPoint = Constants.URL_DEV_UIZA2;
+                    case R.id.radio_api_vs_1:
+                        currentApiVersion = Constants.VERSION_API_1;
+                        radioEnvironmentDev.setVisibility(View.VISIBLE);
+                        radioEnvironmentStag.setVisibility(View.VISIBLE);
+                        radioEnvironmentProd.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.radio_api_vs_2:
+                        currentApiVersion = Constants.VERSION_API_2;
+                        radioEnvironmentDev.setVisibility(View.VISIBLE);
+                        radioEnvironmentStag.setVisibility(View.GONE);
+                        radioEnvironmentProd.setVisibility(View.GONE);
                         break;
                 }
             }
         });
     }
 
-    private void setupApiTrackingEndpoint() {
-        radioGroupApiTrackingEndPoint = (RadioGroup) findViewById(R.id.radio_api_tracking_end_point);
-        radioApiTrackingEndPoint1 = (RadioButton) findViewById(R.id.radio_api_tracking_end_point_1);
-        radioApiTrackingEndPoint2 = (RadioButton) findViewById(R.id.radio_api_tracking_end_point_2);
-        radioApiTrackingEndPoint3 = (RadioButton) findViewById(R.id.radio_api_tracking_end_point_3);
-
+    private void setupEnvironment() {
         //default
-        radioApiTrackingEndPoint1.setChecked(true);
+        radioEnvironmentDev.setChecked(true);
+        currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_1;
+        currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
 
-        radioGroupApiTrackingEndPoint.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioEnvironment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                int selectedId = radioGroupApiTrackingEndPoint.getCheckedRadioButtonId();
+                int selectedId = radioEnvironment.getCheckedRadioButtonId();
                 switch (selectedId) {
-                    case R.id.radio_api_tracking_end_point_1:
-                        currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
+                    case R.id.radio_environment_dev:
+                        currentEnvironment = Constants.ENVIRONMENT_DEV;
                         break;
-                    case R.id.radio_api_tracking_end_point_2:
-                        currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
+                    case R.id.radio_environment_stag:
+                        currentEnvironment = Constants.ENVIRONMENT_STAG;
                         break;
-                    case R.id.radio_api_tracking_end_point_3:
-                        currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
+                    case R.id.radio_environment_prod:
+                        currentEnvironment = Constants.ENVIRONMENT_PROD;
                         break;
                 }
             }

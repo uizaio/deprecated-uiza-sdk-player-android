@@ -142,23 +142,34 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select API endpoint"
+                    android:text="Select API Version"
                     android:textColor="@color/White"
                     android:textSize="@dimen/txt_15"
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/radio_api_end_point"
+                    android:id="@+id/radio_api_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:id="@+id/radio_api_end_point_1"
+                        android:id="@+id/radio_api_vs_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/White"
                         android:checked="true"
-                        android:text="http://dev-api.uiza.io/"
+                        android:text="Version 1"
+                        android:textColor="@color/White"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold" />
+
+                    <RadioButton
+                        android:id="@+id/radio_api_vs_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/White"
+                        android:checked="true"
+                        android:text="Version 2"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
@@ -174,45 +185,45 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select API Tracking endpoint"
+                    android:text="Select API Environment"
                     android:textColor="@color/White"
                     android:textSize="@dimen/txt_15"
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/radio_api_tracking_end_point"
+                    android:id="@+id/radio_environment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:id="@+id/radio_api_tracking_end_point_1"
+                        android:id="@+id/radio_environment_dev"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/White"
                         android:checked="true"
-                        android:text="http://dev-tracking.uiza.io/analytic-tracking/"
+                        android:text="DEV"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                     <RadioButton
-                        android:id="@+id/radio_api_tracking_end_point_2"
+                        android:id="@+id/radio_environment_stag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/White"
                         android:checked="true"
-                        android:text="http://stag-tracking.uiza.io/analytic-tracking/"
+                        android:text="STAG"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
 
                     <RadioButton
-                        android:id="@+id/radio_api_tracking_end_point_3"
+                        android:id="@+id/radio_environment_prod"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/White"
                         android:checked="true"
-                        android:text="http://tracking.uiza.io/analytic-tracking/"
+                        android:text="PROD"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />

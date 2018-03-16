@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.View;
@@ -25,7 +24,6 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
-import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV1;
@@ -432,7 +430,7 @@ public class UizaPlayerActivity extends BaseActivity {
             return;
         }
         setCoverVideo();
-        RestClientV1.init(Constants.URL_DEV_UIZA);
+        RestClientV1.init(Constants.URL_DEV_UIZA_VERSION_1);
         UizaService service = RestClientV1.createService(UizaService.class);
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
