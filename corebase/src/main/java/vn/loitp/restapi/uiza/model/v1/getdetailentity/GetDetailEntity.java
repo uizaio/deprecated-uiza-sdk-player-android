@@ -1,9 +1,12 @@
 
 package vn.loitp.restapi.uiza.model.v1.getdetailentity;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
 
 public class GetDetailEntity {
 

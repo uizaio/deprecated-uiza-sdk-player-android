@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.uiza.player.ui.player.v1.cannotslide.ItemAdapter;
+import com.uiza.player.ui.player.v1.cannotslide.ItemAdapterV2;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,7 +60,7 @@ public class FrmBottom extends BaseFragment {
     //private NestedScrollView nestedScrollView;
     private List<Item> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemAdapter mAdapter;
+    private ItemAdapterV2 mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -92,7 +92,7 @@ public class FrmBottom extends BaseFragment {
 
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
-        mAdapter = new ItemAdapter(getActivity(), itemList, sizeW, sizeH, new ItemAdapter.Callback() {
+        mAdapter = new ItemAdapterV2(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV2.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);

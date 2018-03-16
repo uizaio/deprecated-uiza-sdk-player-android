@@ -186,6 +186,7 @@ public class UizaPlayerActivity extends BaseActivity {
             LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
                 @Override
                 public void doAfter(int mls) {
+                    LLog.d(TAG, "init success");
                     removeCoverVideo();
                 }
             });
@@ -218,51 +219,8 @@ public class UizaPlayerActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Checks the orientation of the screen
-        /*if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
-            UizaScreenUtil.updateUIStatusNavigationBar(activity, false);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
-            UizaScreenUtil.updateUIStatusNavigationBar(activity, true);
-        }*/
         UizaScreenUtil.toggleFullscreen(activity);
     }
-
-    /*@Override
-    public void onConfigurationChanged(Configuration configuration) {
-        super.onConfigurationChanged(configuration);
-        orientVideoDescriptionFragment(configuration.orientation);
-    }
-
-    private void orientVideoDescriptionFragment(int orientation) {
-        //LLog.d(TAG, "orientVideoDescriptionFragment");
-        //Hide the extra content when in landscape so the video is as large as possible.
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment frmInfoVideo = fragmentManager.findFragmentById(R.id.uiza_video_info);
-        if (frmInfoVideo != null) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                fragmentTransaction.hide(frmInfoVideo);
-                LUIUtil.setDelay(300, new LUIUtil.DelayCallback() {
-                    @Override
-                    public void doAfter(int mls) {
-                        UizaScreenUtil.hideNavBar(getWindow().getDecorView());
-                    }
-                });
-            } else {
-                fragmentTransaction.show(frmInfoVideo);
-            }
-            fragmentTransaction.commit();
-        }
-        Fragment frmUizaVideo = fragmentManager.findFragmentById(R.id.uiza_video);
-        if (frmUizaVideo != null) {
-            if (frmUizaVideo instanceof FrmUizaVideo) {
-                //LLog.d(TAG, "UizaData.getInstance().getCurrentPosition() " + UizaData.getInstance().getCurrentPosition());
-                ((FrmUizaVideo) frmUizaVideo).seekTo(UizaData.getInstance().getCurrentPosition());
-            }
-        }
-    }*/
 
     @Override
     public void onBackPressed() {

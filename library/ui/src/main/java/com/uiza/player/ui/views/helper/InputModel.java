@@ -130,7 +130,7 @@ public class InputModel implements Serializable {
         this.entityID = entityID;
     }
 
-    public vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getGetDetailEntityV1() {
+    public vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getDetailEntityV1() {
         return getDetailEntityV1;
     }
 

@@ -24,8 +24,7 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
-import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
+import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -56,7 +55,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
     //private NestedScrollView nestedScrollView;
     private List<Item> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemAdapter mAdapter;
+    private ItemAdapterV1 mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -71,6 +70,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
+        LLog.d(TAG, "onCreateView");
         //nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
         //nestedScrollView.setNestedScrollingEnabled(false);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
@@ -89,7 +89,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
         mInputModel = UizaData.getInstance().getInputModel();
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
-        mAdapter = new ItemAdapter(getActivity(), itemList, sizeW, sizeH, new ItemAdapter.Callback() {
+        mAdapter = new ItemAdapterV1(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV1.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
@@ -114,17 +114,20 @@ public class FrmUizaVideoInfo extends BaseFragment {
         recyclerView.setAdapter(mAdapter);
 
         setup();
+        LLog.d(TAG, "setup finish");
         return view;
     }
 
     private void setup() {
+        LLog.d(TAG, "setup");
         if (mInputModel == null) {
+            LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
         if (mItem == null) {
             try {
-                if (mInputModel.getDetailEntityV2() != null) {
-                    mItem = mInputModel.getDetailEntityV2().getItem().get(0);
+                if (mInputModel.getDetailEntityV1() != null) {
+                    mItem = mInputModel.getDetailEntityV1().getItem().get(0);
                     updateUI();
                 }
             } catch (Exception e) {
@@ -169,25 +172,24 @@ public class FrmUizaVideoInfo extends BaseFragment {
     }
 
     private void getListAllEntityRelation() {
-        //API v2
         if (mInputModel == null) {
             return;
         }
         UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = mInputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
+        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<Object>() {
             @Override
-            public void onSuccess(ListAllEntityRelation getDetailEntity) {
-                LLog.d(TAG, "getDetailEntityV2 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(getDetailEntity));
-                if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
+            public void onSuccess(Object getDetailEntity) {
+                LLog.d(TAG, "getDetailEntityV1 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(getDetailEntity));
+                /*if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
                     tvMoreLikeThisMsg.setText("Data is empty");
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
                     setupUIMoreLikeThis(getDetailEntity.getItems());
                 }
-                avLoadingIndicatorView.smoothToHide();
+                avLoadingIndicatorView.smoothToHide();*/
             }
 
             @Override
@@ -196,7 +198,6 @@ public class FrmUizaVideoInfo extends BaseFragment {
                 handleException(e);
             }
         });
-        //EndAPI v2
     }
 
     private void setupUIMoreLikeThis(List<Item> itemList) {

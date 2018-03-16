@@ -12,13 +12,13 @@ import rx.Observable;
 import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
-import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 
 /**
@@ -109,6 +109,10 @@ public interface UizaService {
     @FormUrlEncoded
     @POST("/api/data/v1/entity/detail")
     Observable<vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity> getDetailEntityV1(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/data/v1/entity/related")
+    Observable<Object> getListAllEntityRalationV1(@Field("id") String id);
 
     //=====================================================end v1 http://dev-api.uiza.io/data/index.html
 
