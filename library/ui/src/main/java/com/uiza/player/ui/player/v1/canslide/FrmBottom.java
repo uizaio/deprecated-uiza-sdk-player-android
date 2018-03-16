@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v1.cannotslide.ItemAdapterV1;
-import com.uiza.player.ui.player.v1.cannotslide.ItemAdapterV2;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -178,7 +178,7 @@ public class FrmBottom extends BaseFragment {
         mAdapter.notifyDataSetChanged();
         UizaService service = RestClientV2.createService(UizaService.class);
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
+        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
                 LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
@@ -235,21 +235,18 @@ public class FrmBottom extends BaseFragment {
         avLoadingIndicatorView.smoothToShow();
 
         //API v1
-        /*UizaService service = RestClientV2.createService(UizaService.class);
-        String entityId = inputModel.getEntityID();
+        UizaService service = RestClientV2.createService(UizaService.class);
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<Object>() {
+        subscribe(service.getDetailEntityV1(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
-            public void onSuccess(Object getDetailEntityV2) {
-                //TODO
-                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntityV2));
-                *//*if (getDetailEntityV2 != null) {
-                    UizaData.getInstance().setDetailEntityV2(getDetailEntityV2);
+            public void onSuccess(GetDetailEntity getDetailEntity) {
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
+                if (getDetailEntity != null) {
+                    UizaData.getInstance().setDetailEntityV1(getDetailEntity);
                 } else {
                     showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
-                }*//*
-                isGetDetailEntityDone = true;
-                init();
+                }
+                updateUI(getDetailEntity);
             }
 
             @Override
@@ -257,21 +254,21 @@ public class FrmBottom extends BaseFragment {
                 LLog.e(TAG, "onFail " + e.toString());
                 handleException(e);
             }
-        });*/
+        });
         //End API v1
 
         //API v2
-        UizaService service = RestClientV2.createService(UizaService.class);
+        /*UizaService service = RestClientV2.createService(UizaService.class);
         //LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
                 LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
-                /*if (getDetailEntityV2 != null) {
+                *//*if (getDetailEntityV2 != null) {
                     UizaData.getInstance().setDetailEntityV2(getDetailEntityV2);
                 } else {
                     showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
-                }*/
+                }*//*
                 updateUI(getDetailEntity);
             }
 
@@ -280,7 +277,7 @@ public class FrmBottom extends BaseFragment {
                 LLog.e(TAG, "getDetailEntityV2 onFail " + e.toString());
                 handleException(e);
             }
-        });
+        });*/
         //EndAPI v2
     }
 
