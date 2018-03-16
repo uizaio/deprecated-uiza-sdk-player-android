@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.HomeCannotSlideActivity;
+import vn.loitp.app.uiza.home.cannotslide.HomeCannotSlideActivity;
 import vn.loitp.app.uiza.home.cansilde.HomeCanSlideActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;

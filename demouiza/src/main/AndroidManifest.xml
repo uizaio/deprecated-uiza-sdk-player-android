@@ -220,7 +220,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="vn.loitp.app.uiza.home.HomeCannotSlideActivity"
+            android:name="vn.loitp.app.uiza.home.cannotslide.HomeCannotSlideActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.login.LoginActivity"

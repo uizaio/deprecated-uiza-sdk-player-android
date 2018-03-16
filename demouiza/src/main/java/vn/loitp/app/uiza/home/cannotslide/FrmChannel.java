@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home;
+package vn.loitp.app.uiza.home.cannotslide;
 
 import android.content.Intent;
 import android.os.Bundle;
