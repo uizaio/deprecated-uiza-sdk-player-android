@@ -103,8 +103,8 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
         Intent intent = null;
-        RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2, auth.getToken());
-        UizaData.getInstance().init(Constants.URL_DEV_UIZA_VERSION_2, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
+        RestClientV2.init(currentApiEndPoint, auth.getToken());
+        UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
         if (canSlide) {
             intent = new Intent(activity, HomeCanSlideActivity.class);

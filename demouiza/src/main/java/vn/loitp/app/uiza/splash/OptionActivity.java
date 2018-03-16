@@ -33,11 +33,6 @@ public class OptionActivity extends BaseActivity {
     private RadioButton radioCannotSlide;
     private boolean canSlide;
 
-    private RadioGroup radioApiVersion;
-    private RadioButton radioApiVs1;
-    private RadioButton radioApiVs2;
-    private int currentApiVersion = Constants.NOT_FOUND;
-
     private RadioGroup radioEnvironment;
     private RadioButton radioEnvironmentDev;
     private RadioButton radioEnvironmentStag;
@@ -58,7 +53,6 @@ public class OptionActivity extends BaseActivity {
         findViews();
         setupSkin();
         setupSlide();
-        setupApiVersion();
         setupEnvironment();
     }
 
@@ -72,9 +66,6 @@ public class OptionActivity extends BaseActivity {
         radioGroupSlide = (RadioGroup) findViewById(R.id.radio_group_slide);
         radioCanSlide = (RadioButton) findViewById(R.id.radio_can_slide);
         radioCannotSlide = (RadioButton) findViewById(R.id.radio_cannot_slide);
-        radioApiVersion = (RadioGroup) findViewById(R.id.radio_api_version);
-        radioApiVs1 = (RadioButton) findViewById(R.id.radio_api_vs_1);
-        radioApiVs2 = (RadioButton) findViewById(R.id.radio_api_vs_2);
         //setting environment
         radioEnvironment = (RadioGroup) findViewById(R.id.radio_environment);
         radioEnvironmentDev = (RadioButton) findViewById(R.id.radio_environment_dev);
@@ -83,36 +74,23 @@ public class OptionActivity extends BaseActivity {
     }
 
     private void goToSplashScreen() {
-        if (currentApiVersion == Constants.VERSION_API_1) {
-            switch (currentEnvironment) {
-                case Constants.ENVIRONMENT_DEV:
-                    currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_1;
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
-                    break;
-                case Constants.ENVIRONMENT_STAG:
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
-                    break;
-                case Constants.ENVIRONMENT_PROD:
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
-                    break;
-            }
-        } else if (currentApiVersion == Constants.VERSION_API_2) {
-            switch (currentEnvironment) {
-                case Constants.ENVIRONMENT_DEV:
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
-                    break;
-                case Constants.ENVIRONMENT_STAG:
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
-                    break;
-                case Constants.ENVIRONMENT_PROD:
-                    currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
-                    break;
-            }
+        switch (currentEnvironment) {
+            case Constants.ENVIRONMENT_DEV:
+                currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2;
+                currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
+                break;
+            case Constants.ENVIRONMENT_STAG:
+                currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2;
+                currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
+                break;
+            case Constants.ENVIRONMENT_PROD:
+                currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2;
+                currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
+                break;
         }
 
         LLog.d(TAG, "currentPlayerId " + currentPlayerId);
         LLog.d(TAG, "canSlide " + canSlide);
-        LLog.d(TAG, "currentApiVersion " + currentApiVersion);
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
@@ -191,37 +169,10 @@ public class OptionActivity extends BaseActivity {
         });
     }
 
-    private void setupApiVersion() {
-        //default
-        radioApiVs1.setChecked(true);
-        currentApiVersion = Constants.VERSION_API_1;
-
-        radioApiVersion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                int selectedId = radioApiVersion.getCheckedRadioButtonId();
-                switch (selectedId) {
-                    case R.id.radio_api_vs_1:
-                        currentApiVersion = Constants.VERSION_API_1;
-                        radioEnvironmentDev.setVisibility(View.VISIBLE);
-                        radioEnvironmentStag.setVisibility(View.VISIBLE);
-                        radioEnvironmentProd.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.radio_api_vs_2:
-                        currentApiVersion = Constants.VERSION_API_2;
-                        radioEnvironmentDev.setVisibility(View.VISIBLE);
-                        radioEnvironmentStag.setVisibility(View.GONE);
-                        radioEnvironmentProd.setVisibility(View.GONE);
-                        break;
-                }
-            }
-        });
-    }
-
     private void setupEnvironment() {
         //default
         radioEnvironmentDev.setChecked(true);
-        currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_1;
+        currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2;
         currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
 
         radioEnvironment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
