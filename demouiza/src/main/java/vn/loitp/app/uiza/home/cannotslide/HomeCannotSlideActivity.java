@@ -160,10 +160,10 @@ public class HomeCannotSlideActivity extends BaseActivity {
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
         UizaService service = RestClientV2.createService(UizaService.class);
-        int limit = 100;
+        int limit = 999;
         String orderBy = "name";
         String orderType = "ASC";
-        subscribe(service.listAllMetadata(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
+        subscribe(service.listAllMetadataV1(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
             @Override
             public void onSuccess(ListAllMetadata listAllMetadata) {
                 LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(listAllMetadata));
