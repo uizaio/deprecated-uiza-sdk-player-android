@@ -217,7 +217,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         //ToastUtils.showShort("getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
-        subscribe(service.searchEntityV2(keyword, limit, page), new ApiSubscriber<Search>() {
+        subscribe(service.searchEntityV1(keyword, limit, page), new ApiSubscriber<Search>() {
             @Override
             public void onSuccess(Search search) {
                 LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
