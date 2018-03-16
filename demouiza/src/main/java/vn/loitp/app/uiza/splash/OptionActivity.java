@@ -80,11 +80,11 @@ public class OptionActivity extends BaseActivity {
                 currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
                 break;
             case Constants.ENVIRONMENT_STAG:
-                currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2;
+                currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2_STAG;
                 currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
                 break;
             case Constants.ENVIRONMENT_PROD:
-                currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2;
+                currentApiEndPoint = Constants.URL_WTT;
                 currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
                 break;
         }

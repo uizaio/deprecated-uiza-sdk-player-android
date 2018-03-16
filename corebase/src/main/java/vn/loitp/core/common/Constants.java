@@ -46,6 +46,7 @@ public class Constants {
 
     public final static String URL_DEV_UIZA_VERSION_1 = "https://demo-api.uiza.io/";
     public final static String URL_DEV_UIZA_VERSION_2 = "http://dev-api.uiza.io/";
+    public final static String URL_DEV_UIZA_VERSION_2_STAG = "http://uqc-api.uiza.io/";
     public final static String URL_WTT = "http://wtt-api.uiza.io/";
 
     public final static int VERSION_API_1 = 1;
