@@ -194,9 +194,15 @@ public class OptionActivity extends BaseActivity {
                 switch (selectedId) {
                     case R.id.radio_api_vs1:
                         currentApiVersion = Constants.API_VERSION_1;
+                        radioEnvironmentDev.setVisibility(View.VISIBLE);
+                        radioEnvironmentStag.setVisibility(View.VISIBLE);
+                        radioEnvironmentProd.setVisibility(View.VISIBLE);
                         break;
                     case R.id.radio_api_vs2:
                         currentApiVersion = Constants.API_VERSION_2;
+                        radioEnvironmentDev.setVisibility(View.VISIBLE);
+                        radioEnvironmentStag.setVisibility(View.GONE);
+                        radioEnvironmentProd.setVisibility(View.GONE);
                         break;
                 }
             }
