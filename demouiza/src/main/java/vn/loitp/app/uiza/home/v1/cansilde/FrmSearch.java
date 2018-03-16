@@ -19,7 +19,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.view.EntityItem;
+import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDisplayUtils;
@@ -250,7 +250,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
                 if (e == null || e.toString() == null) {
                     return;
                 }
-                LLog.e(TAG, "listAllEntity onFail " + e.toString());
+                LLog.e(TAG, "listAllEntityV2 onFail " + e.toString());
                 tv.setText("Error search " + e.toString());
                 tv.setVisibility(View.VISIBLE);
                 //avi.smoothToHide();
@@ -267,7 +267,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
+            placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);

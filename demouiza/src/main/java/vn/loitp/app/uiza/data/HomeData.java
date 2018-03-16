@@ -1,6 +1,6 @@
 package vn.loitp.app.uiza.data;
 
-import vn.loitp.restapi.uiza.model.v2.listallmetadata.Item;
+import vn.loitp.restapi.uiza.model.v1.listallmetadata.Item;
 
 /**
  * Created by www.muathu@gmail.com on 11/14/2017.

@@ -11,7 +11,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
+import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Layout;
@@ -29,7 +29,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 //@Animate(Animation.CARD_BOTTOM_IN_ASC)
 @NonReusable
 @Layout(R.layout.uiza_entity_item)
-public class EntityItem {
+public class EntityItemV1 {
 
     @View(R.id.imageView)
     private ImageView imageView;
@@ -48,7 +48,7 @@ public class EntityItem {
     private int mSizeW;
     private int mSizeH;
 
-    public EntityItem(Context context, Item item, int sizeW, int sizeH, Callback callback) {
+    public EntityItemV1(Context context, Item item, int sizeW, int sizeH, Callback callback) {
         this.mContext = context;
         this.item = item;
         this.mSizeW = sizeW;

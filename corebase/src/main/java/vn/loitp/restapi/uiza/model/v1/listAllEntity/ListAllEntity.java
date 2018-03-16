@@ -1,27 +1,27 @@
 
-package vn.loitp.restapi.uiza.model.v2.listallmetadata;
+package vn.loitp.restapi.uiza.model.v1.listAllEntity;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ListAllMetadata {
+public class ListAllEntity {
 
     @SerializedName("items")
     @Expose
     private List<Item> items = null;
     @SerializedName("total")
     @Expose
-    private int total;
+    private double total;
     @SerializedName("result")
     @Expose
-    private int result;
+    private double result;
     @SerializedName("page")
     @Expose
-    private int page;
+    private double page;
     @SerializedName("limit")
     @Expose
-    private int limit;
+    private double limit;
 
     public List<Item> getItems() {
         return items;
@@ -31,35 +31,35 @@ public class ListAllMetadata {
         this.items = items;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public int getResult() {
+    public double getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(double result) {
         this.result = result;
     }
 
-    public int getPage() {
+    public double getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(double page) {
         this.page = page;
     }
 
-    public int getLimit() {
+    public double getLimit() {
         return limit;
     }
 
-    public void setLimit(int limit) {
+    public void setLimit(double limit) {
         this.limit = limit;
     }
 

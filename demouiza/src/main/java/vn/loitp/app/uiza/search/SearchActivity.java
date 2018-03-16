@@ -16,7 +16,7 @@ import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.view.EntityItem;
+import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LDisplayUtils;
@@ -235,7 +235,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 if (e == null || e.toString() == null) {
                     return;
                 }
-                LLog.e(TAG, "listAllEntity onFail " + e.toString());
+                LLog.e(TAG, "listAllEntityV2 onFail " + e.toString());
                 tv.setText("Error search " + e.toString());
                 tv.setVisibility(View.VISIBLE);
                 //avi.smoothToHide();
@@ -252,7 +252,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         int sizeW = LDisplayUtils.getScreenW(activity) / 2;
         int sizeH = sizeW * 9 / 16;
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItem(activity, item, sizeW, sizeH, new EntityItem.Callback() {
+            placeHolderView.addView(new EntityItemV2(activity, item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);

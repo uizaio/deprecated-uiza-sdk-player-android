@@ -18,7 +18,7 @@ import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
-import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
+import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 
 /**
@@ -67,7 +67,7 @@ public interface UizaService {
 
     @Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/list")
-    Observable<ListAllEntity> listAllEntity(@Body JsonBody jsonBody);
+    Observable<ListAllEntity> listAllEntityV2(@Body JsonBody jsonBody);
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/entity/detail")
@@ -91,6 +91,10 @@ public interface UizaService {
     @FormUrlEncoded
     @POST("/api/data/v1/metadata/list")
     Observable<ListAllMetadata> listAllMetadataV1(@Field("limit") int limit, @Field("orderBy") String orderBy, @Field("orderType") String orderType);
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/data/v1/entity/list")
+    Observable<vn.loitp.restapi.uiza.model.v1.listAllEntity.ListAllEntity> listAllEntityV1(@Body JsonBody jsonBody);
 
     @GET("/api/public/v1/media/entity/get-link-play")
     Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId, @Query("appId") String appId);

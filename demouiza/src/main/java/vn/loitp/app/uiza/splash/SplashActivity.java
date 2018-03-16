@@ -126,6 +126,7 @@ public class SplashActivity extends BaseActivity {
         RestClientV2.init(currentApiEndPoint, token);
         UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
+        UizaData.getInstance().setApiVersion(currentApiVersion);
         if (currentApiVersion == Constants.API_VERSION_1) {
             if (canSlide) {
                 LLog.d(TAG, "goToHome HomeV1CanSlideActivity");

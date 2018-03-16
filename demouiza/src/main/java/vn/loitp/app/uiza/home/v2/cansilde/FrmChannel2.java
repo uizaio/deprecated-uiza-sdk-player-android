@@ -13,7 +13,7 @@ import java.util.List;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
-import vn.loitp.app.uiza.home.view.EntityItem;
+import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
@@ -192,7 +192,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             addBlankView();
         }
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
+            placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
@@ -253,7 +253,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
         LLog.d(TAG, "jsonBody " + LSApplication.getInstance().getGson().toJson(jsonBody));
         LLog.d(TAG, "<<<<<<<<<<<<<<<<<<<<<<<<");
 
-        subscribe(service.listAllEntity(jsonBody), new ApiSubscriber<ListAllEntity>() {
+        subscribe(service.listAllEntityV2(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
@@ -292,7 +292,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "listAllEntity onFail " + e.toString());
+                LLog.e(TAG, "listAllEntityV2 onFail " + e.toString());
                 //handleException(e);
                 if (tvMsg.getVisibility() != View.VISIBLE) {
                     tvMsg.setVisibility(View.VISIBLE);

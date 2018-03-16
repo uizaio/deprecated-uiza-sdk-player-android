@@ -6,6 +6,7 @@ import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
@@ -163,11 +164,20 @@ public class UizaData {
     public final static String T = "true";
     public final static String F = "false";
 
+    private int apiVersion = Constants.API_VERSION_1;
     private boolean isVideoCanSlide;
     private String apiEndPoint;
     private String apiTrackingEndPoint;
     private String token;
     private String playerId;//for select theme
+
+    public int getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(int apiVersion) {
+        this.apiVersion = apiVersion;
+    }
 
     public boolean isVideoCanSlide() {
         return isVideoCanSlide;
