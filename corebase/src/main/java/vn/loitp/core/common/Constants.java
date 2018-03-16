@@ -33,8 +33,8 @@ public class Constants {
     public final static String URL_IMG_LONG = "https://c2.staticflickr.com/6/5476/29412311793_8067369e64_b.jpg";
 
     public final static String KEY_UIZA = "KEY_UIZA";
-    public final static String TOKEN = "yXYCA0Rf5eACj0Bmy3oZehxaB5HAmb8A-1512988199884";
-    public final static String TOKEN_WTT = "BIH80NYmucZwCoqPvrdI3ZU9ATB909Gi-1512972145301";
+
+    public final static String TOKEN_WTT = "lsn9LZdm0MBrhGlyrFYqJYSjJfIXX27e-1512986583784";
     public final static String URL_IMG_POSTER = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
     public final static String URL_IMG_THUMBNAIL = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
 
@@ -45,12 +45,10 @@ public class Constants {
     public final static String URL_TRACKING_PROD = "http://tracking.uiza.io/analytic-tracking/";
 
     public final static String URL_DEV_UIZA_VERSION_1 = "https://demo-api.uiza.io/";
+
     public final static String URL_DEV_UIZA_VERSION_2 = "http://dev-api.uiza.io/";
     public final static String URL_DEV_UIZA_VERSION_2_STAG = "http://uqc-api.uiza.io/";
-    public final static String URL_WTT = "http://wtt-api.uiza.io/";
-
-    public final static int VERSION_API_1 = 1;
-    public final static int VERSION_API_2 = 2;
+    public final static String URL_WTT = "https://wtt-api.uiza.io";
 
     public final static int ENVIRONMENT_DEV = 1;
     public final static int ENVIRONMENT_STAG = 2;

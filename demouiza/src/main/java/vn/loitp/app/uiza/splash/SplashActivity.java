@@ -102,9 +102,17 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
+        String token = null;
+        if (currentApiEndPoint.equals(Constants.URL_WTT)) {
+            token = Constants.TOKEN_WTT;
+        } else {
+            token = auth.getToken();
+        }
+        LLog.d(TAG, "goToHome token: " + token);
+
         Intent intent = null;
-        RestClientV2.init(currentApiEndPoint, auth.getToken());
-        UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
+        RestClientV2.init(currentApiEndPoint, token);
+        UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
         if (canSlide) {
             intent = new Intent(activity, HomeCanSlideActivity.class);
