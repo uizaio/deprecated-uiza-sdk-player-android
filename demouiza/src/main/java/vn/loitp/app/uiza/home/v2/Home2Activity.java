@@ -221,7 +221,7 @@ public class Home2Activity extends BaseActivity {
         LLog.d(TAG, "getListAllMetadata");
         UizaService service = RestClientV2.createService(UizaService.class);
         int limit = 100;
-        String orderBy = "orderNumber";
+        String orderBy = "name";
         String orderType = "ASC";
         subscribe(service.listAllMetadata(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
             @Override

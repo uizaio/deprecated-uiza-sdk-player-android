@@ -162,7 +162,7 @@ public class HomeActivity extends BaseActivity {
         LLog.d(TAG, "getListAllMetadata");
         UizaService service = RestClientV2.createService(UizaService.class);
         int limit = 100;
-        String orderBy = "orderNumber";
+        String orderBy = "name";
         String orderType = "ASC";
         subscribe(service.listAllMetadata(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
             @Override
@@ -177,7 +177,7 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.getMessage());
+                LLog.e(TAG, "getListAllMetadata onFail " + e.getMessage());
                 handleException(e);
             }
         });
