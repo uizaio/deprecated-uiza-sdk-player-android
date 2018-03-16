@@ -1,4 +1,8 @@
-package com.uiza.player.ui.player.v1;
+package com.uiza.player.ui.player.v1.canslide;
+
+/**
+ * Created by www.muathu@gmail.com on 12/24/2017.
+ */
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -53,6 +57,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
@@ -65,6 +70,10 @@ import com.uiza.player.ui.views.helper.EventLogger;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.helper.TrackSelectionHelper;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
@@ -75,9 +84,18 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
-import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LPref;
+import vn.loitp.data.EventBusData;
+import vn.loitp.restapi.restclient.RestClientTracking;
+import vn.loitp.restapi.restclient.RestClientV2;
+import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
+import vn.loitp.restapi.uiza.model.v2.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -85,7 +103,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
+public class FrmTop extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -123,8 +141,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private ViewGroup adOverlayViewGroup;
     private FrameLayout rootView;
     private AVLoadingIndicatorView avi;
-    private boolean isVideoStarted;//detect video is has ready state or not
+    //TODO remove gson later
+    private Gson gson = new Gson();
 
+    private boolean isVideoStarted;//detect video is has ready state or not
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
     //freuss47 set userAgent
@@ -142,7 +162,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_video_player_frm, container, false);
+        View view = inflater.inflate(R.layout.frm_top, container, false);
         //shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
@@ -154,17 +174,17 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         //view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
         view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
 
-        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        avi = (AVLoadingIndicatorView) view.findViewById(io.uiza.sdk.ui.R.id.avi);
         avi.smoothToShow();
-        rootView = (FrameLayout) view.findViewById(R.id.root_view);
+        rootView = (FrameLayout) view.findViewById(io.uiza.sdk.ui.R.id.root_view);
         rootView.setOnClickListener(this);
 
-        debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
-        debugTextView = (TextView) view.findViewById(R.id.debug_text_view);
-        retryButton = (Button) view.findViewById(R.id.retry_button);
+        debugRootView = (LinearLayout) view.findViewById(io.uiza.sdk.ui.R.id.controls_root);
+        debugTextView = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.debug_text_view);
+        retryButton = (Button) view.findViewById(io.uiza.sdk.ui.R.id.retry_button);
         retryButton.setOnClickListener(this);
 
-        simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.player_view);
+        simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(io.uiza.sdk.ui.R.id.player_view);
         simpleExoPlayerView.setControllerVisibilityListener(this);
         simpleExoPlayerView.requestFocus();
 
@@ -175,7 +195,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         simpleExoPlayerView.setCallback(new SimpleExoPlayerView.Callback() {
             @Override
             public void onClickSetting() {
-                //LLog.d(TAG, "onClickSetting");
+                LLog.d(TAG, "onClickSetting");
                 if (getBtVideo() != null) {
                     getBtVideo().performClick();
                 }
@@ -185,18 +205,19 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             public void onPlayThrough(int percent) {
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
-                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
         });
 
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                //LLog.d(TAG, "onLayoutChange " + bottom);
+                LLog.d(TAG, "onLayoutChange " + bottom);
                 simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
                 UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
             }
         });
+
         return view;
     }
 
@@ -205,7 +226,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
             if (childView instanceof Button) {
-                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.video))) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(io.uiza.sdk.ui.R.string.video))) {
                     return childView;
                 }
             }
@@ -218,7 +239,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
             if (childView instanceof Button) {
-                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.audio))) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(io.uiza.sdk.ui.R.string.audio))) {
                     return childView;
                 }
             }
@@ -231,7 +252,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
             if (childView instanceof Button) {
-                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.text))) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(io.uiza.sdk.ui.R.string.text))) {
                     return childView;
                 }
             }
@@ -241,8 +262,11 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onVisibilityChange(int visibility) {
-        LLog.d(TAG, "onVisibilityChange " + visibility);
+        //LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
+        if (visibilityChange != null) {
+            visibilityChange.onVisibilityChange(visibility);
+        }
 
         //dismiss dialog choose setting
         if (visibility != View.VISIBLE) {
@@ -252,7 +276,18 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    public void setInputModel(InputModel ip, boolean reloadData) {
+    public interface VisibilityChange {
+        public void onVisibilityChange(int visibility);
+    }
+
+    private VisibilityChange visibilityChange;
+
+    public void setVisibilityChange(VisibilityChange visibilityChange) {
+        this.visibilityChange = visibilityChange;
+    }
+
+    private void setInputModel(InputModel ip, boolean reloadData) {
+        LLog.d(TAG, "setInputModel");
         if (ip == null) {
             this.inputModel = UizaData.getInstance().getInputModel();
         } else {
@@ -262,18 +297,28 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             releasePlayer();
             //shouldAutoPlay = true;
             clearResumePosition();
+
             initializePlayer();
         }
+
+        //track event eventype display
+        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_DISPLAY));
+
+        //track event plays_requested
+        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
     }
 
     public void initializePlayer() {
         if (inputModel == null) {
-            inputModel = UizaData.getInstance().getInputModel();
+            //ToastUtils.showShort("initializePlayer inputModel == null return");
+            LLog.d(TAG, "initializePlayer inputModel == null return");
+            return;
         }
         if (inputModel.getUri() == null) {
             LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
         }
+
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
@@ -287,14 +332,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             if (drmSchemeUuid != null) {
                 String drmLicenseUrl = inputModel.getDrmLicenseUrl();
                 String[] keyRequestPropertiesArray = inputModel.getKeyRequestPropertiesArray();
-                int errorStringId = R.string.error_drm_unknown;
+                int errorStringId = io.uiza.sdk.ui.R.string.error_drm_unknown;
                 if (Util.SDK_INT < 18) {
-                    errorStringId = R.string.error_drm_not_supported;
+                    errorStringId = io.uiza.sdk.ui.R.string.error_drm_not_supported;
                 } else {
                     try {
                         drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl, keyRequestPropertiesArray);
                     } catch (UnsupportedDrmException e) {
-                        errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME ? R.string.error_drm_unsupported_scheme : R.string.error_drm_unknown;
+                        errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME ? io.uiza.sdk.ui.R.string.error_drm_unsupported_scheme : io.uiza.sdk.ui.R.string.error_drm_unknown;
                     }
                 }
                 if (drmSessionManager == null) {
@@ -302,6 +347,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                     return;
                 }
             }
+
             boolean preferExtensionDecoders = inputModel.getPreferExtensionDecoders();
             /*@DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode =
                     ((LSApplication) ((Activity) getContext()).getApplication()).useExtensionRenderers()
@@ -322,6 +368,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             player.setVideoDebugListener(eventLogger);
             player.setRepeatMode(Player.REPEAT_MODE_OFF);
             //player.setPlayWhenReady(shouldAutoPlay);
+            //player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT);
 
             //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
@@ -333,7 +380,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
             uris = new Uri[]{inputModel.getUri()};
-            //LLog.d("uris ", ">>>uris: " + gson.toJson(uris));
+            //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
@@ -369,7 +416,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
-                ToastUtils.showShort(R.string.ima_not_loaded);
+                ToastUtils.showShort((io.uiza.sdk.ui.R.string.ima_not_loaded));
             }
         } else {
             releaseAdsLoader();
@@ -379,7 +426,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             player.seekTo(resumeWindow, resumePosition);
         }
 
-        //TODO freuss47 with subtitle vtt
+        //TODO with subtitle vtt
         /*Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
         String urlSubtitle = "https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt";
         MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse(urlSubtitle)
@@ -398,7 +445,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     }
 
     private void setConfigUIPlayer() {
-        //TODO freuss47 customize UI
+        //freuss47 customize UI
         PlaybackControlView playbackControlView = getPlayerView().getController();
         if (playbackControlView == null) {
             return;
@@ -571,7 +618,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     private void releaseAdsLoader() {
         if (imaAdsLoader != null) {
-            LLog.d(TAG, "releaseAdsLoader");
             try {
                 Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
                 Method releaseMethod = loaderClass.getMethod("release");
@@ -594,31 +640,31 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == Player.STATE_ENDED) {
-            LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
+            LLog.d(TAG, "STATE_ENDED");
             avi.smoothToHide();
             showDebugControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
-            LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
+            LLog.d(TAG, "STATE_BUFFERING");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
-            LLog.d(TAG, "onPlayerStateChanged STATE_IDLE");
+            LLog.d(TAG, "STATE_IDLE");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
-            LLog.d(TAG, "onPlayerStateChanged STATE_READY");
+            LLog.d(TAG, "STATE_READY");
             avi.smoothToHide();
 
             //only track video_starts once time
             if (!isVideoStarted) {
                 isVideoStarted = true;
                 //track plays_requested
-                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
-                //track event view (after video is played 5s)
+                //track event view
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
-                        ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
                     }
                 };
                 mHandler.postDelayed(mRunnable, 5000);
@@ -666,14 +712,14 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 MediaCodecRenderer.DecoderInitializationException decoderInitializationException = (MediaCodecRenderer.DecoderInitializationException) cause;
                 if (decoderInitializationException.decoderName == null) {
                     if (decoderInitializationException.getCause() instanceof MediaCodecUtil.DecoderQueryException) {
-                        errorString = getContext().getString(R.string.error_querying_decoders);
+                        errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_querying_decoders);
                     } else if (decoderInitializationException.secureDecoderRequired) {
-                        errorString = getContext().getString(R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
+                        errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
                     } else {
-                        errorString = getContext().getString(R.string.error_no_decoder, decoderInitializationException.mimeType);
+                        errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_no_decoder, decoderInitializationException.mimeType);
                     }
                 } else {
-                    errorString = getContext().getString(R.string.error_instantiating_decoder, decoderInitializationException.decoderName);
+                    errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_instantiating_decoder, decoderInitializationException.decoderName);
                 }
             }
         }
@@ -699,10 +745,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort(R.string.error_unsupported_video);
+                    ToastUtils.showShort((io.uiza.sdk.ui.R.string.error_unsupported_video));
                 }
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort(R.string.error_unsupported_audio);
+                    ToastUtils.showShort((io.uiza.sdk.ui.R.string.error_unsupported_audio));
                 }
             }
             lastSeenTrackGroupArray = trackGroups;
@@ -732,13 +778,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 int label;
                 switch (player.getRendererType(i)) {
                     case C.TRACK_TYPE_AUDIO:
-                        label = R.string.audio;
+                        label = io.uiza.sdk.ui.R.string.audio;
                         break;
                     case C.TRACK_TYPE_VIDEO:
-                        label = R.string.video;
+                        label = io.uiza.sdk.ui.R.string.video;
                         break;
                     case C.TRACK_TYPE_TEXT:
-                        label = R.string.text;
+                        label = io.uiza.sdk.ui.R.string.text;
                         break;
                     default:
                         continue;
@@ -747,7 +793,6 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 button.setTag(i);
                 button.setOnClickListener(this);
                 debugRootView.addView(button, debugRootView.getChildCount() - 1);
-                //LLog.d(TAG, "updateButtonVisibilities addView " + button.getText().toString() + ", tag: " + button.getTag().toString());
             }
         }
     }
@@ -811,6 +856,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             initializePlayer();
         }
         super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     /*public void onResumeUizaVideo() {
@@ -856,6 +902,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
+        EventBus.getDefault().unregister(this);
     }
 
     /*public void onDestroyUizaVideo() {
@@ -864,11 +911,16 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onDestroy() {
-        //remove callback track event view
-        mHandler.removeCallbacks(mRunnable);
-
+        removeCallbacks();
         releaseAdsLoader();
         super.onDestroy();
+    }
+
+    public void removeCallbacks() {
+        if (mHandler != null && mRunnable != null) {
+            LLog.d(TAG, "removeCallbacks");
+            mHandler.removeCallbacks(mRunnable);
+        }
     }
 
     public SimpleExoPlayerView getPlayerView() {
@@ -892,20 +944,118 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onAdLoadError(IOException error) {
-        LLog.e(TAG, "onAdLoadError");
+        LLog.d(TAG, "onAdLoadError");
     }
 
     @Override
     public void onAdClicked() {
         //TODO onAdClicked
         LLog.d(TAG, "onAdClicked");
-        ToastUtils.showShort("onAdClicked");
+        ToastUtils.showShort(("onAdClicked"));
     }
 
     @Override
     public void onAdTapped() {
         //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
-        ToastUtils.showShort("onAdTapped");
+        ToastUtils.showShort(("onAdTapped"));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventBusData.ClickVideoEvent clickVideoEvent) {
+        LLog.d(TAG, TAG + " clickVideoEvent");
+        if (clickVideoEvent != null) {
+            if (simpleExoPlayerView != null) {
+                LLog.d(TAG, "clickVideoEvent if");
+                //shouldAutoPlay = true;
+                isVideoStarted = false;
+                getLinkPlay(clickVideoEvent.getEntityId());
+            } else {
+                LLog.d(TAG, "clickVideoEvent else");
+            }
+        }
+    }
+
+    private void getLinkPlay(String entityId) {
+        UizaService service = RestClientV2.createService(UizaService.class);
+        Auth auth = LPref.getAuth(getActivity(), gson);
+        if (auth == null || auth.getAppId() == null) {
+            showDialogError("Error auth == null || auth.getAppId() == null");
+            return;
+        }
+        //LLog.d(TAG, ">>>getLinkPlayV1 appId: " + auth.getAppId());
+
+        //API v1
+        /*subscribe(service.getLinkPlayV1(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
+            @Override
+            public void onSuccess(GetLinkPlay getLinkPlayV1) {
+                LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
+                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
+                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
+
+                //TODO play link mpd0 (pre cdn la vn) ko dc thi play link mpd1(cdn la QT)
+                LLog.d(TAG, "getLinkplayMpd " + getLinkPlayV1.getLinkplayMpd());
+                UizaData.getInstance().setLinkPlay(getLinkPlayV1.getLinkplayMpd());
+                isGetLinkPlayDone = true;
+                init();
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.d(TAG, "onFail " + e.toString());
+                handleException(e);
+            }
+        });*/
+        //End API v1
+
+        //API v2
+        subscribe(service.getLinkPlayV2(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
+            @Override
+            public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
+                //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
+                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
+                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
+
+                try {
+                    //Mpd mpdVN = getLinkPlayV1.getMpd().get(0);
+                    Mpd mpdInter = getLinkPlay.getMpd().get(1);
+
+                    String linkPlay = mpdInter.getUrl();
+                    //LLog.d(TAG, "linkPlay " + linkPlay);
+
+                    UizaData.getInstance().setLinkPlay(linkPlay);
+                    setInputModel(null, true);
+                } catch (NullPointerException e) {
+                    LLog.e(TAG, "getLinkPlayV2 NullPointerException " + e.toString());
+                    //showDialogError("getLinkPlayV2 Error NullPointerException " + e.toString());
+                }
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                //LLog.d(TAG, "onFail " + e.toString());
+                handleException(e);
+            }
+        });
+        //End API v2
+    }
+
+    public void trackUiza(final UizaTracking uizaTracking) {
+        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
+        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
+        UizaService service = RestClientTracking.createService(UizaService.class);
+        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object tracking) {
+                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                //TODO send event fail? Try to send again
+                LLog.d(TAG, "trackUiza onFail " + e.toString());
+                handleException(e);
+            }
+        });
     }
 }

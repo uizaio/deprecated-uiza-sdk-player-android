@@ -31,7 +31,7 @@ public interface UizaService {
     Observable<GetPoster[]> getPoster(@Query("number") int number);
 
     @GET("api/public/v1/media/entity/get-link-play")
-    Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId);
+    Observable<GetLinkPlay> getLinkPlayV1(@Query("entityId") String entityId);
 
     @FormUrlEncoded
     @PUT("v1/room/follow")
@@ -97,7 +97,7 @@ public interface UizaService {
     Observable<vn.loitp.restapi.uiza.model.v1.listAllEntity.ListAllEntity> listAllEntityV1(@Body JsonBody jsonBody);
 
     @GET("/api/public/v1/media/entity/get-link-play")
-    Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId, @Query("appId") String appId);
+    Observable<GetLinkPlay> getLinkPlayV1(@Query("entityId") String entityId, @Query("appId") String appId);
 
     @GET("api/public/v1/media/entity/info/{id}")
     Observable<EntityInfo> getEntityInfo(@Path("id") String id);
@@ -108,7 +108,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/data/v1/entity/detail")
-    Observable<Object> getDetailEntity(@Field("id") String id);
+    Observable<vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity> getDetailEntityV1(@Field("id") String id);
 
     //=====================================================end v1 http://dev-api.uiza.io/data/index.html
 

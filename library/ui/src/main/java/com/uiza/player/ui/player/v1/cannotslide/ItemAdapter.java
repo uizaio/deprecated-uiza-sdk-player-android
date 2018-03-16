@@ -1,4 +1,4 @@
-package com.uiza.player.ui.player.v1;
+package com.uiza.player.ui.player.v1.cannotslide;
 
 /**
  * Created by www.muathu@gmail.com on 12/8/2017.

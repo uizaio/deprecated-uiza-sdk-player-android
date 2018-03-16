@@ -142,21 +142,21 @@ public class UizaData {
         this.playerConfig = playerConfig;
     }
 
-    public void setDetailEntity(GetDetailEntity getDetailEntity) {
+    public void setDetailEntityV1(vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getDetailEntity) {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
-        inputModel.setDetailEntity(getDetailEntity);
+        inputModel.setDetailEntityV1(getDetailEntity);
         //notifyObservers();
     }
 
-    /*public void setEntityInfo(EntityInfo entityInfo) {
+    public void setDetailEntityV2(GetDetailEntity getDetailEntity) {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
-        inputModel.setEntityInfo(entityInfo);
+        inputModel.setDetailEntityV2(getDetailEntity);
         //notifyObservers();
-    }*/
+    }
 
     public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
     public final static String PLAYER_ID_SKIN_2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";

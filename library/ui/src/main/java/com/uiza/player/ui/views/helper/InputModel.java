@@ -16,8 +16,8 @@ import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 
 public class InputModel implements Serializable {
     private String entityID;
-    private GetDetailEntity getDetailEntity;
-    //private EntityInfo entityInfo;
+    private GetDetailEntity getDetailEntityV2;
+    private vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getDetailEntityV1;
     private String adTagUri;
 
     private UUID drmSchemeUuid;
@@ -130,12 +130,20 @@ public class InputModel implements Serializable {
         this.entityID = entityID;
     }
 
-    public GetDetailEntity getDetailEntity() {
-        return getDetailEntity;
+    public vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getGetDetailEntityV1() {
+        return getDetailEntityV1;
     }
 
-    public void setDetailEntity(GetDetailEntity getDetailEntity) {
-        this.getDetailEntity = getDetailEntity;
+    public void setDetailEntityV1(vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getDetailEntityV1) {
+        this.getDetailEntityV1 = getDetailEntityV1;
+    }
+
+    public GetDetailEntity getDetailEntityV2() {
+        return getDetailEntityV2;
+    }
+
+    public void setDetailEntityV2(GetDetailEntity getDetailEntity) {
+        this.getDetailEntityV2 = getDetailEntity;
     }
 
     /*public EntityInfo getEntityInfo() {

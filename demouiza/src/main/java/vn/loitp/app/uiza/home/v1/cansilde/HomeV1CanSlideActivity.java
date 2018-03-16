@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.FrmUizaVideo;
-import com.uiza.player.ui.player.v2.FrmBottom;
-import com.uiza.player.ui.player.v2.FrmTop;
+import com.uiza.player.ui.player.v1.cannotslide.FrmUizaVideo;
+import com.uiza.player.ui.player.v1.canslide.FrmBottom;
+import com.uiza.player.ui.player.v1.canslide.FrmTop;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;

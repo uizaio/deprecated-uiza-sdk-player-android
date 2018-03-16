@@ -9,7 +9,7 @@
 
     <application>
         <activity
-            android:name="com.uiza.player.ui.player.v1.UizaPlayerActivity"
+            android:name="com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait">
             <intent-filter>

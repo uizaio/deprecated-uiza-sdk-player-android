@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
+import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;

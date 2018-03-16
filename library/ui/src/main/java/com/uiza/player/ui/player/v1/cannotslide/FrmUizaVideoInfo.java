@@ -1,8 +1,4 @@
-package com.uiza.player.ui.player.v2;
-
-/**
- * Created by www.muathu@gmail.com on 12/24/2017.
- */
+package com.uiza.player.ui.player.v1.cannotslide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.uiza.player.ui.player.v1.ItemAdapter;
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +22,8 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -48,7 +37,7 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmBottom extends BaseFragment {
+public class FrmUizaVideoInfo extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private AVLoadingIndicatorView avLoadingIndicatorView;
     private TextView tvVideoName;
@@ -60,8 +49,9 @@ public class FrmBottom extends BaseFragment {
     private TextView tvVideoGenres;
     private TextView tvDebug;
     private TextView tvMoreLikeThisMsg;
-    //TODO remove gson later
-    private Gson gson = new Gson();
+
+    private InputModel mInputModel;
+    private Item mItem;
 
     //private NestedScrollView nestedScrollView;
     private List<Item> itemList = new ArrayList<>();
@@ -80,7 +70,7 @@ public class FrmBottom extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frm_bottom, container, false);
+        View view = inflater.inflate(R.layout.uiza_video_info_frm, container, false);
         //nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
         //nestedScrollView.setNestedScrollingEnabled(false);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
@@ -96,24 +86,19 @@ public class FrmBottom extends BaseFragment {
         tvDebug = (TextView) view.findViewById(R.id.tv_debug);
         tvMoreLikeThisMsg = (TextView) view.findViewById(R.id.tv_more_like_this_msg);
 
+        mInputModel = UizaData.getInstance().getInputModel();
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
         mAdapter = new ItemAdapter(getActivity(), itemList, sizeW, sizeH, new ItemAdapter.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                //V1
-                /*Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
                 intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(getActivity());*/
-
-                //V2
-                if (clickCallback != null) {
-                    clickCallback.onClick(item, position);
-                }
+                LUIUtil.transActivityFadeIn(getActivity());
             }
 
             @Override
@@ -128,21 +113,27 @@ public class FrmBottom extends BaseFragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        setup();
         return view;
     }
 
-    public interface ClickCallback {
-        public void onClick(Item item, int position);
+    private void setup() {
+        if (mInputModel == null) {
+            return;
+        }
+        if (mItem == null) {
+            try {
+                if (mInputModel.getDetailEntityV2() != null) {
+                    mItem = mInputModel.getDetailEntityV2().getItem().get(0);
+                    updateUI();
+                }
+            } catch (Exception e) {
+                showDialogError("Setup Error\n" + e.toString());
+            }
+        }
     }
 
-    private ClickCallback clickCallback;
-
-    public void setClickCallback(ClickCallback clickCallback) {
-        this.clickCallback = clickCallback;
-    }
-
-    private void updateUI(GetDetailEntity getDetailEntity) {
-        Item mItem = getDetailEntity.getItem().get(0);
+    private void updateUI() {
         final String emptyS = "Empty string";
         final String nullS = "Data is null";
         try {
@@ -169,24 +160,26 @@ public class FrmBottom extends BaseFragment {
         tvVideoDirector.setText(emptyS);
         tvVideoGenres.setText(emptyS);
 
-        getListAllEntityRelation(mItem.getId());
+        getListAllEntityRelation();
 
         if (Constants.IS_DEBUG) {
             tvDebug.setVisibility(View.VISIBLE);
-            LUIUtil.printBeautyJson(getDetailEntity, tvDebug);
+            LUIUtil.printBeautyJson(mInputModel, tvDebug);
         }
     }
 
-    private void getListAllEntityRelation(String entityId) {
+    private void getListAllEntityRelation() {
         //API v2
-        this.itemList.clear();
-        mAdapter.notifyDataSetChanged();
+        if (mInputModel == null) {
+            return;
+        }
         UizaService service = RestClientV2.createService(UizaService.class);
+        String entityId = mInputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
-                LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(getDetailEntity));
                 if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
                     tvMoreLikeThisMsg.setText("Data is empty");
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
@@ -200,89 +193,6 @@ public class FrmBottom extends BaseFragment {
             @Override
             public void onFail(Throwable e) {
                 LLog.e(TAG, "getListAllEntityRelation onFail " + e.toString());
-                handleException(e);
-            }
-        });
-        //EndAPI v2
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventBusData.ClickVideoEvent clickVideoEvent) {
-        LLog.d(TAG, TAG + " clickVideoEvent");
-        if (clickVideoEvent != null) {
-            LLog.d(TAG, "update UI getEntityId " + clickVideoEvent.getEntityId());
-            getDetailEntity(clickVideoEvent.getEntityId());
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    private void getDetailEntity(String entityId) {
-        LLog.d(TAG, ">>>getDetailEntity entityId " + entityId);
-        tvVideoName.setText("");
-        tvVideoTime.setText("");
-        tvVideoRate.setText("");
-        tvVideoDescription.setText("");
-        tvVideoStarring.setText("");
-        tvVideoDirector.setText("");
-        tvVideoGenres.setText("");
-        tvDebug.setText("");
-        avLoadingIndicatorView.smoothToShow();
-
-        //API v1
-        /*UizaService service = RestClientV2.createService(UizaService.class);
-        String entityId = inputModel.getEntityID();
-        LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntity(entityId), new ApiSubscriber<Object>() {
-            @Override
-            public void onSuccess(Object getDetailEntity) {
-                //TODO
-                LLog.d(TAG, "getDetailEntity onSuccess " + gson.toJson(getDetailEntity));
-                *//*if (getDetailEntity != null) {
-                    UizaData.getInstance().setDetailEntity(getDetailEntity);
-                } else {
-                    showDialogError("Error: getDetailEntity onSuccess detailEntity == null");
-                }*//*
-                isGetDetailEntityDone = true;
-                init();
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //End API v1
-
-        //API v2
-        UizaService service = RestClientV2.createService(UizaService.class);
-        //LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
-            @Override
-            public void onSuccess(GetDetailEntity getDetailEntity) {
-                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
-                /*if (getDetailEntity != null) {
-                    UizaData.getInstance().setDetailEntity(getDetailEntity);
-                } else {
-                    showDialogError("Error: getDetailEntity onSuccess detailEntity == null");
-                }*/
-                updateUI(getDetailEntity);
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.e(TAG, "getDetailEntityV2 onFail " + e.toString());
                 handleException(e);
             }
         });
