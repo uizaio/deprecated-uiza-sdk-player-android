@@ -34,6 +34,7 @@ public class Constants {
 
     public final static String KEY_UIZA = "KEY_UIZA";
 
+    public final static String TOKEN_DEV_V1 = "zHiQCup9CzTr1eP5ZQsbPK5sYNYa8kRL-1517457089350";
     public final static String TOKEN_WTT = "lsn9LZdm0MBrhGlyrFYqJYSjJfIXX27e-1512986583784";
     public final static String TOKEN_STAG = "zHiQCup9CzTr1eP5ZQsbPK5sYNYa8kRL-1517457089350";
 

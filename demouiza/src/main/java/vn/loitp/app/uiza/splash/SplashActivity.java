@@ -108,7 +108,8 @@ public class SplashActivity extends BaseActivity {
         } else if (currentApiEndPoint.equals(Constants.URL_DEV_UIZA_VERSION_2_STAG)) {
             token = Constants.TOKEN_STAG;
         } else {
-            token = auth.getToken();
+            //token = auth.getToken();
+            token = Constants.TOKEN_DEV_V1;
         }
         LLog.d(TAG, "goToHome token: " + token);
         LLog.d(TAG, "goToHome appId: " + auth.getAppId());

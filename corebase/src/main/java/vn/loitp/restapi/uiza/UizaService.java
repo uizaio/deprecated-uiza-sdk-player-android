@@ -10,14 +10,14 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
+import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
-import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 
@@ -88,6 +88,10 @@ public interface UizaService {
 
 
     //=====================================================v1 http://dev-api.uiza.io/data/index.html
+    @FormUrlEncoded
+    @POST("/api/data/v1/metadata/list")
+    Observable<ListAllMetadata> listAllMetadataV1(@Field("limit") int limit, @Field("orderBy") String orderBy, @Field("orderType") String orderType);
+
     @GET("/api/public/v1/media/entity/get-link-play")
     Observable<GetLinkPlay> getLinkPlay(@Query("entityId") String entityId, @Query("appId") String appId);
 
