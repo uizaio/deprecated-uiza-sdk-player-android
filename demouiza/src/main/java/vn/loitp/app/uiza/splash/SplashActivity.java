@@ -111,6 +111,7 @@ public class SplashActivity extends BaseActivity {
             token = auth.getToken();
         }
         LLog.d(TAG, "goToHome token: " + token);
+        LLog.d(TAG, "goToHome appId: " + auth.getAppId());
 
         Intent intent = null;
         RestClientV2.init(currentApiEndPoint, token);
