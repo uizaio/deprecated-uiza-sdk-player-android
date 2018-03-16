@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.search;
+package vn.loitp.app.uiza.home.v1.cannotslide;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivity;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.view.EntityItemV2;
+import vn.loitp.app.uiza.home.view.EntityItemV1;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LDisplayUtils;
@@ -25,8 +25,8 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
-import vn.loitp.restapi.uiza.model.v2.search.Search;
+import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
+import vn.loitp.restapi.uiza.model.v1.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
@@ -36,7 +36,7 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
-public class SearchActivity extends BaseActivity implements View.OnClickListener {
+public class SearchV1Activity extends BaseActivity implements View.OnClickListener {
     private ImageView ivBack;
     private ImageView ivClearText;
     private EditText etSearch;
@@ -202,7 +202,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         ToastUtils.showShort("getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
-        subscribe(service.searchEntity(keyword, limit, page), new ApiSubscriber<Search>() {
+        subscribe(service.searchEntityV1(keyword, limit, page), new ApiSubscriber<Search>() {
             @Override
             public void onSuccess(Search search) {
                 LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
@@ -227,7 +227,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 } else {
                     setupUIList(search.getItems());
                 }
-                //avi.smoothToHide();
             }
 
             @Override
@@ -235,7 +234,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 if (e == null || e.toString() == null) {
                     return;
                 }
-                LLog.e(TAG, "listAllEntityV2 onFail " + e.toString());
+                LLog.e(TAG, "search onFail " + e.toString());
                 tv.setText("Error search " + e.toString());
                 tv.setVisibility(View.VISIBLE);
                 //avi.smoothToHide();
@@ -252,7 +251,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         int sizeW = LDisplayUtils.getScreenW(activity) / 2;
         int sizeH = sizeW * 9 / 16;
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItemV2(activity, item, sizeW, sizeH, new EntityItemV2.Callback() {
+            placeHolderView.addView(new EntityItemV1(activity, item, sizeW, sizeH, new EntityItemV1.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
@@ -279,7 +278,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         isRefreshing = true;
         placeHolderView.addView(POSITION_OF_LOADING_REFRESH, new LoadingView());
 
-        //TODO refresh
         LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {

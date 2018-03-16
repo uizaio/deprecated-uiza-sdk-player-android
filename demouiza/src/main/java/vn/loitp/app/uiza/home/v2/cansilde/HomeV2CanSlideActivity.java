@@ -221,7 +221,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         int limit = 100;
         String orderBy = "name";
         String orderType = "ASC";
-        subscribe(service.listAllMetadata(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
+        subscribe(service.listAllMetadataV2(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
             @Override
             public void onSuccess(ListAllMetadata listAllMetadata) {
                 LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(listAllMetadata));

@@ -35,7 +35,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
+public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private TextView tvMsg;

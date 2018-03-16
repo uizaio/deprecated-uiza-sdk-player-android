@@ -63,7 +63,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/metadata/list")
-    Observable<ListAllMetadata> listAllMetadata(@Field("limit") int limit, @Field("orderBy") String orderBy, @Field("orderType") String orderType);
+    Observable<ListAllMetadata> listAllMetadataV2(@Field("limit") int limit, @Field("orderBy") String orderBy, @Field("orderType") String orderType);
 
     @Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/list")
@@ -82,7 +82,7 @@ public interface UizaService {
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/search")
-    Observable<Search> searchEntity(@Field("keyword") String keyword, @Field("limit") int limit, @Field("page") int page);
+    Observable<Search> searchEntityV2(@Field("keyword") String keyword, @Field("limit") int limit, @Field("page") int page);
 
     //=====================================================end v2 dev-api.uiza.io/resource/index.html
 
@@ -113,6 +113,10 @@ public interface UizaService {
     @FormUrlEncoded
     @POST("/api/data/v1/entity/related")
     Observable<vn.loitp.restapi.uiza.model.v1.listallentityrelation.ListAllEntityRelation> getListAllEntityRalationV1(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/data/v1/search")
+    Observable<vn.loitp.restapi.uiza.model.v1.search.Search> searchEntityV1(@Field("keyword") String keyword, @Field("limit") int limit, @Field("page") int page);
 
     //=====================================================end v1 http://dev-api.uiza.io/data/index.html
 

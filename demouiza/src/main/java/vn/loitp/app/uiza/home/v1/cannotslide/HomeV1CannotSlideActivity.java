@@ -17,7 +17,6 @@ import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
-import vn.loitp.app.uiza.search.SearchActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
@@ -140,7 +139,7 @@ public class HomeV1CannotSlideActivity extends BaseActivity {
 
             @Override
             public void onClickRight() {
-                Intent intent = new Intent(activity, SearchActivity.class);
+                Intent intent = new Intent(activity, SearchV1Activity.class);
                 startActivity(intent);
                 LUIUtil.transActivityFadeIn(activity);
             }

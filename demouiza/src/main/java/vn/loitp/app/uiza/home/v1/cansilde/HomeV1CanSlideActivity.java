@@ -39,9 +39,9 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v1.listallmetadata.Item;
 import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
@@ -221,7 +221,7 @@ public class HomeV1CanSlideActivity extends BaseActivity {
         int limit = 100;
         String orderBy = "name";
         String orderType = "ASC";
-        subscribe(service.listAllMetadata(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
+        subscribe(service.listAllMetadataV1(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
             @Override
             public void onSuccess(ListAllMetadata listAllMetadata) {
                 LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(listAllMetadata));
@@ -261,14 +261,14 @@ public class HomeV1CanSlideActivity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2(), true);
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV1(), true);
                 }
             }));
         }
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
-        currentFrm = new FrmChannel2();
+        currentFrm = new FrmChannelV1();
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm, true);
     }
 
@@ -499,7 +499,7 @@ public class HomeV1CanSlideActivity extends BaseActivity {
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             if (currentFrm != null) {
                 LLog.d(TAG, "updateUIStatusNavigationBar currentFrm " + currentFrm.getClass().getSimpleName());
-                if (currentFrm.getClass().getSimpleName().equals(FrmChannel2.class.getSimpleName())) {
+                if (currentFrm.getClass().getSimpleName().equals(FrmChannelV1.class.getSimpleName())) {
                     setVisibilityOfActionBar(View.VISIBLE);
                 }
             }
