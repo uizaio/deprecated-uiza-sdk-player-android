@@ -105,6 +105,8 @@ public class SplashActivity extends BaseActivity {
         String token = null;
         if (currentApiEndPoint.equals(Constants.URL_WTT)) {
             token = Constants.TOKEN_WTT;
+        } else if (currentApiEndPoint.equals(Constants.URL_DEV_UIZA_VERSION_2_STAG)) {
+            token = Constants.TOKEN_STAG;
         } else {
             token = auth.getToken();
         }
