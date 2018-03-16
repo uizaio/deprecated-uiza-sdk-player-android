@@ -1,11 +1,10 @@
-package vn.loitp.app.uiza.home.v2;
+package vn.loitp.app.uiza.home.cansilde;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,10 +1,9 @@
-package vn.loitp.app.uiza.home.v2;
+package vn.loitp.app.uiza.home.cansilde;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.Editable;
@@ -15,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 
 import java.util.List;
 
@@ -36,10 +33,6 @@ import vn.loitp.restapi.uiza.model.v2.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
-
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -296,7 +289,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         LUIUtil.transActivityFadeIn(getActivity());*/
 
         //v2
-        ((Home2Activity) getActivity()).onClickVideo(item, position);
+        ((HomeCanSlideActivity) getActivity()).onClickVideo(item, position);
     }
 
     private void swipeToRefresh() {

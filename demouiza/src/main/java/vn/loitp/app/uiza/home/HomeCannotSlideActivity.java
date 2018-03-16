@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.v1;
+package vn.loitp.app.uiza.home;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.search.SearchActivity;
-import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
@@ -33,7 +32,7 @@ import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
-public class HomeActivity extends BaseActivity {
+public class HomeCannotSlideActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
     private List<Item> itemList = new ArrayList<>();

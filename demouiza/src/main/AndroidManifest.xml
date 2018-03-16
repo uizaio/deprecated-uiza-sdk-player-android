@@ -220,7 +220,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="vn.loitp.app.uiza.home.v1.HomeActivity"
+            android:name="vn.loitp.app.uiza.home.HomeCannotSlideActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="vn.loitp.app.uiza.login.LoginActivity"
@@ -230,7 +230,7 @@
             android:name="vn.loitp.app.uiza.setting.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vn.loitp.app.uiza.home.v2.Home2Activity"
+            android:name="vn.loitp.app.uiza.home.cansilde.HomeCanSlideActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
         <activity

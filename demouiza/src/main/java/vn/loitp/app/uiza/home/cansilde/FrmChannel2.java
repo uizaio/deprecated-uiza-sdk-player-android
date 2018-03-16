@@ -1,14 +1,11 @@
-package vn.loitp.app.uiza.home.v1;
+package vn.loitp.app.uiza.home.cansilde;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.uiza.player.ui.player.v1.UizaPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +23,26 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
-import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
+import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
-
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmChannel extends BaseFragment {
+public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private TextView tvMsg;
     private PlaceHolderView placeHolderView;
     private AVLoadingIndicatorView avLoadingIndicatorView;
 
+    private final int NUMBER_OF_COLUMN = 2;
     private final int NUMBER_OF_COLUMN_1 = 1;
     private final int NUMBER_OF_COLUMN_2 = 2;
     private final int POSITION_OF_LOADING_REFRESH = 2;
@@ -73,12 +67,19 @@ public class FrmChannel extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_frm_channel, container, false);
+        View view = inflater.inflate(R.layout.uiza_frm_channel_2, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
         tvMsg = (TextView) view.findViewById(R.id.tv_msg);
-        tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
+        if (Constants.IS_DEBUG) {
+            tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
+            tv.setVisibility(View.VISIBLE);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
 
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
+        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+        avLoadingIndicatorView.smoothToShow();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
         placeHolderView.getBuilder()
@@ -120,9 +121,6 @@ public class FrmChannel extends BaseFragment {
                 loadMore();
             }
         });
-
-        avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        avLoadingIndicatorView.smoothToShow();
 
         getData(false);
         return view;
@@ -197,14 +195,15 @@ public class FrmChannel extends BaseFragment {
             placeHolderView.addView(new EntityItem(getActivity(), item, sizeW, sizeH, new EntityItem.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
-                    onClickVideo(item, position);
+                    ((HomeCanSlideActivity) getActivity()).onClickVideo(item, position);
                 }
             }));
         }
-        if (!isCallFromLoadMore) {
-            avLoadingIndicatorView.smoothToHide();
-        } else {
+        if (isCallFromLoadMore) {
             isLoadMoreCalling = false;
+        } else {
+            avLoadingIndicatorView.smoothToHide();
+            ((HomeCanSlideActivity) getActivity()).initializeDraggablePanel();
         }
     }
 
@@ -213,19 +212,9 @@ public class FrmChannel extends BaseFragment {
     }
 
     private void addBlankView() {
-        for (int i = 0; i < NUMBER_OF_COLUMN_2; i++) {
+        for (int i = 0; i < NUMBER_OF_COLUMN; i++) {
             placeHolderView.addView(new BlankView());
         }
-    }
-
-    private void onClickVideo(Item item, int position) {
-        LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
-        intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-        intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
-        intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
-        startActivity(intent);
-        LUIUtil.transActivityFadeIn(getActivity());
     }
 
     private void getData(boolean isCallFromLoadMore) {
@@ -245,6 +234,7 @@ public class FrmChannel extends BaseFragment {
         if (tvMsg.getVisibility() != View.GONE) {
             tvMsg.setVisibility(View.GONE);
         }
+
         UizaService service = RestClientV2.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
@@ -285,7 +275,6 @@ public class FrmChannel extends BaseFragment {
                     }
                     LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
-
                 List<Item> itemList = listAllEntity.getItems();
                 if (itemList == null || itemList.isEmpty()) {
                     if (tvMsg.getVisibility() != View.VISIBLE) {
@@ -308,7 +297,7 @@ public class FrmChannel extends BaseFragment {
                 if (tvMsg.getVisibility() != View.VISIBLE) {
                     tvMsg.setVisibility(View.VISIBLE);
                     if (e != null && e.getMessage() != null) {
-                        tvMsg.setText("onFail " + e.getMessage());
+                        tvMsg.setText(e.getMessage());
                     }
                 }
                 if (!isCallFromLoadMore) {
@@ -339,6 +328,7 @@ public class FrmChannel extends BaseFragment {
 
     private void loadMore() {
         if (isLoadMoreCalling) {
+            LLog.d(TAG, "isLoadMoreCalling true -> return");
             return;
         }
         isLoadMoreCalling = true;
@@ -346,5 +336,38 @@ public class FrmChannel extends BaseFragment {
         placeHolderView.smoothScrollToPosition(getListSize() - 1);
         page++;
         getData(true);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        LLog.d(TAG, TAG + " onBackPressed");
+        /*if (UizaData.getInstance().isLandscape()) {
+            if (frmTop != null) {
+                SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
+                simpleExoPlayerView.getController().getFullscreenButton().performClick();
+                LLog.d(TAG, "isLandscape");
+            }
+            return true;
+        } else {
+            LLog.d(TAG, "!isLandscape");
+            if (draggablePanel.isMaximized()) {
+                draggablePanel.minimize();
+                return true;
+            }
+        }*/
+        return false;
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        LLog.d(TAG, TAG + " onFragmentResume");
+        ((HomeCanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+    }
+
+    @Override
+    public void onFragmentPause() {
+        super.onFragmentPause();
+        LLog.d(TAG, TAG + " onFragmentPause");
     }
 }

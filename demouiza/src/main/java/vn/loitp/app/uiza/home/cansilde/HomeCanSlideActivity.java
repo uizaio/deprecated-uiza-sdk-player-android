@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.v2;
+package vn.loitp.app.uiza.home.cansilde;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,11 +25,9 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
-import vn.loitp.app.uiza.home.v1.FrmChannel;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
-import vn.loitp.app.uiza.setting.SettingActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.base.BaseFragment;
@@ -51,7 +49,7 @@ import vn.loitp.views.draggablepanel.DraggableListener;
 import vn.loitp.views.draggablepanel.DraggablePanel;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
-public class Home2Activity extends BaseActivity {
+public class HomeCanSlideActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
     private FrameLayout flLeftContainer;

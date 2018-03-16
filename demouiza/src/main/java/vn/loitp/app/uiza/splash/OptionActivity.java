@@ -116,7 +116,6 @@ public class OptionActivity extends BaseActivity {
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
-        //TODO
         Intent intent = new Intent(activity, SplashActivity.class);
         intent.putExtra(KEY_SKIN, currentPlayerId);
         intent.putExtra(KEY_CAN_SLIDE, canSlide);

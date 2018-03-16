@@ -7,8 +7,8 @@ import android.os.Bundle;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.v1.HomeActivity;
-import vn.loitp.app.uiza.home.v2.Home2Activity;
+import vn.loitp.app.uiza.home.HomeCannotSlideActivity;
+import vn.loitp.app.uiza.home.cansilde.HomeCanSlideActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDateUtils;
@@ -102,32 +102,18 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
-        Intent intent;
+        Intent intent = null;
         RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2, auth.getToken());
-        UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
+        UizaData.getInstance().init(Constants.URL_DEV_UIZA_VERSION_2, currentApiTrackingEndPoint, auth.getToken(), currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
-
         if (canSlide) {
-            //v2
-            intent = new Intent(activity, Home2Activity.class);
+            intent = new Intent(activity, HomeCanSlideActivity.class);
         } else {
-            //v1
-            intent = new Intent(activity, HomeActivity.class);
+            intent = new Intent(activity, HomeCannotSlideActivity.class);
         }
         startActivity(intent);
         LUIUtil.transActivityFadeIn(activity);
         finish();
-
-        //Test
-        /*RestClientV2.init(getString(R.string.dev_uiza_v2_URL), auth.getToken());
-        UizaData.getInstance().init(getString(R.string.dev_uiza_v2_URL), auth.getToken(), UizaData.PLAYER_ID_SKIN_1);
-        Intent intent = new Intent(activity, UizaPlayerActivity.class);
-        intent.putExtra(KEY_UIZA_ENTITY_ID, "f5dd9c0a-87fd-4bf8-be44-fe8cf394a885");
-        intent.putExtra(KEY_UIZA_ENTITY_COVER, "");
-        intent.putExtra(KEY_UIZA_ENTITY_TITLE, "KEY_
-        UIZA_ENTITY_TITLE");
-        startActivity(intent);
-        LUIUtil.transActivityFadeIn(activity);*/
     }
 
     private void checkToken(Auth auth) {
