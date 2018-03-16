@@ -1,6 +1,7 @@
 package vn.loitp.app.uiza.splash;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.uiza.player.ui.data.UizaData;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
 
 public class OptionActivity extends BaseActivity {
@@ -84,19 +86,26 @@ public class OptionActivity extends BaseActivity {
         if (currentApiVersion == Constants.VERSION_API_1) {
             switch (currentEnvironment) {
                 case Constants.ENVIRONMENT_DEV:
+                    currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_1;
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
                     break;
                 case Constants.ENVIRONMENT_STAG:
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
                     break;
                 case Constants.ENVIRONMENT_PROD:
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
                     break;
             }
         } else if (currentApiVersion == Constants.VERSION_API_2) {
             switch (currentEnvironment) {
                 case Constants.ENVIRONMENT_DEV:
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_DEV;
                     break;
                 case Constants.ENVIRONMENT_STAG:
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
                     break;
                 case Constants.ENVIRONMENT_PROD:
+                    currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
                     break;
             }
         }
@@ -108,13 +117,13 @@ public class OptionActivity extends BaseActivity {
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
         //TODO
-        /*Intent intent = new Intent(activity, SplashActivity.class);
+        Intent intent = new Intent(activity, SplashActivity.class);
         intent.putExtra(KEY_SKIN, currentPlayerId);
         intent.putExtra(KEY_CAN_SLIDE, canSlide);
         intent.putExtra(KEY_API_END_POINT, currentApiEndPoint);
         intent.putExtra(KEY_API_TRACKING_END_POINT, currentApiTrackingEndPoint);
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(activity);*/
+        LUIUtil.transActivityFadeIn(activity);
     }
 
     @Override
