@@ -22,7 +22,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LUIUtil;
-import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
+import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 public class ItemAdapterV1 extends RecyclerView.Adapter<ItemAdapterV1.ItemViewHolder> {

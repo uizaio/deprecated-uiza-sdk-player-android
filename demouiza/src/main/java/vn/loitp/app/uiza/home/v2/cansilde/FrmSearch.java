@@ -289,7 +289,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         LUIUtil.transActivityFadeIn(getActivity());*/
 
         //v2
-        ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
+        //((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
     }
 
     private void swipeToRefresh() {

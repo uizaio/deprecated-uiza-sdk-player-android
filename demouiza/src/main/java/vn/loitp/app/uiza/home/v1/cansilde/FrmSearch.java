@@ -19,7 +19,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.view.EntityItemV2;
+import vn.loitp.app.uiza.home.view.EntityItemV1;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.utilities.LDisplayUtils;
@@ -28,8 +28,8 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
-import vn.loitp.restapi.uiza.model.v2.search.Search;
+import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v1.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
@@ -267,7 +267,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
+            placeHolderView.addView(new EntityItemV1(getActivity(), item, sizeW, sizeH, new EntityItemV1.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);

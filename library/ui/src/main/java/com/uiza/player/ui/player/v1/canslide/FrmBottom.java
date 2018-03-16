@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.uiza.player.ui.player.v1.cannotslide.ItemAdapterV1;
 import com.uiza.player.ui.player.v1.cannotslide.ItemAdapterV2;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,9 +33,9 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
-import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
+import vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v1.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -60,7 +61,7 @@ public class FrmBottom extends BaseFragment {
     //private NestedScrollView nestedScrollView;
     private List<Item> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemAdapterV2 mAdapter;
+    private ItemAdapterV1 mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class FrmBottom extends BaseFragment {
 
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
-        mAdapter = new ItemAdapterV2(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV2.Callback() {
+        mAdapter = new ItemAdapterV1(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV1.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);

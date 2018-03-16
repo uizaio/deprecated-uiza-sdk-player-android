@@ -13,7 +13,7 @@ import java.util.List;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
-import vn.loitp.app.uiza.home.view.EntityItemV2;
+import vn.loitp.app.uiza.home.view.EntityItemV1;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
@@ -22,9 +22,9 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
+import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v1.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
-import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
@@ -192,7 +192,7 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
             addBlankView();
         }
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
+            placeHolderView.addView(new EntityItemV1(getActivity(), item, sizeW, sizeH, new EntityItemV1.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     ((HomeV1CanSlideActivity) getActivity()).onClickVideo(item, position);
@@ -253,7 +253,7 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
         LLog.d(TAG, "jsonBody " + LSApplication.getInstance().getGson().toJson(jsonBody));
         LLog.d(TAG, "<<<<<<<<<<<<<<<<<<<<<<<<");
 
-        subscribe(service.listAllEntityV2(jsonBody), new ApiSubscriber<ListAllEntity>() {
+        subscribe(service.listAllEntityV1(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
@@ -263,7 +263,7 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
                 LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
 
                 if (totalPage == Integer.MAX_VALUE) {
-                    int totalItem = listAllEntity.getTotal();
+                    int totalItem = (int) listAllEntity.getTotal();
                     float ratio = (float) (totalItem / limit);
                     LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {

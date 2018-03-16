@@ -39,9 +39,9 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v1.listallmetadata.Item;
 import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
@@ -353,7 +353,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
     }
 
-    public void onClickVideo(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
+    public void onClickVideo(vn.loitp.restapi.uiza.model.v1.listallentity.Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
@@ -464,7 +464,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         frmBottom = new FrmBottom();
         frmBottom.setClickCallback(new FrmBottom.ClickCallback() {
             @Override
-            public void onClick(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
+            public void onClick(vn.loitp.restapi.uiza.model.v1.listallentity.Item item, int position) {
                 LLog.d(TAG, "setClickCallback onClick " + item.getName());
                 onClickVideo(item, position);
             }

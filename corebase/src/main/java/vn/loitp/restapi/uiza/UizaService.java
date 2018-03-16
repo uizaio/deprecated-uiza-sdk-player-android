@@ -10,7 +10,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
-import vn.loitp.restapi.uiza.model.v1.getentityinfo.EntityInfo;
 import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
@@ -94,13 +93,10 @@ public interface UizaService {
 
     @Headers("Content-Type: application/json")
     @POST("/api/data/v1/entity/list")
-    Observable<vn.loitp.restapi.uiza.model.v1.listAllEntity.ListAllEntity> listAllEntityV1(@Body JsonBody jsonBody);
+    Observable<vn.loitp.restapi.uiza.model.v1.listallentity.ListAllEntity> listAllEntityV1(@Body JsonBody jsonBody);
 
     @GET("/api/public/v1/media/entity/get-link-play")
     Observable<GetLinkPlay> getLinkPlayV1(@Query("entityId") String entityId, @Query("appId") String appId);
-
-    @GET("api/public/v1/media/entity/info/{id}")
-    Observable<EntityInfo> getEntityInfo(@Path("id") String id);
 
     //getPlayerConfig
     @GET("/api/public/v1/player/info/{id}")

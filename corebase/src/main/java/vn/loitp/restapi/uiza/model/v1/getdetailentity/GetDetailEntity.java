@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.loitp.restapi.uiza.model.v1.listAllEntity.Item;
+import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
 
 public class GetDetailEntity {
 

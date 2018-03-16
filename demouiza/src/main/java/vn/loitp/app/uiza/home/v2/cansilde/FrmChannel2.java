@@ -195,7 +195,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
-                    ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
+                    //((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
                 }
             }));
         }
