@@ -108,19 +108,45 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
         String token = null;
-        if (currentApiEndPoint.equals(Constants.URL_WTT)) {
-            token = Constants.TOKEN_WTT;
-        } else if (currentApiEndPoint.equals(Constants.URL_DEV_UIZA_VERSION_2_STAG)) {
-            token = Constants.TOKEN_STAG;
+        if (currentApiVersion == Constants.API_VERSION_1) {
+            switch (currentApiEndPoint) {
+                case Constants.URL_DEV_UIZA_VERSION_2:
+                    LLog.d(TAG, "API_VERSION_1 Constants.TOKEN_DEV_V1");
+                    token = Constants.TOKEN_DEV_V1;
+                    break;
+                case Constants.URL_DEV_UIZA_VERSION_2_STAG:
+                    LLog.d(TAG, "API_VERSION_1 Constants.TOKEN_STAG;");
+                    token = Constants.TOKEN_STAG;
+                    break;
+                case Constants.URL_WTT:
+                    LLog.d(TAG, "API_VERSION_1 Constants.TOKEN_WTT;");
+                    token = Constants.TOKEN_WTT;
+                    break;
+            }
         } else {
-            if (currentApiVersion == Constants.API_VERSION_1) {
-                token = Constants.TOKEN_DEV_V1;
-            } else {
-                token = auth.getToken();
+            switch (currentApiEndPoint) {
+                case Constants.URL_DEV_UIZA_VERSION_2:
+                    LLog.d(TAG, "API_VERSION_2 auth.getToken");
+                    token = auth.getToken();
+                    break;
+                case Constants.URL_DEV_UIZA_VERSION_2_STAG:
+                    LLog.d(TAG, "API_VERSION_2 null");
+                    token = null;
+                    break;
+                case Constants.URL_WTT:
+                    LLog.d(TAG, "API_VERSION_2 null");
+                    token = null;
+                    break;
             }
         }
+
         LLog.d(TAG, "goToHome token: " + token);
         LLog.d(TAG, "goToHome appId: " + auth.getAppId());
+
+        if (token == null) {
+            showDialogOne("token==null", true);
+            return;
+        }
 
         Intent intent = null;
         RestClientV2.init(currentApiEndPoint, token);
