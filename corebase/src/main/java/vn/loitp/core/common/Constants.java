@@ -43,13 +43,13 @@ public class Constants {
 
     public final static String PREFIXS = "https://";
 
-    public final static String URL_TRACKING_DEV = "https://dev-tracking.uiza.io/analytic-tracking/";
+    public final static String URL_TRACKING_DEV = "http://dev-tracking.uiza.io/analytic-tracking/";
     public final static String URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/";
     public final static String URL_TRACKING_PROD = "https://tracking.uiza.io/analytic-tracking/";
 
     public final static String URL_DEV_UIZA_VERSION_1 = "https://demo-api.uiza.io/";
 
-    public final static String URL_DEV_UIZA_VERSION_2 = "https://dev-api.uiza.io/";
+    public final static String URL_DEV_UIZA_VERSION_2 = "http://dev-api.uiza.io/";
     public final static String URL_DEV_UIZA_VERSION_2_STAG = "https://uqc-api.uiza.io/";
     public final static String URL_WTT = "https://wtt-api.uiza.io";
 
