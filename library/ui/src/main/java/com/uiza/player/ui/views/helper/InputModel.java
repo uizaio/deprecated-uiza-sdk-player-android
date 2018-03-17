@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 
 /**
@@ -15,6 +16,7 @@ import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
  */
 
 public class InputModel implements Serializable {
+    private final String TAG = getClass().getSimpleName();
     private String entityID;
     private GetDetailEntity getDetailEntityV2;
     private vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getDetailEntityV1;
@@ -25,7 +27,7 @@ public class InputModel implements Serializable {
     private String[] keyRequestPropertiesArray;
     private Boolean preferExtensionDecoders;
     private String action;
-    private String uri;
+    private List<String> listLinkPlay;
     private String extension;
     private String[] uriStrings;
     private String[] extensionList;
@@ -71,15 +73,27 @@ public class InputModel implements Serializable {
         this.action = action;
     }
 
-    public Uri getUri() {
-        if (uri == null) {
+    private Uri getUri(int pos) {
+        if (listLinkPlay == null) {
             return null;
         }
-        return Uri.parse(uri);
+        if (pos < 0 || pos >= listLinkPlay.size()) {
+            return null;
+        }
+        LLog.d(TAG, ">>>>>>>>>>>>>>>>getUri: " + listLinkPlay.get(pos));
+        return Uri.parse(listLinkPlay.get(pos));
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public Uri getUriVN() {
+        return getUri(0);
+    }
+
+    public Uri getUriInter() {
+        return getUri(1);
+    }
+
+    public void setUri(List<String> listLinkPlay) {
+        this.listLinkPlay = listLinkPlay;
     }
 
     public String getExtension() {

@@ -313,7 +313,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             LLog.d(TAG, "initializePlayer inputModel == null return");
             return;
         }
-        if (inputModel.getUri() == null) {
+        if (inputModel.getUriInter() == null) {
             LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
         }
@@ -378,7 +378,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{inputModel.getUri()};
+            uris = new Uri[]{inputModel.getUriInter()};
             //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
@@ -995,8 +995,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
                 //UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd().get(1));
 
-                LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
-                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
+                //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
+                UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd());
 
                 setInputModel(null, true);
             }

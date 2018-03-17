@@ -250,8 +250,8 @@ public class UizaPlayerActivity extends BaseActivity {
                 //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getMpd().get(1));
                 //UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd().get(1));
 
-                LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
-                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
+                //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
+                UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd());
                 isGetLinkPlayDone = true;
                 init();
             }

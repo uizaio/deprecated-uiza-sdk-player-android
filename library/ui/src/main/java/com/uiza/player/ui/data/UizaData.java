@@ -6,6 +6,8 @@ import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
+import java.util.List;
+
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
@@ -121,11 +123,16 @@ public class UizaData {
         //notifyObservers();
     }
 
-    public void setLinkPlay(String linkPlay) {
+    public void setLinkPlay(List<String> listLinkPlay) {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
-        inputModel.setUri(linkPlay);
+        inputModel.setUri(listLinkPlay);
+        if (Constants.IS_DEBUG) {
+            for (String linkPlay : listLinkPlay) {
+                LLog.d(TAG, "setLinkPlay linkPlay: " + linkPlay);
+            }
+        }
         //notifyObservers();
     }
 

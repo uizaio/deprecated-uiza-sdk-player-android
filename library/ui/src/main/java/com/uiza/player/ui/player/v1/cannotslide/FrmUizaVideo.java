@@ -269,7 +269,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (inputModel == null) {
             inputModel = UizaData.getInstance().getInputModel();
         }
-        if (inputModel.getUri() == null) {
+        if (inputModel.getUriInter() == null) {
             LLog.d(TAG, "inputModel.getUri() == null -> return");
             return;
         }
@@ -331,7 +331,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{inputModel.getUri()};
+            uris = new Uri[]{inputModel.getUriInter()};
             //LLog.d("uris ", ">>>uris: " + gson.toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
