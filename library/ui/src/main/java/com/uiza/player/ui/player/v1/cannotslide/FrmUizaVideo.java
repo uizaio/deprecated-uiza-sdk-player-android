@@ -133,6 +133,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private boolean isErrorPlayLinkVn;
     private boolean isErrorPlayLinkInter;
 
+    //TODO remove gson
+    private Gson gson = new Gson();
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -342,7 +345,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             } else {
                 uris = new Uri[]{inputModel.getUriVN()};
             }
-            LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + new Gson().toJson(uris));
+            LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
