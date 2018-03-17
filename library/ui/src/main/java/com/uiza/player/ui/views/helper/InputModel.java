@@ -92,6 +92,13 @@ public class InputModel implements Serializable {
         return getUri(1);
     }
 
+    public boolean isNoLinkPlay() {
+        if (listLinkPlay == null || listLinkPlay.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
     public void setUri(List<String> listLinkPlay) {
         this.listLinkPlay = listLinkPlay;
     }

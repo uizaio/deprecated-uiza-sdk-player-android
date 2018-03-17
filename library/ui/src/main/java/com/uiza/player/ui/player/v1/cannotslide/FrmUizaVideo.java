@@ -53,6 +53,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
@@ -269,8 +270,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         if (inputModel == null) {
             inputModel = UizaData.getInstance().getInputModel();
         }
-        if (inputModel.getUriInter() == null) {
-            LLog.d(TAG, "inputModel.getUri() == null -> return");
+        if (inputModel.isNoLinkPlay()) {
+            LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
+            showDialogOne("No link play");
             return;
         }
         boolean needNewPlayer = player == null;
@@ -331,8 +333,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{inputModel.getUriInter()};
-            //LLog.d("uris ", ">>>uris: " + gson.toJson(uris));
+            uris = new Uri[]{inputModel.getUriVN()};
+            //LLog.d("uris ", ">>>initializePlayer uris: " + new Gson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();

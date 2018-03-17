@@ -313,8 +313,9 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             LLog.d(TAG, "initializePlayer inputModel == null return");
             return;
         }
-        if (inputModel.getUriInter() == null) {
-            LLog.d(TAG, "inputModel.getUri() == null -> return");
+        if (inputModel.isNoLinkPlay()) {
+            LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
+            showDialogOne("No link play");
             return;
         }
 
@@ -378,7 +379,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{inputModel.getUriInter()};
+            uris = new Uri[]{inputModel.getUriVN()};
             //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
