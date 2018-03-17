@@ -222,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/White"
                         android:checked="true"
-                        android:text="PROD"
+                        android:text="WEBTRETHO"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
