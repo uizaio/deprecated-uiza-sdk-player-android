@@ -53,6 +53,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
@@ -128,6 +129,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     private PlayerConfig mPlayerConfig;
     //freuss47 set userAgent
     private String userAgent = "ExoPlayerDemoUiza";
+
+    private boolean isErrorPlayLinkVn;
+    private boolean isErrorPlayLinkInter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -252,6 +256,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     }
 
     public void setInputModel(InputModel ip, boolean reloadData) {
+        LLog.d(TAG, "setInputModel reloadData: " + reloadData);
         if (ip == null) {
             this.inputModel = UizaData.getInstance().getInputModel();
         } else {
@@ -332,8 +337,12 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{inputModel.getUriVN()};
-            //LLog.d("uris ", ">>>initializePlayer uris: " + new Gson().toJson(uris));
+            if (isErrorPlayLinkVn) {
+                uris = new Uri[]{inputModel.getUriInter()};
+            } else {
+                uris = new Uri[]{inputModel.getUriVN()};
+            }
+            LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + new Gson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
@@ -660,6 +669,19 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPlayerError(ExoPlaybackException e) {
         LLog.d(TAG, "onPlayerError " + e.toString());
+
+        if (!isErrorPlayLinkVn) {
+            LLog.d(TAG, "Try initializePlayer again with link play Internation");
+            isErrorPlayLinkVn = true;
+            setInputModel(inputModel, true);
+            return;
+        } else {
+            isErrorPlayLinkInter = true;
+            LLog.d(TAG, "~~~~~~~~~~~~~~~~~~~~onPlayerError isErrorPlayLinkInter true " + isErrorPlayLinkVn + " - " + isErrorPlayLinkInter);
+            //TODO
+            //done remove cover here
+        }
+
         String errorString = null;
         if (e.type == ExoPlaybackException.TYPE_RENDERER) {
             LLog.d(TAG, "onPlayerError TYPE_RENDERER");
