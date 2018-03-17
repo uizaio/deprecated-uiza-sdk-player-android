@@ -85,7 +85,7 @@ public class RestClientV2 {
     public static void addAuthorization(String token) {
         //addHeader(AUTHORIZATION, "Token token=" + token);
         addHeader(AUTHORIZATION, token);
-        //LLog.d(TAG, "Add token: " + token);
+        LLog.d(TAG, "Add token: " + token);
     }
 
     public static void removeAuthorization() {
