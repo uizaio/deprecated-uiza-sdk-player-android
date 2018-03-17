@@ -639,6 +639,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPositionDiscontinuity() {
         if (inErrorState) {
+            LLog.d(TAG, "onPositionDiscontinuity inErrorState");
             // This will only occur if the user has performed a seek whilst in the error state. Update the
             // resume position so that if the user then retries, playback will resume from the position to
             // which they seeked.
@@ -658,8 +659,10 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onPlayerError(ExoPlaybackException e) {
+        LLog.d(TAG, "onPlayerError " + e.toString());
         String errorString = null;
         if (e.type == ExoPlaybackException.TYPE_RENDERER) {
+            LLog.d(TAG, "onPlayerError TYPE_RENDERER");
             Exception cause = e.getRendererException();
             if (cause instanceof MediaCodecRenderer.DecoderInitializationException) {
                 // Special case for decoder initialization failures.
