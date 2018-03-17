@@ -175,7 +175,7 @@ public class HomeV1CannotSlideActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "getListAllMetadata onFail " + e.getMessage());
+                LLog.e(TAG, "getListAllMetadata onFail " + e.getMessage() + ", " + e.toString());
                 handleException(e);
             }
         });

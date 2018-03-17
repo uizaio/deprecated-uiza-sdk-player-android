@@ -67,6 +67,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void auth() {
+        LLog.d(TAG, ">>>>>>>>>.auth");
         RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2);
         UizaService service = RestClientV2.createService(UizaService.class);
         String accessKeyId = "BNEU77HJAPWYVIF1DEU5";
