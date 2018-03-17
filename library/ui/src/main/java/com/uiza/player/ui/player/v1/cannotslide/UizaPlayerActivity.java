@@ -247,8 +247,11 @@ public class UizaPlayerActivity extends BaseActivity {
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
 
                 //TODO play link mpd0 (pre cdn la vn) ko dc thi play link mpd1(cdn la QT)
-                LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getMpd().get(1));
-                UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd().get(1));
+                //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getMpd().get(1));
+                //UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd().get(1));
+
+                LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
+                UizaData.getInstance().setLinkPlay(getLinkPlay.getLinkplayMpd());
                 isGetLinkPlayDone = true;
                 init();
             }
