@@ -1,10 +1,12 @@
 
-package vn.loitp.restapi.uiza.model.v2.getdetailentity;
+package vn.loitp.restapi.uiza.model.v2.listallentity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.ExtendData;
 
 public class Item {
 

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.Item;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 
 public class ListAllEntityRelation {
 

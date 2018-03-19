@@ -1,28 +1,24 @@
-package vn.loitp.app.uiza.home.v2.cansilde;
+package vn.loitp.app.uiza.home.v2.cannotslide;
 
-/**
- * Created by www.muathu@gmail.com on 12/24/2017.
- */
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivity;
+
 import java.util.List;
 
-import io.uiza.sdk.ui.R;
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.home.IOnBackPressed;
 import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
-import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LKeyBoardUtil;
 import vn.loitp.core.utilities.LLog;
@@ -32,15 +28,15 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
+import vn.loitp.uiza.R;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
-/**
- * Created by www.muathu@gmail.com on 7/26/2017.
- */
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
-public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnClickListener {
-    private final String TAG = getClass().getSimpleName();
+public class SearchV2Activity extends BaseActivity implements View.OnClickListener {
     private ImageView ivBack;
     private ImageView ivClearText;
     private EditText etSearch;
@@ -57,31 +53,19 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
     private int totalPage = Integer.MAX_VALUE;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uiza_frm_search_v2, container, false);
-        ivBack = (ImageView) view.findViewById(vn.loitp.uiza.R.id.iv_back);
-        ivClearText = (ImageView) view.findViewById(vn.loitp.uiza.R.id.iv_clear_text);
-        etSearch = (EditText) view.findViewById(vn.loitp.uiza.R.id.et_search);
-        tv = (TextView) view.findViewById(vn.loitp.uiza.R.id.tv);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivClearText = (ImageView) findViewById(R.id.iv_clear_text);
+        etSearch = (EditText) findViewById(R.id.et_search);
+        etSearch.requestFocus();
+        tv = (TextView) findViewById(R.id.tv);
         //avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         //avi.hide();//dont smoothToHide();
 
-        //etSearch.requestFocus();
-        //LKeyBoardUtil.show(getActivity());
+        placeHolderView = (PlaceHolderView) findViewById(R.id.place_holder_view);
 
-        placeHolderView = (PlaceHolderView) view.findViewById(vn.loitp.uiza.R.id.place_holder_view);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, NUMBER_OF_COLUMN_2);
         placeHolderView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(10)
@@ -157,35 +141,35 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
                 search(etSearch.getText().toString(), false);
             }
         });
-        return view;
     }
 
     @Override
-    public boolean onBackPressed() {
-        LLog.d(TAG, TAG + " onBackPressed");
-        getActivity().getSupportFragmentManager().popBackStack();
-        return true;
+    protected boolean setFullScreen() {
+        return false;
     }
 
     @Override
-    public void onFragmentResume() {
-        super.onFragmentResume();
-        LLog.d(TAG, TAG + " onFragmentResume");
+    protected String setTag() {
+        return "TAG" + getClass().getSimpleName();
     }
 
     @Override
-    public void onFragmentPause() {
-        super.onFragmentPause();
-        LLog.d(TAG, TAG + " onFragmentPause");
+    protected Activity setActivity() {
+        return this;
+    }
+
+    @Override
+    protected int setLayoutResourceId() {
+        return R.layout.uiza_search_activity;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case vn.loitp.uiza.R.id.iv_back:
+            case R.id.iv_back:
                 onBackPressed();
                 break;
-            case vn.loitp.uiza.R.id.iv_clear_text:
+            case R.id.iv_clear_text:
                 etSearch.setText("");
                 break;
         }
@@ -215,7 +199,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
             return;
         }
 
-        //ToastUtils.showShort("getData page " + page);
+        ToastUtils.showShort("getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.searchEntityV2(keyword, limit, page), new ApiSubscriber<Search>() {
@@ -238,12 +222,11 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
                 }
 
                 if (search == null || search.getItems().isEmpty()) {
-                    tv.setText(getString(vn.loitp.uiza.R.string.empty_list));
+                    tv.setText(getString(R.string.empty_list));
                     tv.setVisibility(View.VISIBLE);
                 } else {
                     setupUIList(search.getItems());
                 }
-                //avi.smoothToHide();
             }
 
             @Override
@@ -251,7 +234,7 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
                 if (e == null || e.toString() == null) {
                     return;
                 }
-                LLog.e(TAG, "listAllEntityV2 onFail " + e.toString());
+                LLog.e(TAG, "search onFail " + e.toString());
                 tv.setText("Error search " + e.toString());
                 tv.setVisibility(View.VISIBLE);
                 //avi.smoothToHide();
@@ -265,32 +248,27 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
     }
 
     private void setupUIList(List<Item> itemList) {
-        int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
+        int sizeW = LDisplayUtils.getScreenW(activity) / 2;
         int sizeH = sizeW * 9 / 16;
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
+            placeHolderView.addView(new EntityItemV2(activity, item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
                 }
             }));
         }
-        LKeyBoardUtil.hide(getActivity());
+        LKeyBoardUtil.hide(activity);
     }
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-
-        //v1
-        /*Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+        Intent intent = new Intent(activity, UizaPlayerActivity.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(getActivity());*/
-
-        //v2
-        //((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
+        LUIUtil.transActivityFadeIn(activity);
     }
 
     private void swipeToRefresh() {
@@ -300,7 +278,6 @@ public class FrmSearch extends BaseFragment implements IOnBackPressed, View.OnCl
         isRefreshing = true;
         placeHolderView.addView(POSITION_OF_LOADING_REFRESH, new LoadingView());
 
-        //TODO refresh
         LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
             @Override
             public void doAfter(int mls) {

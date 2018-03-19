@@ -354,7 +354,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
     }
 
-    public void onClickVideo(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
+    public void onClickVideo(vn.loitp.restapi.uiza.model.v2.listallentity.Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
@@ -465,7 +465,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         frmBottom = new FrmBottom();
         frmBottom.setClickCallback(new FrmBottom.ClickCallback() {
             @Override
-            public void onClick(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
+            public void onClick(vn.loitp.restapi.uiza.model.v2.listallentity.Item item, int position) {
                 LLog.d(TAG, "setClickCallback onClick " + item.getName());
                 onClickVideo(item, position);
             }
