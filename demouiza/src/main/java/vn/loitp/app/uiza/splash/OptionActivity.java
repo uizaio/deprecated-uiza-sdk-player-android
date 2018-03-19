@@ -203,6 +203,7 @@ public class OptionActivity extends BaseActivity {
                         radioEnvironmentDev.setVisibility(View.VISIBLE);
                         radioEnvironmentStag.setVisibility(View.GONE);
                         radioEnvironmentProd.setVisibility(View.GONE);
+                        radioEnvironmentDev.setChecked(true);
                         break;
                 }
             }
