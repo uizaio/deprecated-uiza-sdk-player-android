@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.cannotslide.FrmUizaVideo;
-import com.uiza.player.ui.player.v1.canslide.FrmBottom;
-import com.uiza.player.ui.player.v1.canslide.FrmTop;
+import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideo;
+import com.uiza.player.ui.player.v2.canslide.FrmBottom;
+import com.uiza.player.ui.player.v2.canslide.FrmTop;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -25,6 +25,7 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.IOnBackPressed;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
 import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
 import vn.loitp.app.uiza.login.LoginActivity;
@@ -353,7 +354,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
     }
 
-    public void onClickVideo(vn.loitp.restapi.uiza.model.v1.listallentity.Item item, int position) {
+    public void onClickVideo(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
@@ -464,7 +465,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         frmBottom = new FrmBottom();
         frmBottom.setClickCallback(new FrmBottom.ClickCallback() {
             @Override
-            public void onClick(vn.loitp.restapi.uiza.model.v1.listallentity.Item item, int position) {
+            public void onClick(vn.loitp.restapi.uiza.model.v2.getdetailentity.Item item, int position) {
                 LLog.d(TAG, "setClickCallback onClick " + item.getName());
                 onClickVideo(item, position);
             }

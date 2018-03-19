@@ -178,7 +178,7 @@ public class FrmBottom extends BaseFragment {
         mAdapter.notifyDataSetChanged();
         UizaService service = RestClientV2.createService(UizaService.class);
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<ListAllEntityRelation>() {
+        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
                 LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));

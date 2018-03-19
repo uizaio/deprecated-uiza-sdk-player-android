@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.v1.cansilde;
+package vn.loitp.app.uiza.home;
 
 /**
  * Created by LENOVO on 3/9/2018.

@@ -12,6 +12,7 @@ import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.home.IOnBackPressed;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
@@ -195,7 +196,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
-                    //((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
+                    ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
                 }
             }));
         }
