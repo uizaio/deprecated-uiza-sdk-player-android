@@ -127,7 +127,7 @@ public class UizaData {
         if (inputModel == null) {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
-        inputModel.setUri(listLinkPlay);
+        inputModel.setListLinkPlay(listLinkPlay);
         if (Constants.IS_DEBUG) {
             for (String linkPlay : listLinkPlay) {
                 LLog.d(TAG, "setLinkPlay linkPlay: " + linkPlay);

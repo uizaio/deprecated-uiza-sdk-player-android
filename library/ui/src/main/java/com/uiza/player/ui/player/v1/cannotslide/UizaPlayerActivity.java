@@ -161,7 +161,7 @@ public class UizaPlayerActivity extends BaseActivity {
         }
     }
 
-    private void removeCoverVideo() {
+    public void removeCoverVideo() {
         if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null) {
             UizaAnimationUtil.playFadeOut(activity, ivCoverVideo, null);
 
@@ -183,13 +183,13 @@ public class UizaPlayerActivity extends BaseActivity {
         if (isGetLinkPlayDone && isGetDetailEntityDone) {
             initContainerVideo();
             initContainerVideoInfo();
-            LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
+            /*LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
                 @Override
                 public void doAfter(int mls) {
                     LLog.d(TAG, "init success");
                     removeCoverVideo();
                 }
-            });
+            });*/
         } else {
             LLog.d(TAG, "init failed: isGetLinkPlayDone: " + isGetLinkPlayDone + ", isGetDetailEntityDone: " + isGetDetailEntityDone);
         }

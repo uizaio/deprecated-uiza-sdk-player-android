@@ -130,8 +130,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     //freuss47 set userAgent
     private String userAgent = "ExoPlayerDemoUiza";
 
-    private boolean isErrorPlayLinkVn;
-    private boolean isErrorPlayLinkInter;
+    private int positionOfLinkPlayList = 0;
 
     //TODO remove gson
     private Gson gson = new Gson();
@@ -279,7 +278,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         }
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
-            showDialogOne("No link play");
+            showDialogOne(getString(R.string.no_link_play));
             return;
         }
         boolean needNewPlayer = player == null;
@@ -340,11 +339,8 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            if (isErrorPlayLinkVn) {
-                uris = new Uri[]{inputModel.getUriInter()};
-            } else {
-                uris = new Uri[]{inputModel.getUriVN()};
-            }
+            uris = new Uri[]{inputModel.getUri(positionOfLinkPlayList)};
+            LLog.d(TAG, "________________________initializePlayer positionOfLinkPlayList: " + positionOfLinkPlayList);
             LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
@@ -600,7 +596,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     // Player.EventListener implementation
     @Override
     public void onLoadingChanged(boolean isLoading) {
-        LLog.d(TAG, "onLoadingChanged " + isLoading);
+        //LLog.d(TAG, "onLoadingChanged " + isLoading);
     }
 
     @Override
@@ -624,6 +620,9 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
                 isVideoStarted = true;
                 //track plays_requested
                 ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+
+                LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
+                ((UizaPlayerActivity) getActivity()).removeCoverVideo();
 
                 //track event view (after video is played 5s)
                 mRunnable = new Runnable() {
@@ -672,17 +671,16 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPlayerError(ExoPlaybackException e) {
         LLog.d(TAG, "onPlayerError " + e.toString());
+        LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
 
-        if (!isErrorPlayLinkVn) {
-            LLog.d(TAG, "Try initializePlayer again with link play Internation");
-            isErrorPlayLinkVn = true;
-            setInputModel(inputModel, true);
+        if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size()) {
+            showDialogOne("Cannot play any videos.");
             return;
         } else {
-            isErrorPlayLinkInter = true;
-            LLog.d(TAG, "~~~~~~~~~~~~~~~~~~~~onPlayerError isErrorPlayLinkInter true " + isErrorPlayLinkVn + " - " + isErrorPlayLinkInter);
-            //TODO
-            //done remove cover here
+            positionOfLinkPlayList++;
+            LLog.d(TAG, "Try initializePlayer again with next link play - positionOfLinkPlayList: " + positionOfLinkPlayList);
+            setInputModel(inputModel, true);
+            //return;
         }
 
         String errorString = null;

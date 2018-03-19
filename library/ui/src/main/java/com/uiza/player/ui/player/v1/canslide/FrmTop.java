@@ -84,6 +84,7 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.data.EventBusData;
@@ -147,7 +148,9 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
     //freuss47 set userAgent
-    private String userAgent = "ExoPlayerDemoUiza";
+    private String userAgent = Constants.USER_AGENT;
+
+    private int positionOfLinkPlayList = 0;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -379,7 +382,9 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         Uri[] uris;
         String[] extensions;
         if (ACTION_VIEW.equals(action)) {
-            uris = new Uri[]{inputModel.getUriVN()};
+            uris = new Uri[]{inputModel.getUri(positionOfLinkPlayList)};
+            LLog.d(TAG, "________________________initializePlayer positionOfLinkPlayList: " + positionOfLinkPlayList);
+            LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
             //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
@@ -704,6 +709,19 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onPlayerError(ExoPlaybackException e) {
+        LLog.d(TAG, "onPlayerError " + e.toString());
+        LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
+
+        if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size()) {
+            showDialogOne("Cannot play any videos.");
+            return;
+        } else {
+            positionOfLinkPlayList++;
+            LLog.d(TAG, "Try initializePlayer again with next link play - positionOfLinkPlayList: " + positionOfLinkPlayList);
+            setInputModel(inputModel, true);
+            //return;
+        }
+
         String errorString = null;
         if (e.type == ExoPlaybackException.TYPE_RENDERER) {
             Exception cause = e.getRendererException();

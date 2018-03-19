@@ -59,4 +59,6 @@ public class Constants {
     public final static int ENVIRONMENT_DEV = 1;
     public final static int ENVIRONMENT_STAG = 2;
     public final static int ENVIRONMENT_PROD = 3;
+
+    public final static String USER_AGENT = "LoitpSDKDummy";
 }

@@ -73,7 +73,7 @@ public class InputModel implements Serializable {
         this.action = action;
     }
 
-    private Uri getUri(int pos) {
+    public Uri getUri(int pos) {
         if (listLinkPlay == null) {
             return null;
         }
@@ -84,14 +84,6 @@ public class InputModel implements Serializable {
         return Uri.parse(listLinkPlay.get(pos));
     }
 
-    public Uri getUriVN() {
-        return getUri(0);
-    }
-
-    public Uri getUriInter() {
-        return getUri(1);
-    }
-
     public boolean isNoLinkPlay() {
         if (listLinkPlay == null || listLinkPlay.isEmpty()) {
             return true;
@@ -99,8 +91,12 @@ public class InputModel implements Serializable {
         return false;
     }
 
-    public void setUri(List<String> listLinkPlay) {
+    public void setListLinkPlay(List<String> listLinkPlay) {
         this.listLinkPlay = listLinkPlay;
+    }
+
+    public List<String> getListLinkPlay() {
+        return listLinkPlay;
     }
 
     public String getExtension() {
