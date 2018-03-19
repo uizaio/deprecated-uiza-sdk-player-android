@@ -127,7 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
         }
         LLog.e(TAG, throwable.toString());
-        showDialogError(throwable.getMessage());
+        showDialogError("handleException: " + throwable.getMessage());
     }
 
     protected void showDialogOne(String msg) {

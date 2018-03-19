@@ -1,7 +1,9 @@
 
 package vn.loitp.restapi.uiza.model.v1.getlinkplay;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -56,6 +58,12 @@ public class GetLinkPlay {
     }
 
     public List<String> getMpd() {
+        if (mpd == null) {
+            mpd = new ArrayList<>();
+            if (linkplayMpd != null) {
+                mpd.add(linkplayMpd);
+            }
+        }
         return mpd;
     }
 
