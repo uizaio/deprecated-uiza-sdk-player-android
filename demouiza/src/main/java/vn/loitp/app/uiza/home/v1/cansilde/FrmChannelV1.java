@@ -195,6 +195,7 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
             placeHolderView.addView(new EntityItemV1(getActivity(), item, sizeW, sizeH, new EntityItemV1.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
+                    LLog.d(TAG, "onClick position: " + position + "\n" + LSApplication.getInstance().getGson().toJson(item));
                     ((HomeV1CanSlideActivity) getActivity()).onClickVideo(item, position);
                 }
             }));

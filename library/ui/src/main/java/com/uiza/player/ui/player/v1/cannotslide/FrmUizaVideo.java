@@ -76,6 +76,7 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.utils.util.ToastUtils;
@@ -673,8 +674,13 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
         LLog.d(TAG, "onPlayerError " + e.toString());
         LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
 
-        if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size()) {
-            showDialogOne("Cannot play any videos.");
+        if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size() - 1) {
+            showDialogError(getString(io.uiza.sdk.ui.R.string.cannot_play_any_videos), new LDialogUtil.CallbackShowOne() {
+                @Override
+                public void onClick() {
+                    getActivity().onBackPressed();
+                }
+            });
             return;
         } else {
             positionOfLinkPlayList++;

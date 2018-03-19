@@ -87,6 +87,15 @@ public abstract class BaseFragment extends Fragment {
         });
     }
 
+    protected void showDialogError(final String msg, final LDialogUtil.CallbackShowOne callbackShowOne) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                LDialogUtil.showOne(getActivity(), getString(R.string.app_name), msg, getString(R.string.confirm), callbackShowOne);
+            }
+        });
+    }
+
     public void onFragmentResume() {
     }
 

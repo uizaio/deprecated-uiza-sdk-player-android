@@ -85,6 +85,7 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.data.EventBusData;
@@ -176,17 +177,17 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         //view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
         view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
 
-        avi = (AVLoadingIndicatorView) view.findViewById(io.uiza.sdk.ui.R.id.avi);
+        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avi.smoothToShow();
-        rootView = (FrameLayout) view.findViewById(io.uiza.sdk.ui.R.id.root_view);
+        rootView = (FrameLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
-        debugRootView = (LinearLayout) view.findViewById(io.uiza.sdk.ui.R.id.controls_root);
-        debugTextView = (TextView) view.findViewById(io.uiza.sdk.ui.R.id.debug_text_view);
-        retryButton = (Button) view.findViewById(io.uiza.sdk.ui.R.id.retry_button);
+        debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
+        debugTextView = (TextView) view.findViewById(R.id.debug_text_view);
+        retryButton = (Button) view.findViewById(R.id.retry_button);
         retryButton.setOnClickListener(this);
 
-        simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(io.uiza.sdk.ui.R.id.player_view);
+        simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.player_view);
         simpleExoPlayerView.setControllerVisibilityListener(this);
         simpleExoPlayerView.requestFocus();
 
@@ -228,7 +229,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
             if (childView instanceof Button) {
-                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(io.uiza.sdk.ui.R.string.video))) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.video))) {
                     return childView;
                 }
             }
@@ -241,7 +242,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
             if (childView instanceof Button) {
-                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(io.uiza.sdk.ui.R.string.audio))) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.audio))) {
                     return childView;
                 }
             }
@@ -254,7 +255,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         for (int i = 0; i < debugRootView.getChildCount(); i++) {
             View childView = debugRootView.getChildAt(i);
             if (childView instanceof Button) {
-                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(io.uiza.sdk.ui.R.string.text))) {
+                if (((Button) childView).getText().toString().equalsIgnoreCase(getString(R.string.text))) {
                     return childView;
                 }
             }
@@ -335,14 +336,14 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             if (drmSchemeUuid != null) {
                 String drmLicenseUrl = inputModel.getDrmLicenseUrl();
                 String[] keyRequestPropertiesArray = inputModel.getKeyRequestPropertiesArray();
-                int errorStringId = io.uiza.sdk.ui.R.string.error_drm_unknown;
+                int errorStringId = R.string.error_drm_unknown;
                 if (Util.SDK_INT < 18) {
-                    errorStringId = io.uiza.sdk.ui.R.string.error_drm_not_supported;
+                    errorStringId = R.string.error_drm_not_supported;
                 } else {
                     try {
                         drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl, keyRequestPropertiesArray);
                     } catch (UnsupportedDrmException e) {
-                        errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME ? io.uiza.sdk.ui.R.string.error_drm_unsupported_scheme : io.uiza.sdk.ui.R.string.error_drm_unknown;
+                        errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME ? R.string.error_drm_unsupported_scheme : R.string.error_drm_unknown;
                     }
                 }
                 if (drmSessionManager == null) {
@@ -421,7 +422,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
-                ToastUtils.showShort((io.uiza.sdk.ui.R.string.ima_not_loaded));
+                ToastUtils.showShort((R.string.ima_not_loaded));
             }
         } else {
             releaseAdsLoader();
@@ -712,8 +713,13 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         LLog.d(TAG, "onPlayerError " + e.toString());
         LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
 
-        if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size()) {
-            showDialogOne("Cannot play any videos.");
+        if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size() - 1) {
+            showDialogError(getString(R.string.cannot_play_any_videos), new LDialogUtil.CallbackShowOne() {
+                @Override
+                public void onClick() {
+                    getActivity().onBackPressed();
+                }
+            });
             return;
         } else {
             positionOfLinkPlayList++;
@@ -730,14 +736,14 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 MediaCodecRenderer.DecoderInitializationException decoderInitializationException = (MediaCodecRenderer.DecoderInitializationException) cause;
                 if (decoderInitializationException.decoderName == null) {
                     if (decoderInitializationException.getCause() instanceof MediaCodecUtil.DecoderQueryException) {
-                        errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_querying_decoders);
+                        errorString = getContext().getString(R.string.error_querying_decoders);
                     } else if (decoderInitializationException.secureDecoderRequired) {
-                        errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
+                        errorString = getContext().getString(R.string.error_no_secure_decoder, decoderInitializationException.mimeType);
                     } else {
-                        errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_no_decoder, decoderInitializationException.mimeType);
+                        errorString = getContext().getString(R.string.error_no_decoder, decoderInitializationException.mimeType);
                     }
                 } else {
-                    errorString = getContext().getString(io.uiza.sdk.ui.R.string.error_instantiating_decoder, decoderInitializationException.decoderName);
+                    errorString = getContext().getString(R.string.error_instantiating_decoder, decoderInitializationException.decoderName);
                 }
             }
         }
@@ -763,10 +769,10 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort((io.uiza.sdk.ui.R.string.error_unsupported_video));
+                    ToastUtils.showShort((R.string.error_unsupported_video));
                 }
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort((io.uiza.sdk.ui.R.string.error_unsupported_audio));
+                    ToastUtils.showShort((R.string.error_unsupported_audio));
                 }
             }
             lastSeenTrackGroupArray = trackGroups;
@@ -796,13 +802,13 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 int label;
                 switch (player.getRendererType(i)) {
                     case C.TRACK_TYPE_AUDIO:
-                        label = io.uiza.sdk.ui.R.string.audio;
+                        label = R.string.audio;
                         break;
                     case C.TRACK_TYPE_VIDEO:
-                        label = io.uiza.sdk.ui.R.string.video;
+                        label = R.string.video;
                         break;
                     case C.TRACK_TYPE_TEXT:
-                        label = io.uiza.sdk.ui.R.string.text;
+                        label = R.string.text;
                         break;
                     default:
                         continue;

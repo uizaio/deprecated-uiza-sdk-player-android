@@ -24,7 +24,6 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV1;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -258,7 +257,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.d(TAG, "onFail " + e.toString());
+                LLog.d(TAG, "onFail getLinkPlayV1: " + e.toString());
                 handleException(e);
             }
         });
@@ -321,7 +320,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.toString());
+                LLog.e(TAG, "onFail getDetailEntityV1: " + e.toString());
                 handleException(e);
             }
         });
@@ -375,7 +374,7 @@ public class UizaPlayerActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "getPlayerConfig " + e.toString());
+                LLog.e(TAG, "getPlayerConfig onFail: " + e.toString());
                 handleException(e);
             }
         });
