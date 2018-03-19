@@ -13,6 +13,18 @@ public class ExtendData {
     @Expose
     private String price;
 
+    @SerializedName("artist")
+    @Expose
+    private String artist;
+
+    @SerializedName("director")
+    @Expose
+    private String director;
+
+    @SerializedName("text")
+    @Expose
+    private String text;
+
     public String getPublishedDate() {
         return publishedDate;
     }
@@ -29,4 +41,27 @@ public class ExtendData {
         this.price = price;
     }
 
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

@@ -1,5 +1,5 @@
 
-package vn.loitp.restapi.uiza.model.v2.getdetailentity;
+package vn.loitp.restapi.uiza.model.v2.listallentity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -21,6 +21,17 @@ public class ExtendData {
     @SerializedName("upload")
     @Expose
     private Object upload;
+    @SerializedName("artist")
+    @Expose
+    private String artist;
+
+    @SerializedName("director")
+    @Expose
+    private String director;
+
+    @SerializedName("text")
+    @Expose
+    private String text;
 
     public Object getPrice() {
         return price;
@@ -62,4 +73,27 @@ public class ExtendData {
         this.upload = upload;
     }
 
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

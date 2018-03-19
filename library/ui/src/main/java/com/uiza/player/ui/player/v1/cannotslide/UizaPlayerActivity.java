@@ -307,7 +307,6 @@ public class UizaPlayerActivity extends BaseActivity {
         subscribe(service.getDetailEntityV1(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
-                //TODO
                 LLog.d(TAG, "getDetailEntityV1 onSuccess " + gson.toJson(getDetailEntity));
                 if (getDetailEntity != null) {
                     UizaData.getInstance().setDetailEntityV1(getDetailEntity);

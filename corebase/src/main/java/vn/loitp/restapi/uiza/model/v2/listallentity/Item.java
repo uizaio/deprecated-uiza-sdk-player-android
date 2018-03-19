@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import vn.loitp.restapi.uiza.model.v2.getdetailentity.ExtendData;
-
 public class Item {
 
     @SerializedName("id")
