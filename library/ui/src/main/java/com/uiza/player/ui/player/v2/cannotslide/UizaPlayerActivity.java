@@ -328,11 +328,11 @@ public class UizaPlayerActivity extends BaseActivity {
         //API v2
         UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = inputModel.getEntityID();
-        //LLog.d(TAG, "entityId: " + entityId);
+        LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntityV2) {
-                //LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntityV2));
+                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntityV2));
                 if (getDetailEntityV2 != null) {
                     UizaData.getInstance().setDetailEntityV2(getDetailEntityV2);
                 } else {
