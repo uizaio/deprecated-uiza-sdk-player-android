@@ -201,7 +201,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 }
 
                 uizaActionBar.setVisibility(View.GONE);
-                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmSearch(), true);
+                UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmSearchV2(), true);
             }
         });
         uizaActionBar.showMenuIcon();

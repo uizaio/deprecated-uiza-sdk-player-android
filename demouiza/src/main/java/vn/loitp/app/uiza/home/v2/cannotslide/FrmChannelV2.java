@@ -1,4 +1,4 @@
-package vn.loitp.app.uiza.home.v1.cannotslide;
+package vn.loitp.app.uiza.home.v2.cannotslide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivity;
+import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.data.HomeData;
 import vn.loitp.app.uiza.home.view.BlankView;
-import vn.loitp.app.uiza.home.view.EntityItemV1;
+import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
@@ -25,8 +25,8 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
-import vn.loitp.restapi.uiza.model.v1.listallentity.ListAllEntity;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
@@ -42,7 +42,7 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmChannel extends BaseFragment {
+public class FrmChannelV2 extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private TextView tvMsg;
@@ -76,8 +76,12 @@ public class FrmChannel extends BaseFragment {
         View view = inflater.inflate(R.layout.uiza_frm_channel, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
         tvMsg = (TextView) view.findViewById(R.id.tv_msg);
-        tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
-
+        if (Constants.IS_DEBUG) {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
+        } else {
+            tv.setVisibility(View.GONE);
+        }
         placeHolderView = (PlaceHolderView) view.findViewById(R.id.place_holder_view);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_COLUMN_2);
@@ -194,7 +198,7 @@ public class FrmChannel extends BaseFragment {
             addBlankView();
         }
         for (Item item : itemList) {
-            placeHolderView.addView(new EntityItemV1(getActivity(), item, sizeW, sizeH, new EntityItemV1.Callback() {
+            placeHolderView.addView(new EntityItemV2(getActivity(), item, sizeW, sizeH, new EntityItemV2.Callback() {
                 @Override
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
@@ -222,9 +226,6 @@ public class FrmChannel extends BaseFragment {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-
-        //intent.putExtra(KEY_UIZA_ENTITY_ID, "bf427eb6-51e4-43f9-b668-d15e5f324d9e");
-
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
@@ -266,7 +267,7 @@ public class FrmChannel extends BaseFragment {
         LLog.d(TAG, "jsonBody " + LSApplication.getInstance().getGson().toJson(jsonBody));
         LLog.d(TAG, "<<<<<<<<<<<<<<<<<<<<<<<<");
 
-        subscribe(service.listAllEntityV1(jsonBody), new ApiSubscriber<ListAllEntity>() {
+        subscribe(service.listAllEntityV2(jsonBody), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
@@ -276,7 +277,7 @@ public class FrmChannel extends BaseFragment {
                 LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
 
                 if (totalPage == Integer.MAX_VALUE) {
-                    int totalItem = (int) listAllEntity.getTotal();
+                    int totalItem = listAllEntity.getTotal();
                     float ratio = (float) (totalItem / limit);
                     LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {
@@ -306,7 +307,7 @@ public class FrmChannel extends BaseFragment {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "listAllEntityV1 onFail " + e.toString());
+                LLog.e(TAG, "listAllEntityV2 onFail " + e.toString());
                 //handleException(e);
                 if (tvMsg.getVisibility() != View.VISIBLE) {
                     tvMsg.setVisibility(View.VISIBLE);

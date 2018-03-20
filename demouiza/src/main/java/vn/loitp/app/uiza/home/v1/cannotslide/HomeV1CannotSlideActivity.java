@@ -199,13 +199,13 @@ public class HomeV1CannotSlideActivity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel(), false);
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV1(), false);
                 }
             }));
         }
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(0));
-        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel(), false);
+        UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV1(), false);
     }
 }
