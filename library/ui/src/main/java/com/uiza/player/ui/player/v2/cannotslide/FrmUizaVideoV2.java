@@ -1,8 +1,4 @@
-package com.uiza.player.ui.player.v1.canslide;
-
-/**
- * Created by www.muathu@gmail.com on 12/24/2017.
- */
+package com.uiza.player.ui.player.v2.cannotslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -70,10 +66,6 @@ import com.uiza.player.ui.views.helper.EventLogger;
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.helper.TrackSelectionHelper;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
@@ -87,16 +79,7 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LPref;
-import vn.loitp.data.EventBusData;
-import vn.loitp.restapi.restclient.RestClientTracking;
-import vn.loitp.restapi.restclient.RestClientV2;
-import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
-import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
-import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
-import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.utils.util.ToastUtils;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -104,7 +87,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmTop extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
+public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -142,16 +125,17 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     private ViewGroup adOverlayViewGroup;
     private FrameLayout rootView;
     private AVLoadingIndicatorView avi;
-    //TODO remove gson later
-    private Gson gson = new Gson();
-
     private boolean isVideoStarted;//detect video is has ready state or not
+
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
     //freuss47 set userAgent
     private String userAgent = Constants.USER_AGENT;
 
     private int positionOfLinkPlayList = 0;
+
+    //TODO remove gson
+    private Gson gson = new Gson();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -165,7 +149,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frm_top, container, false);
+        View view = inflater.inflate(R.layout.uiza_video_player_frm, container, false);
         //shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
@@ -198,7 +182,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         simpleExoPlayerView.setCallback(new SimpleExoPlayerView.Callback() {
             @Override
             public void onClickSetting() {
-                LLog.d(TAG, "onClickSetting");
+                //LLog.d(TAG, "onClickSetting");
                 if (getBtVideo() != null) {
                     getBtVideo().performClick();
                 }
@@ -208,19 +192,18 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             public void onPlayThrough(int percent) {
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
-                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
         });
 
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                LLog.d(TAG, "onLayoutChange " + bottom);
+                //LLog.d(TAG, "onLayoutChange " + bottom);
                 simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
                 UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
             }
         });
-
         return view;
     }
 
@@ -265,11 +248,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onVisibilityChange(int visibility) {
-        //LLog.d(TAG, "onVisibilityChange " + visibility);
+        LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
-        if (visibilityChange != null) {
-            visibilityChange.onVisibilityChange(visibility);
-        }
 
         //dismiss dialog choose setting
         if (visibility != View.VISIBLE) {
@@ -279,18 +259,8 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         }
     }
 
-    public interface VisibilityChange {
-        public void onVisibilityChange(int visibility);
-    }
-
-    private VisibilityChange visibilityChange;
-
-    public void setVisibilityChange(VisibilityChange visibilityChange) {
-        this.visibilityChange = visibilityChange;
-    }
-
-    private void setInputModel(InputModel ip, boolean reloadData) {
-        LLog.d(TAG, "setInputModel");
+    public void setInputModel(InputModel ip, boolean reloadData) {
+        LLog.d(TAG, "setInputModel reloadData: " + reloadData);
         if (ip == null) {
             this.inputModel = UizaData.getInstance().getInputModel();
         } else {
@@ -300,29 +270,19 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             releasePlayer();
             //shouldAutoPlay = true;
             clearResumePosition();
-
             initializePlayer();
         }
-
-        //track event eventype display
-        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_DISPLAY));
-
-        //track event plays_requested
-        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
     }
 
     public void initializePlayer() {
         if (inputModel == null) {
-            //ToastUtils.showShort("initializePlayer inputModel == null return");
-            LLog.d(TAG, "initializePlayer inputModel == null return");
-            return;
+            inputModel = UizaData.getInstance().getInputModel();
         }
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
-            showDialogOne("No link play");
+            showDialogOne(getString(R.string.no_link_play));
             return;
         }
-
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
@@ -351,7 +311,6 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                     return;
                 }
             }
-
             boolean preferExtensionDecoders = inputModel.getPreferExtensionDecoders();
             /*@DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode =
                     ((LSApplication) ((Activity) getContext()).getApplication()).useExtensionRenderers()
@@ -372,7 +331,6 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             player.setVideoDebugListener(eventLogger);
             player.setRepeatMode(Player.REPEAT_MODE_OFF);
             //player.setPlayWhenReady(shouldAutoPlay);
-            //player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT);
 
             //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
@@ -386,7 +344,6 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             uris = new Uri[]{inputModel.getUri(positionOfLinkPlayList)};
             LLog.d(TAG, "________________________initializePlayer positionOfLinkPlayList: " + positionOfLinkPlayList);
             LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
-            //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
@@ -422,7 +379,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
-                ToastUtils.showShort((R.string.ima_not_loaded));
+                ToastUtils.showShort(R.string.ima_not_loaded);
             }
         } else {
             releaseAdsLoader();
@@ -432,7 +389,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             player.seekTo(resumeWindow, resumePosition);
         }
 
-        //TODO with subtitle vtt
+        //TODO freuss47 with subtitle vtt
         /*Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
         String urlSubtitle = "https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt";
         MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse(urlSubtitle)
@@ -451,7 +408,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     }
 
     private void setConfigUIPlayer() {
-        //freuss47 customize UI
+        //TODO freuss47 customize UI
         PlaybackControlView playbackControlView = getPlayerView().getController();
         if (playbackControlView == null) {
             return;
@@ -624,6 +581,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     private void releaseAdsLoader() {
         if (imaAdsLoader != null) {
+            LLog.d(TAG, "releaseAdsLoader");
             try {
                 Class<?> loaderClass = Class.forName("com.uiza.player.ext.ima.ImaAdsLoader");
                 Method releaseMethod = loaderClass.getMethod("release");
@@ -640,37 +598,40 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     // Player.EventListener implementation
     @Override
     public void onLoadingChanged(boolean isLoading) {
-        LLog.d(TAG, "onLoadingChanged " + isLoading);
+        //LLog.d(TAG, "onLoadingChanged " + isLoading);
     }
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == Player.STATE_ENDED) {
-            LLog.d(TAG, "STATE_ENDED");
+            LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
             avi.smoothToHide();
             showDebugControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
-            LLog.d(TAG, "STATE_BUFFERING");
+            LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
-            LLog.d(TAG, "STATE_IDLE");
+            LLog.d(TAG, "onPlayerStateChanged STATE_IDLE");
             avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
-            LLog.d(TAG, "STATE_READY");
+            LLog.d(TAG, "onPlayerStateChanged STATE_READY");
             avi.smoothToHide();
 
             //only track video_starts once time
             if (!isVideoStarted) {
                 isVideoStarted = true;
                 //track plays_requested
-                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+                ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
-                //track event view
+                LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
+                ((UizaPlayerActivityV2) getActivity()).removeCoverVideo();
+
+                //track event view (after video is played 5s)
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
-                        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                        ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
                     }
                 };
                 mHandler.postDelayed(mRunnable, 5000);
@@ -691,6 +652,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
     @Override
     public void onPositionDiscontinuity() {
         if (inErrorState) {
+            LLog.d(TAG, "onPositionDiscontinuity inErrorState");
             // This will only occur if the user has performed a seek whilst in the error state. Update the
             // resume position so that if the user then retries, playback will resume from the position to
             // which they seeked.
@@ -730,6 +692,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
         String errorString = null;
         if (e.type == ExoPlaybackException.TYPE_RENDERER) {
+            LLog.d(TAG, "onPlayerError TYPE_RENDERER");
             Exception cause = e.getRendererException();
             if (cause instanceof MediaCodecRenderer.DecoderInitializationException) {
                 // Special case for decoder initialization failures.
@@ -769,10 +732,10 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort((R.string.error_unsupported_video));
+                    ToastUtils.showShort(R.string.error_unsupported_video);
                 }
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort((R.string.error_unsupported_audio));
+                    ToastUtils.showShort(R.string.error_unsupported_audio);
                 }
             }
             lastSeenTrackGroupArray = trackGroups;
@@ -817,6 +780,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 button.setTag(i);
                 button.setOnClickListener(this);
                 debugRootView.addView(button, debugRootView.getChildCount() - 1);
+                //LLog.d(TAG, "updateButtonVisibilities addView " + button.getText().toString() + ", tag: " + button.getTag().toString());
             }
         }
     }
@@ -880,7 +844,6 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
             initializePlayer();
         }
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     /*public void onResumeUizaVideo() {
@@ -926,7 +889,6 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
-        EventBus.getDefault().unregister(this);
     }
 
     /*public void onDestroyUizaVideo() {
@@ -935,16 +897,11 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onDestroy() {
-        removeCallbacks();
+        //remove callback track event view
+        mHandler.removeCallbacks(mRunnable);
+
         releaseAdsLoader();
         super.onDestroy();
-    }
-
-    public void removeCallbacks() {
-        if (mHandler != null && mRunnable != null) {
-            LLog.d(TAG, "removeCallbacks");
-            mHandler.removeCallbacks(mRunnable);
-        }
     }
 
     public SimpleExoPlayerView getPlayerView() {
@@ -968,120 +925,20 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
 
     @Override
     public void onAdLoadError(IOException error) {
-        LLog.d(TAG, "onAdLoadError");
+        LLog.e(TAG, "onAdLoadError");
     }
 
     @Override
     public void onAdClicked() {
         //TODO onAdClicked
         LLog.d(TAG, "onAdClicked");
-        ToastUtils.showShort(("onAdClicked"));
+        ToastUtils.showShort("onAdClicked");
     }
 
     @Override
     public void onAdTapped() {
         //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
-        ToastUtils.showShort(("onAdTapped"));
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(EventBusData.ClickVideoEvent clickVideoEvent) {
-        LLog.d(TAG, TAG + " clickVideoEvent");
-        if (clickVideoEvent != null) {
-            if (simpleExoPlayerView != null) {
-                LLog.d(TAG, "clickVideoEvent if");
-                //shouldAutoPlay = true;
-                isVideoStarted = false;
-                getLinkPlay(clickVideoEvent.getEntityId());
-            } else {
-                LLog.d(TAG, "clickVideoEvent else");
-            }
-        }
-    }
-
-    private void getLinkPlay(String entityId) {
-        UizaService service = RestClientV2.createService(UizaService.class);
-        Auth auth = LPref.getAuth(getActivity(), gson);
-        if (auth == null || auth.getAppId() == null) {
-            showDialogError("Error auth == null || auth.getAppId() == null");
-            return;
-        }
-        //LLog.d(TAG, ">>>getLinkPlayV1 appId: " + auth.getAppId());
-
-        //API v1
-        subscribe(service.getLinkPlayV1(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
-            @Override
-            public void onSuccess(GetLinkPlay getLinkPlay) {
-                LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlay));
-                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
-                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
-
-                //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
-                //UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd().get(1));
-
-                //LLog.d(TAG, "getLinkplayMpd " + getLinkPlay.getLinkplayMpd());
-                UizaData.getInstance().setLinkPlay(getLinkPlay.getMpd());
-
-                setInputModel(null, true);
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.d(TAG, "onFail " + e.toString());
-                handleException(e);
-            }
-        });
-        //End API v1
-
-        //API v2
-        /*subscribe(service.getLinkPlayV2(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
-            @Override
-            public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
-                //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
-                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
-                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
-
-                try {
-                    //Mpd mpdVN = getLinkPlayV1.getMpd().get(0);
-                    Mpd mpdInter = getLinkPlay.getMpd().get(1);
-
-                    String linkPlay = mpdInter.getUrl();
-                    //LLog.d(TAG, "linkPlay " + linkPlay);
-
-                    UizaData.getInstance().setLinkPlay(linkPlay);
-                    setInputModel(null, true);
-                } catch (NullPointerException e) {
-                    LLog.e(TAG, "getLinkPlayV2 NullPointerException " + e.toString());
-                    //showDialogError("getLinkPlayV2 Error NullPointerException " + e.toString());
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                //LLog.d(TAG, "onFail " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //End API v2
-    }
-
-    public void trackUiza(final UizaTracking uizaTracking) {
-        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
-        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
-        UizaService service = RestClientTracking.createService(UizaService.class);
-        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
-            @Override
-            public void onSuccess(Object tracking) {
-                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                //TODO send event fail? Try to send again
-                LLog.d(TAG, "trackUiza onFail " + e.toString());
-                handleException(e);
-            }
-        });
+        ToastUtils.showShort("onAdTapped");
     }
 }

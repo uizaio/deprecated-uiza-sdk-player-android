@@ -1,4 +1,4 @@
-package com.uiza.player.ui.player.v2.canslide;
+package com.uiza.player.ui.player.v1.canslide;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
@@ -79,8 +79,6 @@ import java.lang.reflect.Method;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import io.uiza.sdk.ui.BuildConfig;
@@ -95,9 +93,8 @@ import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
+import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
-import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
-import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.utils.util.ToastUtils;
@@ -107,7 +104,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmTop extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
+public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -1013,7 +1010,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
         //LLog.d(TAG, ">>>getLinkPlayV1 appId: " + auth.getAppId());
 
         //API v1
-        /*subscribe(service.getLinkPlayV1(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
+        subscribe(service.getLinkPlayV1(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
                 LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlay));
@@ -1034,18 +1031,18 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 LLog.d(TAG, "onFail " + e.toString());
                 handleException(e);
             }
-        });*/
+        });
         //End API v1
 
         //API v2
-        subscribe(service.getLinkPlayV2(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
+        /*subscribe(service.getLinkPlayV2(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
                 //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
 
-                /*try {
+                try {
                     //Mpd mpdVN = getLinkPlayV1.getMpd().get(0);
                     Mpd mpdInter = getLinkPlay.getMpd().get(1);
 
@@ -1057,15 +1054,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 } catch (NullPointerException e) {
                     LLog.e(TAG, "getLinkPlayV2 NullPointerException " + e.toString());
                     //showDialogError("getLinkPlayV2 Error NullPointerException " + e.toString());
-                }*/
-
-                List<String> listLinkPlay = new ArrayList<>();
-                for (Mpd mpd : getLinkPlay.getMpd()) {
-                    listLinkPlay.add(mpd.getUrl());
                 }
-                LLog.d(TAG, "getLinkPlayV2 " + gson.toJson(listLinkPlay));
-                UizaData.getInstance().setLinkPlay(listLinkPlay);
-                setInputModel(null, true);
             }
 
             @Override
@@ -1073,7 +1062,7 @@ public class FrmTop extends BaseFragment implements View.OnClickListener, Player
                 //LLog.d(TAG, "onFail " + e.toString());
                 handleException(e);
             }
-        });
+        });*/
         //End API v2
     }
 

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivity;
+import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivityV2;
 
 import java.util.List;
 
@@ -263,7 +263,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        Intent intent = new Intent(activity, UizaPlayerActivity.class);
+        Intent intent = new Intent(activity, UizaPlayerActivityV2.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());

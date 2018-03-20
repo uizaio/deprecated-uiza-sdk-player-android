@@ -1,4 +1,4 @@
-package com.uiza.player.ui.player.v1.cannotslide;
+package com.uiza.player.ui.player.v2.cannotslide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +24,8 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
-import vn.loitp.restapi.uiza.model.v1.listallentityrelation.ListAllEntityRelation;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -37,7 +37,7 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmUizaVideoInfo extends BaseFragment {
+public class FrmUizaVideoInfoV2 extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private AVLoadingIndicatorView avLoadingIndicatorView;
     private TextView tvVideoName;
@@ -56,7 +56,7 @@ public class FrmUizaVideoInfo extends BaseFragment {
     //private NestedScrollView nestedScrollView;
     private List<Item> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemAdapterV1 mAdapter;
+    private ItemAdapterV2 mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -90,11 +90,11 @@ public class FrmUizaVideoInfo extends BaseFragment {
         mInputModel = UizaData.getInstance().getInputModel();
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
-        mAdapter = new ItemAdapterV1(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV1.Callback() {
+        mAdapter = new ItemAdapterV2(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV2.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                Intent intent = new Intent(getActivity(), UizaPlayerActivityV2.class);
                 intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
@@ -126,14 +126,17 @@ public class FrmUizaVideoInfo extends BaseFragment {
             return;
         }
         if (mItem == null) {
+            LLog.d(TAG, "setup mItem == null -> do nothing");
             try {
-                if (mInputModel.getDetailEntityV1() != null) {
-                    mItem = mInputModel.getDetailEntityV1().getItem().get(0);
+                if (mInputModel.getDetailEntityV2() != null) {
+                    mItem = mInputModel.getDetailEntityV2().getItem().get(0);
                     updateUI();
                 }
             } catch (Exception e) {
                 showDialogError("Setup Error\n" + e.toString());
             }
+        } else {
+            LLog.d(TAG, "setup mItem != null -> do nothing");
         }
     }
 
@@ -161,9 +164,15 @@ public class FrmUizaVideoInfo extends BaseFragment {
 
         //TODO
         tvVideoStarring.setText(emptyS);
-        tvVideoDirector.setText(emptyS);
-        tvVideoGenres.setText(emptyS);
 
+        try {
+            tvVideoDirector.setText(mItem.getExtendData().getDirector());
+        } catch (NullPointerException e) {
+            tvVideoDirector.setText(nullS);
+        }
+
+        //TODO
+        tvVideoGenres.setText(emptyS);
         getListAllEntityRelation();
 
         if (Constants.IS_DEBUG) {
@@ -173,16 +182,18 @@ public class FrmUizaVideoInfo extends BaseFragment {
     }
 
     private void getListAllEntityRelation() {
+        LLog.d(TAG, "getListAllEntityRelation");
         if (mInputModel == null) {
+            LLog.d(TAG, "mInputModel == null");
             return;
         }
         UizaService service = RestClientV2.createService(UizaService.class);
         String entityId = mInputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<ListAllEntityRelation>() {
+        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
             public void onSuccess(ListAllEntityRelation listAllEntityRelation) {
-                LLog.d(TAG, "getListAllEntityRalationV1 onSuccess " + ((UizaPlayerActivity) getActivity()).getGson().toJson(listAllEntityRelation));
+                LLog.d(TAG, "getListAllEntityRalationV1 onSuccess " + ((UizaPlayerActivityV2) getActivity()).getGson().toJson(listAllEntityRelation));
                 if (listAllEntityRelation == null || listAllEntityRelation.getItems().isEmpty()) {
                     tvMoreLikeThisMsg.setText("Data is empty");
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);

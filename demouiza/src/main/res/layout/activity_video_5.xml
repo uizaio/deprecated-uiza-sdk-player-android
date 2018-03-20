@@ -19,14 +19,14 @@
 
             <fragment
                 android:id="@+id/uiza_video"
-                class="vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideo"
+                class="vn.loitp.app.activity.demo.video.videodemo5.FrmUizaVideoV1ideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout="@layfrm_uiza_video_frm" />
 
             <fragment
                 android:id="@+id/uiza_video_info"
-                class="vn.loitp.app.activity.demo.video.videodemo5.frm.FrmUizaVideoInfo"
+                class="vn.loitp.app.activity.demo.video.videodemo5.FrmUizaVideoInfoV1Info"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

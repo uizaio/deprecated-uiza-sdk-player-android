@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivity;
+import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivityV1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -225,7 +225,7 @@ public class FrmChannelV1 extends BaseFragment {
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-        Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+        Intent intent = new Intent(getActivity(), UizaPlayerActivityV1.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
 
         //intent.putExtra(KEY_UIZA_ENTITY_ID, "bf427eb6-51e4-43f9-b668-d15e5f324d9e");

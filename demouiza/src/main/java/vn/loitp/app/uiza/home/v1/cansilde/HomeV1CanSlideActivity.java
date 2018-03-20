@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.cannotslide.FrmUizaVideo;
-import com.uiza.player.ui.player.v1.canslide.FrmBottom;
-import com.uiza.player.ui.player.v1.canslide.FrmTop;
+import com.uiza.player.ui.player.v1.cannotslide.FrmUizaVideoV1;
+import com.uiza.player.ui.player.v1.canslide.FrmBottomV1;
+import com.uiza.player.ui.player.v1.canslide.FrmTopV1;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -278,8 +278,8 @@ public class HomeV1CanSlideActivity extends BaseActivity {
         LLog.d(TAG, TAG + " onBackPressed");
 
         if (UizaData.getInstance().isLandscape()) {
-            if (frmTop != null) {
-                SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
+            if (frmTopV1 != null) {
+                SimpleExoPlayerView simpleExoPlayerView = frmTopV1.getPlayerView();
                 simpleExoPlayerView.getController().getFullscreenButton().performClick();
                 LLog.d(TAG, "isLandscape");
                 return;
@@ -345,12 +345,12 @@ public class HomeV1CanSlideActivity extends BaseActivity {
     private BaseFragment currentFrm;
 
     private void releasePlayer() {
-        if (frmTop == null) {
-            LLog.d(TAG, "draggablePanel frmTop == null");
+        if (frmTopV1 == null) {
+            LLog.d(TAG, "draggablePanel frmTopV1 == null");
         } else {
-            LLog.d(TAG, "draggablePanel frmTop != null");
-            frmTop.releasePlayer();
-            frmTop.removeCallbacks();
+            LLog.d(TAG, "draggablePanel frmTopV1 != null");
+            frmTopV1.releasePlayer();
+            frmTopV1.removeCallbacks();
         }
     }
 
@@ -430,7 +430,7 @@ public class HomeV1CanSlideActivity extends BaseActivity {
 
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");
-        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideo.ACTION_VIEW : FrmUizaVideo.ACTION_VIEW_LIST);
+        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideoV1.ACTION_VIEW : FrmUizaVideoV1.ACTION_VIEW_LIST);
         inputModel.setPreferExtensionDecoders(false);
 
         //TODO remove this code below
@@ -442,17 +442,17 @@ public class HomeV1CanSlideActivity extends BaseActivity {
         return inputModel;
     }
 
-    private FrmTop frmTop;
-    private FrmBottom frmBottom;
+    private FrmTopV1 frmTopV1;
+    private FrmBottomV1 frmBottomV1;
 
     public void initializeDraggablePanel() throws Resources.NotFoundException {
         LLog.d(TAG, "initializeDraggablePanel");
-        if (frmTop != null && frmBottom != null) {
+        if (frmTopV1 != null && frmBottomV1 != null) {
             LLog.d(TAG, "initializeDraggablePanel done before");
             return;
         }
-        frmTop = new FrmTop();
-        /*frmTop.setVisibilityChange(new FrmTop.VisibilityChange() {
+        frmTopV1 = new FrmTopV1();
+        /*frmTopV1.setVisibilityChange(new FrmTopV1.VisibilityChange() {
             @Override
             public void onVisibilityChange(int visibility) {
                 if (visibility == View.VISIBLE) {
@@ -462,8 +462,8 @@ public class HomeV1CanSlideActivity extends BaseActivity {
                 }
             }
         });*/
-        frmBottom = new FrmBottom();
-        frmBottom.setClickCallback(new FrmBottom.ClickCallback() {
+        frmBottomV1 = new FrmBottomV1();
+        frmBottomV1.setClickCallback(new FrmBottomV1.ClickCallback() {
             @Override
             public void onClick(vn.loitp.restapi.uiza.model.v1.listallentity.Item item, int position) {
                 LLog.d(TAG, "setClickCallback onClick " + item.getName());
@@ -471,8 +471,8 @@ public class HomeV1CanSlideActivity extends BaseActivity {
             }
         });
         draggablePanel.setFragmentManager(getSupportFragmentManager());
-        draggablePanel.setTopFragment(frmTop);
-        draggablePanel.setBottomFragment(frmBottom);
+        draggablePanel.setTopFragment(frmTopV1);
+        draggablePanel.setBottomFragment(frmBottomV1);
 
         //draggablePanel.setXScaleFactor(xScaleFactor);
         //draggablePanel.setYScaleFactor(yScaleFactor);
@@ -524,8 +524,8 @@ public class HomeV1CanSlideActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
         LLog.d(TAG, "onConfigurationChanged");
         // Checking the orientation of the screen
-        if (frmTop != null) {
-            //SimpleExoPlayerView simpleExoPlayerView = frmTop.getPlayerView();
+        if (frmTopV1 != null) {
+            //SimpleExoPlayerView simpleExoPlayerView = frmTopV1.getPlayerView();
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 LLog.d(TAG, "ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);

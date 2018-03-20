@@ -282,7 +282,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
 
         //v1
-        /*Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+        /*Intent intent = new Intent(getActivity(), UizaPlayerActivityV1.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());

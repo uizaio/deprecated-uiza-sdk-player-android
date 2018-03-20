@@ -1,4 +1,4 @@
-package com.uiza.player.ui.player.v1.canslide;
+package com.uiza.player.ui.player.v2.canslide;
 
 /**
  * Created by www.muathu@gmail.com on 12/24/2017.
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v1.cannotslide.ItemAdapterV1;
+import com.uiza.player.ui.player.v2.cannotslide.ItemAdapterV2;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,9 +33,9 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity;
-import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
-import vn.loitp.restapi.uiza.model.v1.listallentityrelation.ListAllEntityRelation;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -43,7 +43,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmBottom extends BaseFragment {
+public class FrmBottomV2 extends BaseFragment {
     private final String TAG = getClass().getSimpleName();
     private AVLoadingIndicatorView avLoadingIndicatorView;
     private TextView tvVideoName;
@@ -61,7 +61,7 @@ public class FrmBottom extends BaseFragment {
     //private NestedScrollView nestedScrollView;
     private List<Item> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemAdapterV1 mAdapter;
+    private ItemAdapterV2 mAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -93,12 +93,12 @@ public class FrmBottom extends BaseFragment {
 
         int sizeW = LDisplayUtils.getScreenW(getActivity()) / 2;
         int sizeH = sizeW * 9 / 16;
-        mAdapter = new ItemAdapterV1(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV1.Callback() {
+        mAdapter = new ItemAdapterV2(getActivity(), itemList, sizeW, sizeH, new ItemAdapterV2.Callback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
                 //V1
-                /*Intent intent = new Intent(getActivity(), UizaPlayerActivity.class);
+                /*Intent intent = new Intent(getActivity(), UizaPlayerActivityV1.class);
                 intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
@@ -161,7 +161,14 @@ public class FrmBottom extends BaseFragment {
 
         //TODO
         tvVideoStarring.setText(emptyS);
-        tvVideoDirector.setText(emptyS);
+
+        try {
+            tvVideoDirector.setText(mItem.getExtendData().getDirector());
+        } catch (NullPointerException e) {
+            tvVideoDirector.setText(nullS);
+        }
+
+        //TODO
         tvVideoGenres.setText(emptyS);
 
         getListAllEntityRelation(mItem.getId());
@@ -178,7 +185,7 @@ public class FrmBottom extends BaseFragment {
         mAdapter.notifyDataSetChanged();
         UizaService service = RestClientV2.createService(UizaService.class);
         LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getListAllEntityRalationV1(entityId), new ApiSubscriber<ListAllEntityRelation>() {
+        subscribe(service.getListAllEntityRalationV2(entityId), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
                 LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
@@ -235,14 +242,14 @@ public class FrmBottom extends BaseFragment {
         avLoadingIndicatorView.smoothToShow();
 
         //API v1
-        UizaService service = RestClientV2.createService(UizaService.class);
+        /*UizaService service = RestClientV2.createService(UizaService.class);
         LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntityV1(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
                 LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
                 if (getDetailEntity != null) {
-                    UizaData.getInstance().setDetailEntityV1(getDetailEntity);
+                    UizaData.getInstance().setDetailEntityV2(getDetailEntity);
                 } else {
                     showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
                 }
@@ -254,21 +261,21 @@ public class FrmBottom extends BaseFragment {
                 LLog.e(TAG, "onFail " + e.toString());
                 handleException(e);
             }
-        });
+        });*/
         //End API v1
 
         //API v2
-        /*UizaService service = RestClientV2.createService(UizaService.class);
+        UizaService service = RestClientV2.createService(UizaService.class);
         //LLog.d(TAG, "entityId: " + entityId);
         subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
                 LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
-                *//*if (getDetailEntityV2 != null) {
-                    UizaData.getInstance().setDetailEntityV2(getDetailEntityV2);
+                if (getDetailEntity != null) {
+                    UizaData.getInstance().setDetailEntityV2(getDetailEntity);
                 } else {
                     showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
-                }*//*
+                }
                 updateUI(getDetailEntity);
             }
 
@@ -277,7 +284,7 @@ public class FrmBottom extends BaseFragment {
                 LLog.e(TAG, "getDetailEntityV2 onFail " + e.toString());
                 handleException(e);
             }
-        });*/
+        });
         //EndAPI v2
     }
 

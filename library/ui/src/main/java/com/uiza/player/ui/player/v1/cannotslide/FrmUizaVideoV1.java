@@ -86,7 +86,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 //TODO remove debug_text_view, controls_root, retry_button
-public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
+public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -191,7 +191,7 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             public void onPlayThrough(int percent) {
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
-                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                ((UizaPlayerActivityV1) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
         });
 
@@ -620,17 +620,17 @@ public class FrmUizaVideo extends BaseFragment implements View.OnClickListener, 
             if (!isVideoStarted) {
                 isVideoStarted = true;
                 //track plays_requested
-                ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+                ((UizaPlayerActivityV1) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
                 LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
-                ((UizaPlayerActivity) getActivity()).removeCoverVideo();
+                ((UizaPlayerActivityV1) getActivity()).removeCoverVideo();
 
                 //track event view (after video is played 5s)
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
-                        ((UizaPlayerActivity) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                        ((UizaPlayerActivityV1) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
                     }
                 };
                 mHandler.postDelayed(mRunnable, 5000);
