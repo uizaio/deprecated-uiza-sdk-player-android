@@ -90,7 +90,7 @@ dependencies {
 
     //compile project(':core')
 
-    compile project(':corebase')
+    //compile project(':corebase')
     //compile project(':utils')
     //compile project(':uizalib')
     //compile project(':uizalibrary')
