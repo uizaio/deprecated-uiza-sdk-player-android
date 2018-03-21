@@ -393,7 +393,7 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
         }
 
         //subtitle
-        try {
+        /*try {
             Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
             //String urlSubtitle = "https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt";
             String urlSubtitle = inputModel.getDetailEntityV1().getItem().get(0).getSubtitle().get(0).getUrl();
@@ -408,7 +408,7 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
             //play video without subtitle
             LLog.d(TAG, "play video without subtitle NullPointerException " + e.toString());
             player.prepare(mediaSource, !haveResumePosition, false);
-        }
+        }*/
 
         //play no subtitle
         player.prepare(mediaSource, !haveResumePosition, false);
