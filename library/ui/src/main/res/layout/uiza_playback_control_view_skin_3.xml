@@ -14,15 +14,6 @@
         android:orientation="horizontal"
         android:visibility="invisible">
 
-        <!--<ImageButton
-            android:id="@id/exo_exit"
-            android:layout_width="@dimen/size_icon"
-            android:layout_height="@dimen/size_icon"
-            android:background="@color/transparent"
-            android:contentDescription="@string/app_name"
-            android:padding="@dimen/padding_5"
-            android:src="@drawable/ic_arrow_left" />-->
-
         <ImageButton
             android:id="@id/exo_exit"
             android:layout_width="@dimen/size_icon"
@@ -56,11 +47,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!--<ImageButton
-                    android:id="@id/exo_next"
-                    style="@style/ExoMediaButton.Next"
-                    android:visibility="gone" />-->
-
                 <ImageButton
                     android:id="@id/exo_next"
                     android:layout_width="@dimen/size_icon"
@@ -71,11 +57,6 @@
                     android:src="@drawable/ic_skip_next_black_48dp"
                     android:tint="@color/White"
                     android:visibility="gone" />
-
-                <!--<ImageButton
-                    android:id="@id/exo_question"
-                    style="@style/ExoMediaButton.Question"
-                    android:visibility="gone" />-->
 
                 <ImageButton
                     android:id="@id/exo_question"
@@ -88,11 +69,6 @@
                     android:tint="@color/White"
                     android:visibility="gone" />
 
-                <!--<ImageButton
-                    android:id="@id/exo_playlist"
-                    style="@style/ExoMediaButton.Playlist"
-                    android:visibility="gone" />-->
-
                 <ImageButton
                     android:id="@id/exo_playlist"
                     android:layout_width="@dimen/size_icon"
@@ -103,11 +79,6 @@
                     android:src="@drawable/ic_playlist_play_black_48dp"
                     android:tint="@color/White"
                     android:visibility="gone" />
-
-                <!--<ImageButton
-                    android:id="@id/exo_language"
-                    style="@style/ExoMediaButton.Language"
-                    android:visibility="gone" />-->
 
                 <ImageButton
                     android:id="@id/exo_language"
@@ -120,11 +91,6 @@
                     android:tint="@color/White"
                     android:visibility="gone" />
 
-                <!--<ImageButton
-                    android:id="@id/exo_setting"
-                    style="@style/ExoMediaButton.Setting"
-                    android:visibility="gone" />-->
-
                 <ImageButton
                     android:id="@id/exo_setting"
                     android:layout_width="@dimen/size_icon"
@@ -135,10 +101,6 @@
                     android:src="@drawable/ic_settings_black_48dp"
                     android:tint="@color/White"
                     android:visibility="gone" />
-
-                <!--<ImageButton
-                    android:id="@id/exo_fullscreen"
-                    style="@style/ExoMediaButton.Fullscreen" />-->
 
                 <ImageButton
                     android:id="@id/exo_fullscreen"
@@ -162,11 +124,6 @@
         android:orientation="horizontal"
         android:visibility="invisible">
 
-        <!--<ImageButton
-            android:id="@id/exo_prev"
-            style="@style/ExoMediaButton.Previous"
-            android:visibility="gone" />-->
-
         <ImageButton
             android:id="@id/exo_prev"
             android:layout_width="@dimen/size_icon"
@@ -188,12 +145,6 @@
             android:textSize="@dimen/txt_8"
             android:visibility="gone" />
 
-        <!--<ImageButton
-            android:id="@id/exo_rew"
-            style="@style/ExoMediaButton.Rewind"
-            android:layout_gravity="center"
-            android:visibility="gone" />-->
-
         <ImageButton
             android:id="@id/exo_rew"
             android:layout_width="@dimen/size_icon"
@@ -205,11 +156,6 @@
             android:src="@drawable/ic_fast_rewind_black_48dp"
             android:tint="@color/White" />
 
-        <!--<ImageButton
-            android:id="@id/exo_repeat_toggle"
-            style="@style/ExoMediaButton"
-            android:visibility="gone" />-->
-
         <ImageButton
             android:id="@id/exo_repeat_toggle"
             android:layout_width="@dimen/size_icon"
@@ -219,14 +165,6 @@
             android:scaleType="centerInside"
             android:src="@drawable/ic_fast_rewind_black_48dp"
             android:tint="@color/White" />
-
-        <!--<ImageButton
-            android:id="@id/exo_pause"
-            style="@style/ExoMediaButton.PauseRound"
-            android:layout_width="@dimen/w_80"
-            android:layout_height="@dimen/w_80"
-            android:scaleType="fitXY"
-            android:tint="@color/White" />-->
 
         <ImageButton
             android:id="@id/exo_pause"
@@ -238,14 +176,6 @@
             android:src="@drawable/ic_pause_white_48dp"
             android:tint="@color/White" />
 
-        <!--<ImageButton
-            android:id="@id/exo_play"
-            style="@style/ExoMediaButton.PlayRound"
-            android:layout_width="@dimen/w_80"
-            android:layout_height="@dimen/w_80"
-            android:scaleType="fitXY"
-            android:tint="@color/White" />-->
-
         <ImageButton
             android:id="@id/exo_play"
             android:layout_width="@dimen/w_80"
@@ -255,11 +185,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_play_arrow_black_48dp"
             android:tint="@color/White" />
-
-        <!--<ImageButton
-            android:id="@id/exo_ffwd"
-            style="@style/ExoMediaButton.FastForward"
-            android:visibility="gone" />-->
 
         <ImageButton
             android:id="@id/exo_ffwd"
