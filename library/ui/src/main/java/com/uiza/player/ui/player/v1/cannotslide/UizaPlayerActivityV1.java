@@ -363,7 +363,6 @@ public class UizaPlayerActivityV1 extends BaseActivity {
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
             @Override
             public void onSuccess(PlayerConfig playerConfig) {
-                //TODO custom theme
                 LLog.d(TAG, "getPlayerConfig onSuccess " + gson.toJson(playerConfig));
                 UizaData.getInstance().setPlayerConfig(playerConfig);
 
