@@ -264,10 +264,8 @@ public class SearchV1Activity extends BaseActivity implements View.OnClickListen
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         Intent intent = new Intent(activity, UizaPlayerActivityV1.class);
-        //intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-
-        intent.putExtra(KEY_UIZA_ENTITY_ID, "bf427eb6-51e4-43f9-b668-d15e5f324d9e");
-
+        intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
+        //intent.putExtra(KEY_UIZA_ENTITY_ID, "bf427eb6-51e4-43f9-b668-d15e5f324d9e");
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
