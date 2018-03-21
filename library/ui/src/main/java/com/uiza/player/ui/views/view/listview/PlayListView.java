@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.utils.util.ToastUtils;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
@@ -43,6 +45,7 @@ public class PlayListView extends RelativeLayout {
     }
 
     private void init() {
+        LLog.d(TAG, "init");
         inflate(getContext(), R.layout.play_list_view, this);
 
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -73,7 +76,7 @@ public class PlayListView extends RelativeLayout {
             @Override
             public void onClickItem(PlayListObject playListObject) {
                 //TODO
-                Toast.makeText(getContext(), "Click " + playListObject.getName(), Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("Click " + playListObject.getName());
             }
         });
         recyclerView.setAdapter(playListAdapter);

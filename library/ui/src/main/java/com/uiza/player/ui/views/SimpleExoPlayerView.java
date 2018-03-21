@@ -364,6 +364,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
             controller.setPlaybackControlViewOnClickEvent(new PlaybackControlView.PlaybackControlViewOnClickEvent() {
                 @Override
                 public void onClickQuestion(View view) {
+                    //TODO
                     LLog.d(TAG, "onClickQuestion");
                 }
 
