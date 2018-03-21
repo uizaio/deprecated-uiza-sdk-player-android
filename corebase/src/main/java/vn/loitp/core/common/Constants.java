@@ -42,6 +42,7 @@ public class Constants {
     public final static String URL_IMG_THUMBNAIL = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png";
 
     public final static String PREFIXS = "https://";
+    public final static String PREFIXS_SHORT = "https:";
 
     public final static String URL_TRACKING_DEV = "http://dev-tracking.uiza.io/analytic-tracking/";
     public final static String URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/";

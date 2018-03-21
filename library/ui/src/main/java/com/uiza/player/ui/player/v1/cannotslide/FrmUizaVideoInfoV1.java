@@ -202,6 +202,7 @@ public class FrmUizaVideoInfoV1 extends BaseFragment {
             public void onFail(Throwable e) {
                 LLog.e(TAG, "getListAllEntityRelation onFail " + e.toString());
                 handleException(e);
+                avLoadingIndicatorView.smoothToHide();
             }
         });
     }

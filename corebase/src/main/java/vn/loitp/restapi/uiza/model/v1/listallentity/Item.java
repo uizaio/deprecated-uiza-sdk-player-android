@@ -2,6 +2,7 @@
 package vn.loitp.restapi.uiza.model.v1.listallentity;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -61,6 +62,9 @@ public class Item {
     @SerializedName("extendData")
     @Expose
     private ExtendData extendData;
+    @SerializedName("subtitle")
+    @Expose
+    private List<Subtitle> subtitle = null;
 
     public String getId() {
         return id;
@@ -206,4 +210,11 @@ public class Item {
         this.extendData = extendData;
     }
 
+    public List<Subtitle> getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(List<Subtitle> subtitle) {
+        this.subtitle = subtitle;
+    }
 }

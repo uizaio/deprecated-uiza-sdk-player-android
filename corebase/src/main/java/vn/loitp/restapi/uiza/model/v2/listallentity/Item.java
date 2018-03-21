@@ -62,6 +62,9 @@ public class Item {
     @SerializedName("metadata")
     @Expose
     private List<Metadatum> metadata = null;
+    @SerializedName("subtitle")
+    @Expose
+    private List<Subtitle> subtitle = null;
 
     public String getId() {
         return id;
@@ -207,4 +210,11 @@ public class Item {
         this.metadata = metadata;
     }
 
+    public List<Subtitle> getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(List<Subtitle> subtitle) {
+        this.subtitle = subtitle;
+    }
 }
