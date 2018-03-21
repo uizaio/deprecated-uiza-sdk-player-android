@@ -22,7 +22,7 @@ public class LSApplication extends MultiDexApplication {
     private final String TAG = LSApplication.class.getSimpleName();
     private static LSApplication instance;
     private Gson gson;
-    protected String userAgent;
+    protected String userAgent = Constants.USER_AGENT;
 
     @Override
     public void onCreate() {
@@ -32,7 +32,7 @@ public class LSApplication extends MultiDexApplication {
             gson = new Gson();
         }
         Utils.init(this);
-        userAgent = Util.getUserAgent(this, "LoitpDemoUizaLSApplication");
+        //userAgent = Util.getUserAgent(this, Constants.USER_AGENT);
 
         //RestClientV2.init(getString(R.string.dev_uiza_URL), Constants.TOKEN);
         //UizaData.getInstance().init(getString(R.string.dev_uiza_URL), Constants.TOKEN, UizaData.PLAYER_ID_SKIN_1);

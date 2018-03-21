@@ -145,14 +145,11 @@ public class FrmUizaVideoInfoV1 extends BaseFragment {
         } catch (NullPointerException e) {
             tvVideoName.setText(nullS);
         }
-        try {
-            //TODO
-            tvVideoTime.setText("Dummy Time");
-        } catch (NullPointerException e) {
-            tvVideoTime.setText(nullS);
-        }
+        //TODO
+        tvVideoTime.setText("Dummy Time");
         //TODO
         tvVideoRate.setText("Dummy 18+");
+
         try {
             tvVideoDescription.setText(mItem.getDescription().isEmpty() ? mItem.getShortDescription().isEmpty() ? emptyS : mItem.getShortDescription() : mItem.getDescription());
         } catch (NullPointerException e) {
@@ -160,16 +157,18 @@ public class FrmUizaVideoInfoV1 extends BaseFragment {
         }
 
         //TODO
-        tvVideoStarring.setText(emptyS);
+        tvVideoStarring.setText("Dummy starring");
 
-        try {
-            tvVideoDirector.setText(mItem.getExtendData().getDirector());
-        } catch (NullPointerException e) {
+        if (mItem.getExtendData() == null || mItem.getExtendData().getDirector() == null) {
             tvVideoDirector.setText(nullS);
+        } else {
+            tvVideoDirector.setText(mItem.getExtendData().getDirector());
         }
 
         //TODO
         tvVideoGenres.setText(emptyS);
+
+        //get more like this video
         getListAllEntityRelation();
 
         if (Constants.IS_DEBUG) {

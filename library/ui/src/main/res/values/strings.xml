@@ -25,8 +25,8 @@
     <string name="selection_disabled">Disabled</string>
     <string name="selection_default">Default</string>
     <string name="starring">Starring:</string>
-    <string name="director">Director</string>
-    <string name="genres">Genres</string>
+    <string name="director">Director:</string>
+    <string name="genres">Genres:</string>
     <string name="more_like_this">More like this</string>
     <string name="no_link_play">No link play</string>
     <string name="cannot_play_any_videos">Cannot play any linkplays.</string>
