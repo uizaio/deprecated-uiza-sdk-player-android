@@ -16,8 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.InterstitialAd;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -34,17 +32,11 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 
-//TODO change const debug
-
 public abstract class BaseActivity extends AppCompatActivity {
     protected CompositeSubscription compositeSubscription = new CompositeSubscription();
     protected Activity activity;
     protected String TAG;
     private RelativeLayout rootView;
-
-    private InterstitialAd interstitialAd;
-
-    protected boolean isShowAdWhenExist = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,8 +50,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(setLayoutResourceId());
-
-        interstitialAd = LUIUtil.createAdFull(activity);
 
         ScrollView scrollView = (ScrollView) activity.findViewById(R.id.scroll_view);
         if (scrollView != null) {
@@ -170,9 +160,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         LUIUtil.transActivityFadeIn(activity);
-        if (isShowAdWhenExist) {
-            LUIUtil.displayInterstitial(interstitialAd, 50);
-        }
     }
 
     private TextView tvConnectStt;
