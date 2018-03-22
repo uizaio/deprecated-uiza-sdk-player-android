@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -18,6 +16,7 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.core.utilities.animation.Techniques;
 import vn.loitp.uiza.R;
 
 public class AnimationViewActivity extends BaseActivity {

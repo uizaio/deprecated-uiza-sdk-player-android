@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
@@ -22,6 +20,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.core.utilities.animation.Techniques;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 

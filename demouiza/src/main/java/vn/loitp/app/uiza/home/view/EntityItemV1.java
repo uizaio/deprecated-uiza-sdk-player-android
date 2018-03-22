@@ -5,12 +5,11 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.core.utilities.animation.Techniques;
 import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.annotations.Click;

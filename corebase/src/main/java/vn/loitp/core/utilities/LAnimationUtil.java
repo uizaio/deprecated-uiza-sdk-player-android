@@ -8,10 +8,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-
 import loitp.core.R;
+import vn.loitp.core.utilities.animation.Techniques;
+import vn.loitp.core.utilities.animation.YoYo;
 
 /**
  * Created by www.muathu@gmail.com on 6/9/2017.

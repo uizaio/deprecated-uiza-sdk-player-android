@@ -8,9 +8,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-
 import vn.loitp.core.utilities.LAnimationUtil;
+import vn.loitp.core.utilities.animation.Techniques;
 import vn.loitp.uiza.R;
 
 /**

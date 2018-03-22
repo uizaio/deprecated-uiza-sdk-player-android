@@ -7,11 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.daimajia.androidanimations.library.Techniques;
-
 import loitp.core.R;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.core.utilities.animation.Techniques;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.

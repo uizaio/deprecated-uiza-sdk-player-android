@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.daimajia.androidanimations.library.Techniques;
-
 import vn.loitp.app.uiza.home.model.Item;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LImageUtil;
+import vn.loitp.core.utilities.animation.Techniques;
 import vn.loitp.uiza.R;
 import vn.loitp.views.placeholderview.lib.placeholderview.Animation;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;

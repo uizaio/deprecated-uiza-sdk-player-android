@@ -35,7 +35,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerLibraryInfo;
@@ -58,6 +57,7 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LAnimationUtil;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.animation.Techniques;
 
 /**
  * A view for controlling {@link Player} instances.
