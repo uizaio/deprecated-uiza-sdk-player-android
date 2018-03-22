@@ -71,8 +71,8 @@ public class SplashActivity extends BaseActivity {
         LLog.d(TAG, ">>>>>>>>>.auth");
         RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2);
         UizaService service = RestClientV2.createService(UizaService.class);
-        String accessKeyId = "BNEU77HJAPWYVIF1DEU5";
-        String secretKeyId = "8yro1j369cCj6VR7cD2kzQbzJ2vDiswt7jxhtGjp";
+        String accessKeyId = "Y0ZW0XM7HZL2CB8ODNDV";
+        String secretKeyId = "qtQWc9Ut1SAfWK2viFJHBgViYCZYthSTjEJMlR9S";
         subscribe(service.auth(accessKeyId, secretKeyId), new ApiSubscriber<Auth>() {
             @Override
             public void onSuccess(Auth auth) {
@@ -90,7 +90,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.getMessage());
+                LLog.e(TAG, "auth onFail " + e.getMessage());
                 handleException(e);
             }
         });

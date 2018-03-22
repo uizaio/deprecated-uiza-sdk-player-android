@@ -54,7 +54,7 @@ public interface UizaService {
 
     //=====================================================v2 dev-api.uiza.io/resource/index.html
     @FormUrlEncoded
-    @POST("/api/public/v1/auth/credentical")
+    @POST("/api/resource/v1/auth/credentical")
     Observable<Auth> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
 
     @GET("/api/resource/v1/auth/check-token")
