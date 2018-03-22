@@ -9,7 +9,7 @@ import android.widget.TextView;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private EditText etId;
@@ -58,8 +58,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
-        //TODO
-        ToastUtils.showShort("Click");
+        LToast.show(activity, "Click");
         /*LSService service = RestClientV2.createService(LSService.class);
         String id = "fuck";
         String pw = "fuck";
@@ -80,10 +79,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_forgot_pw:
-                ToastUtils.showShort("Click");
+                LToast.show(activity, "Click tv_forgot_pw");
                 break;
             case R.id.tv_dont_have_acc:
-                ToastUtils.showShort("Click");
+                LToast.show(activity, "Click tv_dont_have_acc");
                 break;
             case R.id.tv_login:
                 login();

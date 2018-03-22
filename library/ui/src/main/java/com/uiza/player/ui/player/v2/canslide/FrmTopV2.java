@@ -100,7 +100,7 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
@@ -350,7 +350,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                     }
                 }
                 if (drmSessionManager == null) {
-                    ToastUtils.showShort(errorStringId);
+                    LToast.show(getActivity(), errorStringId);
                     return;
                 }
             }
@@ -402,7 +402,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 extensions = new String[uriStrings.length];
             }
         } else {
-            ToastUtils.showShort(getContext().getString(R.string.unexpected_intent_action, action));
+            LToast.show(getActivity(), getContext().getString(R.string.unexpected_intent_action, action));
             return;
         }
         if (Util.maybeRequestReadExternalStoragePermission((Activity) getContext(), uris)) {
@@ -425,7 +425,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             try {
                 mediaSource = createAdsMediaSource(mediaSource, Uri.parse(adTagUriString));
             } catch (Exception e) {
-                ToastUtils.showShort((R.string.ima_not_loaded));
+                LToast.show(getActivity(), R.string.ima_not_loaded);
             }
         } else {
             releaseAdsLoader();
@@ -751,7 +751,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             }
         }
         if (errorString != null) {
-            ToastUtils.showShort(errorString);
+            LToast.show(getActivity(), errorString);
         }
         inErrorState = true;
         if (isBehindLiveWindow(e)) {
@@ -772,10 +772,10 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort((R.string.error_unsupported_video));
+                    LToast.show(getActivity(), R.string.error_unsupported_video);
                 }
                 if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO) == MappingTrackSelector.MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    ToastUtils.showShort((R.string.error_unsupported_audio));
+                    LToast.show(getActivity(), R.string.error_unsupported_audio);
                 }
             }
             lastSeenTrackGroupArray = trackGroups;
@@ -978,14 +978,14 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     public void onAdClicked() {
         //TODO onAdClicked
         LLog.d(TAG, "onAdClicked");
-        ToastUtils.showShort(("onAdClicked"));
+        LToast.show(getActivity(), "onAdClicked");
     }
 
     @Override
     public void onAdTapped() {
         //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
-        ToastUtils.showShort(("onAdTapped"));
+        LToast.show(getActivity(), "onAdTapped");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

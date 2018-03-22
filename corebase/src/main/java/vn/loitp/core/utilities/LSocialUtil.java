@@ -24,10 +24,10 @@ public class LSocialUtil {
     public static void rateApp(Activity activity, String packageName) {
         try {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
-            LUIUtil.transActivityFadeIn(activity);
+            LActivityUtil.tranIn(activity);
         } catch (android.content.ActivityNotFoundException anfe) {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
-            LUIUtil.transActivityFadeIn(activity);
+            LActivityUtil.tranIn(activity);
         }
     }
 
@@ -48,7 +48,7 @@ public class LSocialUtil {
             sAux = sAux + "https://play.google.com/store/apps/details?id=" + activity.getPackageName();
             intent.putExtra(Intent.EXTRA_TEXT, sAux);
             activity.startActivity(Intent.createChooser(intent, "Vui lòng chọn"));
-            LUIUtil.transActivityFadeIn(activity);
+            LActivityUtil.tranIn(activity);
         } catch (Exception e) {
             LLog.d(TAG, "shareApp: " + e.toString());
         }
@@ -63,7 +63,7 @@ public class LSocialUtil {
             //sAux = sAux + "https://play.google.com/store/apps/details?id=" + activity.getPackageName();
             intent.putExtra(Intent.EXTRA_TEXT, msg);
             activity.startActivity(Intent.createChooser(intent, "Vui lòng chọn"));
-            LUIUtil.transActivityFadeIn(activity);
+            LActivityUtil.tranIn(activity);
         } catch (Exception e) {
             LLog.d(TAG, "shareApp: " + e.toString());
         }
@@ -75,7 +75,7 @@ public class LSocialUtil {
         String facebookUrl = getFacebookPageURL(activity);
         facebookIntent.setData(Uri.parse(facebookUrl));
         activity.startActivity(facebookIntent);
-        LUIUtil.transActivityFadeIn(activity);
+        LActivityUtil.tranIn(activity);
     }
 
     /*

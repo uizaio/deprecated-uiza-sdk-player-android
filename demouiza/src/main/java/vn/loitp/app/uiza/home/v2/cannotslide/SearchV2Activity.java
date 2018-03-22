@@ -19,6 +19,7 @@ import vn.loitp.app.app.LSApplication;
 import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LKeyBoardUtil;
 import vn.loitp.core.utilities.LLog;
@@ -29,7 +30,7 @@ import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
@@ -191,7 +192,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
 
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
-            ToastUtils.showShort("This is last page");
+            LToast.show(activity, "This is last page");
             if (isCallFromLoadMore) {
                 placeHolderView.removeView(getListSize() - 1);//remove loading view
                 isLoadMoreCalling = false;
@@ -199,7 +200,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
             return;
         }
 
-        ToastUtils.showShort("getData page " + page);
+        LToast.show(activity, "getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.searchEntityV2(keyword, limit, page), new ApiSubscriber<Search>() {
@@ -268,7 +269,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(activity);
+        LActivityUtil.tranIn(activity);
     }
 
     private void swipeToRefresh() {

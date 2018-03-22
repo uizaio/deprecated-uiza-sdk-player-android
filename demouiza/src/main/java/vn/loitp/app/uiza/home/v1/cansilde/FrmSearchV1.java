@@ -32,7 +32,7 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v1.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 /**
@@ -207,7 +207,7 @@ public class FrmSearchV1 extends BaseFragment implements IOnBackPressed, View.On
 
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
-            ToastUtils.showShort("This is last page");
+            LToast.show(getActivity(), "This is last page");
             if (isCallFromLoadMore) {
                 placeHolderView.removeView(getListSize() - 1);//remove loading view
                 isLoadMoreCalling = false;

@@ -13,6 +13,7 @@ import vn.loitp.app.uiza.home.v2.cannotslide.HomeV2CannotSlideActivity;
 import vn.loitp.app.uiza.home.v2.cansilde.HomeV2CanSlideActivity;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LDateUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
@@ -22,7 +23,7 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 
 public class SplashActivity extends BaseActivity {
 
@@ -172,7 +173,7 @@ public class SplashActivity extends BaseActivity {
             }
         }
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(activity);
+        LActivityUtil.tranIn(activity);
         finish();
     }
 
@@ -191,7 +192,7 @@ public class SplashActivity extends BaseActivity {
                 if (currentTime > expiredTime) {
                     showDialogOne("Token đã hết hạn.", true);
                 } else {
-                    ToastUtils.showLong("Token hết hạn vào " + LDateUtils.convertTimestampToDate(expiredTime));
+                    LToast.show(activity, "Token hết hạn vào " + LDateUtils.convertTimestampToDate(expiredTime));
                     goToHome(a);
                 }
             }

@@ -32,7 +32,7 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 
 /**
@@ -207,7 +207,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
 
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
-            ToastUtils.showShort("This is last page");
+            LToast.show(getActivity(), "This is last page");
             if (isCallFromLoadMore) {
                 placeHolderView.removeView(getListSize() - 1);//remove loading view
                 isLoadMoreCalling = false;
@@ -215,7 +215,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             return;
         }
 
-        //ToastUtils.showShort("getData page " + page);
+        LToast.show(getActivity(), "getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.searchEntityV2(keyword, limit, page), new ApiSubscriber<Search>() {

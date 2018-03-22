@@ -20,6 +20,7 @@ import vn.loitp.app.uiza.home.view.EntityItemV1;
 import vn.loitp.app.uiza.home.view.LoadingView;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
@@ -30,7 +31,7 @@ import vn.loitp.restapi.uiza.model.v1.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -76,10 +77,10 @@ public class FrmChannelV1 extends BaseFragment {
         View view = inflater.inflate(R.layout.uiza_frm_channel, container, false);
         tv = (TextView) view.findViewById(R.id.tv);
         tvMsg = (TextView) view.findViewById(R.id.tv_msg);
-        if(Constants.IS_DEBUG){
+        if (Constants.IS_DEBUG) {
             tv.setVisibility(View.VISIBLE);
             tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
-        }else{
+        } else {
             tv.setVisibility(View.GONE);
         }
 
@@ -233,7 +234,7 @@ public class FrmChannelV1 extends BaseFragment {
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(getActivity());
+        LActivityUtil.tranIn(getActivity());
     }
 
     private void getData(boolean isCallFromLoadMore) {
@@ -241,7 +242,7 @@ public class FrmChannelV1 extends BaseFragment {
 
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
-            ToastUtils.showShort("This is last page");
+            LToast.show(getActivity(), "This is last page");
             placeHolderView.removeView(getListSize() - 1);//remove loading view
             if (isCallFromLoadMore) {
                 isLoadMoreCalling = false;
@@ -249,7 +250,7 @@ public class FrmChannelV1 extends BaseFragment {
             return;
         }
 
-        ToastUtils.showShort("getData page " + page);
+        LToast.show(getActivity(), "getData page " + page);
         if (tvMsg.getVisibility() != View.GONE) {
             tvMsg.setVisibility(View.GONE);
         }

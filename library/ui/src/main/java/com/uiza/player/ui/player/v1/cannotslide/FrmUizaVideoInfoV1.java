@@ -19,6 +19,7 @@ import java.util.List;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
@@ -99,7 +100,7 @@ public class FrmUizaVideoInfoV1 extends BaseFragment {
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(getActivity());
+                LActivityUtil.tranIn(getActivity());
             }
 
             @Override

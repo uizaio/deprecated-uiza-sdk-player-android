@@ -8,15 +8,11 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.util.Util;
 import com.google.gson.Gson;
 
 import vn.loitp.core.common.Constants;
-import vn.loitp.restapi.restclient.RestClientV2;
+import vn.loitp.data.ActivityData;
 import vn.loitp.uiza.BuildConfig;
-import vn.loitp.utils.util.Utils;
-
-//TODO load more
 
 public class LSApplication extends MultiDexApplication {
     private final String TAG = LSApplication.class.getSimpleName();
@@ -31,7 +27,7 @@ public class LSApplication extends MultiDexApplication {
         if (gson == null) {
             gson = new Gson();
         }
-        Utils.init(this);
+        ActivityData.getInstance().setType(Constants.TYPE_ACTIVITY_TRANSITION_FADE);
         //userAgent = Util.getUserAgent(this, Constants.USER_AGENT);
 
         //RestClientV2.init(getString(R.string.dev_uiza_URL), Constants.TOKEN);

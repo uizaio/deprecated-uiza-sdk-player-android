@@ -33,6 +33,7 @@ import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
@@ -45,7 +46,7 @@ import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.draggablepanel.DraggableListener;
 import vn.loitp.views.draggablepanel.DraggablePanel;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
@@ -131,7 +132,7 @@ public class HomeV1CanSlideActivity extends BaseActivity {
         uizaDrawerHeader.setCallback(new UizaDrawerHeader.Callback() {
             @Override
             public void onClickLogOut() {
-                ToastUtils.showShort("Click");
+                LToast.show(activity, "Click");
             }
 
             @Override
@@ -139,7 +140,7 @@ public class HomeV1CanSlideActivity extends BaseActivity {
                 closeDrawer();
                 Intent intent = new Intent(activity, LoginActivity.class);
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LActivityUtil.tranIn(activity);
             }
 
             /*@Override
@@ -316,7 +317,7 @@ public class HomeV1CanSlideActivity extends BaseActivity {
             @Override
             public void onClick() {
                 finish();
-                LUIUtil.transActivityFadeIn(activity);
+                LActivityUtil.tranOut(activity);
             }
         });
     }

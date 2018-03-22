@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
@@ -17,7 +16,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
@@ -76,7 +75,7 @@ public class PlayListView extends RelativeLayout {
             @Override
             public void onClickItem(PlayListObject playListObject) {
                 //TODO
-                ToastUtils.showShort("Click " + playListObject.getName());
+                LToast.show(getContext(), "Click " + playListObject.getName());
             }
         });
         recyclerView.setAdapter(playListAdapter);

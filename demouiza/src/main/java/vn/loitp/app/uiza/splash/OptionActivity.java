@@ -12,8 +12,8 @@ import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.uiza.R;
 
 public class OptionActivity extends BaseActivity {
@@ -113,7 +113,7 @@ public class OptionActivity extends BaseActivity {
         intent.putExtra(KEY_API_END_POINT, currentApiEndPoint);
         intent.putExtra(KEY_API_TRACKING_END_POINT, currentApiTrackingEndPoint);
         startActivity(intent);
-        LUIUtil.transActivityFadeIn(activity);
+        LActivityUtil.tranIn(activity);
     }
 
     @Override

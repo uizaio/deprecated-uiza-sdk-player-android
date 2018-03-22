@@ -28,7 +28,7 @@ import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
-import vn.loitp.utils.util.ToastUtils;
+import vn.loitp.views.LToast;
 import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -223,7 +223,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
 
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
-            ToastUtils.showShort("This is last page");
+            LToast.show(getActivity(), "This is last page");
             placeHolderView.removeView(getListSize() - 1);//remove loading view
             if (isCallFromLoadMore) {
                 isLoadMoreCalling = false;
@@ -231,7 +231,7 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             return;
         }
 
-        ToastUtils.showShort("getData page " + page);
+        LToast.show(getActivity(), "getData page " + page);
         if (tvMsg.getVisibility() != View.GONE) {
             tvMsg.setVisibility(View.GONE);
         }
