@@ -362,7 +362,7 @@ public class PlaybackControlView extends FrameLayout {
     private final Runnable hideAction = new Runnable() {
         @Override
         public void run() {
-            hide(true);
+            hide();
         }
     };
 
@@ -776,7 +776,6 @@ public class PlaybackControlView extends FrameLayout {
     public void show() {
         if (!isVisible()) {
             setVisibility(VISIBLE);
-            LAnimationUtil.play(this, Techniques.FadeIn);
             if (visibilityListener != null) {
                 visibilityListener.onVisibilityChange(getVisibility());
             }
@@ -792,50 +791,18 @@ public class PlaybackControlView extends FrameLayout {
      */
     private boolean isViewHiddenButStillCount = true;
 
-    public void hide(boolean isShowAnimation) {
+    public void hide() {
         LLog.d(TAG, "hide isVisible " + isVisible());
         if (isVisible()) {
-            if (isShowAnimation) {
-                LAnimationUtil.play(this, Techniques.FadeOut, new LAnimationUtil.Callback() {
-                    @Override
-                    public void onCancel() {
-                        //do nothing
-                    }
-
-                    @Override
-                    public void onEnd() {
-                        setVisibility(GONE);
-                        if (visibilityListener != null) {
-                            visibilityListener.onVisibilityChange(getVisibility());
-                        }
-                        if (!isViewHiddenButStillCount) {
-                            removeCallbacks(updateProgressAction);
-                        }
-                        removeCallbacks(hideAction);
-                        hideAtMs = C.TIME_UNSET;
-                    }
-
-                    @Override
-                    public void onRepeat() {
-                        //do nothing
-                    }
-
-                    @Override
-                    public void onStart() {
-                        //do nothing
-                    }
-                });
-            } else {
-                setVisibility(GONE);
-                if (visibilityListener != null) {
-                    visibilityListener.onVisibilityChange(getVisibility());
-                }
-                if (!isViewHiddenButStillCount) {
-                    removeCallbacks(updateProgressAction);
-                }
-                removeCallbacks(hideAction);
-                hideAtMs = C.TIME_UNSET;
+            setVisibility(GONE);
+            if (visibilityListener != null) {
+                visibilityListener.onVisibilityChange(getVisibility());
             }
+            if (!isViewHiddenButStillCount) {
+                removeCallbacks(updateProgressAction);
+            }
+            removeCallbacks(hideAction);
+            hideAtMs = C.TIME_UNSET;
         }
     }
 
@@ -904,7 +871,7 @@ public class PlaybackControlView extends FrameLayout {
                     || timeline.getNextWindowIndex(windowIndex, player.getRepeatMode()) != C.INDEX_UNSET;
             if (player.isPlayingAd()) {
                 // Always hide player controls during ads.
-                hide(true);
+                hide();
             }
         }
         //setButtonEnabled(enablePrevious, previousButton);
@@ -1212,7 +1179,7 @@ public class PlaybackControlView extends FrameLayout {
         if (hideAtMs != C.TIME_UNSET) {
             long delayMs = hideAtMs - SystemClock.uptimeMillis();
             if (delayMs <= 0) {
-                hide(true);
+                hide();
             } else {
                 postDelayed(hideAction, delayMs);
             }
@@ -1423,7 +1390,7 @@ public class PlaybackControlView extends FrameLayout {
                 } else if (fullscreenButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickFullScreen(fullscreenButton);
-                        hide(false);
+                        hide();
                     }
                 } else if (exitButton == view) {
                     if (playbackControlViewOnClickEvent != null) {
