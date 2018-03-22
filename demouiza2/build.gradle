@@ -4,7 +4,6 @@ android {
     compileSdkVersion 26
     buildToolsVersion "27.0.3"
 
-
     defaultConfig {
         applicationId "zzz.uiza.moduledemouiza2"
         minSdkVersion 17

@@ -1,27 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">UIZA Demo</string>
-    <string-array name="occurence">
-        <item>Once</item>
-        <item>Weekly</item>
-    </string-array>
 
-    <string-array name="pref_alarm_play_time_entries">
-        <item>10 seconds</item>
-        <item>30 seconds</item>
-        <item>1 minute</item>
-        <item>2 minutes</item>
-        <item>3 minutes</item>
-        <item>5 minutes</item>
-    </string-array>
-
-    <string-array name="pref_alarm_play_time_values">
-        <item>10</item>
-        <item>30</item>
-        <item>60</item>
-        <item>120</item>
-        <item>180</item>
-        <item>300</item>
-    </string-array>
     <string name="video">Video</string>
     <string name="audio">Audio</string>
     <string name="text">Text</string>
@@ -39,7 +18,6 @@
     <string name="error_instantiating_decoder">Unable to instantiate decoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
     <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
     <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
-    <string name="storage_permission_denied">Permission to access storage was denied</string>
     <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
     <string name="login_form">Login Form</string>
     <string name="enter_your_username">Enter your username</string>
@@ -50,9 +28,6 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="log_in">Log in</string>
-    <string name="noti">Warning</string>
     <string name="empty_list">Không có dữ liệu</string>
     <string name="confirm">Confirm</string>
-    <string name="open_drawer">open_drawer</string>
-    <string name="close_drawer">close_drawer</string>
 </resources>

@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import loitp.core.R;
+import retrofit2.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -114,11 +115,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void handleException(Throwable throwable) {
-        if (throwable == null) {
+        if (throwable == null || throwable.getMessage() == null) {
             return;
         }
-        LLog.e(TAG, throwable.toString());
-        showDialogError("handleException: " + throwable.getMessage());
+        LLog.e(TAG, TAG + " handleException " + throwable.toString());
+        LLog.e(TAG, TAG + " handleException " + throwable.getMessage());
+        if (throwable instanceof HttpException) {
+            LLog.e(TAG, TAG + " handleException code: " + ((HttpException) throwable).code());
+            LDialogUtil.showError(activity, ((HttpException) throwable).code(), getString(R.string.err), new LDialogUtil.CallbackShowOne() {
+                @Override
+                public void onClick() {
+                    //do nothing
+                }
+            });
+        } else {
+            showDialogError(throwable.getMessage());
+        }
     }
 
     protected void showDialogOne(String msg) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import loitp.core.R;
+import retrofit2.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -11,6 +12,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import vn.loitp.core.utilities.LDialogUtil;
+import vn.loitp.core.utilities.LLog;
 
 /**
  * Created by khanh on 7/31/16.
@@ -52,7 +54,19 @@ public abstract class BaseFragment extends Fragment {
         if (throwable == null || throwable.getMessage() == null) {
             return;
         }
-        showDialogError(throwable.getMessage());
+        LLog.e(BASE_TAG, BASE_TAG + " handleException " + throwable.toString());
+        LLog.e(BASE_TAG, BASE_TAG + " handleException " + throwable.getMessage());
+        if (throwable instanceof HttpException) {
+            LLog.e(BASE_TAG, BASE_TAG + " handleException code: " + ((HttpException) throwable).code());
+            LDialogUtil.showError(getActivity(), ((HttpException) throwable).code(), getString(R.string.err), new LDialogUtil.CallbackShowOne() {
+                @Override
+                public void onClick() {
+                    //do nothing
+                }
+            });
+        } else {
+            showDialogError(throwable.getMessage());
+        }
     }
 
     protected void handleException(final String msgErr) {

@@ -11,6 +11,7 @@ import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivityV1;
 
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -52,7 +53,7 @@ public class MainActivity extends BaseActivity {
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, Constants.URL_IMG_THUMBNAIL);
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, "Test");
                 startActivity(intent);
-                LUIUtil.transActivityFadeIn(activity);
+                LActivityUtil.tranIn(activity);
             }
         });
     }
