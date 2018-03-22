@@ -1354,7 +1354,6 @@ public class PlaybackControlView extends FrameLayout {
         @Override
         public void onClick(View view) {
             if (player != null) {
-                LAnimationUtil.play(view, Techniques.Pulse);
                 /*if (nextButton == view) {
                     next();
                 }*/
