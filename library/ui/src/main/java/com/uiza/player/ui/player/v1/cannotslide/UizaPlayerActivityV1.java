@@ -257,7 +257,7 @@ public class UizaPlayerActivityV1 extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.d(TAG, "onFail getLinkPlayV1: " + e.toString());
+                LLog.e(TAG, "getLinkPlayV1 onFail: " + e.toString());
                 handleException(e);
             }
         });
