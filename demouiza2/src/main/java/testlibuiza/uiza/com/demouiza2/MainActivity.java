@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity {
 
         String currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
         boolean canSlide = false;
-        int currentApiVersion = Constants.API_VERSION_1;
         String currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2_STAG;
         String currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
 
@@ -37,11 +36,21 @@ public class MainActivity extends BaseActivity {
         RestClientV2.init(currentApiEndPoint, token);
         UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
-        UizaData.getInstance().setApiVersion(currentApiVersion);
 
-        Auth auth = new Auth();
-        auth.setToken(token);
-        auth.setAppId("a204e9cdeca44948a33e0d012ef74e90");
+        String json = "{\n" +
+                "    \"data\": {\n" +
+                "        \"token\": \"30e23580-f326-4db4-9f3e-a01d609b32b3\",\n" +
+                "        \"expired\": \"22/04/2018 03:32:46\",\n" +
+                "        \"appId\": \"a204e9cdeca44948a33e0d012ef74e90\"\n" +
+                "    },\n" +
+                "    \"version\": 2,\n" +
+                "    \"datetime\": \"2018-03-23T03:32:46.242Z\",\n" +
+                "    \"name\": \"Resource\",\n" +
+                "    \"message\": \"ok\",\n" +
+                "    \"code\": 200,\n" +
+                "    \"type\": \"SUCCESS\"\n" +
+                "}";
+        Auth auth = new Gson().fromJson(json, Auth.class);
         LPref.setAuth(activity, auth, new Gson());
 
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
