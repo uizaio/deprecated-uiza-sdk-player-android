@@ -84,7 +84,7 @@ public interface UizaService {
     /*@GET("/api/public/v2/media/entity/get-link-play")
     Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);*/
 
-    @Headers("Content-Type: application/json")
+    //@Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/link-download")
     Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Body JsonBodyGetLinkPlay jsonBodyGetLinkPlay);
 
