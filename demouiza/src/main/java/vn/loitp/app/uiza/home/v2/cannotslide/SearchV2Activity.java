@@ -27,6 +27,7 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.restapi.uiza.model.v2.search.JsonBodySearch;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
@@ -204,7 +205,13 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
         LToast.show(activity, "getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
-        subscribe(service.searchEntityV2(keyword, limit, page), new ApiSubscriber<Search>() {
+
+        JsonBodySearch jsonBodySearch = new JsonBodySearch();
+        jsonBodySearch.setKeyword(keyword);
+        jsonBodySearch.setLimit(limit);
+        jsonBodySearch.setPage(page);
+
+        subscribe(service.searchEntityV2(jsonBodySearch), new ApiSubscriber<Search>() {
             @Override
             public void onSuccess(Search search) {
                 LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
