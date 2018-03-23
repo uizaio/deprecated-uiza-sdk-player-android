@@ -21,7 +21,7 @@ import vn.loitp.core.utilities.LPref;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
-import vn.loitp.restapi.uiza.model.v2.auth.JsonAuth;
+import vn.loitp.restapi.uiza.model.v2.auth.JsonBodyAuth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.LToast;
@@ -127,11 +127,11 @@ public class SplashActivity extends BaseActivity {
         String accessKeyId = "Y0ZW0XM7HZL2CB8ODNDV";
         String secretKeyId = "qtQWc9Ut1SAfWK2viFJHBgViYCZYthSTjEJMlR9S";
 
-        JsonAuth jsonAuth = new JsonAuth();
-        jsonAuth.setAccessKeyId(accessKeyId);
-        jsonAuth.setSecretKeyId(secretKeyId);
+        JsonBodyAuth jsonBodyAuth = new JsonBodyAuth();
+        jsonBodyAuth.setAccessKeyId(accessKeyId);
+        jsonBodyAuth.setSecretKeyId(secretKeyId);
 
-        subscribe(service.auth(jsonAuth), new ApiSubscriber<Auth>() {
+        subscribe(service.auth(jsonBodyAuth), new ApiSubscriber<Auth>() {
             @Override
             public void onSuccess(Auth auth) {
                 if (auth == null) {

@@ -26,6 +26,7 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.Datum;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBodyMetadataList;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
@@ -172,7 +173,13 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
         int limit = 999;
         String orderBy = "name";
         String orderType = "ASC";
-        subscribe(service.listAllMetadataV2(limit, orderBy, orderType), new ApiSubscriber<ListAllMetadata>() {
+
+        JsonBodyMetadataList jsonBodyMetadataList = new JsonBodyMetadataList();
+        jsonBodyMetadataList.setLimit(limit);
+        jsonBodyMetadataList.setOrderBy(orderBy);
+        jsonBodyMetadataList.setOrderType(orderType);
+
+        subscribe(service.listAllMetadataV2(jsonBodyMetadataList), new ApiSubscriber<ListAllMetadata>() {
             @Override
             public void onSuccess(ListAllMetadata listAllMetadata) {
                 LLog.d(TAG, "getListAllMetadata onSuccess " + LSApplication.getInstance().getGson().toJson(listAllMetadata));
