@@ -36,7 +36,7 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
 
-public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
+public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
     private final String TAG = getClass().getSimpleName();
     private TextView tv;
     private TextView tvMsg;
@@ -258,13 +258,13 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
-                LLog.d(TAG, "getLimit " + listAllEntity.getLimit());
-                LLog.d(TAG, "getPage " + listAllEntity.getPage());
-                LLog.d(TAG, "getTotal " + listAllEntity.getTotal());
-                LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
+                LLog.d(TAG, "getLimit " + listAllEntity.getMetadata().getLimit());
+                LLog.d(TAG, "getPage " + listAllEntity.getMetadata().getPage());
+                LLog.d(TAG, "getTotal " + listAllEntity.getMetadata().getTotal());
+                LLog.d(TAG, "getItems().size " + listAllEntity.getData().size());
 
                 if (totalPage == Integer.MAX_VALUE) {
-                    int totalItem = listAllEntity.getTotal();
+                    int totalItem = (int) listAllEntity.getMetadata().getTotal();
                     float ratio = (float) (totalItem / limit);
                     LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {
@@ -276,7 +276,8 @@ public class FrmChannel2 extends BaseFragment implements IOnBackPressed {
                     }
                     LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
-                List<Item> itemList = listAllEntity.getItems();
+
+                List<Item> itemList = listAllEntity.getData();
                 if (itemList == null || itemList.isEmpty()) {
                     if (tvMsg.getVisibility() != View.VISIBLE) {
                         tvMsg.setVisibility(View.VISIBLE);

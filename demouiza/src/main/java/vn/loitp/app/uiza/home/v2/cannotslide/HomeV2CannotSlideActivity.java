@@ -159,6 +159,15 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
 
     private void getListAllMetadata() {
         LLog.d(TAG, "getListAllMetadata");
+
+        //add home menu
+        Item item = new Item();
+        item.setName("Home");
+        item.setId(String.valueOf(Constants.NOT_FOUND));
+        item.setType("folder");
+        itemList.add(0, item);
+        //emd add home menu
+
         UizaService service = RestClientV2.createService(UizaService.class);
         int limit = 999;
         String orderBy = "name";
@@ -178,20 +187,15 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
             public void onFail(Throwable e) {
                 LLog.e(TAG, "getListAllMetadata onFail " + e.getMessage());
                 handleException(e);
+                genListDrawerLayout(null);
             }
         });
     }
 
     private void genListDrawerLayout(ListAllMetadata listAllMetadata) {
-        itemList = listAllMetadata.getItems();
-
-        //add home menu
-        Item item = new Item();
-        item.setName("Home");
-        item.setId(String.valueOf(Constants.NOT_FOUND));
-        item.setType("folder");
-        itemList.add(0, item);
-        //emd add home menu
+        if (listAllMetadata != null) {
+            itemList.addAll(listAllMetadata.getItems());
+        }
 
         for (int i = 0; i < this.itemList.size(); i++) {
             mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItem.Callback() {

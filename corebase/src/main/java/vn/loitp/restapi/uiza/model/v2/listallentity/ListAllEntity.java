@@ -7,60 +7,93 @@ import com.google.gson.annotations.SerializedName;
 
 public class ListAllEntity {
 
-    @SerializedName("items")
+    @SerializedName("data")
     @Expose
-    private List<Item> items = null;
-    @SerializedName("total")
+    private List<Item> data = null;
+    @SerializedName("metadata")
     @Expose
-    private int total;
-    @SerializedName("result")
+    private Metadata metadata;
+    @SerializedName("version")
     @Expose
-    private int result;
-    @SerializedName("page")
+    private double version;
+    @SerializedName("datetime")
     @Expose
-    private int page;
-    @SerializedName("limit")
+    private String datetime;
+    @SerializedName("name")
     @Expose
-    private int limit;
+    private String name;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("code")
+    @Expose
+    private double code;
+    @SerializedName("type")
+    @Expose
+    private String type;
 
-    public List<Item> getItems() {
-        return items;
+    public List<Item> getData() {
+        return data;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setData(List<Item> data) {
+        this.data = data;
     }
 
-    public int getTotal() {
-        return total;
+    public Metadata getMetadata() {
+        return metadata;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
     }
 
-    public int getResult() {
-        return result;
+    public double getVersion() {
+        return version;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setVersion(double version) {
+        this.version = version;
     }
 
-    public int getPage() {
-        return page;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
-    public int getLimit() {
-        return limit;
+    public String getName() {
+        return name;
     }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public double getCode() {
+        return code;
+    }
+
+    public void setCode(double code) {
+        this.code = code;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

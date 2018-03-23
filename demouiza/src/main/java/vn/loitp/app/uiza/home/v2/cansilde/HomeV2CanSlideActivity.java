@@ -263,14 +263,14 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                     HomeData.getInstance().setCurrentPosition(pos);
                     HomeData.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
-                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannel2(), true);
+                    UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV2(), true);
                 }
             }));
         }
 
         //init data first
         HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
-        currentFrm = new FrmChannel2();
+        currentFrm = new FrmChannelV2();
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm, true);
     }
 
@@ -501,7 +501,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             if (currentFrm != null) {
                 LLog.d(TAG, "updateUIStatusNavigationBar currentFrm " + currentFrm.getClass().getSimpleName());
-                if (currentFrm.getClass().getSimpleName().equals(FrmChannel2.class.getSimpleName())) {
+                if (currentFrm.getClass().getSimpleName().equals(FrmChannelV2.class.getSimpleName())) {
                     setVisibilityOfActionBar(View.VISIBLE);
                 }
             }

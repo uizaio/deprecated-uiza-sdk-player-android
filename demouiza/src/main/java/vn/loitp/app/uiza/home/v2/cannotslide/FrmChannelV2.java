@@ -27,8 +27,8 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
-import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
+import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.LToast;
@@ -272,13 +272,13 @@ public class FrmChannelV2 extends BaseFragment {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
-                LLog.d(TAG, "getLimit " + listAllEntity.getLimit());
-                LLog.d(TAG, "getPage " + listAllEntity.getPage());
-                LLog.d(TAG, "getTotal " + listAllEntity.getTotal());
-                LLog.d(TAG, "getItems().size " + listAllEntity.getItems().size());
+                LLog.d(TAG, "getLimit " + listAllEntity.getMetadata().getLimit());
+                LLog.d(TAG, "getPage " + listAllEntity.getMetadata().getPage());
+                LLog.d(TAG, "getTotal " + listAllEntity.getMetadata().getTotal());
+                LLog.d(TAG, "getItems().size " + listAllEntity.getData().size());
 
                 if (totalPage == Integer.MAX_VALUE) {
-                    int totalItem = listAllEntity.getTotal();
+                    int totalItem = (int) listAllEntity.getMetadata().getTotal();
                     float ratio = (float) (totalItem / limit);
                     LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {
@@ -291,7 +291,7 @@ public class FrmChannelV2 extends BaseFragment {
                     LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
 
-                List<Item> itemList = listAllEntity.getItems();
+                List<Item> itemList = listAllEntity.getData();
                 if (itemList == null || itemList.isEmpty()) {
                     if (tvMsg.getVisibility() != View.VISIBLE) {
                         tvMsg.setVisibility(View.VISIBLE);
