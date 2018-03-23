@@ -4,7 +4,7 @@ package vn.loitp.restapi.uiza.model.v2.getlinkplay;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Hl {
+public class Hevc {
 
     @SerializedName("name")
     @Expose

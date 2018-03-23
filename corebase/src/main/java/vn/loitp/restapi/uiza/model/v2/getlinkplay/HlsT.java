@@ -14,7 +14,7 @@ public class HlsT {
     private String description;
     @SerializedName("url")
     @Expose
-    private String url;
+    private Object url;
 
     public String getName() {
         return name;
@@ -32,11 +32,11 @@ public class HlsT {
         this.description = description;
     }
 
-    public String getUrl() {
+    public Object getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(Object url) {
         this.url = url;
     }
 

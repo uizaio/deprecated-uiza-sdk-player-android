@@ -7,21 +7,59 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetLinkPlay {
 
+    @SerializedName("data")
+    @Expose
+    private List<Datum> data = null;
+    @SerializedName("version")
+    @Expose
+    private int version;
+    @SerializedName("datetime")
+    @Expose
+    private String datetime;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("hls")
+    @SerializedName("code")
     @Expose
-    private List<Hl> hls = null;
-    @SerializedName("hls_ts")
+    private int code;
+    @SerializedName("type")
     @Expose
-    private List<HlsT> hlsTs = null;
-    @SerializedName("hevc")
-    @Expose
-    private List<Object> hevc = null;
-    @SerializedName("mpd")
-    @Expose
-    private List<Mpd> mpd = null;
+    private String type;
+
+    public List<Datum> getData() {
+        return data;
+    }
+
+    public void setData(List<Datum> data) {
+        this.data = data;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getMessage() {
         return message;
@@ -31,36 +69,20 @@ public class GetLinkPlay {
         this.message = message;
     }
 
-    public List<Hl> getHls() {
-        return hls;
+    public int getCode() {
+        return code;
     }
 
-    public void setHls(List<Hl> hls) {
-        this.hls = hls;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public List<HlsT> getHlsTs() {
-        return hlsTs;
+    public String getType() {
+        return type;
     }
 
-    public void setHlsTs(List<HlsT> hlsTs) {
-        this.hlsTs = hlsTs;
-    }
-
-    public List<Object> getHevc() {
-        return hevc;
-    }
-
-    public void setHevc(List<Object> hevc) {
-        this.hevc = hevc;
-    }
-
-    public List<Mpd> getMpd() {
-        return mpd;
-    }
-
-    public void setMpd(List<Mpd> mpd) {
-        this.mpd = mpd;
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

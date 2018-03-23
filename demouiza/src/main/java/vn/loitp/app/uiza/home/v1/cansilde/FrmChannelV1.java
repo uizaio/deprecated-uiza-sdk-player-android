@@ -25,7 +25,7 @@ import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v1.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v1.listallentity.ListAllEntity;
-import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBody;
+import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBodyListAllEntity;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.LToast;
@@ -239,23 +239,23 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
 
         UizaService service = RestClientV2.createService(UizaService.class);
 
-        JsonBody jsonBody = new JsonBody();
+        JsonBodyListAllEntity jsonBodyListAllEntity = new JsonBodyListAllEntity();
         if (HomeDataV1.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
             LLog.d(TAG, "HOME category");
         } else {
             LLog.d(TAG, "!HOME category");
             List<String> metadataId = new ArrayList<>();
             metadataId.add(HomeDataV1.getInstance().getItem().getId());
-            jsonBody.setMetadataId(metadataId);
+            jsonBodyListAllEntity.setMetadataId(metadataId);
         }
-        jsonBody.setLimit(limit);
-        jsonBody.setPage(page);
-        jsonBody.setOrderBy(orderBy);
-        jsonBody.setOrderType(orderType);
-        LLog.d(TAG, "jsonBody " + LSApplication.getInstance().getGson().toJson(jsonBody));
+        jsonBodyListAllEntity.setLimit(limit);
+        jsonBodyListAllEntity.setPage(page);
+        jsonBodyListAllEntity.setOrderBy(orderBy);
+        jsonBodyListAllEntity.setOrderType(orderType);
+        LLog.d(TAG, "jsonBodyListAllEntity " + LSApplication.getInstance().getGson().toJson(jsonBodyListAllEntity));
         LLog.d(TAG, "<<<<<<<<<<<<<<<<<<<<<<<<");
 
-        subscribe(service.listAllEntityV1(jsonBody), new ApiSubscriber<ListAllEntity>() {
+        subscribe(service.listAllEntityV1(jsonBodyListAllEntity), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
                 LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));

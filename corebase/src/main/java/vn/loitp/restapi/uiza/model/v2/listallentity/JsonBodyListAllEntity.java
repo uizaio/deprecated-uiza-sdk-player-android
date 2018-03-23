@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class JsonBody {
+public class JsonBodyListAllEntity {
 
     @SerializedName("limit")
     @Expose
