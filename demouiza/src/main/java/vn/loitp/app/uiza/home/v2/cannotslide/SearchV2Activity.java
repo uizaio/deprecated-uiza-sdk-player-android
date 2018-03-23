@@ -177,7 +177,6 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
     }
 
     private void search(String keyword, boolean isCallFromLoadMore) {
-        LLog.d(TAG, "search keyword: " + keyword);
         tv.setVisibility(View.GONE);
         //avi.smoothToShow();
         if (isCallFromLoadMore) {
@@ -188,7 +187,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
             totalPage = Integer.MAX_VALUE;
         }
 
-        LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
+        LLog.d(TAG, ">>>getPage/totalPage: " + page + "/" + totalPage);
 
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
@@ -200,6 +199,8 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
             return;
         }
 
+        LToast.show(activity, "getData keyword " + keyword);
+        LToast.show(activity, "getData limit " + limit);
         LToast.show(activity, "getData page " + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
@@ -209,7 +210,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
                 LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
 
                 if (totalPage == Integer.MAX_VALUE) {
-                    int totalItem = search.getTotal();
+                    int totalItem = (int) search.getMetadata().getTotal();
                     float ratio = (float) (totalItem / limit);
                     LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {
@@ -222,11 +223,12 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
                     LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
 
-                if (search == null || search.getItems().isEmpty()) {
+                if (search == null || search.getItemList().isEmpty()) {
                     tv.setText(getString(R.string.empty_list));
                     tv.setVisibility(View.VISIBLE);
                 } else {
-                    setupUIList(search.getItems());
+                    LLog.d(TAG, "size: " + search.getItemList().size());
+                    setupUIList(search.getItemList());
                 }
             }
 

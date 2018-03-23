@@ -224,7 +224,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
                 LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
 
                 if (totalPage == Integer.MAX_VALUE) {
-                    int totalItem = search.getTotal();
+                    int totalItem = (int)search.getMetadata().getTotal();
                     float ratio = (float) (totalItem / limit);
                     LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {
@@ -237,11 +237,11 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
                     LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
 
-                if (search == null || search.getItems().isEmpty()) {
+                if (search == null || search.getItemList().isEmpty()) {
                     tv.setText(getString(vn.loitp.uiza.R.string.empty_list));
                     tv.setVisibility(View.VISIBLE);
                 } else {
-                    setupUIList(search.getItems());
+                    setupUIList(search.getItemList());
                 }
                 //avi.smoothToHide();
             }
