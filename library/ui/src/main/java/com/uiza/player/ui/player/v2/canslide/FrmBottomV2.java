@@ -137,7 +137,7 @@ public class FrmBottomV2 extends BaseFragment {
     }
 
     private void updateUI(GetDetailEntity getDetailEntity) {
-        Item mItem = getDetailEntity.getItem().get(0);
+        Item mItem = getDetailEntity.getData().get(0);
         final String emptyS = "Empty string";
         final String nullS = "Data is null";
         try {

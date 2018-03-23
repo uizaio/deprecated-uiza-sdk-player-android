@@ -130,7 +130,7 @@ public class FrmUizaVideoInfoV2 extends BaseFragment {
             LLog.d(TAG, "setup mItem == null -> do nothing");
             try {
                 if (mInputModel.getDetailEntityV2() != null) {
-                    mItem = mInputModel.getDetailEntityV2().getItem().get(0);
+                    mItem = mInputModel.getDetailEntityV2().getData().get(0);
                     updateUI();
                 }
             } catch (Exception e) {
