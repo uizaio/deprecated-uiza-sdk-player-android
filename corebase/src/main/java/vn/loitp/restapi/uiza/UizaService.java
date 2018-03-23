@@ -71,7 +71,7 @@ public interface UizaService {
     //Observable<vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata> listAllMetadataV2(@Field("limit") int limit, @Field("orderBy") String orderBy, @Field("orderType") String orderType);
     Observable<vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata> listAllMetadataV2(@Body JsonBodyMetadataList jsonBodyMetadataList);
 
-    @Headers("Content-Type: application/json")
+    //@Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/list")
     Observable<ListAllEntity> listAllEntityV2(@Body JsonBodyListAllEntity jsonBodyListAllEntity);
 

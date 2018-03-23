@@ -271,7 +271,7 @@ public class FrmChannelV2 extends BaseFragment {
         subscribe(service.listAllEntityV2(jsonBodyListAllEntity), new ApiSubscriber<ListAllEntity>() {
             @Override
             public void onSuccess(ListAllEntity listAllEntity) {
-                LLog.d(TAG, "getData onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
+                LLog.d(TAG, "listAllEntityV2 onSuccess " + LSApplication.getInstance().getGson().toJson(listAllEntity));
                 LLog.d(TAG, "getLimit " + listAllEntity.getMetadata().getLimit());
                 LLog.d(TAG, "getPage " + listAllEntity.getMetadata().getPage());
                 LLog.d(TAG, "getTotal " + listAllEntity.getMetadata().getTotal());
