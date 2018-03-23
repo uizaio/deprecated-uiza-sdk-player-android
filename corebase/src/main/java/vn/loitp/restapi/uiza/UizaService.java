@@ -20,6 +20,7 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBodyListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.JsonBodyListAllEntityRelation;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBodyMetadataList;
 import vn.loitp.restapi.uiza.model.v2.search.Search;
@@ -88,9 +89,10 @@ public interface UizaService {
     @POST("/api/resource/v1/media/entity/link-download")
     Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Body JsonBodyGetLinkPlay jsonBodyGetLinkPlay);
 
-    @FormUrlEncoded
+    //@FormUrlEncoded
     @POST("/api/resource/v1/media/entity/related")
-    Observable<ListAllEntityRelation> getListAllEntityRalationV2(@Field("id") String id);
+    //Observable<ListAllEntityRelation> getListAllEntityRalationV2(@Field("id") String id);
+    Observable<ListAllEntityRelation> getListAllEntityRalationV2(@Body JsonBodyListAllEntityRelation jsonBodyListAllEntityRelation);
 
     @FormUrlEncoded
     @POST("/api/resource/v1/media/search")
