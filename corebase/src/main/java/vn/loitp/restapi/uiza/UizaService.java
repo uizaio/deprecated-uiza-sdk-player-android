@@ -13,6 +13,7 @@ import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v1.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.auth.JsonAuth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
@@ -54,9 +55,11 @@ public interface UizaService {
 
 
     //=====================================================v2 dev-api.uiza.io/resource/index.html
-    @FormUrlEncoded
+
+    //@Headers("Content-Type: application/json")
     @POST("/api/resource/v1/auth/credentical")
-    Observable<Auth> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
+    //Observable<Auth> auth(@Field("accessKeyId") String accessKeyId, @Field("secretKeyId") String secretKeyId);
+    Observable<Auth> auth(@Body JsonAuth jsonAuth);
 
     //@FormUrlEncoded
     @POST("/api/resource/v1/auth/check-token")

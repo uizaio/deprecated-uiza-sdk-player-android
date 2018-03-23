@@ -21,6 +21,7 @@ import vn.loitp.core.utilities.LPref;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
+import vn.loitp.restapi.uiza.model.v2.auth.JsonAuth;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.LToast;
@@ -120,12 +121,17 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void auth() {
-        LLog.d(TAG, ">>>>>>>>>.auth");
+        LLog.d(TAG, ">>>>>>>>>auth");
         RestClientV2.init(Constants.URL_DEV_UIZA_VERSION_2);
         UizaService service = RestClientV2.createService(UizaService.class);
         String accessKeyId = "Y0ZW0XM7HZL2CB8ODNDV";
         String secretKeyId = "qtQWc9Ut1SAfWK2viFJHBgViYCZYthSTjEJMlR9S";
-        subscribe(service.auth(accessKeyId, secretKeyId), new ApiSubscriber<Auth>() {
+
+        JsonAuth jsonAuth = new JsonAuth();
+        jsonAuth.setAccessKeyId(accessKeyId);
+        jsonAuth.setSecretKeyId(secretKeyId);
+
+        subscribe(service.auth(jsonAuth), new ApiSubscriber<Auth>() {
             @Override
             public void onSuccess(Auth auth) {
                 if (auth == null) {
@@ -196,7 +202,12 @@ public class SplashActivity extends BaseActivity {
             public void onSuccess(Auth a) {
                 LLog.d(TAG, "checkToken: " + LSApplication.getInstance().getGson().toJson(a));
                 LLog.d(TAG, "getExpired " + a.getData().getExpired());
-                long expiredTime = LDateUtils.convertDateToTimeStamp(a.getData().getExpired());
+                LLog.d(TAG, "try with FORMAT_3");
+                long expiredTime = LDateUtils.convertDateToTimeStamp(a.getData().getExpired(), LDateUtils.FORMAT_3);
+                if (expiredTime == Constants.NOT_FOUND) {
+                    LLog.d(TAG, "try with FORMAT_1");
+                    expiredTime = LDateUtils.convertDateToTimeStamp(a.getData().getExpired(), LDateUtils.FORMAT_1);
+                }
                 long currentTime = System.currentTimeMillis();
                 LLog.d(TAG, "expiredTime " + expiredTime);
                 LLog.d(TAG, "currentTime " + currentTime);
