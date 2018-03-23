@@ -1,46 +1,87 @@
-package vn.loitp.restapi.uiza.model.v2.auth;
 
-/**
- * Created by LENOVO on 2/23/2018.
- */
+package vn.loitp.restapi.uiza.model.v2.auth;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Auth {
 
-    @SerializedName("token")
+    @SerializedName("data")
     @Expose
-    private String token;
-    @SerializedName("expired")
+    private Data data;
+    @SerializedName("version")
     @Expose
-    private String expired;
-    @SerializedName("appId")
+    private int version;
+    @SerializedName("datetime")
     @Expose
-    private String appId;
+    private String datetime;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("code")
+    @Expose
+    private int code;
+    @SerializedName("type")
+    @Expose
+    private String type;
 
-    public String getToken() {
-        return token;
+    public Data getData() {
+        return data;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public String getExpired() {
-        return expired;
+    public int getVersion() {
+        return version;
     }
 
-    public void setExpired(String expired) {
-        this.expired = expired;
+    public void setVersion(int version) {
+        this.version = version;
     }
 
-    public String getAppId() {
-        return appId;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

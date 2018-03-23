@@ -32,7 +32,7 @@ public class UizaTrackingUtil {
         //app_id
         Auth auth = LPref.getAuth(context, new Gson());
         if (auth != null) {
-            uizaTracking.setAppId(auth.getAppId());
+            uizaTracking.setAppId(auth.getData().getAppId());
         }
         //page_type
         uizaTracking.setPageType("app");

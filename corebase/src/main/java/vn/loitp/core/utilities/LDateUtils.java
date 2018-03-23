@@ -320,7 +320,7 @@ public class LDateUtils {
     public static long convertDateToTimeStamp(String datetime) {
         //LLog.d(TAG, "convertDateToTimeStamp datetime " + datetime);
         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DateFormat dateFormat = new SimpleDateFormat(FORMAT_3);
+        DateFormat dateFormat = new SimpleDateFormat(FORMAT_1);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = null;
         try {
@@ -328,10 +328,9 @@ public class LDateUtils {
             long time = date.getTime();
             LLog.d(TAG, "time:" + time);
             return time;
-            //new Timestamp(time).getTime();
         } catch (ParseException e) {
             LLog.e(TAG, "convertDateToTimeStamp " + e.toString());
-            return 0;
+            return Constants.NOT_FOUND;
         }
     }
 

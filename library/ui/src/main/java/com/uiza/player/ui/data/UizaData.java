@@ -171,20 +171,11 @@ public class UizaData {
     public final static String T = "true";
     public final static String F = "false";
 
-    private int apiVersion = Constants.API_VERSION_1;
     private boolean isVideoCanSlide;
     private String apiEndPoint;
     private String apiTrackingEndPoint;
     private String token;
     private String playerId;//for select theme
-
-    public int getApiVersion() {
-        return apiVersion;
-    }
-
-    public void setApiVersion(int apiVersion) {
-        this.apiVersion = apiVersion;
-    }
 
     public boolean isVideoCanSlide() {
         return isVideoCanSlide;

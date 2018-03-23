@@ -19,7 +19,6 @@ import vn.loitp.uiza.R;
 public class OptionActivity extends BaseActivity {
     public static final String KEY_SKIN = "KEY_SKIN";
     public static final String KEY_CAN_SLIDE = "KEY_CAN_SLIDE";
-    public static final String KEY_API_VERSION = "KEY_API_VERSION";
     public static final String KEY_API_END_POINT = "KEY_API_END_POINT";
     public static final String KEY_API_TRACKING_END_POINT = "KEY_API_TRACKING_END_POINT";
 
@@ -28,11 +27,6 @@ public class OptionActivity extends BaseActivity {
     private RadioButton radioSkin2;
     private RadioButton radioSkin3;
     private String currentPlayerId;
-
-    private RadioGroup radioApiVs;
-    private RadioButton radioApiVs1;
-    private RadioButton radioApiVs2;
-    private int currentApiVersion;
 
     private RadioGroup radioGroupSlide;
     private RadioButton radioCanSlide;
@@ -59,7 +53,6 @@ public class OptionActivity extends BaseActivity {
         findViews();
         setupSkin();
         setupSlide();
-        setupApiVersion();
         setupEnvironment();
     }
 
@@ -73,10 +66,6 @@ public class OptionActivity extends BaseActivity {
         radioGroupSlide = (RadioGroup) findViewById(R.id.radio_group_slide);
         radioCanSlide = (RadioButton) findViewById(R.id.radio_can_slide);
         radioCannotSlide = (RadioButton) findViewById(R.id.radio_cannot_slide);
-        //setting api version
-        radioApiVs = (RadioGroup) findViewById(R.id.radio_api_vs);
-        radioApiVs1 = (RadioButton) findViewById(R.id.radio_api_vs1);
-        radioApiVs2 = (RadioButton) findViewById(R.id.radio_api_vs2);
         //setting environment
         radioEnvironment = (RadioGroup) findViewById(R.id.radio_environment);
         radioEnvironmentDev = (RadioButton) findViewById(R.id.radio_environment_dev);
@@ -102,14 +91,12 @@ public class OptionActivity extends BaseActivity {
 
         LLog.d(TAG, "currentPlayerId " + currentPlayerId);
         LLog.d(TAG, "canSlide " + canSlide);
-        LLog.d(TAG, "currentApiVersion " + currentApiVersion);
         LLog.d(TAG, "currentApiEndPoint " + currentApiEndPoint);
         LLog.d(TAG, "currentApiTrackingEndPoint " + currentApiTrackingEndPoint);
 
         Intent intent = new Intent(activity, SplashActivity.class);
         intent.putExtra(KEY_SKIN, currentPlayerId);
         intent.putExtra(KEY_CAN_SLIDE, canSlide);
-        intent.putExtra(KEY_API_VERSION, currentApiVersion);
         intent.putExtra(KEY_API_END_POINT, currentApiEndPoint);
         intent.putExtra(KEY_API_TRACKING_END_POINT, currentApiTrackingEndPoint);
         startActivity(intent);
@@ -176,34 +163,6 @@ public class OptionActivity extends BaseActivity {
                         break;
                     case R.id.radio_cannot_slide:
                         canSlide = false;
-                        break;
-                }
-            }
-        });
-    }
-
-    private void setupApiVersion() {
-        //default
-        radioApiVs1.setChecked(true);
-        currentApiVersion = Constants.API_VERSION_1;
-
-        radioApiVs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                int selectedId = radioApiVs.getCheckedRadioButtonId();
-                switch (selectedId) {
-                    case R.id.radio_api_vs1:
-                        currentApiVersion = Constants.API_VERSION_1;
-                        radioEnvironmentDev.setVisibility(View.VISIBLE);
-                        radioEnvironmentStag.setVisibility(View.VISIBLE);
-                        radioEnvironmentProd.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.radio_api_vs2:
-                        currentApiVersion = Constants.API_VERSION_2;
-                        radioEnvironmentDev.setVisibility(View.VISIBLE);
-                        radioEnvironmentStag.setVisibility(View.GONE);
-                        radioEnvironmentProd.setVisibility(View.GONE);
-                        radioEnvironmentDev.setChecked(true);
                         break;
                 }
             }

@@ -1006,7 +1006,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private void getLinkPlay(String entityId) {
         UizaService service = RestClientV2.createService(UizaService.class);
         Auth auth = LPref.getAuth(getActivity(), gson);
-        if (auth == null || auth.getAppId() == null) {
+        if (auth == null || auth.getData().getAppId() == null) {
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;
         }
@@ -1038,7 +1038,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         //End API v1
 
         //API v2
-        subscribe(service.getLinkPlayV2(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
+        subscribe(service.getLinkPlayV2(entityId, auth.getData().getAppId()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
                 //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));

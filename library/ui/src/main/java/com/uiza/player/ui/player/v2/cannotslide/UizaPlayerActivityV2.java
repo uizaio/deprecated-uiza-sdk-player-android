@@ -229,14 +229,14 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         LLog.d(TAG, ">>>getLinkPlayV1 entityId: " + inputModel.getEntityID());
         UizaService service = RestClientV2.createService(UizaService.class);
         Auth auth = LPref.getAuth(activity, gson);
-        if (auth == null || auth.getAppId() == null) {
+        if (auth == null || auth.getData().getAppId() == null) {
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;
         }
-        LLog.d(TAG, ">>>getLinkPlayV1 appId: " + auth.getAppId());
+        LLog.d(TAG, ">>>getLinkPlayV1 appId: " + auth.getData().getAppId());
 
         //API v1
-        subscribe(service.getLinkPlayV2(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
+        subscribe(service.getLinkPlayV2(inputModel.getEntityID(), auth.getData().getAppId()), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
                 LLog.d(TAG, "getLinkPlayV2 onSuccess " + gson.toJson(getLinkPlay));
