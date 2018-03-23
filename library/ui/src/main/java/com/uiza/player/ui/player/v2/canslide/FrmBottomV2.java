@@ -34,6 +34,7 @@ import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.JsonBodyGetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -240,33 +241,14 @@ public class FrmBottomV2 extends BaseFragment {
         tvDebug.setText("");
         avLoadingIndicatorView.smoothToShow();
 
-        //API v1
-        /*UizaService service = RestClientV2.createService(UizaService.class);
-        LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntityV1(entityId), new ApiSubscriber<GetDetailEntity>() {
-            @Override
-            public void onSuccess(GetDetailEntity getDetailEntity) {
-                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
-                if (getDetailEntity != null) {
-                    UizaData.getInstance().setDetailEntityV2(getDetailEntity);
-                } else {
-                    showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
-                }
-                updateUI(getDetailEntity);
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //End API v1
-
         //API v2
         UizaService service = RestClientV2.createService(UizaService.class);
         //LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
+
+        JsonBodyGetDetailEntity jsonBodyGetDetailEntity = new JsonBodyGetDetailEntity();
+        jsonBodyGetDetailEntity.setId(entityId);
+
+        subscribe(service.getDetailEntityV2(jsonBodyGetDetailEntity), new ApiSubscriber<GetDetailEntity>() {
             @Override
             public void onSuccess(GetDetailEntity getDetailEntity) {
                 LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));

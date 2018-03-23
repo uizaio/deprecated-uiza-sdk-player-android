@@ -15,6 +15,7 @@ import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.auth.JsonBodyAuth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
+import vn.loitp.restapi.uiza.model.v2.getdetailentity.JsonBodyGetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBodyListAllEntity;
@@ -75,9 +76,10 @@ public interface UizaService {
     @POST("/api/resource/v1/media/entity/list")
     Observable<ListAllEntity> listAllEntityV2(@Body JsonBodyListAllEntity jsonBodyListAllEntity);
 
-    @FormUrlEncoded
+    //@FormUrlEncoded
     @POST("/api/resource/v1/media/entity/detail")
-    Observable<GetDetailEntity> getDetailEntityV2(@Field("id") String id);
+    //Observable<GetDetailEntity> getDetailEntityV2(@Field("id") String id);
+    Observable<GetDetailEntity> getDetailEntityV2(@Body JsonBodyGetDetailEntity jsonBodyGetDetailEntity);
 
     /*@GET("/api/public/v2/media/entity/get-link-play")
     Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);*/
