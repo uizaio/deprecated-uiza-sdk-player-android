@@ -194,12 +194,12 @@ public class FrmUizaVideoInfoV2 extends BaseFragment {
             @Override
             public void onSuccess(ListAllEntityRelation listAllEntityRelation) {
                 LLog.d(TAG, "getListAllEntityRalationV1 onSuccess " + ((UizaPlayerActivityV2) getActivity()).getGson().toJson(listAllEntityRelation));
-                if (listAllEntityRelation == null || listAllEntityRelation.getItems().isEmpty()) {
-                    tvMoreLikeThisMsg.setText("Data is empty");
+                if (listAllEntityRelation == null || listAllEntityRelation.getItemList().isEmpty()) {
+                    tvMoreLikeThisMsg.setText(R.string.no_data);
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
-                    setupUIMoreLikeThis(listAllEntityRelation.getItems());
+                    setupUIMoreLikeThis(listAllEntityRelation.getItemList());
                 }
                 avLoadingIndicatorView.smoothToHide();
             }

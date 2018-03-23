@@ -187,12 +187,12 @@ public class FrmBottomV2 extends BaseFragment {
             @Override
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
                 LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
-                if (getDetailEntity == null || getDetailEntity.getItems().isEmpty()) {
+                if (getDetailEntity == null || getDetailEntity.getItemList().isEmpty()) {
                     tvMoreLikeThisMsg.setText("Data is empty");
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
-                    setupUIMoreLikeThis(getDetailEntity.getItems());
+                    setupUIMoreLikeThis(getDetailEntity.getItemList());
                 }
                 avLoadingIndicatorView.smoothToHide();
             }
