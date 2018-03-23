@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.data.HomeDataV1;
 import vn.loitp.app.uiza.home.IOnBackPressed;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItemV1;
@@ -72,7 +72,7 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
         tv = (TextView) view.findViewById(R.id.tv);
         tvMsg = (TextView) view.findViewById(R.id.tv_msg);
         if (Constants.IS_DEBUG) {
-            tv.setText("Debug V2: " + HomeData.getInstance().getItem().getName());
+            tv.setText("Debug V2: " + HomeDataV1.getInstance().getItem().getName());
             tv.setVisibility(View.VISIBLE);
         } else {
             tv.setVisibility(View.GONE);
@@ -240,12 +240,12 @@ public class FrmChannelV1 extends BaseFragment implements IOnBackPressed {
         UizaService service = RestClientV2.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
-        if (HomeData.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
+        if (HomeDataV1.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
             LLog.d(TAG, "HOME category");
         } else {
             LLog.d(TAG, "!HOME category");
             List<String> metadataId = new ArrayList<>();
-            metadataId.add(HomeData.getInstance().getItem().getId());
+            metadataId.add(HomeDataV1.getInstance().getItem().getId());
             jsonBody.setMetadataId(metadataId);
         }
         jsonBody.setLimit(limit);

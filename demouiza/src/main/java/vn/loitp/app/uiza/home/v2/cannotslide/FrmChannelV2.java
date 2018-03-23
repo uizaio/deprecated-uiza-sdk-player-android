@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.data.HomeDataV2;
 import vn.loitp.app.uiza.home.view.BlankView;
 import vn.loitp.app.uiza.home.view.EntityItemV2;
 import vn.loitp.app.uiza.home.view.LoadingView;
@@ -79,7 +79,7 @@ public class FrmChannelV2 extends BaseFragment {
         tvMsg = (TextView) view.findViewById(R.id.tv_msg);
         if (Constants.IS_DEBUG) {
             tv.setVisibility(View.VISIBLE);
-            tv.setText("Debug: " + HomeData.getInstance().getItem().getName());
+            tv.setText("Debug: " + HomeDataV2.getInstance().getDatum().getName());
         } else {
             tv.setVisibility(View.GONE);
         }
@@ -253,12 +253,12 @@ public class FrmChannelV2 extends BaseFragment {
         UizaService service = RestClientV2.createService(UizaService.class);
 
         JsonBody jsonBody = new JsonBody();
-        if (HomeData.getInstance().getItem().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
+        if (HomeDataV2.getInstance().getDatum().getId().equals(String.valueOf(Constants.NOT_FOUND))) {
             LLog.d(TAG, "HOME category");
         } else {
             LLog.d(TAG, "!HOME category");
             List<String> metadataId = new ArrayList<>();
-            metadataId.add(HomeData.getInstance().getItem().getId());
+            metadataId.add(HomeDataV2.getInstance().getDatum().getId());
             jsonBody.setMetadataId(metadataId);
         }
         jsonBody.setLimit(limit);

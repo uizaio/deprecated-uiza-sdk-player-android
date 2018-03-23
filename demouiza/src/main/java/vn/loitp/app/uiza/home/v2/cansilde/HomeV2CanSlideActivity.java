@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.data.HomeDataV1;
 import vn.loitp.app.uiza.home.IOnBackPressed;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
-import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
+import vn.loitp.app.uiza.home.view.UizaDrawerMenuItemV1;
 import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
@@ -254,14 +254,14 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         //emd add home menu
 
         for (int i = 0; i < this.itemList.size(); i++) {
-            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItem.Callback() {
+            mDrawerView.addView(new UizaDrawerMenuItemV1(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItemV1.Callback() {
                 @Override
                 public void onMenuItemClick(int pos) {
                     if (draggablePanel.isMaximized()) {
                         draggablePanel.minimize();
                     }
-                    HomeData.getInstance().setCurrentPosition(pos);
-                    HomeData.getInstance().setItem(itemList.get(pos));
+                    HomeDataV1.getInstance().setCurrentPosition(pos);
+                    HomeDataV1.getInstance().setItem(itemList.get(pos));
                     mDrawerLayout.closeDrawers();
                     UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV2(), true);
                 }
@@ -269,7 +269,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
 
         //init data first
-        HomeData.getInstance().setItem(itemList.get(HomeData.getInstance().getCurrentPosition()));
+        HomeDataV1.getInstance().setItem(itemList.get(HomeDataV1.getInstance().getCurrentPosition()));
         currentFrm = new FrmChannelV2();
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm, true);
     }

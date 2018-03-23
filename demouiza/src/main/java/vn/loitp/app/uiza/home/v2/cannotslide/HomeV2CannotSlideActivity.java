@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.data.HomeData;
+import vn.loitp.app.uiza.data.HomeDataV2;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
-import vn.loitp.app.uiza.home.view.UizaDrawerMenuItem;
+import vn.loitp.app.uiza.home.view.UizaDrawerMenuItemV2;
 import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
@@ -25,8 +25,8 @@ import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v1.listallmetadata.Item;
-import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.Datum;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.LToast;
@@ -35,7 +35,7 @@ import vn.loitp.views.placeholderview.lib.placeholderview.PlaceHolderView;
 public class HomeV2CannotSlideActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
-    private List<Item> itemList = new ArrayList<>();
+    private List<Datum> datumList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,11 +161,11 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
         LLog.d(TAG, "getListAllMetadata");
 
         //add home menu
-        Item item = new Item();
+        Datum item = new Datum();
         item.setName("Home");
         item.setId(String.valueOf(Constants.NOT_FOUND));
         item.setType("folder");
-        itemList.add(0, item);
+        datumList.add(0, item);
         //emd add home menu
 
         UizaService service = RestClientV2.createService(UizaService.class);
@@ -194,15 +194,15 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
 
     private void genListDrawerLayout(ListAllMetadata listAllMetadata) {
         if (listAllMetadata != null) {
-            itemList.addAll(listAllMetadata.getItems());
+            datumList.addAll(listAllMetadata.getData());
         }
 
-        for (int i = 0; i < this.itemList.size(); i++) {
-            mDrawerView.addView(new UizaDrawerMenuItem(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItem.Callback() {
+        for (int i = 0; i < this.datumList.size(); i++) {
+            mDrawerView.addView(new UizaDrawerMenuItemV2(this.getApplicationContext(), datumList, i, new UizaDrawerMenuItemV2.Callback() {
                 @Override
                 public void onMenuItemClick(int pos) {
-                    HomeData.getInstance().setCurrentPosition(pos);
-                    HomeData.getInstance().setItem(itemList.get(pos));
+                    HomeDataV2.getInstance().setCurrentPosition(pos);
+                    HomeDataV2.getInstance().setDatum(datumList.get(pos));
                     mDrawerLayout.closeDrawers();
                     UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV2(), false);
                 }
@@ -210,7 +210,7 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
         }
 
         //init data first
-        HomeData.getInstance().setItem(itemList.get(0));
+        HomeDataV2.getInstance().setDatum(datumList.get(0));
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV2(), false);
     }
 }
