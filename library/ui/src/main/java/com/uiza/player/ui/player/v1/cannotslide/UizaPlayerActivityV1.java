@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+import vn.loitp.views.realtimeblurview.RealtimeBlurView;
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
@@ -126,11 +128,13 @@ public class UizaPlayerActivityV1 extends BaseActivity {
     private ImageView ivCoverVideo;
     private ImageView ivCoverLogo;
     private AVLoadingIndicatorView avLoadingIndicatorView;
+    private RealtimeBlurView realtimeBlurView;
+    private final int RADIUS_BLUR_VIEW = 15;
 
     private void setCoverVideo() {
         if (flRootView != null && inputModel != null) {
             //LLog.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
-            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null) {
+            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null || realtimeBlurView != null) {
                 return;
             }
             ivCoverVideo = new ImageView(activity);
@@ -139,6 +143,11 @@ public class UizaPlayerActivityV1 extends BaseActivity {
             ivCoverVideo.setLayoutParams(layoutParams);
             UizaImageUtil.load(activity, inputModel.getUrlImg(), ivCoverVideo);
             flRootView.addView(ivCoverVideo);
+
+            realtimeBlurView = new RealtimeBlurView(activity, RADIUS_BLUR_VIEW, ContextCompat.getColor(activity, R.color.black_35));
+            FrameLayout.LayoutParams layoutParamsBlur = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            realtimeBlurView.setLayoutParams(layoutParamsBlur);
+            flRootView.addView(realtimeBlurView);
 
             ivCoverLogo = new ImageView(activity);
             ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -161,7 +170,7 @@ public class UizaPlayerActivityV1 extends BaseActivity {
     }
 
     public void removeCoverVideo() {
-        if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null) {
+        if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
             UizaAnimationUtil.playFadeOut(activity, ivCoverVideo, null);
 
             avLoadingIndicatorView.smoothToHide();
@@ -173,6 +182,9 @@ public class UizaPlayerActivityV1 extends BaseActivity {
             flRootView.removeView(ivCoverLogo);
             ivCoverLogo = null;
             avLoadingIndicatorView = null;
+
+            flRootView.removeView(realtimeBlurView);
+            realtimeBlurView = null;
 
             LLog.d(TAG, "removeCoverVideo success");
         }
