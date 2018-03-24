@@ -219,7 +219,7 @@ public class FrmUizaVideoInfoV2 extends BaseFragment {
     }
 
     private void setupUIMoreLikeThis(List<Item> itemList) {
-        LLog.d(TAG, "setupUIMoreLikeThis " + itemList.size());
+        LLog.d(TAG, "setupUIMoreLikeThis itemList size: " + itemList.size());
         this.itemList.addAll(itemList);
         mAdapter.notifyDataSetChanged();
     }
