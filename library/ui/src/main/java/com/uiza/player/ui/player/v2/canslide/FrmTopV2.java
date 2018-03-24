@@ -97,6 +97,7 @@ import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
+import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -1010,31 +1011,46 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;
         }
-        //LLog.d(TAG, ">>>getLinkPlayV1 appId: " + auth.getAppId());
+        LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getData().getAppId());
+
+        JsonBodyGetLinkPlay jsonBodyGetLinkPlay = new JsonBodyGetLinkPlay();
+        List<String> listEntityIds = new ArrayList<>();
+        listEntityIds.add(entityId);
+        jsonBodyGetLinkPlay.setListEntityIds(listEntityIds);
 
         //API v2
-        /*subscribe(service.getLinkPlayV2(entityId, auth.getData().getAppId()), new ApiSubscriber<GetLinkPlay>() {
+        subscribe(service.getLinkPlayV2(jsonBodyGetLinkPlay), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
                 //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
 
-                *//*List<String> listLinkPlay = new ArrayList<>();
-                for (Mpd mpd : getLinkPlay.getMpd()) {
-                    listLinkPlay.add(mpd.getUrl());
+                List<String> listLinkPlay = new ArrayList<>();
+                List<Mpd> mpdList = getLinkPlay.getData().get(0).getMpd();
+                for (Mpd mpd : mpdList) {
+                    if (mpd.getUrl() != null) {
+                        listLinkPlay.add(mpd.getUrl());
+                    }
                 }
-                LLog.d(TAG, "getLinkPlayV2 " + gson.toJson(listLinkPlay));
+                LLog.d(TAG, "getLinkPlayV2 toJson: " + gson.toJson(listLinkPlay));
+
+                if (listLinkPlay == null || listLinkPlay.isEmpty()) {
+                    LLog.d(TAG, "listLinkPlay == null || listLinkPlay.isEmpty()");
+                    showDialogOne(getString(R.string.has_no_linkplay), true);
+                    return;
+                }
+
                 UizaData.getInstance().setLinkPlay(listLinkPlay);
-                setInputModel(null, true);*//*
+                setInputModel(null, true);
             }
 
             @Override
             public void onFail(Throwable e) {
-                //LLog.d(TAG, "onFail " + e.toString());
+                LLog.e(TAG, "getLinkPlay onFail " + e.toString());
                 handleException(e);
             }
-        });*/
+        });
         //End API v2
     }
 

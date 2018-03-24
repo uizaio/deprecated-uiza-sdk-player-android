@@ -74,15 +74,16 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showDialogOne(final String msg) {
-        getActivity().runOnUiThread(new Runnable() {
+        showDialogOne(msg, false);
+    }
+
+    protected void showDialogOne(String msg, final boolean isExit) {
+        LDialogUtil.showOne(getActivity(), getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
-            public void run() {
-                LDialogUtil.showOne(getActivity(), getString(R.string.app_name), msg, getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
-                    @Override
-                    public void onClick() {
-                        //do nothing
-                    }
-                });
+            public void onClick() {
+                if (isExit) {
+                    getActivity().onBackPressed();
+                }
             }
         });
     }

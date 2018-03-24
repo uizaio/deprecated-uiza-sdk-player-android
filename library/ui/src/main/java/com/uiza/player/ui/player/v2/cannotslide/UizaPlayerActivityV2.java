@@ -254,7 +254,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         listEntityIds.add(inputModel.getEntityID());
         jsonBodyGetLinkPlay.setListEntityIds(listEntityIds);
 
-        //API v1
+        //API v2
         subscribe(service.getLinkPlayV2(jsonBodyGetLinkPlay), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
@@ -288,7 +288,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
                 handleException(e);
             }
         });
-        //End API v1
+        //End API v2
     }
 
     private void getDetailEntity() {
