@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.app.app.LSApplication;
-import vn.loitp.app.uiza.data.HomeDataV1;
+import vn.loitp.app.uiza.data.HomeDataV2;
 import vn.loitp.app.uiza.home.IOnBackPressed;
 import vn.loitp.app.uiza.home.view.UizaDrawerHeader;
-import vn.loitp.app.uiza.home.view.UizaDrawerMenuItemV1;
+import vn.loitp.app.uiza.home.view.UizaDrawerMenuItemV2;
 import vn.loitp.app.uiza.login.LoginActivity;
 import vn.loitp.app.uiza.view.UizaActionBar;
 import vn.loitp.core.base.BaseActivity;
@@ -41,10 +41,10 @@ import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.v1.listallmetadata.Item;
-import vn.loitp.restapi.uiza.model.v1.listallmetadata.ListAllMetadata;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.Datum;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBodyMetadataList;
+import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.uiza.R;
 import vn.loitp.views.LToast;
@@ -56,7 +56,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawerLayout;
     private FrameLayout flLeftContainer;
-    private List<Item> itemList = new ArrayList<>();
+    private List<Datum> datumList = new ArrayList<>();
     private UizaActionBar uizaActionBar;
     private DraggablePanel draggablePanel;
 
@@ -243,32 +243,32 @@ public class HomeV2CanSlideActivity extends BaseActivity {
 
             @Override
             public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail " + e.getMessage());
+                LLog.e(TAG, "getListAllMetadata onFail " + e.getMessage());
                 handleException(e);
             }
         });
     }
 
     private void genListDrawerLayout(ListAllMetadata listAllMetadata) {
-        itemList = listAllMetadata.getItems();
+        datumList = listAllMetadata.getData();
 
         //add home menu
-        Item item = new Item();
+        Datum item = new Datum();
         item.setName("Home");
         item.setId(String.valueOf(Constants.NOT_FOUND));
         item.setType("folder");
-        itemList.add(0, item);
+        datumList.add(0, item);
         //emd add home menu
 
-        for (int i = 0; i < this.itemList.size(); i++) {
-            mDrawerView.addView(new UizaDrawerMenuItemV1(this.getApplicationContext(), itemList, i, new UizaDrawerMenuItemV1.Callback() {
+        for (int i = 0; i < this.datumList.size(); i++) {
+            mDrawerView.addView(new UizaDrawerMenuItemV2(this.getApplicationContext(), datumList, i, new UizaDrawerMenuItemV2.Callback() {
                 @Override
                 public void onMenuItemClick(int pos) {
                     if (draggablePanel.isMaximized()) {
                         draggablePanel.minimize();
                     }
-                    HomeDataV1.getInstance().setCurrentPosition(pos);
-                    HomeDataV1.getInstance().setItem(itemList.get(pos));
+                    HomeDataV2.getInstance().setCurrentPosition(pos);
+                    HomeDataV2.getInstance().setDatum(datumList.get(pos));
                     mDrawerLayout.closeDrawers();
                     UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV2(), true);
                 }
@@ -276,7 +276,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
 
         //init data first
-        HomeDataV1.getInstance().setItem(itemList.get(HomeDataV1.getInstance().getCurrentPosition()));
+        HomeDataV2.getInstance().setDatum(datumList.get(HomeDataV2.getInstance().getCurrentPosition()));
         currentFrm = new FrmChannelV2();
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm, true);
     }
@@ -404,7 +404,6 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new vn.loitp.rxandroid.ApiSubscriber<PlayerConfig>() {
                 @Override
                 public void onSuccess(PlayerConfig playerConfig) {
-                    //TODO custom theme
                     LLog.d(TAG, "getPlayerConfig onSuccess " + LSApplication.getInstance().getGson().toJson(playerConfig));
                     UizaData.getInstance().setPlayerConfig(playerConfig);
 
@@ -460,7 +459,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             return;
         }
         frmTopV2 = new FrmTopV2();
-        /*frmTopV2.setVisibilityChange(new FrmTopV1.VisibilityChange() {
+        /*frmTopV2.setVisibilityChange(new FrmTopV2.VisibilityChange() {
             @Override
             public void onVisibilityChange(int visibility) {
                 if (visibility == View.VISIBLE) {
