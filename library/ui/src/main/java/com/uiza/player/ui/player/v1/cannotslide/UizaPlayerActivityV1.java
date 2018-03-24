@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -171,7 +172,7 @@ public class UizaPlayerActivityV1 extends BaseActivity {
 
     public void removeCoverVideo() {
         if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
-            UizaAnimationUtil.playFadeOut(activity, ivCoverVideo, null);
+            UizaAnimationUtil.playFadeOut(activity, realtimeBlurView, null);
 
             avLoadingIndicatorView.smoothToHide();
             ivCoverVideo.setVisibility(View.GONE);
@@ -185,8 +186,6 @@ public class UizaPlayerActivityV1 extends BaseActivity {
 
             flRootView.removeView(realtimeBlurView);
             realtimeBlurView = null;
-
-            LLog.d(TAG, "removeCoverVideo success");
         }
     }
 

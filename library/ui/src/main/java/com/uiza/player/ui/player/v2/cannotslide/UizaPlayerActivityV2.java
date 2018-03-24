@@ -177,7 +177,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
 
     public void removeCoverVideo() {
         if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
-            UizaAnimationUtil.playFadeOut(activity, ivCoverVideo, null);
+            UizaAnimationUtil.playFadeOut(activity, realtimeBlurView, null);
 
             avLoadingIndicatorView.smoothToHide();
             ivCoverVideo.setVisibility(View.GONE);
