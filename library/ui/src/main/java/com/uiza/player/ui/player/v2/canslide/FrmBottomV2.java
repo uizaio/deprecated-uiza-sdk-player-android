@@ -194,7 +194,7 @@ public class FrmBottomV2 extends BaseFragment {
             public void onSuccess(ListAllEntityRelation getDetailEntity) {
                 LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
                 if (getDetailEntity == null || getDetailEntity.getItemList().isEmpty()) {
-                    tvMoreLikeThisMsg.setText("Data is empty");
+                    tvMoreLikeThisMsg.setText(getString(R.string.no_data));
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
