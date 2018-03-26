@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.views.LToast;
 
@@ -31,6 +33,7 @@ public class PlayListView extends RelativeLayout {
     private List<PlayListObject> playListObjectList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PlayListAdapter playListAdapter;
+    private TextView tvMsg;
 
     public PlayListView(Context context) {
         super(context);
@@ -57,9 +60,19 @@ public class PlayListView extends RelativeLayout {
         LLog.d(TAG, "entityId: " + entityId);
 
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
+        List<Item> itemList = listAllEntityRelation.getItemList();
         LLog.d(TAG, "listAllEntityRelation: " + gson.toJson(listAllEntityRelation));
 
         inflate(getContext(), R.layout.play_list_view, this);
+
+        this.tvMsg = (TextView) findViewById(R.id.tv_msg);
+        if (itemList == null || itemList.isEmpty()) {
+            tvMsg.setVisibility(VISIBLE);
+            return;
+        } else {
+            tvMsg.setVisibility(GONE);
+        }
+        LLog.d(TAG, "itemList size: " + itemList.size());
 
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
