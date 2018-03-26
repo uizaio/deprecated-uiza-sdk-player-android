@@ -229,7 +229,6 @@ public class UizaData {
         LLog.d(TAG, "playerId " + playerId);
     }
 
-
     //size height cua SimpleExoPlayerView se duoc update khi fullscreen hoac tat fullscreen
     private int sizeHeightOfSimpleExoPlayerView;
 
