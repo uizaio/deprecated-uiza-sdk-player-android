@@ -253,6 +253,10 @@ public class UizaData {
 
     public ListAllEntityRelation getListAllEntityRelation(String entityId) {
         ListAllEntityRelation listAllEntityRelation = mapListAllEntityRelation.get(entityId);
+        if (listAllEntityRelation == null) {
+            LLog.d(TAG, "listAllEntityRelation == null -> null");
+            return null;
+        }
         LLog.d(TAG, "getListAllEntityRelation entityId: " + entityId + ", listAllEntityRelation size: " + listAllEntityRelation.getItemList().size());
         return listAllEntityRelation;
     }

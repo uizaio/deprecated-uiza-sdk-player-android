@@ -58,14 +58,17 @@ public class PlayListView extends RelativeLayout {
         }
         String entityId = UizaData.getInstance().getInputModel().getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
+        inflate(getContext(), R.layout.play_list_view, this);
+        this.tvMsg = (TextView) findViewById(R.id.tv_msg);
+        this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
+        if (listAllEntityRelation == null) {
+            tvMsg.setVisibility(VISIBLE);
+            return;
+        }
         itemList = listAllEntityRelation.getItemList();
         LLog.d(TAG, "listAllEntityRelation: " + gson.toJson(listAllEntityRelation));
-
-        inflate(getContext(), R.layout.play_list_view, this);
-
-        this.tvMsg = (TextView) findViewById(R.id.tv_msg);
         if (itemList == null || itemList.isEmpty()) {
             tvMsg.setVisibility(VISIBLE);
             return;
@@ -73,8 +76,6 @@ public class PlayListView extends RelativeLayout {
             tvMsg.setVisibility(GONE);
         }
         LLog.d(TAG, "itemList size: " + itemList.size());
-
-        this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         int widthRecyclerView;
