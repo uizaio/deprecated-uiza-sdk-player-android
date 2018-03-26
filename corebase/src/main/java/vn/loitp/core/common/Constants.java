@@ -71,4 +71,10 @@ public class Constants {
     public final static int ENVIRONMENT_PROD = 3;
 
     public final static String USER_AGENT = "LoitpSDKDummy";
+
+    public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
+    public final static String PLAYER_ID_SKIN_2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";
+    public final static String PLAYER_ID_SKIN_3 = "d1a9eca0-8bef-4985-8260-af3300191200";
+    public final static String T = "true";
+    public final static String F = "false";
 }

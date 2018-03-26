@@ -126,7 +126,7 @@ public class OptionActivity extends BaseActivity {
     private void setupSkin() {
         //default skin1
         radioSkin1.setChecked(true);
-        currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+        currentPlayerId = Constants.PLAYER_ID_SKIN_1;
 
         radioGroupSkin.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -134,14 +134,13 @@ public class OptionActivity extends BaseActivity {
                 int selectedId = radioGroupSkin.getCheckedRadioButtonId();
                 switch (selectedId) {
                     case R.id.radio_skin_1:
-                        //UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
-                        currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+                        currentPlayerId = Constants.PLAYER_ID_SKIN_1;
                         break;
                     case R.id.radio_skin_2:
-                        currentPlayerId = UizaData.PLAYER_ID_SKIN_2;
+                        currentPlayerId = Constants.PLAYER_ID_SKIN_2;
                         break;
                     case R.id.radio_skin_3:
-                        currentPlayerId = UizaData.PLAYER_ID_SKIN_3;
+                        currentPlayerId = Constants.PLAYER_ID_SKIN_3;
                         break;
                 }
             }

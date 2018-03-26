@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.core.base.BaseActivity;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.uiza.R;
 
@@ -28,13 +29,13 @@ public class SettingActivity extends BaseActivity {
 
         String currentSkin = UizaData.getInstance().getPlayerId();
         switch (currentSkin) {
-            case UizaData.PLAYER_ID_SKIN_1:
+            case Constants.PLAYER_ID_SKIN_1:
                 radio1.setChecked(true);
                 break;
-            case UizaData.PLAYER_ID_SKIN_2:
+            case Constants.PLAYER_ID_SKIN_2:
                 radio2.setChecked(true);
                 break;
-            case UizaData.PLAYER_ID_SKIN_3:
+            case Constants.PLAYER_ID_SKIN_3:
                 radio3.setChecked(true);
                 break;
             default:
@@ -49,16 +50,16 @@ public class SettingActivity extends BaseActivity {
                 LLog.d(TAG, "selectedId " + selectedId);
                 switch (selectedId) {
                     case R.id.radio_1:
-                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
+                        UizaData.getInstance().setPlayerId(Constants.PLAYER_ID_SKIN_1);
                         break;
                     case R.id.radio_2:
-                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_2);
+                        UizaData.getInstance().setPlayerId(Constants.PLAYER_ID_SKIN_2);
                         break;
                     case R.id.radio_3:
-                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_3);
+                        UizaData.getInstance().setPlayerId(Constants.PLAYER_ID_SKIN_3);
                         break;
                     default:
-                        UizaData.getInstance().setPlayerId(UizaData.PLAYER_ID_SKIN_1);
+                        UizaData.getInstance().setPlayerId(Constants.PLAYER_ID_SKIN_1);
                         break;
                 }
             }

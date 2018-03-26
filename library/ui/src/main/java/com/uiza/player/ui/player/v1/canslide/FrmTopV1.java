@@ -457,12 +457,12 @@ public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Play
         }
         playbackControlView.setTitle(inputModel.getTitle());
 
-        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
-        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
-        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
+        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));
+        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(Constants.T));
+        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(Constants.T));
 
         //set auto play video or not
-        if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
+        if (mPlayerConfig.getSetting().getAutoStart().equals(Constants.T)) {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
         } else {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(false);

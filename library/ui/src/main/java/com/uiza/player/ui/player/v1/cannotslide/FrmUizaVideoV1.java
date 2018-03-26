@@ -76,6 +76,7 @@ import java.util.UUID;
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
@@ -423,12 +424,12 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
         }
         playbackControlView.setTitle(inputModel.getTitle());
 
-        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(UizaData.T));
-        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(UizaData.T));
-        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(UizaData.T));
+        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));
+        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(Constants.T));
+        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(Constants.T));
 
         //set auto play video or not
-        if (mPlayerConfig.getSetting().getAutoStart().equals(UizaData.T)) {
+        if (mPlayerConfig.getSetting().getAutoStart().equals(Constants.T)) {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
         } else {
             simpleExoPlayerView.getPlayer().setPlayWhenReady(false);

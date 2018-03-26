@@ -54,10 +54,9 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import io.uiza.sdk.ui.R;
-import vn.loitp.core.utilities.LAnimationUtil;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.animation.Techniques;
 
 /**
  * A view for controlling {@link Player} instances.
@@ -396,15 +395,15 @@ public class PlaybackControlView extends FrameLayout {
         //LLog.d(TAG, "mPlayerConfig:" + new Gson().toJson(mPlayerConfig));
 
         switch (mCurrentSkin) {
-            case UizaData.PLAYER_ID_SKIN_1:
+            case Constants.PLAYER_ID_SKIN_1:
                 LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_1");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_1;
                 break;
-            case UizaData.PLAYER_ID_SKIN_2:
+            case Constants.PLAYER_ID_SKIN_2:
                 LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_2");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_2;
                 break;
-            case UizaData.PLAYER_ID_SKIN_3:
+            case Constants.PLAYER_ID_SKIN_3:
                 LLog.d(TAG, "mCurrentSkin PLAYER_ID_SKIN_3");
                 controllerLayoutId = R.layout.uiza_playback_control_view_skin_3;
                 break;
@@ -1014,7 +1013,7 @@ public class PlaybackControlView extends FrameLayout {
             }
             if (UizaData.getInstance().isLandscape()) {
                 if (tvRewNum.getVisibility() != VISIBLE) {
-                    if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_1)) {
+                    if (mCurrentSkin.equals(Constants.PLAYER_ID_SKIN_1)) {
                         tvRewNum.setVisibility(VISIBLE);
                         tvFfwdNum.setVisibility(VISIBLE);
                     } else {
@@ -1067,14 +1066,14 @@ public class PlaybackControlView extends FrameLayout {
 
             //TODO
             //alway hide if use skin 3
-            if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_3)) {
+            if (mCurrentSkin.equals(Constants.PLAYER_ID_SKIN_3)) {
                 view.setVisibility(GONE);
             }
         } else {
             view.setVisibility(enabled ? VISIBLE : INVISIBLE);
             //TODO
             //alway hide if use skin 3
-            if (mCurrentSkin.equals(UizaData.PLAYER_ID_SKIN_3)) {
+            if (mCurrentSkin.equals(Constants.PLAYER_ID_SKIN_3)) {
                 view.setVisibility(GONE);
             }
         }

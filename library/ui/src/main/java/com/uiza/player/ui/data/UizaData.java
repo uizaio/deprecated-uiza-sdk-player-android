@@ -23,37 +23,11 @@ import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelatio
 //public class UizaData implements UizaSubject {
 public class UizaData {
     private final String TAG = getClass().getSimpleName();
-    /*private ArrayList<UizaRepositoryObserver> mObservers;
-
-    @Override
-    public void registerObserver(UizaRepositoryObserver uizaRepositoryObserver) {
-        if (!mObservers.contains(uizaRepositoryObserver)) {
-            mObservers.add(uizaRepositoryObserver);
-        }
-    }
-
-    @Override
-    public void removeObserver(UizaRepositoryObserver uizaRepositoryObserver) {
-        if (mObservers.contains(uizaRepositoryObserver)) {
-            mObservers.remove(uizaRepositoryObserver);
-        }
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (UizaRepositoryObserver observer : mObservers) {
-            observer.onInputModelChange(inputModel);
-        }
-    }*/
 
     private static final UizaData ourInstance = new UizaData();
 
     public static UizaData getInstance() {
         return ourInstance;
-    }
-
-    private UizaData() {
-        //mObservers = new ArrayList<>();
     }
 
     //current position of player
@@ -124,7 +98,6 @@ public class UizaData {
     public void setInputModel(InputModel inputModel) {
         LLog.d(TAG, "setInputModel getEntityID: " + inputModel.getEntityID());
         this.inputModel = inputModel;
-        //notifyObservers();
     }
 
     public void setLinkPlay(List<String> listLinkPlay) {
@@ -132,19 +105,16 @@ public class UizaData {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
         inputModel.setListLinkPlay(listLinkPlay);
-        /*if (Constants.IS_DEBUG) {
+        if (Constants.IS_DEBUG) {
             for (String linkPlay : listLinkPlay) {
                 LLog.d(TAG, "setLinkPlay linkPlay: " + linkPlay);
             }
-        }*/
+        }
     }
 
     private PlayerConfig playerConfig;
 
     public PlayerConfig getPlayerConfig() {
-        /*if (playerConfig == null) {
-            throw new NullPointerException("Error playerConfig null");
-        }*/
         return playerConfig;
     }
 
@@ -167,12 +137,6 @@ public class UizaData {
         inputModel.setDetailEntityV2(getDetailEntity);
         //notifyObservers();
     }
-
-    public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
-    public final static String PLAYER_ID_SKIN_2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";
-    public final static String PLAYER_ID_SKIN_3 = "d1a9eca0-8bef-4985-8260-af3300191200";
-    public final static String T = "true";
-    public final static String F = "false";
 
     private boolean isVideoCanSlide;
     private String apiEndPoint;
