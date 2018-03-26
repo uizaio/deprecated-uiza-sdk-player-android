@@ -19,9 +19,13 @@ import com.uiza.player.ui.util.UizaImageUtil;
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 
 public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayListHolder> {
-    private List<PlayListObject> playListObjectList;
+    private final String TAG = getClass().getSimpleName();
+    private List<Item> itemList;
     private Context context;
     private int sizeWRoot;
     private int sizeHRoot;
@@ -49,11 +53,9 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         }
     }
 
-    public PlayListAdapter(Context context, List<PlayListObject> playListObjectList, int sizeWRoot, int sizeHRoot, Callback callback) {
-        this.playListObjectList = playListObjectList;
+    public PlayListAdapter(Context context, List<Item> itemList, int sizeWRoot, int sizeHRoot, Callback callback) {
+        this.itemList = itemList;
         this.callback = callback;
-        //sizeW = UizaScreenUtil.getScreenWidth() / 3;
-        //sizeH = sizeW * 2 / 3;
         this.sizeWRoot = sizeWRoot;
         this.sizeHRoot = sizeHRoot;
         this.context = context;
@@ -67,14 +69,14 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
 
     @Override
     public void onBindViewHolder(PlayListHolder playListHolder, int position) {
-        final PlayListObject playListObject = playListObjectList.get(position);
+        final Item item = itemList.get(position);
 
-        playListHolder.tvDuration.setText(playListObject.getDuration());
-        playListHolder.tvName.setText(playListObject.getName());
-        playListHolder.tvYear.setText(playListObject.getTime());
-        playListHolder.tvDuration2.setText(playListObject.getDuration());
-        playListHolder.tvRate.setText(playListObject.getRate() + "+");
-        playListHolder.tvDescription.setText(playListObject.getDesctiption());
+        playListHolder.tvDuration.setText(item.getDuration());
+        playListHolder.tvName.setText(item.getName());
+        //playListHolder.tvYear.setText(item.getTime());
+        playListHolder.tvDuration2.setText(item.getDuration());
+        //playListHolder.tvRate.setText(item.getRate() + "+");
+        //playListHolder.tvDescription.setText(item.getDesctiption());
 
         RelativeLayout.LayoutParams rootLayoutParams = new RelativeLayout.LayoutParams((int) (sizeWRoot / 3.5), sizeHRoot);
         playListHolder.rootView.setLayoutParams(rootLayoutParams);
@@ -82,13 +84,20 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (sizeWRoot / 3.5 / 2));
         playListHolder.ivCover.setLayoutParams(layoutParams);
 
-        UizaImageUtil.load(context, playListObject.getUrl(), playListHolder.ivCover);
+        String thumbnail;
+        if (item.getThumbnail() == null || item.getThumbnail().isEmpty()) {
+            thumbnail = Constants.URL_IMG_THUMBNAIL;
+        } else {
+            thumbnail = Constants.PREFIXS_SHORT + item.getThumbnail();
+        }
+        LLog.d(TAG, "getThumbnail " + thumbnail);
+        UizaImageUtil.load(context, thumbnail, playListHolder.ivCover);
 
         playListHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callback != null) {
-                    callback.onClickItem(playListObject);
+                    callback.onClickItem(item);
                 }
             }
         });
@@ -96,11 +105,11 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
 
     @Override
     public int getItemCount() {
-        return playListObjectList == null ? 0 : playListObjectList.size();
+        return itemList == null ? 0 : itemList.size();
     }
 
     public interface Callback {
-        public void onClickItem(PlayListObject playListObject);
+        public void onClickItem(Item item);
     }
 
     private Callback callback;

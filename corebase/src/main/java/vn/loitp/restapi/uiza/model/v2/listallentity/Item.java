@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import vn.loitp.core.common.Constants;
+
 public class Item {
 
     @SerializedName("id")

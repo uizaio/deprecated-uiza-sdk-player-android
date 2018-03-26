@@ -30,7 +30,7 @@ public class PlayListView extends RelativeLayout {
     private final String TAG = getClass().getSimpleName();
     //TODO remove gson later
     private Gson gson = new Gson();
-    private List<PlayListObject> playListObjectList = new ArrayList<>();
+    private List<Item> itemList;
     private RecyclerView recyclerView;
     private PlayListAdapter playListAdapter;
     private TextView tvMsg;
@@ -60,7 +60,7 @@ public class PlayListView extends RelativeLayout {
         LLog.d(TAG, "entityId: " + entityId);
 
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
-        List<Item> itemList = listAllEntityRelation.getItemList();
+        itemList = listAllEntityRelation.getItemList();
         LLog.d(TAG, "listAllEntityRelation: " + gson.toJson(listAllEntityRelation));
 
         inflate(getContext(), R.layout.play_list_view, this);
@@ -98,19 +98,17 @@ public class PlayListView extends RelativeLayout {
             recyclerView.setLayoutParams(recyclerViewParams);
         }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        playListAdapter = new PlayListAdapter(getContext(), playListObjectList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
+        playListAdapter = new PlayListAdapter(getContext(), itemList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
             @Override
-            public void onClickItem(PlayListObject playListObject) {
+            public void onClickItem(Item item) {
                 //TODO
-                LToast.show(getContext(), "Click " + playListObject.getName());
+                LToast.show(getContext(), "Click " + gson.toJson(item));
             }
         });
         recyclerView.setAdapter(playListAdapter);
-
-        setupData();
     }
 
-    private void setupData() {
+    /*private void setupData() {
         for (int i = 0; i < 30; i++) {
             PlayListObject playListObject = new PlayListObject();
             playListObject.setName("La la land - Movie " + i);
@@ -124,5 +122,5 @@ public class PlayListView extends RelativeLayout {
         }
 
         playListAdapter.notifyDataSetChanged();
-    }
+    }*/
 }
