@@ -189,7 +189,7 @@ public class FrmUizaVideoInfoV2 extends BaseFragment {
             return;
         }
         UizaService service = RestClientV2.createService(UizaService.class);
-        String entityId = mInputModel.getEntityID();
+        final String entityId = mInputModel.getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
 
         JsonBodyListAllEntityRelation jsonBodyListAllEntityRelation = new JsonBodyListAllEntityRelation();
@@ -206,6 +206,7 @@ public class FrmUizaVideoInfoV2 extends BaseFragment {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
                     setupUIMoreLikeThis(listAllEntityRelation.getItemList());
                 }
+                UizaData.getInstance().putToListAllEntityRelation(entityId, listAllEntityRelation);
                 avLoadingIndicatorView.smoothToHide();
             }
 

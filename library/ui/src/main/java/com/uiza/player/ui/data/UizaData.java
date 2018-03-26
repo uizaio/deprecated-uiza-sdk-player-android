@@ -6,12 +6,15 @@ import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
 import com.uiza.player.ui.views.view.settingview.SettingObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 
 /**
  * Created by www.muathu@gmail.com on 11/5/2017.
@@ -239,4 +242,23 @@ public class UizaData {
     public void setSizeHeightOfSimpleExoPlayerView(int sizeHeightOfSimpleExoPlayerView) {
         this.sizeHeightOfSimpleExoPlayerView = sizeHeightOfSimpleExoPlayerView;
     }
+
+    //for list entity relation (only support api v2)
+    private Map<String, ListAllEntityRelation> mapListAllEntityRelation = new HashMap<String, ListAllEntityRelation>();
+
+    public void putToListAllEntityRelation(String entityId, ListAllEntityRelation listAllEntityRelation) {
+        LLog.d(TAG, "putToListAllEntityRelation entityId: " + entityId + ", listAllEntityRelation size: " + listAllEntityRelation.getItemList().size());
+        mapListAllEntityRelation.put(entityId, listAllEntityRelation);
+    }
+
+    public ListAllEntityRelation getListAllEntityRelation(String entityId) {
+        ListAllEntityRelation listAllEntityRelation = mapListAllEntityRelation.get(entityId);
+        LLog.d(TAG, "getListAllEntityRelation entityId: " + entityId + ", listAllEntityRelation size: " + listAllEntityRelation.getItemList().size());
+        return listAllEntityRelation;
+    }
+
+    public void removeListAllEntityRelation(String entityId) {
+        mapListAllEntityRelation.remove(entityId);
+    }
+    //end for list entity relation (only support api v2)
 }

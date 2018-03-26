@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 import vn.loitp.views.LToast;
 
 /**
@@ -24,6 +26,8 @@ import vn.loitp.views.LToast;
 
 public class PlayListView extends RelativeLayout {
     private final String TAG = getClass().getSimpleName();
+    //TODO remove gson later
+    private Gson gson = new Gson();
     private List<PlayListObject> playListObjectList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PlayListAdapter playListAdapter;
@@ -45,6 +49,16 @@ public class PlayListView extends RelativeLayout {
 
     private void init() {
         LLog.d(TAG, "init");
+        if (UizaData.getInstance().getInputModel() == null || UizaData.getInstance().getInputModel().getEntityID() == null) {
+            LLog.d(TAG, "UizaData.getInstance().getInputModel() == null || UizaData.getInstance().getInputModel().getEntityID() == null -> return");
+            return;
+        }
+        String entityId = UizaData.getInstance().getInputModel().getEntityID();
+        LLog.d(TAG, "entityId: " + entityId);
+
+        ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
+        LLog.d(TAG, "listAllEntityRelation: " + gson.toJson(listAllEntityRelation));
+
         inflate(getContext(), R.layout.play_list_view, this);
 
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
