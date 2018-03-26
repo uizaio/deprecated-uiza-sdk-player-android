@@ -122,6 +122,7 @@ public class UizaData {
     }
 
     public void setInputModel(InputModel inputModel) {
+        LLog.d(TAG, "setInputModel getEntityID: " + inputModel.getEntityID());
         this.inputModel = inputModel;
         //notifyObservers();
     }
@@ -131,12 +132,11 @@ public class UizaData {
             throw new NullPointerException("inputModel cannot be null, pls init it first");
         }
         inputModel.setListLinkPlay(listLinkPlay);
-        if (Constants.IS_DEBUG) {
+        /*if (Constants.IS_DEBUG) {
             for (String linkPlay : listLinkPlay) {
                 LLog.d(TAG, "setLinkPlay linkPlay: " + linkPlay);
             }
-        }
-        //notifyObservers();
+        }*/
     }
 
     private PlayerConfig playerConfig;

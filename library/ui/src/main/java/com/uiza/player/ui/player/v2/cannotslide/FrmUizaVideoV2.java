@@ -859,6 +859,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         if (player != null) {
             player.setPlayWhenReady(true);
         }
+
+        if (!UizaData.getInstance().getInputModel().getEntityID().equals(inputModel.getEntityID())) {
+            UizaData.getInstance().setInputModel(inputModel);
+        }
         super.onResume();
     }
 

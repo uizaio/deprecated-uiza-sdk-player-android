@@ -107,20 +107,4 @@ public class PlayListView extends RelativeLayout {
         });
         recyclerView.setAdapter(playListAdapter);
     }
-
-    /*private void setupData() {
-        for (int i = 0; i < 30; i++) {
-            PlayListObject playListObject = new PlayListObject();
-            playListObject.setName("La la land - Movie " + i);
-            playListObject.setDuration("2h 13min");
-            playListObject.setTime("2017");
-            playListObject.setRate(i);
-            playListObject.setDesctiption("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, …");
-            playListObject.setUrl("https://c2.staticflickr.com/8/7697/28048898565_9357845f8d.jpg");
-
-            playListObjectList.add(playListObject);
-        }
-
-        playListAdapter.notifyDataSetChanged();
-    }*/
 }
