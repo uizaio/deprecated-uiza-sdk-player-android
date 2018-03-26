@@ -78,11 +78,6 @@ public class ItemAdapterV1 extends RecyclerView.Adapter<ItemAdapterV1.ItemViewHo
             LImageUtil.load((Activity) mContext, Constants.PREFIXS + item.getThumbnail(), holder.imageView, holder.avi);
         }
 
-        /*String[] urls = new String[2];
-        urls[0] = item.getPoster();
-        urls[1] = item.getThumbnail();
-        LImageUtil.load((Activity) mContext, urls, imageView, avi);*/
-
         holder.tvName.setText(item.getName());
         LUIUtil.setTextShadow(holder.tvName);
         holder.imageView.setOnClickListener(new View.OnClickListener() {

@@ -388,7 +388,7 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
             player.seekTo(resumeWindow, resumePosition);
         }
 
-        //subtitle
+        //TODO freuss47 subtitle
         /*try {
             Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
             //String urlSubtitle = "https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt";

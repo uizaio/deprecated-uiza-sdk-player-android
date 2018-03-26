@@ -97,14 +97,6 @@ public class FrmBottomV1 extends BaseFragment {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                //V1
-                /*Intent intent = new Intent(getActivity(), UizaPlayerActivityV1.class);
-                intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-                intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
-                intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(getActivity());*/
-
                 //V2
                 if (clickCallback != null) {
                     clickCallback.onClick(item, position);
@@ -262,29 +254,6 @@ public class FrmBottomV1 extends BaseFragment {
             }
         });
         //End API v1
-
-        //API v2
-        /*UizaService service = RestClientV2.createService(UizaService.class);
-        //LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
-            @Override
-            public void onSuccess(GetDetailEntity getDetailEntity) {
-                LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntity));
-                *//*if (getDetailEntityV2 != null) {
-                    UizaData.getInstance().setDetailEntityV2(getDetailEntityV2);
-                } else {
-                    showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
-                }*//*
-                updateUI(getDetailEntity);
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.e(TAG, "getDetailEntityV2 onFail " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //EndAPI v2
     }
 
     private void setupUIMoreLikeThis(List<Item> itemList) {

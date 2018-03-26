@@ -106,6 +106,7 @@ public class UizaPlayerActivityV1 extends BaseActivity {
         //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
         //inputModel.setUri("http://cdn-broadcast.yuptv.vn/ba_dash/0c45905848ca4ec99d2ed7c11bc8f8ad-a1556c60605a4fe4a1a22eafb4e89b44/index.mpd");
 
+        //TODO freuss 47 ad
         //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
         return inputModel;
     }
@@ -193,13 +194,6 @@ public class UizaPlayerActivityV1 extends BaseActivity {
         if (isGetLinkPlayDone && isGetDetailEntityDone) {
             initContainerVideo();
             initContainerVideoInfo();
-            /*LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
-                @Override
-                public void doAfter(int mls) {
-                    LLog.d(TAG, "init success");
-                    removeCoverVideo();
-                }
-            });*/
         } else {
             LLog.d(TAG, "init failed: isGetLinkPlayDone: " + isGetLinkPlayDone + ", isGetDetailEntityDone: " + isGetDetailEntityDone);
         }
@@ -269,36 +263,6 @@ public class UizaPlayerActivityV1 extends BaseActivity {
             }
         });
         //End API v1
-
-        //API v2
-        /*subscribe(service.getLinkPlayV2(inputModel.getEntityID(), auth.getAppId()), new ApiSubscriber<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay>() {
-            @Override
-            public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlayV1) {
-                LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
-                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
-                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
-
-                try {
-                    //Mpd mpdVN = getLinkPlayV1.getMpd().get(0);
-                    Mpd mpdInter = getLinkPlayV1.getMpd().get(1);
-
-                    String linkPlay = mpdInter.getUrl();
-                    //LLog.d(TAG, "linkPlay " + linkPlay);
-                    UizaData.getInstance().setLinkPlay(linkPlay);
-                    isGetLinkPlayDone = true;
-                    init();
-                } catch (NullPointerException e) {
-                    showDialogError("Error NullPointerException " + e.toString());
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.e(TAG, "onFail getLinkPlayV1 " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //End API v2
     }
 
     private void getDetailEntity() {
@@ -331,31 +295,6 @@ public class UizaPlayerActivityV1 extends BaseActivity {
             }
         });
         //End API v1
-
-        //API v2
-        /*UizaService service = RestClientV2.createService(UizaService.class);
-        String entityId = inputModel.getEntityID();
-        //LLog.d(TAG, "entityId: " + entityId);
-        subscribe(service.getDetailEntityV2(entityId), new ApiSubscriber<GetDetailEntity>() {
-            @Override
-            public void onSuccess(GetDetailEntity getDetailEntityV2) {
-                //LLog.d(TAG, "getDetailEntityV2 onSuccess " + gson.toJson(getDetailEntityV2));
-                if (getDetailEntityV2 != null) {
-                    UizaData.getInstance().setDetailEntityV2(getDetailEntityV2);
-                } else {
-                    showDialogError("Error: getDetailEntityV2 onSuccess detailEntity == null");
-                }
-                isGetDetailEntityDone = true;
-                init();
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LLog.e(TAG, "getDetailEntityV2 onFail " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //EndAPI v2
     }
 
     private void getPlayerConfig() {

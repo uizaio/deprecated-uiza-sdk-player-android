@@ -432,7 +432,7 @@ public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Play
             player.seekTo(resumeWindow, resumePosition);
         }
 
-        //TODO with subtitle vtt
+        //TODO freuss47 with subtitle vtt
         /*Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
         String urlSubtitle = "https://s3-ap-southeast-1.amazonaws.com/58aa3a0eb555420a945a27b47ce9ef2f-data/static/type_caption__entityId_81__language_en.vtt";
         MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse(urlSubtitle)
@@ -1033,37 +1033,6 @@ public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Play
             }
         });
         //End API v1
-
-        //API v2
-        /*subscribe(service.getLinkPlayV2(entityId, auth.getAppId()), new ApiSubscriber<GetLinkPlay>() {
-            @Override
-            public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
-                //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
-                //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
-                //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
-
-                try {
-                    //Mpd mpdVN = getLinkPlayV1.getMpd().get(0);
-                    Mpd mpdInter = getLinkPlay.getMpd().get(1);
-
-                    String linkPlay = mpdInter.getUrl();
-                    //LLog.d(TAG, "linkPlay " + linkPlay);
-
-                    UizaData.getInstance().setLinkPlay(linkPlay);
-                    setInputModel(null, true);
-                } catch (NullPointerException e) {
-                    LLog.e(TAG, "getLinkPlayV2 NullPointerException " + e.toString());
-                    //showDialogError("getLinkPlayV2 Error NullPointerException " + e.toString());
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                //LLog.d(TAG, "onFail " + e.toString());
-                handleException(e);
-            }
-        });*/
-        //End API v2
     }
 
     public void trackUiza(final UizaTracking uizaTracking) {
