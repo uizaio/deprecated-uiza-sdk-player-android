@@ -73,10 +73,14 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
 
         playListHolder.tvDuration.setText(item.getDuration());
         playListHolder.tvName.setText(item.getName());
-        //playListHolder.tvYear.setText(item.getTime());
+
+        //TODO
+        playListHolder.tvYear.setText(item.getDuration());
         playListHolder.tvDuration2.setText(item.getDuration());
-        //playListHolder.tvRate.setText(item.getRate() + "+");
-        //playListHolder.tvDescription.setText(item.getDesctiption());
+
+        //TODO
+        playListHolder.tvRate.setText("18+");
+        playListHolder.tvDescription.setText(item.getShortDescription() == null ? item.getDescription() : item.getShortDescription());
 
         RelativeLayout.LayoutParams rootLayoutParams = new RelativeLayout.LayoutParams((int) (sizeWRoot / 3.5), sizeHRoot);
         playListHolder.rootView.setLayoutParams(rootLayoutParams);
