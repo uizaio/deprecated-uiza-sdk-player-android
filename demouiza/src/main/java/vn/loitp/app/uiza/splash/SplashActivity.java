@@ -51,6 +51,7 @@ public class SplashActivity extends BaseActivity {
             case Constants.URL_DEV_UIZA_VERSION_2:
                 LLog.d(TAG, "Constants.TOKEN_DEV_V1; -> gettoken");
                 Auth auth = LPref.getAuth(activity, LSApplication.getInstance().getGson());
+                LLog.d(TAG, "auth: " + LSApplication.getInstance().getGson().toJson(auth));
                 if (auth == null) {
                     LLog.d(TAG, "auth == null -> get token");
                     auth();

@@ -269,6 +269,11 @@ public class SearchV1Activity extends BaseActivity implements View.OnClickListen
         //intent.putExtra(KEY_UIZA_ENTITY_ID, "bf427eb6-51e4-43f9-b668-d15e5f324d9e");
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
+
+        LLog.d(TAG, "KEY_UIZA_ENTITY_ID: " + item.getId());
+        LLog.d(TAG, "KEY_UIZA_ENTITY_COVER: " + item.getThumbnail());
+        LLog.d(TAG, "KEY_UIZA_ENTITY_TITLE: " + item.getName());
+
         startActivity(intent);
         LActivityUtil.tranIn(activity);
     }

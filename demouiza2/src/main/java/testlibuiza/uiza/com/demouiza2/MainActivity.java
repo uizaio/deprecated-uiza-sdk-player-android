@@ -12,8 +12,8 @@ import com.uiza.player.ui.player.v1.cannotslide.UizaPlayerActivityV1;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LActivityUtil;
+import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 
@@ -29,17 +29,17 @@ public class MainActivity extends BaseActivity {
 
         String currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
         boolean canSlide = false;
-        String currentApiEndPoint = Constants.URL_DEV_UIZA_VERSION_2_STAG;
-        String currentApiTrackingEndPoint = Constants.URL_TRACKING_STAG;
+        String currentApiEndPoint = Constants.URL_WTT;
+        String currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;
 
-        String token = Constants.TOKEN_STAG;
+        String token = Constants.TOKEN_WTT;
         RestClientV2.init(currentApiEndPoint, token);
         UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);
         UizaData.getInstance().setVideoCanSlide(canSlide);
 
         String json = "{\n" +
                 "    \"data\": {\n" +
-                "        \"token\": \"30e23580-f326-4db4-9f3e-a01d609b32b3\",\n" +
+                "        \"token\": \"lsn9LZdm0MBrhGlyrFYqJYSjJfIXX27e-1512986583784\",\n" +
                 "        \"expired\": \"22/04/2018 03:32:46\",\n" +
                 "        \"appId\": \"a204e9cdeca44948a33e0d012ef74e90\"\n" +
                 "    },\n" +
@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
                 "    \"type\": \"SUCCESS\"\n" +
                 "}";
         Auth auth = new Gson().fromJson(json, Auth.class);
+        LLog.d(TAG, "auth: " + new Gson().toJson(auth));
         LPref.setAuth(activity, auth, new Gson());
 
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
@@ -58,9 +59,9 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(activity, UizaPlayerActivityV1.class);
                 //intent.putExtra(KEY_UIZA_ENTITY_ID, "bf427eb6-51e4-43f9-b668-d15e5f324d9e");
-                intent.putExtra(KEY_UIZA_ENTITY_ID, "6c16a6b2-905f-4b5d-ad3c-94c7793d0074");
-                intent.putExtra(KEY_UIZA_ENTITY_COVER, Constants.URL_IMG_THUMBNAIL);
-                intent.putExtra(KEY_UIZA_ENTITY_TITLE, "Test");
+                intent.putExtra(KEY_UIZA_ENTITY_ID, "98fa3908-2523-4291-aa43-851d08694094");
+                intent.putExtra(KEY_UIZA_ENTITY_COVER, "//wtt-static.uiza.io/98fa3908-2523-4291-aa43-851d08694094_thumbnail_1516694859408.jpeg");
+                intent.putExtra(KEY_UIZA_ENTITY_TITLE, "Trấn Thành: \"Là Lạ Lắm À Nghen\" - Thùy Dương, Trấn Thành | Ơn Giời Cậu Đây Rồi | Tập 01 | Phần 2");
                 startActivity(intent);
                 LActivityUtil.tranIn(activity);
             }
