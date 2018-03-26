@@ -857,6 +857,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
+        if (player != null) {
+            player.setPlayWhenReady(true);
+        }
         super.onResume();
     }
 
@@ -871,6 +874,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         super.onPause();
         if (player != null) {
             UizaData.getInstance().setCurrentPosition(player.getCurrentPosition());
+            player.setPlayWhenReady(false);
         }
         if (Util.SDK_INT <= 23) {
             releasePlayer();
