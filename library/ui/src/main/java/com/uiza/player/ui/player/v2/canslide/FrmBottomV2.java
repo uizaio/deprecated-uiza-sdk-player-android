@@ -57,7 +57,6 @@ public class FrmBottomV2 extends BaseFragment {
     private TextView tvVideoGenres;
     private TextView tvDebug;
     private TextView tvMoreLikeThisMsg;
-    //TODO remove gson later
     private Gson gson = new Gson();
 
     //private NestedScrollView nestedScrollView;

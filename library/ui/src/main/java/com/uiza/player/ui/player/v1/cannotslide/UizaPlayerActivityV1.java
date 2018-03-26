@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -45,7 +44,6 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class UizaPlayerActivityV1 extends BaseActivity {
     private InputModel inputModel;
-    //TODO remove gson later
     private Gson gson = new Gson();
 
     public Gson getGson() {
@@ -54,7 +52,6 @@ public class UizaPlayerActivityV1 extends BaseActivity {
 
     private boolean isGetLinkPlayDone;
     private boolean isGetDetailEntityDone;
-
     private FrameLayout flRootView;
 
     @Override

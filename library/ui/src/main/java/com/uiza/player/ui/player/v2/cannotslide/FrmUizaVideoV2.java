@@ -86,7 +86,6 @@ import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadi
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
-//TODO remove debug_text_view, controls_root, retry_button
 public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";

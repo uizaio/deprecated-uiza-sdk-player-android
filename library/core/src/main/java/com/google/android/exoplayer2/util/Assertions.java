@@ -36,7 +36,7 @@ public final class Assertions {
      */
     public static void checkArgument(boolean expression) {
         if (ExoPlayerLibraryInfo.ASSERTIONS_ENABLED && !expression) {
-            //TODO loitp removed???
+            //TODO loitp freuss47 removed???
             //throw new IllegalArgumentException();
         }
     }

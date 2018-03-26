@@ -559,7 +559,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
         settingView.setCallback(new SettingView.Callback() {
             @Override
             public void onClickSettingObject(SettingObject settingObject) {
-                //TODO
                 Toast.makeText(getContext(), "onClickSettingObject " + settingObject.getDescription(), Toast.LENGTH_SHORT).show();
                 controller.getSettingButton().performClick();
             }

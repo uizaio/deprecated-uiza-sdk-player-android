@@ -50,7 +50,6 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class UizaPlayerActivityV2 extends BaseActivity {
     private InputModel inputModel;
-    //TODO remove gson later
     private Gson gson = new Gson();
 
     public Gson getGson() {
