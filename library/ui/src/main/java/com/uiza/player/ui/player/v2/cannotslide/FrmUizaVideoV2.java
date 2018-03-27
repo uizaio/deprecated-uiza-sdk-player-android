@@ -816,7 +816,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                         if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
                             simpleExoPlayerView.hideAllOtherControlView();
-                            simpleExoPlayerView.hideController();
+                            //simpleExoPlayerView.hideController();
                         }
                     }
                 });

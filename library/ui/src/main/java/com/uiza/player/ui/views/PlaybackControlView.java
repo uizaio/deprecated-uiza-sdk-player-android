@@ -350,7 +350,7 @@ public class PlaybackControlView extends FrameLayout {
         @Override
         public void run() {
             //freuss47 event progress change
-            LLog.d(TAG, "updateProgressAction updateProgress() getCurrentPosition " + player.getCurrentPosition());
+            //LLog.d(TAG, "updateProgressAction updateProgress() getCurrentPosition " + player.getCurrentPosition());
             if (onProgressEvent != null) {
                 onProgressEvent.onProgressChange(player.getCurrentPosition());
             }
@@ -524,8 +524,8 @@ public class PlaybackControlView extends FrameLayout {
     }
 
     public void setSizeOfPlaybackControlView() {
-        LLog.d(TAG, "setSizeOfPlaybackControlView");
         rootView.getLayoutParams().height = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView();
+        //LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         rootView.requestLayout();
     }
 
@@ -687,8 +687,7 @@ public class PlaybackControlView extends FrameLayout {
      *                          {@link #DEFAULT_CONTROL_DISPATCHER}.
      */
     public void setControlDispatcher(ControlDispatcher controlDispatcher) {
-        this.controlDispatcher = controlDispatcher == null ? DEFAULT_CONTROL_DISPATCHER
-                : controlDispatcher;
+        this.controlDispatcher = controlDispatcher == null ? DEFAULT_CONTROL_DISPATCHER : controlDispatcher;
     }
 
     /**
@@ -812,8 +811,8 @@ public class PlaybackControlView extends FrameLayout {
         return getVisibility() == VISIBLE;
     }
 
-    private void hideAfterTimeout() {
-        LLog.d(TAG, "hideAfterTimeout");
+    public void hideAfterTimeout() {
+        LLog.d(TAG, "hideAfterTimeout showTimeoutMs " + showTimeoutMs + ", isAttachedToWindow: " + isAttachedToWindow);
         removeCallbacks(hideAction);
         if (showTimeoutMs > 0) {
             hideAtMs = SystemClock.uptimeMillis() + showTimeoutMs;
@@ -999,7 +998,7 @@ public class PlaybackControlView extends FrameLayout {
             }
         }
         if (isVisible()) {
-            LLog.d(TAG, "isVisible " + isVisible());
+            //LLog.d(TAG, "isVisible " + isVisible());
             if (tvDuration != null) {
                 tvDuration.setText(Util.getStringForTime(formatBuilder, formatter, duration));
             }
@@ -1396,8 +1395,13 @@ public class PlaybackControlView extends FrameLayout {
                     }
                 }
             }
-            hideAfterTimeout();
+            //hideAfterTimeout();
+            removeCallbackHideAction();
         }
+    }
+
+    public void removeCallbackHideAction() {
+        removeCallbacks(hideAction);
     }
 
     public interface PlaybackControlViewOnClickEvent {
