@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.uiza.player.ui.data.UizaData;
 
+import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LScreenUtil;
@@ -64,7 +66,7 @@ public class UizaUIUtil {
                             LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                             param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                             window.setAttributes(param);
-                            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                            //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                         } else {
                             LLog.d(TAG, "!isLandscape");
                             LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
@@ -74,7 +76,7 @@ public class UizaUIUtil {
                             LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                             param.y = actionbarSizePx + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                             window.setAttributes(param);
-                            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                            //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                         }
                     } else {
                         //v1, no silde video
@@ -83,7 +85,7 @@ public class UizaUIUtil {
                         LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                         param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                         window.setAttributes(param);
-                        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                     }
                 }
             });
