@@ -97,7 +97,7 @@ import vn.loitp.core.utilities.LScreenUtil;
      * @param rendererIndex The index of the renderer.
      */
 
-    public void showSelectionDialog(final Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex) {
+    public void showSelectionDialog(final Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, DialogInterface.OnDismissListener onDismissListener) {
         this.trackInfo = trackInfo;
         this.rendererIndex = rendererIndex;
 
@@ -116,12 +116,7 @@ import vn.loitp.core.utilities.LScreenUtil;
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //do nothing
-            }
-        });
+        dialog.setOnDismissListener(onDismissListener);
         UizaUIUtil.setUIUizaDialogPlayControlView(dialog, view, activity);
         dialog.show();
     }
