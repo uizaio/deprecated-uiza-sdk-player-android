@@ -65,9 +65,12 @@ public class PlayListViewDialog extends Dialog {
         this.tvMsg = (TextView) findViewById(R.id.tv_msg);
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
+        UizaUIUtil.setUIUizaDialogPlayControlView(this, rootView, activity);
+
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
         if (listAllEntityRelation == null) {
             LLog.d(TAG, "listAllEntityRelation == null -> only support api v2");
+            tvMsg.setText(R.string.only_support_apiv2);
             tvMsg.setVisibility(View.VISIBLE);
             return;
         }
@@ -110,7 +113,5 @@ public class PlayListViewDialog extends Dialog {
             }
         });
         recyclerView.setAdapter(playListAdapter);
-
-        UizaUIUtil.setUIUizaDialogPlayControlView(this, rootView, activity);
     }
 }

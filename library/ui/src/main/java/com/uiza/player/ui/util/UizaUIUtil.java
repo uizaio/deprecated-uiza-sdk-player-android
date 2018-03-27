@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -44,12 +45,12 @@ public class UizaUIUtil {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
-    public static void setUIUizaDialogPlayControlView(Dialog dialog, final View view,final Activity activity) {
+    public static void setUIUizaDialogPlayControlView(Dialog dialog, final View view, final Activity activity) {
         LLog.d(TAG, "setUIUizaDialogPlayControlView");
         final Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             final WindowManager.LayoutParams param = window.getAttributes();
             param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
             view.post(new Runnable() {
