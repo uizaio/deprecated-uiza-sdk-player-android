@@ -56,8 +56,10 @@ import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.view.language.LanguageView;
 import com.uiza.player.ui.views.view.listview.PlayListView;
+import com.uiza.player.ui.views.view.listview.PlayListViewDialog;
 
 import java.util.List;
 
@@ -371,12 +373,15 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickPlayList(View view) {
-                    if (playListView == null) {
+                    /*if (playListView == null) {
                         hideOtherControl(view);
                         showPlayList();
                     } else {
                         hidePlayList();
-                    }
+                    }*/
+                    LLog.d(TAG, "onClickPlayList");
+                    PlayListViewDialog playListViewDialog = new PlayListViewDialog((Activity) getContext());
+                    playListViewDialog.show();
                 }
 
                 @Override
