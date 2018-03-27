@@ -1,24 +1,30 @@
 package com.uiza.player.ui.views.view.language;
 
-import android.content.Context;
-import android.util.AttributeSet;
+import android.app.Activity;
+import android.app.Dialog;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.utilities.LLog;
 
 /**
- * Created by www.muathu@gmail.com on 5/13/2017.
+ * Created by LENOVO on 3/27/2018.
  */
 
-public class LanguageView extends RelativeLayout {
+public class LanguageViewDialog extends Dialog {
     private final String TAG = getClass().getSimpleName();
+    private RelativeLayout rootView;
+    private Activity activity;
     private ImageView ivClose;
     private RowView rowSubtitleOn;
     private RowView rowSubtitleOff;
@@ -33,30 +39,31 @@ public class LanguageView extends RelativeLayout {
 
     private LanguageObject languageObject;
 
-    public LanguageView(Context context) {
-        super(context);
-        init();
+    public LanguageViewDialog(Activity activity) {
+        super(activity);
+        this.activity = activity;
     }
 
-    public LanguageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public LanguageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        LLog.d(TAG, "onCreate");
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.language_view);
         init();
     }
 
     private void init() {
-        inflate(getContext(), R.layout.language_view, this);
-
+        LLog.d(TAG, "init");
         this.llControl = (LinearLayout) findViewById(R.id.ll_control);
         this.ivClose = (ImageView) findViewById(R.id.iv_close);
         this.rowSubtitleOn = (RowView) findViewById(R.id.row_subtitle_on);
         this.rowSubtitleOff = (RowView) findViewById(R.id.row_subtitle_off);
         this.english = (RowView) findViewById(R.id.english);
         this.vietnamese = (RowView) findViewById(R.id.vietnamese);
+        this.rootView = (RelativeLayout) findViewById(R.id.root_view);
+
+        UizaUIUtil.setUIUizaDialogPlayControlView(this, rootView, activity);
 
         rowSubtitleOn.setTvDescription(SUB_ON);
         rowSubtitleOff.setTvDescription(SUB_OFF);
@@ -96,7 +103,7 @@ public class LanguageView extends RelativeLayout {
         english.setCanDoubleClick(false);
         vietnamese.setCanDoubleClick(false);
 
-        ivClose.setOnClickListener(new OnClickListener() {
+        ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callback != null) {
@@ -169,10 +176,9 @@ public class LanguageView extends RelativeLayout {
         public void onClickVI();
     }
 
-    private Callback callback;
+    private LanguageViewDialog.Callback callback;
 
-    public void setCallback(Callback callback) {
+    public void setCallback(LanguageViewDialog.Callback callback) {
         this.callback = callback;
     }
-
 }

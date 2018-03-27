@@ -240,7 +240,7 @@
                     android:soundEffectsEnabled="false"
                     android:src="@drawable/ic_explicit_black_48dp"
                     android:tint="@color/White"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <ImageButton
                     android:id="@id/exo_setting"

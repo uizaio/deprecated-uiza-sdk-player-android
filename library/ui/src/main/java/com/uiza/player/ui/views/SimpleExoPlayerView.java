@@ -26,7 +26,6 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -57,7 +56,7 @@ import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.util.UizaScreenUtil;
-import com.uiza.player.ui.views.view.language.LanguageView;
+import com.uiza.player.ui.views.view.language.LanguageViewDialog;
 import com.uiza.player.ui.views.view.listview.PlayListViewDialog;
 
 import java.util.List;
@@ -231,8 +230,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private boolean controllerAutoShow;
     private boolean controllerHideOnTouch;
 
-    private LanguageView languageView;
-
     public final static int PLAYTHROUGH_25 = 25;
     public final static int PLAYTHROUGH_50 = 50;
     public final static int PLAYTHROUGH_75 = 75;
@@ -383,17 +380,49 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickLanguage(View view) {
-                    if (languageView == null) {
-                        hideOtherControl(view);
-                        showLanguage();
-                    } else {
-                        hideLanguage();
-                    }
+                    pausePlayVideo();
+                    LanguageViewDialog languageViewDialog = new LanguageViewDialog((Activity) getContext());
+                    languageViewDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            resumePlayVideo();
+                        }
+                    });
+                    languageViewDialog.show();
+                    languageViewDialog.setCallback(new LanguageViewDialog.Callback() {
+                        @Override
+                        public void onClickClose() {
+                            controller.getLanguageButton().performClick();
+                        }
+
+                        @Override
+                        public void onClickSubOn() {
+                            //TODO
+                            Toast.makeText(getContext(), "onClickSubOn", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onClickSubOff() {
+                            //TODO
+                            Toast.makeText(getContext(), "onClickSubOff", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onClickEN() {
+                            //TODO
+                            Toast.makeText(getContext(), "onClickEN", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onClickVI() {
+                            //TODO
+                            Toast.makeText(getContext(), "onClickVI", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
                 @Override
                 public void onClickSetting(View view) {
-                    hideOtherControl(view);
                     pausePlayVideo();
                     if (callback != null) {
                         callback.onClickSetting();
@@ -402,7 +431,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickFullScreen(View view) {
-                    hideAllOtherControlView();
                     UizaScreenUtil.setFullScreen(getContext(), isFullScreen(getContext()));
                 }
 
@@ -472,72 +500,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
     public void setCallback(Callback callback) {
         this.callback = callback;
-    }
-
-    private void showLanguage() {
-        languageView = new LanguageView(getContext());
-        if (exoHelperFrameLayout != null) {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-            exoHelperFrameLayout.addView(languageView, params);
-            pausePlayVideo();
-        }
-        languageView.setCallback(new LanguageView.Callback() {
-            @Override
-            public void onClickClose() {
-                controller.getLanguageButton().performClick();
-            }
-
-            @Override
-            public void onClickSubOn() {
-                //TODO
-                Toast.makeText(getContext(), "onClickSubOn", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onClickSubOff() {
-                //TODO
-                Toast.makeText(getContext(), "onClickSubOff", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onClickEN() {
-                //TODO
-                Toast.makeText(getContext(), "onClickEN", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onClickVI() {
-                //TODO
-                Toast.makeText(getContext(), "onClickVI", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void hideLanguage() {
-        if (exoHelperFrameLayout != null && languageView != null) {
-            exoHelperFrameLayout.removeView(languageView);
-            languageView = null;
-            resumePlayVideo();
-        }
-    }
-
-    private void hideOtherControl(View view) {
-        if (view.getId() == R.id.exo_setting) {
-            hideLanguage();
-        } else if (view.getId() == R.id.exo_language) {
-        } else if (view.getId() == R.id.exo_playlist) {
-            hideLanguage();
-        }
-    }
-
-    public void hideAllOtherControlView() {
-        if (exoHelperFrameLayout != null) {
-            if (languageView != null) {
-                exoHelperFrameLayout.removeView(languageView);
-                languageView = null;
-            }
-            resumePlayVideo();
-        }
     }
 
     public void pausePlayVideo() {
@@ -852,18 +814,16 @@ public final class SimpleExoPlayerView extends FrameLayout {
         controller.setVisibilityListener(new PlaybackControlView.VisibilityListener() {
             @Override
             public void onVisibilityChange(int visibility) {
-                if (visibility == View.VISIBLE) {
+                /*if (visibility == View.VISIBLE) {
                     LLog.d(TAG, "setControllerVisibilityListener VISIBLE");
                 } else if (visibility == View.GONE) {
                     LLog.d(TAG, "setControllerVisibilityListener GONE");
-                    hideAllOtherControlView();
-                }
+                }*/
                 if (listener != null) {
                     listener.onVisibilityChange(visibility);
                 }
             }
         });
-        //controller.setVisibilityListener(listener);
     }
 
     /**
