@@ -788,6 +788,7 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
                 button.setText(label);
                 button.setTag(i);
                 button.setOnClickListener(this);
+                button.setSoundEffectsEnabled(false);
                 debugRootView.addView(button, debugRootView.getChildCount() - 1);
                 //LLog.d(TAG, "updateButtonVisibilities addView " + button.getText().toString() + ", tag: " + button.getTag().toString());
             }
@@ -820,7 +821,7 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
             LLog.d(TAG, "onClick " + ((Button) view).getText());
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag(), new DialogInterface.OnDismissListener() {
+                /*trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag(), new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         if (simpleExoPlayerView != null) {
@@ -829,7 +830,8 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
                             simpleExoPlayerView.hideController();
                         }
                     }
-                });
+                });*/
+                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag());
             }
         }
     }

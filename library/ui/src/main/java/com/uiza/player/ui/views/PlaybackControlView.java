@@ -444,7 +444,6 @@ public class PlaybackControlView extends FrameLayout {
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
         rootView = (RelativeLayout) findViewById(R.id.root_view);
-        rootView.setOnClickListener(componentListener);
 
         llTop = (LinearLayout) findViewById(R.id.ll_top);
         llMid = (LinearLayout) findViewById(R.id.ll_mid);
@@ -1360,9 +1359,7 @@ public class PlaybackControlView extends FrameLayout {
                 /*else if (previousButton == view) {
                     previous();
                 }*/
-                if (rootView == view) {
-                    LToast.show(getContext(), "touch");
-                } else if (fastForwardButton == view) {
+                if (fastForwardButton == view) {
                     fastForward();
                 } else if (rewindButton == view) {
                     rewind();

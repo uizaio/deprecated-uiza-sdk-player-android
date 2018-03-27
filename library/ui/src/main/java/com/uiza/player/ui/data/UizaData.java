@@ -4,7 +4,6 @@ import android.os.Handler;
 
 import com.uiza.player.ui.views.helper.InputModel;
 import com.uiza.player.ui.views.view.language.LanguageObject;
-import com.uiza.player.ui.views.view.settingview.SettingObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +48,6 @@ public class UizaData {
             public void run() {
                 currentPosition = 0;
                 isLandscape = false;
-                settingObject = null;
                 languageObject = null;
             }
         }, 100);
@@ -64,16 +62,6 @@ public class UizaData {
 
     public void setLandscape(boolean landscape) {
         isLandscape = landscape;
-    }
-
-    private SettingObject settingObject;
-
-    public SettingObject getSettingObject() {
-        return settingObject;
-    }
-
-    public void setSettingObject(SettingObject settingObject) {
-        this.settingObject = settingObject;
     }
 
     private LanguageObject languageObject;

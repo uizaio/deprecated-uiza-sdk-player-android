@@ -810,16 +810,17 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             LLog.d(TAG, "onClick " + ((Button) view).getText());
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag(), new DialogInterface.OnDismissListener() {
+                /*trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag(), new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        /*if (simpleExoPlayerView != null) {
+                        *//*if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
                             simpleExoPlayerView.hideAllOtherControlView();
                             simpleExoPlayerView.hideController();
-                        }*/
+                        }*//*
                     }
-                });
+                });*/
+                trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag());
             }
         }
     }

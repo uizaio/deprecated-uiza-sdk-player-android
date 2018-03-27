@@ -95,7 +95,7 @@ import vn.loitp.core.utilities.LScreenUtil;
      * @param rendererIndex The index of the renderer.
      */
 
-    public void showSelectionDialog(final Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex, final DialogInterface.OnDismissListener callbackDialogDissmiss) {
+    public void showSelectionDialog(final Activity activity, CharSequence title, MappedTrackInfo trackInfo, int rendererIndex) {
         this.trackInfo = trackInfo;
         this.rendererIndex = rendererIndex;
 
@@ -114,7 +114,12 @@ import vn.loitp.core.utilities.LScreenUtil;
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);
-        dialog.setOnDismissListener(callbackDialogDissmiss);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                //do nothing
+            }
+        });
         final Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
