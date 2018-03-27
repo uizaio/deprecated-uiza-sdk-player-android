@@ -57,6 +57,7 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.views.LToast;
 
 /**
  * A view for controlling {@link Player} instances.
@@ -443,6 +444,7 @@ public class PlaybackControlView extends FrameLayout {
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
         rootView = (RelativeLayout) findViewById(R.id.root_view);
+        rootView.setOnClickListener(componentListener);
 
         llTop = (LinearLayout) findViewById(R.id.ll_top);
         llMid = (LinearLayout) findViewById(R.id.ll_mid);
@@ -1358,7 +1360,9 @@ public class PlaybackControlView extends FrameLayout {
                 /*else if (previousButton == view) {
                     previous();
                 }*/
-                if (fastForwardButton == view) {
+                if (rootView == view) {
+                    LToast.show(getContext(), "touch");
+                } else if (fastForwardButton == view) {
                     fastForward();
                 } else if (rewindButton == view) {
                     rewind();

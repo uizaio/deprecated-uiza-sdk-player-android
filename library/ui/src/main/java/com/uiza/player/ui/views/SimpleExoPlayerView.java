@@ -401,6 +401,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     } else {
                         hideSetting();
                     }*/
+                    LLog.d("fuck", "onClickSetting");
                     hideOtherControl(view);
                     pausePlayVideo();
                     if (callback != null) {

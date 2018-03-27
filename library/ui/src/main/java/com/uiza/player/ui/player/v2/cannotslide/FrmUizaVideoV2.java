@@ -813,9 +813,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 trackSelectionHelper.showSelectionDialog((Activity) getContext(), ((Button) view).getText(), mappedTrackInfo, (int) view.getTag(), new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
+                        LLog.d("fuck", "onDismiss");
                         if (simpleExoPlayerView != null) {
                             simpleExoPlayerView.resumePlayVideo();
-                            simpleExoPlayerView.hideAllOtherControlView();
+                            //simpleExoPlayerView.hideAllOtherControlView();
                             //simpleExoPlayerView.hideController();
                         }
                     }

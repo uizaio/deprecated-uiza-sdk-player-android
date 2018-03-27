@@ -156,6 +156,7 @@ import vn.loitp.core.utilities.LScreenUtil;
                 }
             });
         }
+        dialog.setCancelable(true);
         dialog.show();
     }
 
