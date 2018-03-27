@@ -58,7 +58,6 @@ import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.view.language.LanguageView;
-import com.uiza.player.ui.views.view.listview.PlayListView;
 import com.uiza.player.ui.views.view.listview.PlayListViewDialog;
 
 import java.util.List;
