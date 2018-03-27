@@ -98,14 +98,6 @@ public class FrmBottomV2 extends BaseFragment {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                //V1
-                /*Intent intent = new Intent(getActivity(), UizaPlayerActivityV1.class);
-                intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-                intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
-                intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
-                startActivity(intent);
-                LUIUtil.transActivityFadeIn(getActivity());*/
-
                 //V2
                 if (clickCallback != null) {
                     clickCallback.onClick(item, position);
@@ -178,7 +170,7 @@ public class FrmBottomV2 extends BaseFragment {
         }
     }
 
-    private void getListAllEntityRelation(String entityId) {
+    private void getListAllEntityRelation(final String entityId) {
         //API v2
         this.itemList.clear();
         mAdapter.notifyDataSetChanged();
@@ -190,15 +182,16 @@ public class FrmBottomV2 extends BaseFragment {
 
         subscribe(service.getListAllEntityRalationV2(jsonBodyListAllEntityRelation), new ApiSubscriber<ListAllEntityRelation>() {
             @Override
-            public void onSuccess(ListAllEntityRelation getDetailEntity) {
-                LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(getDetailEntity));
-                if (getDetailEntity == null || getDetailEntity.getItemList().isEmpty()) {
+            public void onSuccess(ListAllEntityRelation listAllEntityRelation) {
+                LLog.d(TAG, "getListAllEntityRelation onSuccess " + gson.toJson(listAllEntityRelation));
+                if (listAllEntityRelation == null || listAllEntityRelation.getItemList().isEmpty()) {
                     tvMoreLikeThisMsg.setText(getString(R.string.no_data));
                     tvMoreLikeThisMsg.setVisibility(View.VISIBLE);
                 } else {
                     tvMoreLikeThisMsg.setVisibility(View.GONE);
-                    setupUIMoreLikeThis(getDetailEntity.getItemList());
+                    setupUIMoreLikeThis(listAllEntityRelation.getItemList());
                 }
+                UizaData.getInstance().putToListAllEntityRelation(entityId, listAllEntityRelation);
                 avLoadingIndicatorView.smoothToHide();
             }
 

@@ -42,6 +42,7 @@ import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.Datum;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.JsonBodyMetadataList;
 import vn.loitp.restapi.uiza.model.v2.listallmetadata.ListAllMetadata;
@@ -362,7 +363,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
     }
 
-    public void onClickVideo(vn.loitp.restapi.uiza.model.v2.listallentity.Item item, int position) {
+    public void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
@@ -469,10 +470,11 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 }
             }
         });*/
+
         frmBottomV2 = new FrmBottomV2();
         frmBottomV2.setClickCallback(new FrmBottomV2.ClickCallback() {
             @Override
-            public void onClick(vn.loitp.restapi.uiza.model.v2.listallentity.Item item, int position) {
+            public void onClick(Item item, int position) {
                 LLog.d(TAG, "setClickCallback onClick " + item.getName());
                 onClickVideo(item, position);
             }

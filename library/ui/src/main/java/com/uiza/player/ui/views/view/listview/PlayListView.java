@@ -13,14 +13,12 @@ import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
-import vn.loitp.views.LToast;
 
 /**
  * Created by www.muathu@gmail.com on 5/13/2017.
@@ -101,9 +99,8 @@ public class PlayListView extends RelativeLayout {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         playListAdapter = new PlayListAdapter(getContext(), itemList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
             @Override
-            public void onClickItem(Item item) {
+            public void onClickItem(Item item, int position) {
                 //TODO
-                LToast.show(getContext(), "Click " + gson.toJson(item));
             }
         });
         recyclerView.setAdapter(playListAdapter);

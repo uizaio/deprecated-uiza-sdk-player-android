@@ -68,7 +68,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     }
 
     @Override
-    public void onBindViewHolder(PlayListHolder playListHolder, int position) {
+    public void onBindViewHolder(PlayListHolder playListHolder, final int position) {
         final Item item = itemList.get(position);
 
         playListHolder.tvDuration.setText(item.getDuration());
@@ -100,8 +100,9 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         playListHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LLog.d(TAG, TAG + " click: " + item.getName() + ", position: " + position);
                 if (callback != null) {
-                    callback.onClickItem(item);
+                    callback.onClickItem(item, position);
                 }
             }
         });
@@ -113,7 +114,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     }
 
     public interface Callback {
-        public void onClickItem(Item item);
+        public void onClickItem(Item item, int position);
     }
 
     private Callback callback;

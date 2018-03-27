@@ -214,7 +214,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
         });
-
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -223,7 +222,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
             }
         });
-
         return view;
     }
 
