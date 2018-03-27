@@ -18,6 +18,7 @@ package com.uiza.player.ui.views;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -56,7 +57,6 @@ import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.util.UizaScreenUtil;
-import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.view.language.LanguageView;
 import com.uiza.player.ui.views.view.listview.PlayListView;
 import com.uiza.player.ui.views.view.listview.PlayListViewDialog;
@@ -65,7 +65,6 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.views.LToast;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -233,9 +232,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private boolean controllerAutoShow;
     private boolean controllerHideOnTouch;
 
-    //private SettingView settingView;
     private LanguageView languageView;
-    private PlayListView playListView;
 
     public final static int PLAYTHROUGH_25 = 25;
     public final static int PLAYTHROUGH_50 = 50;
@@ -373,14 +370,15 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickPlayList(View view) {
-                    /*if (playListView == null) {
-                        hideOtherControl(view);
-                        showPlayList();
-                    } else {
-                        hidePlayList();
-                    }*/
                     LLog.d(TAG, "onClickPlayList");
+                    pausePlayVideo();
                     PlayListViewDialog playListViewDialog = new PlayListViewDialog((Activity) getContext());
+                    playListViewDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            resumePlayVideo();
+                        }
+                    });
                     playListViewDialog.show();
                 }
 
@@ -396,16 +394,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickSetting(View view) {
-                    /*if (settingView == null) {
-                        hideOtherControl(view);
-                        //TODO
-                        //showSetting();
-                        if (callback != null) {
-                            callback.onClickSetting();
-                        }
-                    } else {
-                        hideSetting();
-                    }*/
                     hideOtherControl(view);
                     pausePlayVideo();
                     if (callback != null) {
@@ -439,28 +427,24 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     switch ((int) (progress * 100 / duration)) {
                         case PLAYTHROUGH_25:
                             //LLog.d(TAG, ">>>>play_through 25");
-                            //ToastUtils.showShort("play_through 25");
                             if (callback != null) {
                                 callback.onPlayThrough(PLAYTHROUGH_25);
                             }
                             break;
                         case PLAYTHROUGH_50:
                             //LLog.d(TAG, ">>>>play_through 50");
-                            //ToastUtils.showShort("play_through 50");
                             if (callback != null) {
                                 callback.onPlayThrough(PLAYTHROUGH_50);
                             }
                             break;
                         case PLAYTHROUGH_75:
                             //LLog.d(TAG, ">>>>play_through 75");
-                            //ToastUtils.showShort("play_through 75");
                             if (callback != null) {
                                 callback.onPlayThrough(PLAYTHROUGH_75);
                             }
                             break;
                         case PLAYTHROUGH_100 - 1://should -1 here
                             //LLog.d(TAG, ">>>>play_through 100");
-                            //ToastUtils.showShort("play_through 100");
                             if (callback != null) {
                                 callback.onPlayThrough(PLAYTHROUGH_100);
                             }
@@ -489,23 +473,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
     public void setCallback(Callback callback) {
         this.callback = callback;
-    }
-
-    private void showPlayList() {
-        playListView = new PlayListView(getContext());
-        if (exoHelperFrameLayout != null) {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-            exoHelperFrameLayout.addView(playListView, params);
-            pausePlayVideo();
-        }
-    }
-
-    private void hidePlayList() {
-        if (exoHelperFrameLayout != null && playListView != null) {
-            exoHelperFrameLayout.removeView(playListView);
-            playListView = null;
-            resumePlayVideo();
-        }
     }
 
     private void showLanguage() {
@@ -555,45 +522,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
         }
     }
 
-    /*private void showSetting() {
-        settingView = new SettingView(getContext());
-        if (exoHelperFrameLayout != null) {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-            exoHelperFrameLayout.addView(settingView, params);
-            pausePlayVideo();
-        }
-        settingView.setCallback(new SettingView.Callback() {
-            @Override
-            public void onClickSettingObject(SettingObject settingObject) {
-                Toast.makeText(getContext(), "onClickSettingObject " + settingObject.getDescription(), Toast.LENGTH_SHORT).show();
-                controller.getSettingButton().performClick();
-            }
-
-            @Override
-            public void onClickClose() {
-                controller.getSettingButton().performClick();
-            }
-        });
-    }*/
-
-    /*private void hideSetting() {
-        if (exoHelperFrameLayout != null && settingView != null) {
-            exoHelperFrameLayout.removeView(settingView);
-            settingView = null;
-            resumePlayVideo();
-        }
-    }*/
-
     private void hideOtherControl(View view) {
         if (view.getId() == R.id.exo_setting) {
             hideLanguage();
-            hidePlayList();
         } else if (view.getId() == R.id.exo_language) {
-            //hideSetting();
-            hidePlayList();
         } else if (view.getId() == R.id.exo_playlist) {
             hideLanguage();
-            //hideSetting();
         }
     }
 
@@ -603,14 +537,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 exoHelperFrameLayout.removeView(languageView);
                 languageView = null;
             }
-            if (playListView != null) {
-                exoHelperFrameLayout.removeView(playListView);
-                playListView = null;
-            }
-            /*if (settingView != null) {
-                exoHelperFrameLayout.removeView(settingView);
-                settingView = null;
-            }*/
             resumePlayVideo();
         }
     }
