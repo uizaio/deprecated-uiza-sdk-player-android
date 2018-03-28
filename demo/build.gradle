@@ -71,6 +71,12 @@ android {
         pickFirst 'lib/x86/librsjni.so'
         pickFirst 'lib/x86_64/librsjni.so'
     }
+
+    /*configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:support-annotations:24.1.1'
+        }
+    }*/
 }
 
 dependencies {
@@ -90,6 +96,6 @@ dependencies {
     withExtensionsCompile project(path: modulePrefix + 'extension-vp9')
     withExtensionsCompile project(path: modulePrefix + 'extension-rtmp')
 
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.android.support:multidex:1.0.0'
+    //compile 'com.google.code.gson:gson:2.7'
+    //compile 'com.android.support:multidex:1.0.3'
 }
