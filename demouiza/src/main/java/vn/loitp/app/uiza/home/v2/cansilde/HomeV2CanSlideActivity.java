@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
+import com.uiza.player.ui.player.v2.canslide.ClickCallback;
 import com.uiza.player.ui.player.v2.canslide.FrmBottomV2;
 import com.uiza.player.ui.player.v2.canslide.FrmTopV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
@@ -470,9 +471,16 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 }
             }
         });*/
+        frmTopV2.setClickCallback(new ClickCallback() {
+            @Override
+            public void onClick(Item item, int position) {
+                LLog.d(TAG, "onClick " + item.getName() + ", position: " + position);
+                onClickVideo(item, position);
+            }
+        });
 
         frmBottomV2 = new FrmBottomV2();
-        frmBottomV2.setClickCallback(new FrmBottomV2.ClickCallback() {
+        frmBottomV2.setClickCallback(new ClickCallback() {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "setClickCallback onClick " + item.getName());

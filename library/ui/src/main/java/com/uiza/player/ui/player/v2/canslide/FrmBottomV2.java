@@ -98,7 +98,6 @@ public class FrmBottomV2 extends BaseFragment {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                //V2
                 if (clickCallback != null) {
                     clickCallback.onClick(item, position);
                 }
@@ -117,10 +116,6 @@ public class FrmBottomV2 extends BaseFragment {
         recyclerView.setAdapter(mAdapter);
 
         return view;
-    }
-
-    public interface ClickCallback {
-        public void onClick(Item item, int position);
     }
 
     private ClickCallback clickCallback;

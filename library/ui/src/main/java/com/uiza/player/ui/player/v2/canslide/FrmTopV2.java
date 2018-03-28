@@ -217,7 +217,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
 
             @Override
             public void onClickItem(Item item, int position) {
-
+                if (clickCallback != null) {
+                    clickCallback.onClick(item, position);
+                }
             }
         });
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
@@ -229,6 +231,12 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             }
         });
         return view;
+    }
+
+    private ClickCallback clickCallback;
+
+    public void setClickCallback(ClickCallback clickCallback) {
+        this.clickCallback = clickCallback;
     }
 
     //return button video in debug layout
