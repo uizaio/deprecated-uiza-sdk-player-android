@@ -57,12 +57,14 @@ import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.view.language.LanguageViewDialog;
+import com.uiza.player.ui.views.view.listview.PlayListAdapter;
 import com.uiza.player.ui.views.view.listview.PlayListViewDialog;
 
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -368,7 +370,16 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickPlayList(View view) {
                     LLog.d(TAG, "onClickPlayList");
                     pausePlayVideo();
-                    PlayListViewDialog playListViewDialog = new PlayListViewDialog((Activity) getContext());
+                    final PlayListViewDialog playListViewDialog = new PlayListViewDialog((Activity) getContext());
+                    playListViewDialog.setPlayListAdapterCallback(new PlayListAdapter.Callback() {
+                        @Override
+                        public void onClickItem(Item item, int position) {
+                            LLog.d(TAG, "onClickItem " + item.getName() + ", position: " + position);
+                            if (playListViewDialog != null) {
+                                playListViewDialog.dismiss();
+                            }
+                        }
+                    });
                     playListViewDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {

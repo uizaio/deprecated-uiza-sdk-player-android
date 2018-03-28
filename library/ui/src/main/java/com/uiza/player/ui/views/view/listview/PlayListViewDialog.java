@@ -39,6 +39,12 @@ public class PlayListViewDialog extends Dialog {
     private RelativeLayout rootView;
     private Activity activity;
 
+    private PlayListAdapter.Callback callback;
+
+    public void setPlayListAdapterCallback(PlayListAdapter.Callback callback) {
+        this.callback = callback;
+    }
+
     public PlayListViewDialog(Activity activity) {
         super(activity);
         this.activity = activity;
@@ -106,12 +112,7 @@ public class PlayListViewDialog extends Dialog {
             recyclerView.setLayoutParams(recyclerViewParams);
         }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        playListAdapter = new PlayListAdapter(getContext(), itemList, widthRecyclerView, heightRecyclerView, new PlayListAdapter.Callback() {
-            @Override
-            public void onClickItem(Item item, int position) {
-                //TODO
-            }
-        });
+        playListAdapter = new PlayListAdapter(getContext(), itemList, widthRecyclerView, heightRecyclerView, callback);
         recyclerView.setAdapter(playListAdapter);
     }
 }
