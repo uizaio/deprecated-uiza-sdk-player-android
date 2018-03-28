@@ -100,6 +100,7 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.LToast;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
@@ -212,6 +213,11 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+            }
+
+            @Override
+            public void onClickItem(Item item, int position) {
+
             }
         });
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {

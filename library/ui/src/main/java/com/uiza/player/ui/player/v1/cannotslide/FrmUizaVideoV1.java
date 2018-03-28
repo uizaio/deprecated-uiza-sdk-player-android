@@ -80,6 +80,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.views.LToast;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -192,6 +193,11 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
                 ((UizaPlayerActivityV1) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+            }
+
+            @Override
+            public void onClickItem(Item item, int position) {
+                //TODO
             }
         });
 

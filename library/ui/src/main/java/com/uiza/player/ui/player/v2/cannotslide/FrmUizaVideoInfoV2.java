@@ -96,12 +96,7 @@ public class FrmUizaVideoInfoV2 extends BaseFragment {
             @Override
             public void onClick(Item item, int position) {
                 LLog.d(TAG, "onClick " + position);
-                Intent intent = new Intent(getActivity(), UizaPlayerActivityV2.class);
-                intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-                intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
-                intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
-                startActivity(intent);
-                LActivityUtil.tranIn(getActivity());
+                ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
             }
 
             @Override

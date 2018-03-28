@@ -378,6 +378,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
                             if (playListViewDialog != null) {
                                 playListViewDialog.dismiss();
                             }
+                            if (callback != null) {
+                                callback.onClickItem(item, position);
+                            }
                         }
                     });
                     playListViewDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -505,6 +508,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
         public void onClickSetting();
 
         public void onPlayThrough(int percent);
+
+        public void onClickItem(Item item, int position);
     }
 
     private Callback callback;

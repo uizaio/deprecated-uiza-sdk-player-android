@@ -1,6 +1,7 @@
 package com.uiza.player.ui.player.v2.cannotslide;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.util.List;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.restapi.restclient.RestClientTracking;
@@ -40,6 +42,7 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 import vn.loitp.views.realtimeblurview.RealtimeBlurView;
@@ -371,5 +374,15 @@ public class UizaPlayerActivityV2 extends BaseActivity {
                 handleException(e);
             }
         });
+    }
+
+    public void playOnClickItem(Item item, int position){
+        LLog.d(TAG, "onClick " + position);
+        Intent intent = new Intent(activity, UizaPlayerActivityV2.class);
+        intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
+        intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
+        intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
+        startActivity(intent);
+        LActivityUtil.tranIn(activity);
     }
 }

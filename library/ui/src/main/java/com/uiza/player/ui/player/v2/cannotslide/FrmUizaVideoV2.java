@@ -2,6 +2,7 @@ package com.uiza.player.ui.player.v2.cannotslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -77,11 +78,17 @@ import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
+import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.views.LToast;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
+import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -192,6 +199,12 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
                 ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+            }
+
+            @Override
+            public void onClickItem(Item item, int position) {
+                LLog.d(TAG, "onClick " + position);
+                ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
             }
         });
 
