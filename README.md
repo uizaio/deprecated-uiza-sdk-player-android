@@ -31,28 +31,36 @@ or
 
     public class YourFragment extends BaseFragment{
     }
+    
+**Step 2: Call api by using this function** 
 
-**Step 2: Create interface**  
-
-    public interface APIServices {  
-        @GET("/2.2/questions?order=desc&sort=votes&site=stackoverflow&tagged=android&filter=withbody")  
-        Observable<Object> test(); 
-    }
-**Step3: Call api by using this function** 
-
-    private void testAPI() {  
-        RestClient.init("https://api.stackexchange.com");  
-        //RestClient.init("https://api.stackexchange.com", "token");  
-        APIServices service = RestClient.createService(APIServices.class);  
-        subscribe(service.test(), new ApiSubscriber<Object>() {  
+    private void getListAllMetadata() {  
+        UizaService service = RestClientV2.createService(UizaService.class);  
+        int limit = 50;  
+        String orderBy = "name";  
+        String orderType = "ASC";  
+      
+        JsonBodyMetadataList jsonBodyMetadataList = new JsonBodyMetadataList();  
+        jsonBodyMetadataList.setLimit(limit);  
+        jsonBodyMetadataList.setOrderBy(orderBy);  
+        jsonBodyMetadataList.setOrderType(orderType);  
+      
+        subscribe(service.listAllMetadataV2(jsonBodyMetadataList), new ApiSubscriber<ListAllMetadata>() {  
             @Override  
-            public void onSuccess(Object result) {  
-                LLog.d(TAG, "testAPI onSuccess " \+ LSApplication.getInstance().getGson().toJson(result));  
+            public void onSuccess(ListAllMetadata listAllMetadata) {  
+                //do sth  
             }  
       
             @Override  
-            public void onFail(Throwable e) {  
+            public void onFail(Throwable e) {    
                 handleException(e);  
             }  
         });  
     }
+
+**More ex:**
+@ http://dev-api.uiza.io/resource/index.html#api-Credentical-Auth:
+
+    subscribe(service.auth(jsonBodyAuth), new ApiSubscriber<...>() {  
+                   ...
+    });
