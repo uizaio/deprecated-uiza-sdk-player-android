@@ -56,7 +56,7 @@ public class Constants {
     public final static String PREFIXS = "https://";
     public final static String PREFIXS_SHORT = "https:";
 
-    public final static String URL_TRACKING_DEV = "http://dev-tracking.uiza.io/analytic-tracking/";
+    public final static String URL_TRACKING_DEV = "https://dev-tracking.uiza.io/analytic-tracking/";
     public final static String URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/";
     public final static String URL_TRACKING_PROD = "https://tracking.uiza.io/analytic-tracking/";
 

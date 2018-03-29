@@ -358,25 +358,27 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     }
 
     public void trackUiza(final UizaTracking uizaTracking) {
-        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
+        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackuiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
+        LLog.d(TAG, ">>>trackuiza object: " + gson.toJson(uizaTracking));
+        LLog.d(TAG, ">>>trackuiza endpoint: " + UizaData.getInstance().getApiTrackingEndPoint());
         RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
         UizaService service = RestClientTracking.createService(UizaService.class);
         subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
             @Override
             public void onSuccess(Object tracking) {
-                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
+                LLog.d(TAG, "<<<<<<<<<<<<<<<trackuiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
             }
 
             @Override
             public void onFail(Throwable e) {
                 //TODO send event fail? Try to send again
-                LLog.d(TAG, "trackUiza onFail " + e.toString());
+                LLog.e(TAG, "trackuiza onFail " + e.toString());
                 handleException(e);
             }
         });
     }
 
-    public void playOnClickItem(Item item, int position){
+    public void playOnClickItem(Item item, int position) {
         LLog.d(TAG, "onClick " + position);
         Intent intent = new Intent(activity, UizaPlayerActivityV2.class);
         intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
