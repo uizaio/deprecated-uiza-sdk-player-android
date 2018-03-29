@@ -56,7 +56,9 @@ import java.util.Locale;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
+import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.views.LToast;
 
 /**
@@ -526,7 +528,8 @@ public class PlaybackControlView extends FrameLayout {
 
     public void setSizeOfPlaybackControlView() {
         rootView.getLayoutParams().height = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView();
-        //LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
+        //rootView.getLayoutParams().width = LDisplayUtils.getScreenW((Activity) getContext());
+        LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         rootView.requestLayout();
     }
 

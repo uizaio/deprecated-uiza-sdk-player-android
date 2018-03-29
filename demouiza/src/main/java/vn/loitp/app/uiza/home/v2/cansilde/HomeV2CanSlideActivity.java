@@ -325,6 +325,9 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
+                if (draggablePanel != null) {
+                    draggablePanel.closeToRight();
+                }
                 finish();
                 LActivityUtil.tranOut(activity);
             }
@@ -457,7 +460,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     public void initializeDraggablePanel() throws Resources.NotFoundException {
         LLog.d(TAG, "initializeDraggablePanel");
         if (frmTopV2 != null && frmBottomV2 != null) {
-            LLog.d(TAG, "initializeDraggablePanel done before");
+            LLog.d(TAG, "initializeDraggablePanel done before -> return");
             return;
         }
         frmTopV2 = new FrmTopV2();

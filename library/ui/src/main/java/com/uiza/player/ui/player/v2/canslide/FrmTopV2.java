@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -144,7 +145,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private Object imaAdsLoader; // ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
-    private FrameLayout rootView;
+    private RelativeLayout rootView;
     private AVLoadingIndicatorView avi;
     //TODO remove gson later
     private Gson gson = new Gson();
@@ -183,7 +184,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
 
         avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avi.smoothToShow();
-        rootView = (FrameLayout) view.findViewById(R.id.root_view);
+        rootView = (RelativeLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
         debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
@@ -225,7 +226,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                LLog.d(TAG, "onLayoutChange " + bottom);
+                LLog.d(TAG, "addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
                 simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
                 UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
             }

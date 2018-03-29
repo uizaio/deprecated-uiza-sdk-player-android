@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -140,7 +141,7 @@ public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Play
     private Object imaAdsLoader; // ImaAdsLoader
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
-    private FrameLayout rootView;
+    private RelativeLayout rootView;
     private AVLoadingIndicatorView avi;
     //TODO remove gson later
     private Gson gson = new Gson();
@@ -179,7 +180,7 @@ public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Play
 
         avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avi.smoothToShow();
-        rootView = (FrameLayout) view.findViewById(R.id.root_view);
+        rootView = (RelativeLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
         debugRootView = (LinearLayout) view.findViewById(R.id.controls_root);
