@@ -63,31 +63,43 @@ or
 @ http://dev-api.uiza.io/resource/index.html#api-Credentical-Auth:
 
     subscribe(service.auth(jsonBodyAuth), new ApiSubscriber<...>() {  
-                   ...
+    ...
     });
 @ http://dev-api.uiza.io/resource/index.html#api-Credentical-Check_Token
 
     subscribe(service.checkToken(), new ApiSubscriber<...>() {  
-                       ...
+    ...
     });
 @ http://dev-api.uiza.io/resource/index.html#api-Metadata-List_All_Metadata
 
     subscribe(service.listAllMetadataV2(jsonBodyMetadataList), new ApiSubscriber<...>() {  
-                           ...
+    ...
     });
 @ http://dev-api.uiza.io/resource/index.html#api-Entity-List_All_Entity
 
     subscribe(service.listAllEntityV2(jsonBodyListAllEntity), new ApiSubscriber<...>() {  
-                               ...
+    ...
     });
 @ http://dev-api.uiza.io/resource/index.html#api-Entity-Get_Detail_Entity
 
     subscribe(service.getDetailEntityV2(jsonBodyGetDetailEntity), new ApiSubscriber<...>() {  
-                                   ...
+    ...
     });
   @ http://dev-api.uiza.io/resource/index.html#api-Entity-Get_Link_Download
   
 
     subscribe(service.getLinkPlayV2(jsonBodyGetLinkPlay), new ApiSubscriber<...>() {  
-                                       ...
+     ...
+    });
+
+@ http://dev-api.uiza.io/resource/index.html#api-Entity-List_All_Entity_Relation
+
+    subscribe(service.getListAllEntityRalationV2(jsonBodyListAllEntityRelation), new ApiSubscriber<...>() {  
+    ...
+    });
+
+@ http://dev-api.uiza.io/resource/index.html#api-Search-Search_Metadata
+
+    subscribe(service.searchEntityV2(jsonBodySearch), new ApiSubscriber<...>() {  
+    ...
     });
