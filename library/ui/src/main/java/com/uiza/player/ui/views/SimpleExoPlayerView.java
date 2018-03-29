@@ -55,6 +55,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.views.view.language.LanguageViewDialog;
 import com.uiza.player.ui.views.view.listview.PlayListAdapter;
@@ -450,7 +451,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickExit(View view) {
-                    UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
                     ((Activity) getContext()).onBackPressed();
                 }
             });
