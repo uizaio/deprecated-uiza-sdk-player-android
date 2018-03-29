@@ -28,8 +28,10 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LActivityUtil;
+import vn.loitp.core.utilities.LDeviceUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
+import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV1;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -232,12 +234,14 @@ public class UizaPlayerActivityV2 extends BaseActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        LLog.d(TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
         UizaScreenUtil.toggleFullscreen(activity);
     }
 
     @Override
     public void onBackPressed() {
+        LLog.d(TAG, "onBackPressed");
         UizaData.getInstance().reset();
         super.onBackPressed();
     }

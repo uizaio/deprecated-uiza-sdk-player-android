@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
@@ -134,11 +135,6 @@ public class UizaScreenUtil {
     }*/
 
     public static void toggleFullscreen(Activity activity) {
-        /*if (UizaData.getInstance().isLandscape()) {
-            LScreenUtil.hideSystemUI(activity);
-        } else {
-            LScreenUtil.showSystemUI(activity);
-        }*/
         WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         activity.getWindow().setAttributes(attrs);
@@ -171,5 +167,19 @@ public class UizaScreenUtil {
             transaction.addToBackStack(null);
         }
         transaction.commit();
+    }
+
+    public static boolean isFullScreen(Context context) {
+        final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                return false;
+            case Surface.ROTATION_90:
+                return true;
+            case Surface.ROTATION_180:
+                return false;
+            default:
+                return true;
+        }
     }
 }

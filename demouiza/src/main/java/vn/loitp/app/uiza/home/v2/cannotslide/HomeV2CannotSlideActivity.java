@@ -40,6 +40,7 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LLog.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerView = (PlaceHolderView) findViewById(R.id.drawerView);
@@ -71,6 +72,7 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
     }
 
     private void setupDrawer() {
+        LLog.d(TAG, "setupDrawer");
         UizaDrawerHeader uizaDrawerHeader = new UizaDrawerHeader();
         uizaDrawerHeader.setCallback(new UizaDrawerHeader.Callback() {
             @Override

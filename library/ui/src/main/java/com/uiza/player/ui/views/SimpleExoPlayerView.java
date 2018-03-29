@@ -445,11 +445,12 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickFullScreen(View view) {
-                    UizaScreenUtil.setFullScreen(getContext(), isFullScreen(getContext()));
+                    UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
                 }
 
                 @Override
                 public void onClickExit(View view) {
+                    UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
                     ((Activity) getContext()).onBackPressed();
                 }
             });
@@ -529,20 +530,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
         if (player != null) {
             player.setPlayWhenReady(true);
             //player.getPlaybackState();
-        }
-    }
-
-    private boolean isFullScreen(Context context) {
-        final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                return false;
-            case Surface.ROTATION_90:
-                return true;
-            case Surface.ROTATION_180:
-                return false;
-            default:
-                return true;
         }
     }
 
