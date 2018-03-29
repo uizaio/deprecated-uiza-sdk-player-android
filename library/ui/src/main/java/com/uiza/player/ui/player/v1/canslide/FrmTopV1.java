@@ -89,6 +89,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -221,9 +222,17 @@ public class FrmTopV1 extends BaseFragment implements View.OnClickListener, Play
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                LLog.d(TAG, "onLayoutChange " + bottom);
-                simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
-                UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                LLog.d(TAG, "addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
+                if (oldBottom != bottom) {
+                    LLog.d(TAG, "addOnLayoutChangeListener -> setSizeOfPlaybackControlView");
+                    UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                    simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
+
+
+                    //LLog.d(TAG, "addOnLayoutChangeListener simpleExoPlayerView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
+                    LLog.d(TAG, "addOnLayoutChangeListener rootView: " + rootView.getWidth() + "x" + rootView.getHeight());
+                    LUIUtil.setMarginsInDp(avi, rootView.getWidth() / 2, rootView.getHeight() / 2, 0, 0);
+                }
             }
         });
 
