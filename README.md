@@ -124,3 +124,14 @@ Using this codes below:*
     subscribe(service.searchEntityV2(jsonBodySearch), new ApiSubscriber<...>() {  
     ...
     });
+
+
+# How to play the video?:
+You only call PlayerScreenActivity of UizaSDK, this screen will play video with its controller and display video 's information
+
+    Intent intent = new Intent(activity, UizaPlayerActivityV1.class);    
+    intent.putExtra(Constants.KEY_UIZA_ENTITY_ID, "enter entity id");  
+    intent.putExtra(Constants.KEY_UIZA_ENTITY_COVER, "enter video cover|thumnail or img url you like here");  
+    intent.putExtra(Constants.KEY_UIZA_ENTITY_TITLE, "enter video name|title here");  
+    startActivity(intent);  
+    LActivityUtil.tranIn(activity);//go to PlayerScreenActivity with animation.
