@@ -20,6 +20,17 @@
       compile 'com.android.support:multidex:1.0.3'  
     }
 
+# Init:
+**Put these code below into onCreate() of Apllication class:**  
+
+    String currentPlayerId = "enter id of player";  
+    String currentApiEndPoint = "enter url api end point;  
+    String currentApiTrackingEndPoint = "enter url api tracking end point";  
+      
+    String token = "enter your token";  
+    RestClientV2.init(currentApiEndPoint, token);  
+    UizaData.getInstance().init(currentApiEndPoint, currentApiTrackingEndPoint, token, currentPlayerId);  
+
 # How to call API?:
 **Step1: You must extend your activity/fragment like this**  
 
