@@ -227,8 +227,11 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 LLog.d(TAG, "addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
-                simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
-                UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                if (oldBottom != bottom) {
+                    LLog.d(TAG, "addOnLayoutChangeListener -> setSizeOfPlaybackControlView");
+                    UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                    simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
+                }
             }
         });
         return view;

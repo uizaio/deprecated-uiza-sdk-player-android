@@ -325,7 +325,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
-                if (draggablePanel != null) {
+                if (draggablePanel != null && draggablePanel.isMinimized()) {
                     draggablePanel.closeToRight();
                 }
                 finish();
