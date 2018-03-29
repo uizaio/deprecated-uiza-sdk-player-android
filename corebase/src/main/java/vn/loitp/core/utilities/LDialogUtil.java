@@ -45,8 +45,10 @@ public class LDialogUtil {
             }
         });
         AlertDialog dialog = builder.create();
-        dialog.show();
-        alertDialogList.add(dialog);
+        if (dialog != null && !dialog.isShowing()) {
+            dialog.show();
+            alertDialogList.add(dialog);
+        }
     }
 
     public static void showError(Context context, int errCode, String title, CallbackShowOne callbackShowOne) {
