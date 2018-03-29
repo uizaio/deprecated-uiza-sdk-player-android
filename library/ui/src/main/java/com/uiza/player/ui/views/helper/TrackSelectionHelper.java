@@ -21,14 +21,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Pair;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CheckedTextView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -42,16 +38,12 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedT
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
-import vn.loitp.core.common.Constants;
-import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LScreenUtil;
 
 /**
  * Helper class for displaying track selection dialogs.
@@ -112,7 +104,6 @@ import vn.loitp.core.utilities.LScreenUtil;
         isDisabled = selector.getRendererDisabled(rendererIndex);
         LLog.d(TAG, "showSelectionDialog isDisabled " + isDisabled);
         override = selector.getSelectionOverride(rendererIndex, trackGroups);
-
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);

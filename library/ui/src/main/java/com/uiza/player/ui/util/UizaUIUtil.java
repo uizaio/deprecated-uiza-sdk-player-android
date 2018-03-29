@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.widget.ProgressBar;
 
 import com.uiza.player.ui.data.UizaData;
 
-import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LScreenUtil;
@@ -90,6 +88,7 @@ public class UizaUIUtil {
                 }
             });
         }
+        dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
     }
 }

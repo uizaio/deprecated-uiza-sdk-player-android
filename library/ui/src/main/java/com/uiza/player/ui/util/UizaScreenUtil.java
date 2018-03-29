@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import com.uiza.player.ui.data.UizaData;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.core.utilities.LLog;
 
 /**
  * File created on 8/31/2017.
@@ -77,8 +76,7 @@ public class UizaScreenUtil {
     public static void hideStatusBar(Activity activity) {
         // Hide Status Bar
         if (Build.VERSION.SDK_INT < 16) {
-            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             View decorView = activity.getWindow().getDecorView();
             // Hide Status Bar.
@@ -87,13 +85,13 @@ public class UizaScreenUtil {
         }
     }
 
-    /*public static void toggleFullscreen(Activity activity) {
+    public static void toggleFullscreen(Activity activity) {
         WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
-        //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION;
+        //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
         activity.getWindow().setAttributes(attrs);
-    }*/
+    }
 
     /**
      * toggles fullscreen mode
@@ -108,7 +106,7 @@ public class UizaScreenUtil {
      *     fullscreen = !fullscreen;
      * </pre>
      */
-    public static void toggleFullscreen(Activity activity) {
+    /*public static void toggleFullscreen(Activity activity) {
         if (Build.VERSION.SDK_INT >= 11) {
             // The UI options currently enabled are represented by a bitfield.
             // getSystemUiVisibility() gives us that bitfield.
@@ -155,7 +153,7 @@ public class UizaScreenUtil {
             activity.getWindow().setAttributes(attrs);
         }
 
-        /*try {
+        *//*try {
             // hide actionbar
             if (activity instanceof ActionBarActivity) {
                 if (fullscreen) ((ActionBarActivity) activity).getSupportActionBar().hide();
@@ -166,12 +164,12 @@ public class UizaScreenUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }*//*
 
         // set landscape
         // if(fullscreen)  activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         // else activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-    }
+    }*/
 
     //rotate screen
     public static void setFullScreen(Context context, boolean isFullScreen) {
