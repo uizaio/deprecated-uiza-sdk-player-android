@@ -76,11 +76,21 @@ or
     subscribe(service.auth(jsonBodyAuth), new ApiSubscriber<...>() {  
     ...
     });
+*Note: You must save Auth object when calling this api success.
+Using this codes below:*
+
+    LPref.setAuth(activity, auth, new Gson());
+
 @ http://dev-api.uiza.io/resource/index.html#api-Credentical-Check_Token
 
     subscribe(service.checkToken(), new ApiSubscriber<...>() {  
     ...
     });
+*Note: You must save Auth object when calling this api success.
+Using this codes below:*
+
+    LPref.setAuth(activity, auth, new Gson());
+
 @ http://dev-api.uiza.io/resource/index.html#api-Metadata-List_All_Metadata
 
     subscribe(service.listAllMetadataV2(jsonBodyMetadataList), new ApiSubscriber<...>() {  
