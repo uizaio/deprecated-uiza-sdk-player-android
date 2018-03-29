@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String currentPlayerId = UizaData.PLAYER_ID_SKIN_1;
+        String currentPlayerId = Constants.PLAYER_ID_SKIN_1;
         boolean canSlide = false;
         String currentApiEndPoint = Constants.URL_WTT;
         String currentApiTrackingEndPoint = Constants.URL_TRACKING_PROD;

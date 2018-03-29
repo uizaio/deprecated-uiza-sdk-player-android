@@ -1,6 +1,6 @@
 # Welcome to UizaSDK
 
-### Importing the Library
+# Importing the Library
 **Step 1. Add the JitPack repository to your build file**  
 
     allprojects {  
@@ -19,46 +19,9 @@
       compile 'com.github.tplloi:basemaster:1.0.3'  
       compile 'com.android.support:multidex:1.0.3'  
     }
-    
-**Step 3. create class LSApplication**  
 
-    public class LSApplication extends MultiDexApplication {  
-        private static LSApplication instance;  
-        private Gson gson;  
-      
-        @Override  
-        public void onCreate() {  
-            super.onCreate();  
-            instance = this;  
-            if (gson == null) {  
-                gson = new Gson();  
-            }  
-        }  
-      
-        public Gson getGson() {  
-            return gson;  
-        }  
-      
-        public static LSApplication getInstance() {  
-            return instance;  
-        }  
-      
-        public static Context getContext() {  
-            return instance.getApplicationContext();  
-        }  
-    }
-**Step 4.  Edit manifest** 
-Open manifest, put this code in Application tag
-
-    <application  
-      android:name=".app.LSApplication"  
-      ...>  
-        <activity ,,,
-        </activity>  
-    </application>
-
-# Call API example:
-**You must extend your activity/fragment like this**  
+# How to call API?:
+**Step1: You must extend your activity/fragment like this**  
 
     public class YourActivity extends BaseActivity{
     ...
@@ -69,13 +32,13 @@ or
     public class YourFragment extends BaseFragment{
     }
 
-**Create interface**  
+**Step 2: Create interface**  
 
     public interface APIServices {  
         @GET("/2.2/questions?order=desc&sort=votes&site=stackoverflow&tagged=android&filter=withbody")  
         Observable<Object> test(); 
     }
-**Function** 
+**Step3: Call api by using this function** 
 
     private void testAPI() {  
         RestClient.init("https://api.stackexchange.com");  
@@ -93,7 +56,7 @@ or
             }  
         });  
     }
-**Expand interface**
+**More infomation: Expand interface**
 
     public interface APIServices {  
         @GET("/2.2/questions?order=desc&sort=votes&site=stackoverflow&tagged=android&filter=withbody")  
