@@ -233,7 +233,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                     UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
                     simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
 
-
                     //LLog.d(TAG, "addOnLayoutChangeListener simpleExoPlayerView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
                     LLog.d(TAG, "addOnLayoutChangeListener rootView: " + rootView.getWidth() + "x" + rootView.getHeight());
                     LUIUtil.setMarginsInDp(avi, rootView.getWidth() / 2, rootView.getHeight() / 2, 0, 0);
