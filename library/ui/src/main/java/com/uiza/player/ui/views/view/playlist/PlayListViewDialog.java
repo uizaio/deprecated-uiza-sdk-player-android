@@ -1,4 +1,4 @@
-package com.uiza.player.ui.views.view.listview;
+package com.uiza.player.ui.views.view.playlist;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,7 +38,6 @@ public class PlayListViewDialog extends DialogFragment {
     private PlayListAdapter playListAdapter;
     private TextView tvMsg;
     private RelativeLayout rootView;
-    private Activity activity;
 
     private PlayListCallback playListCallback;
 
@@ -46,7 +45,7 @@ public class PlayListViewDialog extends DialogFragment {
         this.playListCallback = playListCallback;
     }
 
-    private void init(Dialog dialog) {
+    private void init() {
         LLog.d(TAG, "init");
         if (UizaData.getInstance().getInputModel() == null || UizaData.getInstance().getInputModel().getEntityID() == null) {
             LLog.d(TAG, "UizaData.getInstance().getInputModel() == null || UizaData.getInstance().getInputModel().getEntityID() == null -> return");
@@ -115,12 +114,11 @@ public class PlayListViewDialog extends DialogFragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
-        init(alertDialog);
+        init();
         return alertDialog;
     }
 
     public void showImmersive(Activity activity) {
-        this.activity = activity;
         // Show the dialog.
         show(activity.getFragmentManager(), null);
         // It is necessary to call executePendingTransactions() on the FragmentManager

@@ -1,4 +1,4 @@
-package com.uiza.player.ui.views.view.listview;
+package com.uiza.player.ui.views.view.playlist;
 
 /**
  * Created by www.muathu@gmail.com on 11/7/2017.
