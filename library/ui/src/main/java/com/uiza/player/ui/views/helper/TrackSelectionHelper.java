@@ -109,7 +109,7 @@ import vn.loitp.core.utilities.LLog;
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);
-        //dialog.setOnDismissListener(onDismissListener);
+        dialog.setOnDismissListener(onDismissListener);
 
         if (UizaData.getInstance().isLandscape()) {
             //do nothing
