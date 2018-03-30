@@ -94,11 +94,11 @@ public class UizaScreenUtil {
         //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
         activity.getWindow().setAttributes(attrs);
 
-        if (isFullScreen(activity)) {
+        /*if (isFullScreen(activity)) {
             hideNavigationBar(activity);
         } else {
             showNavigationBar(activity);
-        }
+        }*/
     }
 
     public static void hideNavigationBar(Activity activity) {
