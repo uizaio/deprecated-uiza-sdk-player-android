@@ -49,7 +49,7 @@ public class UizaUIUtil {
         LLog.d(TAG, "setUIUizaDialogPlayControlView");
         final Window window = dialog.getWindow();
         if (window != null) {
-            window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             final WindowManager.LayoutParams param = window.getAttributes();
             param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;

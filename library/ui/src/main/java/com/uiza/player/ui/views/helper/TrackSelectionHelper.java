@@ -25,6 +25,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckedTextView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedT
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.Arrays;
@@ -104,11 +106,24 @@ import vn.loitp.core.utilities.LLog;
         isDisabled = selector.getRendererDisabled(rendererIndex);
         LLog.d(TAG, "showSelectionDialog isDisabled " + isDisabled);
         override = selector.getSelectionOverride(rendererIndex, trackGroups);
+
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);
         dialog.setOnDismissListener(onDismissListener);
+
+        if(!UizaData.getInstance().isLandscape()){
+            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
         UizaUIUtil.setUIUizaDialogPlayControlView(dialog, view, activity);
+        /*if(!UizaData.getInstance().isLandscape()){
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }*/
+        if(UizaData.getInstance().isLandscape()){
+            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }else{
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
         dialog.show();
     }
 
@@ -125,7 +140,8 @@ import vn.loitp.core.utilities.LLog;
         //View view = inflater.inflate(R.layout.track_selection_dialog, null);
         //LinearLayout root = (LinearLayout) view.findViewById(R.id.root);
         LinearLayout root = new LinearLayout(context);
-        root.setBackgroundColor(ContextCompat.getColor(context, R.color.black_65));
+
+        //root.setBackgroundColor(ContextCompat.getColor(context, R.color.black_65));
         //root.setOrientation(LinearLayout.HORIZONTAL);
 
         HorizontalScrollView horizontalScrollView = new HorizontalScrollView(context);
@@ -149,7 +165,6 @@ import vn.loitp.core.utilities.LLog;
         disableView.setTextColor(Color.WHITE);
         disableView.setCheckMarkDrawable(R.drawable.default_checkbox);
         disableView.setOnClickListener(this);
-
         subRoot.addView(disableView);
 
         // View for clearing the override to allow the selector to use its default selection logic.

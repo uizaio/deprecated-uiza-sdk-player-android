@@ -23,6 +23,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelation;
 
@@ -99,6 +100,7 @@ public class PlayListViewDialog extends DialogFragment {
         LLog.d(TAG, "--------> " + widthRecyclerView + " x " + heightRecyclerView);
         playListAdapter = new PlayListAdapter(getActivity(), itemList, widthRecyclerView, heightRecyclerView, playListCallback);
         recyclerView.setAdapter(playListAdapter);
+        LUIUtil.setPullLikeIOSHorizontal(recyclerView);
         LLog.d(TAG, "init done");
     }
 
