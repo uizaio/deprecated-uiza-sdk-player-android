@@ -40,12 +40,14 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.Selecti
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LScreenUtil;
 
 /**
  * Helper class for displaying track selection dialogs.
@@ -112,16 +114,15 @@ import vn.loitp.core.utilities.LLog;
         dialog.setContentView(view);
         dialog.setOnDismissListener(onDismissListener);
 
-        if(!UizaData.getInstance().isLandscape()){
+        if (UizaData.getInstance().isLandscape()) {
+            //do nothing
+        } else {
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
         UizaUIUtil.setUIUizaDialogPlayControlView(dialog, view, activity);
-        /*if(!UizaData.getInstance().isLandscape()){
-            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-        }*/
-        if(UizaData.getInstance().isLandscape()){
+        if (UizaData.getInstance().isLandscape()) {
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-        }else{
+        } else {
             dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
         dialog.show();
