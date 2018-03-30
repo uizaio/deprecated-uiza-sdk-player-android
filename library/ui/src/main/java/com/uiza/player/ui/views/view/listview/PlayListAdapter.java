@@ -29,6 +29,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     private Context context;
     private int sizeWRoot;
     private int sizeHRoot;
+    private PlayListCallback playListCallback;
 
     public class PlayListHolder extends RecyclerView.ViewHolder {
         private TextView tvDuration;
@@ -53,9 +54,9 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         }
     }
 
-    public PlayListAdapter(Context context, List<Item> itemList, int sizeWRoot, int sizeHRoot, Callback callback) {
+    public PlayListAdapter(Context context, List<Item> itemList, int sizeWRoot, int sizeHRoot, PlayListCallback playListCallback) {
         this.itemList = itemList;
-        this.callback = callback;
+        this.playListCallback = playListCallback;
         this.sizeWRoot = sizeWRoot;
         this.sizeHRoot = sizeHRoot;
         this.context = context;
@@ -101,8 +102,8 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
             @Override
             public void onClick(View v) {
                 LLog.d(TAG, TAG + " click: " + item.getName() + ", position: " + position);
-                if (callback != null) {
-                    callback.onClickItem(item, position);
+                if (playListCallback != null) {
+                    playListCallback.onClickItem(item, position);
                 }
             }
         });
@@ -112,10 +113,4 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     public int getItemCount() {
         return itemList == null ? 0 : itemList.size();
     }
-
-    public interface Callback {
-        public void onClickItem(Item item, int position);
-    }
-
-    private Callback callback;
 }

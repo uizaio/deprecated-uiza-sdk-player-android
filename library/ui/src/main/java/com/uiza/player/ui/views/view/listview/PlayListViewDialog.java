@@ -1,18 +1,20 @@
 package com.uiza.player.ui.views.view.listview;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
@@ -28,10 +30,9 @@ import vn.loitp.restapi.uiza.model.v2.listallentityrelation.ListAllEntityRelatio
  * Created by LENOVO on 3/27/2018.
  */
 
-public class PlayListViewDialog extends Dialog {
+public class PlayListViewDialog extends DialogFragment {
     private final String TAG = getClass().getSimpleName();
-    //TODO remove gson later
-    private Gson gson = new Gson();
+    //private Gson gson = new Gson();
     private List<Item> itemList;
     private RecyclerView recyclerView;
     private PlayListAdapter playListAdapter;
@@ -39,27 +40,13 @@ public class PlayListViewDialog extends Dialog {
     private RelativeLayout rootView;
     private Activity activity;
 
-    private PlayListAdapter.Callback callback;
+    private PlayListCallback playListCallback;
 
-    public void setPlayListAdapterCallback(PlayListAdapter.Callback callback) {
-        this.callback = callback;
+    public void setPlayListAdapterCallback(PlayListCallback playListCallback) {
+        this.playListCallback = playListCallback;
     }
 
-    public PlayListViewDialog(Activity activity) {
-        super(activity);
-        this.activity = activity;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        LLog.d(TAG, "onCreate");
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.play_list_view);
-        init();
-    }
-
-    private void init() {
+    private void init(Dialog dialog) {
         LLog.d(TAG, "init");
         if (UizaData.getInstance().getInputModel() == null || UizaData.getInstance().getInputModel().getEntityID() == null) {
             LLog.d(TAG, "UizaData.getInstance().getInputModel() == null || UizaData.getInstance().getInputModel().getEntityID() == null -> return");
@@ -67,11 +54,8 @@ public class PlayListViewDialog extends Dialog {
         }
         String entityId = UizaData.getInstance().getInputModel().getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
-        this.rootView = (RelativeLayout) findViewById(R.id.root_view);
-        this.tvMsg = (TextView) findViewById(R.id.tv_msg);
-        this.recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        UizaUIUtil.setUIUizaDialogPlayControlView(this, rootView, activity);
+        UizaUIUtil.setUIUizaDialogPlayControlView(dialog, rootView, activity);
 
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
         if (listAllEntityRelation == null) {
@@ -81,20 +65,22 @@ public class PlayListViewDialog extends Dialog {
             return;
         }
         itemList = listAllEntityRelation.getItemList();
-        LLog.d(TAG, "listAllEntityRelation: " + gson.toJson(listAllEntityRelation));
+        //LLog.d(TAG, "listAllEntityRelation: " + gson.toJson(listAllEntityRelation));
         if (itemList == null || itemList.isEmpty()) {
+            LLog.d(TAG, "itemList == null || itemList.isEmpty() -> return");
             tvMsg.setVisibility(View.VISIBLE);
             return;
         } else {
             tvMsg.setVisibility(View.GONE);
         }
         LLog.d(TAG, "itemList size: " + itemList.size());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         int widthRecyclerView;
         int heightRecyclerView;
 
         if (UizaData.getInstance().isLandscape()) {
+            LLog.d(TAG, "isLandscape");
             widthRecyclerView = UizaScreenUtil.getScreenWidth();
             heightRecyclerView = UizaScreenUtil.getScreenHeight() / 2;
 
@@ -103,6 +89,7 @@ public class PlayListViewDialog extends Dialog {
             recyclerViewParams.height = heightRecyclerView;
             recyclerView.setLayoutParams(recyclerViewParams);
         } else {
+            LLog.d(TAG, "!isLandscape");
             widthRecyclerView = UizaScreenUtil.getScreenWidth();
             heightRecyclerView = UizaScreenUtil.getScreenHeight() / 5;
 
@@ -112,7 +99,72 @@ public class PlayListViewDialog extends Dialog {
             recyclerView.setLayoutParams(recyclerViewParams);
         }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        playListAdapter = new PlayListAdapter(getContext(), itemList, widthRecyclerView, heightRecyclerView, callback);
+        LLog.d(TAG, "--------> " + widthRecyclerView + " x " + heightRecyclerView);
+        playListAdapter = new PlayListAdapter(getActivity(), itemList, widthRecyclerView, heightRecyclerView, playListCallback);
         recyclerView.setAdapter(playListAdapter);
+        LLog.d(TAG, "init done");
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        /*AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle("Example Dialog")
+                .setMessage("Some text.")
+                .create();
+
+        // Temporarily set the dialogs window to not focusable to prevent the short
+        // popup of the navigation bar.
+        alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                LToast.show(getActivity(), "Touch OK");
+            }
+        });
+        //int color = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
+        //alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);*/
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = getActivity().getLayoutInflater().inflate(R.layout.play_list_view, null);
+        this.rootView = (RelativeLayout) view.findViewById(R.id.root_view);
+        this.tvMsg = (TextView) view.findViewById(R.id.tv_msg);
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        builder.setView(view);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+        init(alertDialog);
+        return alertDialog;
+    }
+
+    public void showImmersive(Activity activity) {
+        this.activity = activity;
+        // Show the dialog.
+        show(activity.getFragmentManager(), null);
+        // It is necessary to call executePendingTransactions() on the FragmentManager
+        // before hiding the navigation bar, because otherwise getWindow() would raise a
+        // NullPointerException since the window was not yet created.
+        getFragmentManager().executePendingTransactions();
+        // Hide the navigation bar. It is important to do this after show() was called.
+        // If we would do this in onCreateDialog(), we would get a requestFeature()
+        // error.
+        getDialog().getWindow().getDecorView().setSystemUiVisibility(
+                getActivity().getWindow().getDecorView().getSystemUiVisibility()
+        );
+        // Make the dialogs window focusable again.
+        getDialog().getWindow().clearFlags(
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        );
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        LLog.d(TAG, "onDismiss");
+        if (playListCallback != null) {
+            playListCallback.onDismiss();
+        }
     }
 }
