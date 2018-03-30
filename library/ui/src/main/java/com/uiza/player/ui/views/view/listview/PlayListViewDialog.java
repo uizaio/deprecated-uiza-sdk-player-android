@@ -55,8 +55,6 @@ public class PlayListViewDialog extends DialogFragment {
         String entityId = UizaData.getInstance().getInputModel().getEntityID();
         LLog.d(TAG, "entityId: " + entityId);
 
-        UizaUIUtil.setUIUizaDialogPlayControlView(dialog, rootView, activity);
-
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
         if (listAllEntityRelation == null) {
             LLog.d(TAG, "listAllEntityRelation == null -> only support api v2");
@@ -107,24 +105,6 @@ public class PlayListViewDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        /*AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setTitle("Example Dialog")
-                .setMessage("Some text.")
-                .create();
-
-        // Temporarily set the dialogs window to not focusable to prevent the short
-        // popup of the navigation bar.
-        alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                LToast.show(getActivity(), "Touch OK");
-            }
-        });
-        //int color = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
-        //alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);*/
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.play_list_view, null);
         this.rootView = (RelativeLayout) view.findViewById(R.id.root_view);
@@ -157,6 +137,8 @@ public class PlayListViewDialog extends DialogFragment {
         getDialog().getWindow().clearFlags(
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         );
+
+        UizaUIUtil.setUIUizaDialogPlayControlView(getDialog(), rootView, activity);
     }
 
     @Override
