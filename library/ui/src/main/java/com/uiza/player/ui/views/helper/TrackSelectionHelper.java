@@ -21,7 +21,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,14 +39,12 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector.Selecti
 import com.google.android.exoplayer2.trackselection.RandomTrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LScreenUtil;
 
 /**
  * Helper class for displaying track selection dialogs.
@@ -112,7 +109,7 @@ import vn.loitp.core.utilities.LScreenUtil;
         dialog = new Dialog(activity);
         final View view = buildView(activity);
         dialog.setContentView(view);
-        dialog.setOnDismissListener(onDismissListener);
+        //dialog.setOnDismissListener(onDismissListener);
 
         if (UizaData.getInstance().isLandscape()) {
             //do nothing
