@@ -108,21 +108,26 @@ import vn.loitp.core.utilities.LLog;
 
         dialog = new Dialog(activity);
         final View view = buildView(activity);
-        dialog.setContentView(view);
-        dialog.setOnDismissListener(onDismissListener);
 
         if (UizaData.getInstance().isLandscape()) {
-            //do nothing
-        } else {
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            dialog.getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         }
+
+        dialog.setContentView(view);
+        dialog.setOnDismissListener(onDismissListener);
         UizaUIUtil.setUIUizaDialogPlayControlView(dialog, view, activity);
+        dialog.show();
         if (UizaData.getInstance().isLandscape()) {
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-        } else {
             dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
-        dialog.show();
     }
 
     private Dialog dialog;
