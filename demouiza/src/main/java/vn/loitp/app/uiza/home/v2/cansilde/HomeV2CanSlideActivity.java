@@ -524,7 +524,6 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                     setVisibilityOfActionBar(View.VISIBLE);
                 }
             }
-
             int widthScreen = LDisplayUtils.getScreenW(activity);
             LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
             int heightFrmTop = widthScreen * 9 / 16;
