@@ -206,19 +206,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                //simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
-                //UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
-
-                LLog.d(TAG, "addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
-                if (oldBottom != bottom) {
-                    LLog.d(TAG, "addOnLayoutChangeListener -> setSizeOfPlaybackControlView");
-                    UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
-                    simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
-
-                    //LLog.d(TAG, "addOnLayoutChangeListener simpleExoPlayerView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
-                    LLog.d(TAG, "addOnLayoutChangeListener rootView: " + rootView.getWidth() + "x" + rootView.getHeight());
-                    LUIUtil.setMarginsInDp(avi, rootView.getWidth() / 2, rootView.getHeight() / 2, 0, 0);
-                }
+                simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
+                UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                LLog.d(TAG, "addOnLayoutChangeListener rootView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
+                //LUIUtil.setMarginsInDp(avi, simpleExoPlayerView.getWidth() / 2, simpleExoPlayerView.getHeight() / 2, 0, 0);
             }
         });
         return view;
