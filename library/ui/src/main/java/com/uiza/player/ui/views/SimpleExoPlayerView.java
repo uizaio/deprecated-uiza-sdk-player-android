@@ -54,6 +54,7 @@ import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.views.view.language.LanguageCallback;
 import com.uiza.player.ui.views.view.language.LanguageViewDialog;
 import com.uiza.player.ui.views.view.playlist.PlayListCallback;
 import com.uiza.player.ui.views.view.playlist.PlayListViewDialog;
@@ -368,28 +369,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickPlayList(View view) {
                     LLog.d(TAG, "onClickPlayList");
                     pausePlayVideo();
-                    /*final PlayListViewDialog playListViewDialog = new PlayListViewDialog((Activity) getContext());
-                    playListViewDialog.setPlayListAdapterCallback(new PlayListAdapter.Callback() {
-                        @Override
-                        public void onClickItem(Item item, int position) {
-                            LLog.d(TAG, "onClickItem " + item.getName() + ", position: " + position);
-                            if (playListViewDialog != null) {
-                                playListViewDialog.dismiss();
-                            }
-                            if (callback != null) {
-                                callback.onClickItem(item, position);
-                            }
-                        }
-                    });
-                    playListViewDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            resumePlayVideo();
-                        }
-                    });
-                    playListViewDialog.show();*/
-
-
                     final PlayListViewDialog playListViewDialog = new PlayListViewDialog();
                     playListViewDialog.setPlayListAdapterCallback(new PlayListCallback() {
                         @Override
@@ -414,18 +393,14 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 @Override
                 public void onClickLanguage(View view) {
                     pausePlayVideo();
-                    LanguageViewDialog languageViewDialog = new LanguageViewDialog((Activity) getContext());
-                    languageViewDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            resumePlayVideo();
-                        }
-                    });
-                    languageViewDialog.show();
-                    languageViewDialog.setCallback(new LanguageViewDialog.Callback() {
+                    final LanguageViewDialog languageViewDialog = new LanguageViewDialog();
+                    languageViewDialog.setCallback(new LanguageCallback() {
                         @Override
                         public void onClickClose() {
-                            controller.getLanguageButton().performClick();
+                            //controller.getLanguageButton().performClick();
+                            if (languageViewDialog != null) {
+                                languageViewDialog.dismiss();
+                            }
                         }
 
                         @Override
@@ -451,7 +426,13 @@ public final class SimpleExoPlayerView extends FrameLayout {
                             //TODO
                             Toast.makeText(getContext(), "onClickVI", Toast.LENGTH_SHORT).show();
                         }
+
+                        @Override
+                        public void onDismiss() {
+                            resumePlayVideo();
+                        }
                     });
+                    languageViewDialog.showImmersive((Activity) getContext());
                 }
 
                 @Override

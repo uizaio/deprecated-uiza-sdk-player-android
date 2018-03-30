@@ -1,11 +1,14 @@
 package com.uiza.player.ui.views.view.language;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,10 +24,9 @@ import vn.loitp.core.utilities.LLog;
  * Created by LENOVO on 3/27/2018.
  */
 
-public class LanguageViewDialog extends Dialog {
+public class LanguageViewDialog extends DialogFragment {
     private final String TAG = getClass().getSimpleName();
     private RelativeLayout rootView;
-    private Activity activity;
     private ImageView ivClose;
     private RowView rowSubtitleOn;
     private RowView rowSubtitleOff;
@@ -39,31 +41,8 @@ public class LanguageViewDialog extends Dialog {
 
     private LanguageObject languageObject;
 
-    public LanguageViewDialog(Activity activity) {
-        super(activity);
-        this.activity = activity;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        LLog.d(TAG, "onCreate");
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.language_view);
-        init();
-    }
-
     private void init() {
         LLog.d(TAG, "init");
-        this.llControl = (LinearLayout) findViewById(R.id.ll_control);
-        this.ivClose = (ImageView) findViewById(R.id.iv_close);
-        this.rowSubtitleOn = (RowView) findViewById(R.id.row_subtitle_on);
-        this.rowSubtitleOff = (RowView) findViewById(R.id.row_subtitle_off);
-        this.english = (RowView) findViewById(R.id.english);
-        this.vietnamese = (RowView) findViewById(R.id.vietnamese);
-        this.rootView = (RelativeLayout) findViewById(R.id.root_view);
-
-        UizaUIUtil.setUIUizaDialogPlayControlView(this, rootView, activity);
 
         rowSubtitleOn.setTvDescription(SUB_ON);
         rowSubtitleOff.setTvDescription(SUB_OFF);
@@ -106,8 +85,8 @@ public class LanguageViewDialog extends Dialog {
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (callback != null) {
-                    callback.onClickClose();
+                if (languageCallback != null) {
+                    languageCallback.onClickClose();
                 }
             }
         });
@@ -117,8 +96,8 @@ public class LanguageViewDialog extends Dialog {
                 rowSubtitleOff.setCheck(false);
                 languageObject.setSubOn(true);
                 UizaData.getInstance().setLanguageObject(languageObject);
-                if (callback != null) {
-                    callback.onClickSubOn();
+                if (languageCallback != null) {
+                    languageCallback.onClickSubOn();
                 }
             }
         });
@@ -128,8 +107,8 @@ public class LanguageViewDialog extends Dialog {
                 rowSubtitleOn.setCheck(false);
                 languageObject.setSubOn(false);
                 UizaData.getInstance().setLanguageObject(languageObject);
-                if (callback != null) {
-                    callback.onClickSubOff();
+                if (languageCallback != null) {
+                    languageCallback.onClickSubOff();
                 }
             }
         });
@@ -139,8 +118,8 @@ public class LanguageViewDialog extends Dialog {
                 vietnamese.setCheck(false);
                 languageObject.setEn(true);
                 UizaData.getInstance().setLanguageObject(languageObject);
-                if (callback != null) {
-                    callback.onClickEN();
+                if (languageCallback != null) {
+                    languageCallback.onClickEN();
                 }
             }
         });
@@ -150,8 +129,8 @@ public class LanguageViewDialog extends Dialog {
                 english.setCheck(false);
                 languageObject.setEn(false);
                 UizaData.getInstance().setLanguageObject(languageObject);
-                if (callback != null) {
-                    callback.onClickVI();
+                if (languageCallback != null) {
+                    languageCallback.onClickVI();
                 }
             }
         });
@@ -164,21 +143,60 @@ public class LanguageViewDialog extends Dialog {
         }
     }
 
-    public interface Callback {
-        public void onClickClose();
+    private LanguageCallback languageCallback;
 
-        public void onClickSubOn();
-
-        public void onClickSubOff();
-
-        public void onClickEN();
-
-        public void onClickVI();
+    public void setCallback(LanguageCallback callback) {
+        this.languageCallback = callback;
     }
 
-    private LanguageViewDialog.Callback callback;
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = getActivity().getLayoutInflater().inflate(R.layout.language_view, null);
+        this.rootView = (RelativeLayout) view.findViewById(R.id.root_view);
+        this.llControl = (LinearLayout) view.findViewById(R.id.ll_control);
+        this.ivClose = (ImageView) view.findViewById(R.id.iv_close);
+        this.rowSubtitleOn = (RowView) view.findViewById(R.id.row_subtitle_on);
+        this.rowSubtitleOff = (RowView) view.findViewById(R.id.row_subtitle_off);
+        this.english = (RowView) view.findViewById(R.id.english);
+        this.vietnamese = (RowView) view.findViewById(R.id.vietnamese);
+        this.rootView = (RelativeLayout) view.findViewById(R.id.root_view);
+        builder.setView(view);
 
-    public void setCallback(LanguageViewDialog.Callback callback) {
-        this.callback = callback;
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+        init();
+        return alertDialog;
+    }
+
+    public void showImmersive(Activity activity) {
+        // Show the dialog.
+        show(activity.getFragmentManager(), null);
+        // It is necessary to call executePendingTransactions() on the FragmentManager
+        // before hiding the navigation bar, because otherwise getWindow() would raise a
+        // NullPointerException since the window was not yet created.
+        getFragmentManager().executePendingTransactions();
+        // Hide the navigation bar. It is important to do this after show() was called.
+        // If we would do this in onCreateDialog(), we would get a requestFeature()
+        // error.
+        getDialog().getWindow().getDecorView().setSystemUiVisibility(
+                getActivity().getWindow().getDecorView().getSystemUiVisibility()
+        );
+        // Make the dialogs window focusable again.
+        getDialog().getWindow().clearFlags(
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        );
+
+        UizaUIUtil.setUIUizaDialogPlayControlView(getDialog(), rootView, activity);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        LLog.d(TAG, "onDismiss");
+        if (languageCallback != null) {
+            languageCallback.onDismiss();
+        }
     }
 }
