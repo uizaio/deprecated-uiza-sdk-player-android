@@ -88,22 +88,29 @@ public class UizaScreenUtil {
     }
 
     public static void toggleFullscreen(Activity activity) {
-        WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
+        /*WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
         attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
-        //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
-        activity.getWindow().setAttributes(attrs);
+        //attrs.flags ^= WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION;
+        activity.getWindow().setAttributes(attrs);*/
 
-        /*if (isFullScreen(activity)) {
-            hideNavigationBar(activity);
+        if (isFullScreen(activity)) {
+            activity.getWindow()
+                    .getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         } else {
-            showNavigationBar(activity);
-        }*/
+            activity.getWindow()
+                    .getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
     }
 
     public static void hideNavigationBar(Activity activity) {
         // set navigation bar status, remember to disable "setNavigationBarTintEnabled"
-        final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        final int flags =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
