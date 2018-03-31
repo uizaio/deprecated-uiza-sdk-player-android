@@ -534,11 +534,20 @@ public class LUIUtil {
         int marginTopInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, topDp, view.getContext().getResources().getDisplayMetrics());
         int marginRightInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDp, view.getContext().getResources().getDisplayMetrics());
         int marginBottomInDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bottomDp, view.getContext().getResources().getDisplayMetrics());
-
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             p.setMargins(marginLeftInDp, marginTopInDp, marginRightInDp, marginBottomInDp);
             view.requestLayout();
+            LLog.d(TAG, "setMarginsInDp success with: " + marginLeftInDp + " - " + marginTopInDp + " - " + marginRightInDp + " - " + marginBottomInDp);
+        }
+    }
+
+    public static void setMarginsInPixel(View view, int leftDp, int topDp, int rightDp, int bottomDp) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(leftDp, topDp, rightDp, bottomDp);
+            view.requestLayout();
+            LLog.d(TAG, "setMarginsInPixel success with: " + leftDp + " - " + topDp + " - " + rightDp + " - " + bottomDp);
         }
     }
 }
