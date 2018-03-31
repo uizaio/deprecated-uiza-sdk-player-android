@@ -30,7 +30,6 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
-import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV1;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -258,6 +257,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
                 }
                 heightScreen = heightSizeOfExpPlayerViewInPortrait;
             }
+            UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
             LLog.d(TAG, "setSizeOfContainerVideo isLandscape: " + UizaData.getInstance().isLandscape());
             LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
             containerUizaVideo.getLayoutParams().width = widthScreen;

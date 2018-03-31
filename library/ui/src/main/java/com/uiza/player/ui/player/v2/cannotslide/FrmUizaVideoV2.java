@@ -201,6 +201,20 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
             }
         });
+
+        /*simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                //simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
+                //UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                //LLog.d(TAG, "addOnLayoutChangeListener rootView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
+
+                if (bottom != oldBottom && simpleExoPlayerView.getWidth() > simpleExoPlayerView.getHeight()) {
+                    LLog.d(TAG, "____________addOnLayoutChangeListener bottom != oldBottom -> set size");
+                    LLog.d(TAG, "____________addOnLayoutChangeListener: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
+                }
+            }
+        });*/
         return view;
     }
 
