@@ -248,7 +248,8 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             int heightScreen;
             if (UizaData.getInstance().isLandscape()) {
                 //in landscape oritaion, width screen includes navigation bar height
-                widthScreen = UizaScreenUtil.getScreenWidth() + LScreenUtil.getBottomBarHeight(activity);
+                //widthScreen = UizaScreenUtil.getScreenWidth() + LScreenUtil.getBottomBarHeight(activity);
+                widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
                 heightScreen = UizaScreenUtil.getScreenHeight();
             } else {
                 widthScreen = UizaScreenUtil.getScreenWidth();
