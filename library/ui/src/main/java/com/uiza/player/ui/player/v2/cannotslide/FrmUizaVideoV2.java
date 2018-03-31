@@ -79,7 +79,6 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.views.LToast;
@@ -203,15 +202,20 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             }
         });
 
-        simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        /*simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
-                UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
-                LLog.d(TAG, "addOnLayoutChangeListener rootView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
-                //LUIUtil.setMarginsInDp(avi, simpleExoPlayerView.getWidth() / 2, simpleExoPlayerView.getHeight() / 2, 0, 0);
+                //simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
+                //UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                //LLog.d(TAG, "addOnLayoutChangeListener rootView: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
+
+                *//*if (bottom != oldBottom && simpleExoPlayerView.getWidth() > simpleExoPlayerView.getHeight()) {
+                    LLog.d(TAG, "____________addOnLayoutChangeListener bottom != oldBottom -> set size");
+                    LLog.d(TAG, "____________addOnLayoutChangeListener: " + simpleExoPlayerView.getWidth() + "x" + simpleExoPlayerView.getHeight());
+                    ((UizaPlayerActivityV2) getActivity()).setSizeOfContainerVideo(simpleExoPlayerView.getWidth(), simpleExoPlayerView.getHeight());
+                }*//*
             }
-        });
+        });*/
         return view;
     }
 

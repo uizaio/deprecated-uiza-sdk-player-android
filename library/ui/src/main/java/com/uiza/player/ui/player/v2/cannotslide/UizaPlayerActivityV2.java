@@ -28,7 +28,6 @@ import io.uiza.sdk.ui.R;
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LActivityUtil;
-import vn.loitp.core.utilities.LDeviceUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.core.utilities.LScreenUtil;
@@ -65,11 +64,17 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     private boolean isGetDetailEntityDone;
 
     private FrameLayout flRootView;
+    private FrameLayout containerUizaVideo;
+    private FrameLayout containerUizaVideoInfo;
+    private FrmUizaVideoV2 frmUizaVideoV2;
+    private FrmUizaVideoInfoV2 frmUizaVideoInfoV2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
+        containerUizaVideo = (FrameLayout) findViewById(R.id.container_uiza_video);
+        containerUizaVideoInfo = (FrameLayout) findViewById(R.id.container_uiza_video_info);
 
         String entityId = getIntent().getStringExtra(KEY_UIZA_ENTITY_ID);
         String entityCover = getIntent().getStringExtra(KEY_UIZA_ENTITY_COVER);
@@ -121,17 +126,17 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     }
 
     private void initContainerVideo() {
-        FrmUizaVideoV2 objFragment = new FrmUizaVideoV2();
+        frmUizaVideoV2 = new FrmUizaVideoV2();
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container_uiza_video, objFragment);
+        transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
     }
 
     private void initContainerVideoInfo() {
-        FrmUizaVideoInfoV2 objFragment = new FrmUizaVideoInfoV2();
+        frmUizaVideoInfoV2 = new FrmUizaVideoInfoV2();
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container_uiza_video_info, objFragment);
+        transaction.replace(containerUizaVideoInfo.getId(), frmUizaVideoInfoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -198,6 +203,9 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             realtimeBlurView = null;
 
             LLog.d(TAG, "removeCoverVideo success");
+
+            //when cover of video is removed, we need to set size of container video (simple exo player view, playback controller)
+            setSizeOfContainerVideo();
         }
     }
 
@@ -231,12 +239,38 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         return R.layout.uiza_player_activity;
     }
 
+    //height screen includes statusbar and navigation bar's height
+    private int heightSizeOfExpPlayerViewInPortrait;
+
+    public void setSizeOfContainerVideo() {
+        if (containerUizaVideo != null && frmUizaVideoV2 != null) {
+            int widthScreen;
+            int heightScreen;
+            if (UizaData.getInstance().isLandscape()) {
+                //in landscape oritaion, width screen includes navigation bar height
+                widthScreen = UizaScreenUtil.getScreenWidth() + LScreenUtil.getBottomBarHeight(activity);
+                heightScreen = UizaScreenUtil.getScreenHeight();
+            } else {
+                widthScreen = UizaScreenUtil.getScreenWidth();
+                if (heightSizeOfExpPlayerViewInPortrait == 0) {
+                    heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getHeight();
+                }
+                heightScreen = heightSizeOfExpPlayerViewInPortrait;
+            }
+            LLog.d(TAG, "setSizeOfContainerVideo isLandscape: " + UizaData.getInstance().isLandscape());
+            LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
+            containerUizaVideo.getLayoutParams().width = widthScreen;
+            containerUizaVideo.getLayoutParams().height = heightScreen;
+            containerUizaVideo.requestLayout();
+        }
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         LLog.d(TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
         UizaScreenUtil.toggleFullscreen(activity);
+        setSizeOfContainerVideo();
     }
 
     @Override
