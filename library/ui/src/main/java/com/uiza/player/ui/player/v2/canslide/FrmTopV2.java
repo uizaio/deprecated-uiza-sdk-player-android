@@ -1108,7 +1108,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private int heightSimpleExoPlayerView;
 
     public void updateSize() {
-        LLog.d(TAG, "updateSize");
+        LLog.d(TAG, "updateSize getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
 
         /*if (simpleExoPlayerView != null) {
             simpleExoPlayerView.post(new Runnable() {

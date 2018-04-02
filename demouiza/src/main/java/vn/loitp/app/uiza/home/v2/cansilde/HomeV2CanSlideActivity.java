@@ -528,9 +528,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             //LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
             heightFrmTop = widthScreen * 9 / 16;
             //LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
-
             UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightFrmTop);//cannot remove this
-
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
             draggablePanel.setEnableSlide(true);
         } else {
@@ -542,9 +540,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
 
             heightFrmTop = LDisplayUtils.getScreenH(activity);//px
             UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightFrmTop);//cannot remove this
-
             //LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
-
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);
             draggablePanel.setEnableSlide(false);
         }
@@ -555,6 +551,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LLog.d(TAG, "====================================== updateUIStatusNavigationBar");
 
         if (frmTopV2 != null) {
+            LLog.d(TAG, "updateUIStatusNavigationBar =>>> update size ");
             frmTopV2.updateSize();
         }
     }
