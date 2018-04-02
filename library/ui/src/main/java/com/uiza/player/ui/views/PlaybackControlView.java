@@ -528,7 +528,6 @@ public class PlaybackControlView extends FrameLayout {
 
     public void setSizeOfPlaybackControlView() {
         rootView.getLayoutParams().height = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView();
-        //rootView.getLayoutParams().width = LDisplayUtils.getScreenW((Activity) getContext());
         LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         rootView.requestLayout();
     }

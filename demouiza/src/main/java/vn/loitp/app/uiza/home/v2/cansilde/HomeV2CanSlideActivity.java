@@ -376,17 +376,12 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 draggablePanel.setVisibility(View.VISIBLE);
             }
         } else {
-            LUIUtil.setDelay(500, new LUIUtil.DelayCallback() {
-                @Override
-                public void doAfter(int mls) {
-                    if (!draggablePanel.isMaximized()) {
-                        draggablePanel.maximize();
-                    }
-                }
-            });
+            if (!draggablePanel.isMaximized()) {
+                draggablePanel.maximize();
+            }
         }
         onClick(item.getId(), item.getThumbnail(), item.getName());
-        EventBusData.getInstance().sendClickVideoEvent(item.getId());
+        //EventBusData.getInstance().sendClickVideoEvent(item.getId());
     }
 
     private void onClick(String entityId, String entityCover, String entityTitle) {
@@ -427,6 +422,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             inputModel = createInputModel(entityId, entityCover, entityTitle);
             UizaData.getInstance().setInputModel(inputModel);
         }
+        EventBusData.getInstance().sendClickVideoEvent(entityId);
     }
 
     private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
@@ -515,8 +511,8 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
     private void updateUIStatusNavigationBar(boolean isShowStatusNavigationBar) {
-        LLog.d(TAG, "updateUIStatusNavigationBar " + isShowStatusNavigationBar);
         if (isShowStatusNavigationBar) {
+            LLog.d(TAG, "updateUIStatusNavigationBar true");
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             if (currentFrm != null) {
                 LLog.d(TAG, "updateUIStatusNavigationBar currentFrm " + currentFrm.getClass().getSimpleName());
@@ -528,12 +524,22 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
             int heightFrmTop = widthScreen * 9 / 16;
             LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
+
+            UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightFrmTop);//cannot remove this
+
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
             draggablePanel.setEnableSlide(true);
         } else {
+            LLog.d(TAG, "updateUIStatusNavigationBar false");
             LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
             setVisibilityOfActionBar(View.GONE);
-            draggablePanel.setTopViewHeightApllyNow(LDisplayUtils.getScreenH(activity));//px
+
+            int heightFrmTop = LDisplayUtils.getScreenH(activity);//px
+            UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightFrmTop);//cannot remove this
+
+            LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
+
+            draggablePanel.setTopViewHeightApllyNow(heightFrmTop);
             draggablePanel.setEnableSlide(false);
         }
     }
@@ -542,18 +548,16 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LLog.d(TAG, "onConfigurationChanged");
-        // Checking the orientation of the screen
+        UizaScreenUtil.toggleFullscreen(activity);
         if (frmTopV2 != null) {
-            //SimpleExoPlayerView simpleExoPlayerView = frmTopV2.getPlayerView();
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                LLog.d(TAG, "ORIENTATION_LANDSCAPE");
+                LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);
             } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                LLog.d(TAG, "ORIENTATION_PORTRAIT");
+                LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
                 updateUIStatusNavigationBar(true);
             }
         }
-        UizaScreenUtil.toggleFullscreen(activity);
     }
 
     public DraggablePanel getDraggablePanel() {
