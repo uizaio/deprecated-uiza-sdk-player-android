@@ -56,10 +56,7 @@ import java.util.Locale;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
-import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LScreenUtil;
-import vn.loitp.views.LToast;
 
 /**
  * A view for controlling {@link Player} instances.
@@ -528,9 +525,16 @@ public class PlaybackControlView extends FrameLayout {
 
     public void setSizeOfPlaybackControlView() {
         rootView.getLayoutParams().height = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView();
-        LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
+        LLog.d(TAG, "setSizeOfPlaybackControlView getSizeHeightOfSimpleExoPlayerView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         rootView.requestLayout();
     }
+
+    /*public void setSizeOfPlaybackControlView(int w, int h) {
+        rootView.getLayoutParams().width = w;
+        rootView.getLayoutParams().height = h;
+        LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
+        rootView.requestLayout();
+    }*/
 
     public void setVisibilityFullscreenButton(boolean isShow) {
         if (fullscreenButton != null) {

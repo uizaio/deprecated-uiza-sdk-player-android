@@ -229,8 +229,17 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 LLog.d(TAG, "addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
                 if (oldBottom != bottom) {
                     LLog.d(TAG, "addOnLayoutChangeListener -> setSizeOfPlaybackControlView");
-                    UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
+                    //UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
                     simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
+                }
+            }
+        });*/
+        /*simpleExoPlayerView.getController().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                LLog.d(TAG, "getController addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
+                if (oldBottom != bottom) {
+                    LLog.d(TAG, "->>>>>>>>>>>getController addOnLayoutChangeListener");
                 }
             }
         });*/
@@ -1010,7 +1019,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         if (clickVideoEvent != null) {
             if (simpleExoPlayerView != null) {
                 LLog.d(TAG, "clickVideoEvent if");
-                //shouldAutoPlay = true;
                 isVideoStarted = false;
                 getLinkPlay(clickVideoEvent.getEntityId());
             } else {

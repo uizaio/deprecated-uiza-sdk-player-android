@@ -43,6 +43,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 
 import loitp.core.R;
 import vn.loitp.views.overscroll.lib.overscroll.IOverScrollDecor;
@@ -548,6 +549,15 @@ public class LUIUtil {
             p.setMargins(leftDp, topDp, rightDp, bottomDp);
             view.requestLayout();
             LLog.d(TAG, "setMarginsInPixel success with: " + leftDp + " - " + topDp + " - " + rightDp + " - " + bottomDp);
+        }
+    }
+
+    public static void resizeView(View view, int newWidth, int newHeight) {
+        try {
+            Constructor<? extends ViewGroup.LayoutParams> ctor = view.getLayoutParams().getClass().getDeclaredConstructor(int.class, int.class);
+            view.setLayoutParams(ctor.newInstance(newWidth, newHeight));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

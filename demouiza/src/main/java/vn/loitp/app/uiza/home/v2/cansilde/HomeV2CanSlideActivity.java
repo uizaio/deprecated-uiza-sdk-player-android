@@ -78,7 +78,6 @@ public class HomeV2CanSlideActivity extends BaseActivity {
 
         getSupportFragmentManager().addOnBackStackChangedListener(onBackStackChangedListener());
 
-        updateUIStatusNavigationBar(true);
         draggablePanel.setDraggableListener(new DraggableListener() {
             @Override
             public void onMaximized() {
@@ -325,6 +324,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
+                UizaData.getInstance().reset();
                 if (draggablePanel != null && draggablePanel.isMinimized()) {
                     draggablePanel.closeToRight();
                 }
@@ -493,12 +493,12 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         //draggablePanel.setXScaleFactor(xScaleFactor);
         //draggablePanel.setYScaleFactor(yScaleFactor);
 
-        int widthScreen = LDisplayUtils.getScreenW(activity);
+        /*int widthScreen = LDisplayUtils.getScreenW(activity);
         LLog.d(TAG, "initializeDraggablePanel widthScreen " + widthScreen);
         int heightFrmTop = widthScreen * 9 / 16;
         LLog.d(TAG, "initializeDraggablePanel heightFrmTop " + heightFrmTop);
 
-        draggablePanel.setTopViewHeight(heightFrmTop);//px
+        draggablePanel.setTopViewHeight(heightFrmTop);//px*/
         draggablePanel.setEnableHorizontalAlphaEffect(false);
         //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
         //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
@@ -506,13 +506,17 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         draggablePanel.setClickToMinimizeEnabled(false);
 
         draggablePanel.initializeView();
+
+        updateUIStatusNavigationBar(true);
     }
 
     //true: show status bar, hide navigation bar
     //false: hide status bar, hide navigation bar
     private void updateUIStatusNavigationBar(boolean isShowStatusNavigationBar) {
+        int widthScreen = LDisplayUtils.getScreenW(activity);
+        int heightFrmTop;
         if (isShowStatusNavigationBar) {
-            LLog.d(TAG, "updateUIStatusNavigationBar true");
+            LLog.d(TAG, "updateUIStatusNavigationBar if");
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             if (currentFrm != null) {
                 LLog.d(TAG, "updateUIStatusNavigationBar currentFrm " + currentFrm.getClass().getSimpleName());
@@ -520,28 +524,32 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                     setVisibilityOfActionBar(View.VISIBLE);
                 }
             }
-            int widthScreen = LDisplayUtils.getScreenW(activity);
-            LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
-            int heightFrmTop = widthScreen * 9 / 16;
-            LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
+            //LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
+            heightFrmTop = widthScreen * 9 / 16;
+            //LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
 
             UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightFrmTop);//cannot remove this
 
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
             draggablePanel.setEnableSlide(true);
         } else {
-            LLog.d(TAG, "updateUIStatusNavigationBar false");
+            LLog.d(TAG, "updateUIStatusNavigationBar else");
             LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
             setVisibilityOfActionBar(View.GONE);
 
-            int heightFrmTop = LDisplayUtils.getScreenH(activity);//px
+            heightFrmTop = LDisplayUtils.getScreenH(activity);//px
             UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightFrmTop);//cannot remove this
 
-            LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
+            //LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
 
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);
             draggablePanel.setEnableSlide(false);
         }
+        LLog.d(TAG, "************************** updateUIStatusNavigationBar");
+        LLog.d(TAG, "updateUIStatusNavigationBar isLandscape: " + UizaData.getInstance().isLandscape());
+        LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
+        LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
+        LLog.d(TAG, "====================================== updateUIStatusNavigationBar");
     }
 
     @Override

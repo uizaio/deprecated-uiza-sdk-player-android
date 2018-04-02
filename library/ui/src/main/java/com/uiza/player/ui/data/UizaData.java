@@ -49,6 +49,7 @@ public class UizaData {
                 currentPosition = 0;
                 isLandscape = false;
                 languageObject = null;
+                sizeHeightOfSimpleExoPlayerView = 0;
             }
         }, 100);
     }
@@ -192,6 +193,7 @@ public class UizaData {
     }
 
     public void setSizeHeightOfSimpleExoPlayerView(int sizeHeightOfSimpleExoPlayerView) {
+        LLog.d(TAG, "-----updateUIStatusNavigationBar setSizeHeightOfSimpleExoPlayerView " + sizeHeightOfSimpleExoPlayerView);
         this.sizeHeightOfSimpleExoPlayerView = sizeHeightOfSimpleExoPlayerView;
     }
 
