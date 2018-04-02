@@ -381,7 +381,6 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             }
         }
         onClick(item.getId(), item.getThumbnail(), item.getName());
-        //EventBusData.getInstance().sendClickVideoEvent(item.getId());
     }
 
     private void onClick(String entityId, String entityCover, String entityTitle) {

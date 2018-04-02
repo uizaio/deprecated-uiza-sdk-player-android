@@ -6,6 +6,7 @@ package com.uiza.player.ui.player.v2.canslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
@@ -91,7 +93,6 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -1136,4 +1137,16 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             }
         }*/
     }
+
+    /*@Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        UizaScreenUtil.toggleFullscreen(getActivity());
+        if (simpleExoPlayerView != null) {
+            LLog.d(TAG, "onConfigurationChanged: " + simpleExoPlayerView.getWidth() + " x " + simpleExoPlayerView.getHeight());
+            if (simpleExoPlayerView.getController() != null) {
+                LLog.d(TAG, "onConfigurationChanged: " + simpleExoPlayerView.getController().getWidth() + " x " + simpleExoPlayerView.getController().getHeight());
+            }
+        }
+    }*/
 }
