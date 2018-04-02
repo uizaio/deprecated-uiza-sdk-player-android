@@ -516,7 +516,9 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         int widthScreen = LDisplayUtils.getScreenW(activity);
         int heightFrmTop;
         if (isShowStatusNavigationBar) {
-            LLog.d(TAG, "updateUIStatusNavigationBar if");
+            //PORTRAIT SCREEN
+
+            LLog.d(TAG, "updateUIStatusNavigationBar PORTRAIT");
             LUIUtil.setMarginsInDp(draggablePanel, 0, 55, 0, 0);
             if (currentFrm != null) {
                 LLog.d(TAG, "updateUIStatusNavigationBar currentFrm " + currentFrm.getClass().getSimpleName());
@@ -533,7 +535,9 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             draggablePanel.setTopViewHeightApllyNow(heightFrmTop);//px
             draggablePanel.setEnableSlide(true);
         } else {
-            LLog.d(TAG, "updateUIStatusNavigationBar else");
+            //LANDSCAPE SCREEN
+
+            LLog.d(TAG, "updateUIStatusNavigationBar LANDSCAPE");
             LUIUtil.setMarginsInDp(draggablePanel, 0, 0, 0, 0);
             setVisibilityOfActionBar(View.GONE);
 
@@ -550,6 +554,10 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LLog.d(TAG, "updateUIStatusNavigationBar widthScreen " + widthScreen);
         LLog.d(TAG, "updateUIStatusNavigationBar heightFrmTop " + heightFrmTop);
         LLog.d(TAG, "====================================== updateUIStatusNavigationBar");
+
+        if (frmTopV2 != null) {
+            frmTopV2.updateSize();
+        }
     }
 
     @Override

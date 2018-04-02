@@ -91,6 +91,7 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV2;
@@ -237,12 +238,14 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         /*simpleExoPlayerView.getController().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                LLog.d(TAG, "getController addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
+                //LLog.d(TAG, "getController addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
                 if (oldBottom != bottom) {
-                    LLog.d(TAG, "->>>>>>>>>>>getController addOnLayoutChangeListener");
+                    LLog.d(TAG, "->>>>>>>>>>>getController addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
+                    LLog.d(TAG, "addOnLayoutChangeListener rootView " + rootView.getWidth() + " x " + rootView.getHeight());
                 }
             }
         });*/
+
         return view;
     }
 
@@ -690,6 +693,10 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             //only track video_starts once time
             if (!isVideoStarted) {
                 isVideoStarted = true;
+
+                //set size
+                updateSize();
+
                 //track plays_requested
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
@@ -1094,5 +1101,39 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 handleException(e);
             }
         });
+    }
+
+    private int widthSimpleExoPlayerView;
+    private int heightSimpleExoPlayerView;
+
+    public void updateSize() {
+        LLog.d(TAG, "updateSize");
+
+        /*if (simpleExoPlayerView != null) {
+            simpleExoPlayerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    widthSimpleExoPlayerView = simpleExoPlayerView.getMeasuredWidth();
+                    heightSimpleExoPlayerView = simpleExoPlayerView.getMeasuredHeight();
+                    LLog.d(TAG, "updateSize current simpleExoPlayerView size: " + widthSimpleExoPlayerView + " x " + heightSimpleExoPlayerView);
+                }
+            });
+            if (simpleExoPlayerView.getController() != null) {
+                simpleExoPlayerView.getController().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int widthSimpleExoPlayerViewController = simpleExoPlayerView.getController().getMeasuredWidth();
+                        int heightSimpleExoPlayerViewController = simpleExoPlayerView.getController().getMeasuredHeight();
+                        LLog.d(TAG, "updateSize current getController size: " + widthSimpleExoPlayerViewController + " x " + heightSimpleExoPlayerViewController);
+
+                        if (widthSimpleExoPlayerViewController != widthSimpleExoPlayerView && heightSimpleExoPlayerViewController != heightSimpleExoPlayerView) {
+                            LLog.d(TAG, "updateSize size different :(");
+                            LUIUtil.resizeView(simpleExoPlayerView.getController(), widthSimpleExoPlayerView, heightSimpleExoPlayerView);
+                            LLog.d(TAG, "updateSize size setSizeOfPlaybackControlView success with new value: " + simpleExoPlayerView.getController().getMeasuredHeight());
+                        }
+                    }
+                });
+            }
+        }*/
     }
 }

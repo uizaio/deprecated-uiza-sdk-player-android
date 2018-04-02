@@ -529,12 +529,12 @@ public class PlaybackControlView extends FrameLayout {
         rootView.requestLayout();
     }
 
-    /*public void setSizeOfPlaybackControlView(int w, int h) {
+    public void setSizeOfPlaybackControlView(int w, int h) {
         rootView.getLayoutParams().width = w;
         rootView.getLayoutParams().height = h;
         LLog.d(TAG, "setSizeOfPlaybackControlView " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         rootView.requestLayout();
-    }*/
+    }
 
     public void setVisibilityFullscreenButton(boolean isShow) {
         if (fullscreenButton != null) {
