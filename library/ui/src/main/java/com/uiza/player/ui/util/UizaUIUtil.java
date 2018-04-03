@@ -13,10 +13,18 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
+import com.uiza.player.ui.views.PlaybackControlView;
+import com.uiza.player.ui.views.SimpleExoPlayerView;
+import com.uiza.player.ui.views.helper.InputModel;
 
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LScreenUtil;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.Setting;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.Styling;
 
 /**
  * Created by www.muathu@gmail.com on 11/8/2017.
@@ -90,5 +98,114 @@ public class UizaUIUtil {
         }
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
+    }
+
+    public static InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
+        InputModel inputModel = new InputModel();
+        inputModel.setEntityID(entityId);
+
+        if (entityCover == null || entityCover.isEmpty()) {
+            inputModel.setUrlImg(Constants.URL_IMG_9x16);
+        } else {
+            if (!entityCover.contains(Constants.PREFIXS)) {
+                inputModel.setUrlImg(Constants.PREFIXS + entityCover);
+            }
+        }
+        inputModel.setTitle(entityTitle + "");
+
+        inputModel.setExtension("mpd");
+        //inputModel.setDrmLicenseUrl("");
+        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideoV2.ACTION_VIEW : FrmUizaVideoV2.ACTION_VIEW_LIST);
+        inputModel.setPreferExtensionDecoders(false);
+
+        //TODO remove this code below
+        //inputModel.setUri("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
+        //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
+        //inputModel.setUri("http://cdn-broadcast.yuptv.vn/ba_dash/0c45905848ca4ec99d2ed7c11bc8f8ad-a1556c60605a4fe4a1a22eafb4e89b44/index.mpd");
+
+        //TODO freuss47 ad
+        //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
+        return inputModel;
+    }
+
+    public static void setConfigUIPlayer(SimpleExoPlayerView simpleExoPlayerView, InputModel inputModel, PlayerConfig mPlayerConfig) {
+        //TODO freuss47 customize UI
+        PlaybackControlView playbackControlView = simpleExoPlayerView.getController();
+        if (playbackControlView == null) {
+            return;
+        }
+        playbackControlView.setTitle(inputModel.getTitle());
+
+        if (mPlayerConfig == null) {
+            //init default value for player config
+            mPlayerConfig = new PlayerConfig();
+
+            Setting setting = new Setting();
+            setting.setAllowFullscreen(Constants.T);
+            setting.setShowQuality(Constants.T);
+            setting.setDisplayPlaylist(Constants.T);
+            setting.setAutoStart(Constants.T);
+            mPlayerConfig.setSetting(setting);
+
+            Styling styling = new Styling();
+            styling.setIcons("FF0000");
+            styling.setBuffer("FF0000");
+            styling.setProgress("00FF00");
+
+            mPlayerConfig.setStyling(styling);
+
+            LDialogUtil.showOne(simpleExoPlayerView.getContext(), "Warning", "You play video with default skin", "OK", new LDialogUtil.CallbackShowOne() {
+                @Override
+                public void onClick() {
+                    //do nothing
+                }
+            });
+        }
+
+        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));
+        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(Constants.T));
+        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(Constants.T));
+
+        //set auto play video or not
+        if (mPlayerConfig.getSetting().getAutoStart().equals(Constants.T)) {
+            simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
+        } else {
+            simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
+        }
+
+        //set icon color
+        try {
+            int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
+            playbackControlView.setColorAllIcons(color);
+        } catch (Exception e) {
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setColorAllIcons " + e.toString());
+        }
+
+        //set buffer color
+        try {
+            int color = Color.parseColor(mPlayerConfig.getStyling().getBuffer());
+            playbackControlView.setBufferColor(color);
+        } catch (Exception e) {
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setBufferColor " + e.toString());
+        }
+
+        //set progress color
+        try {
+            int color = Color.parseColor(mPlayerConfig.getStyling().getProgress());
+            playbackControlView.setProgressColor(color);
+        } catch (Exception e) {
+            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setProgressColor " + e.toString());
+        }
+
+        //TODO set background???
+        //mPlayerConfig.getStyling().getBackground()
+
+        //TODO show hide title
+        /*try {
+            playbackControlView.showOrHideTitleView(false);
+            //playbackControlView.showOrHideTitleView(mPlayerConfig.getStyling().getTitle().equals(UizaData.T));
+        } catch (NullPointerException e) {
+            LLog.e(TAG, "setConfigUIPlayer NullPointerException " + e.toString());
+        }*/
     }
 }

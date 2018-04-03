@@ -6,7 +6,6 @@ package com.uiza.player.ui.player.v2.canslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -473,62 +472,7 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         updateDebugButtonVisibilities();
 
         mPlayerConfig = UizaData.getInstance().getPlayerConfig();
-        setConfigUIPlayer();
-    }
-
-    private void setConfigUIPlayer() {
-        //freuss47 customize UI
-        PlaybackControlView playbackControlView = getPlayerView().getController();
-        if (playbackControlView == null) {
-            return;
-        }
-        playbackControlView.setTitle(inputModel.getTitle());
-
-        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));
-        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(Constants.T));
-        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(Constants.T));
-
-        //set auto play video or not
-        if (mPlayerConfig.getSetting().getAutoStart().equals(Constants.T)) {
-            simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
-        } else {
-            simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
-        }
-
-        //set icon color
-        try {
-            int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
-            playbackControlView.setColorAllIcons(color);
-        } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setColorAllIcons " + e.toString());
-        }
-
-        //set buffer color
-        try {
-            int color = Color.parseColor(mPlayerConfig.getStyling().getBuffer());
-            playbackControlView.setBufferColor(color);
-        } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setBufferColor " + e.toString());
-        }
-
-        //set progress color
-        try {
-            int color = Color.parseColor(mPlayerConfig.getStyling().getProgress());
-            playbackControlView.setProgressColor(color);
-        } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setProgressColor " + e.toString());
-        }
-
-        //TODO set background???
-        //mPlayerConfig.getStyling().getBackground()
-
-        //TODO show hide title
-        /*try {
-            playbackControlView.showOrHideTitleView(false);
-            //playbackControlView.showOrHideTitleView(mPlayerConfig.getStyling().getTitle().equals(UizaData.T));
-        } catch (NullPointerException e) {
-            LLog.e(TAG, "setConfigUIPlayer NullPointerException " + e.toString());
-        }*/
+        UizaUIUtil.setConfigUIPlayer(getPlayerView(), inputModel, mPlayerConfig);
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {

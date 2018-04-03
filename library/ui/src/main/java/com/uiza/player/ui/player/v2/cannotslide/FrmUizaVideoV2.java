@@ -82,8 +82,12 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.restclient.RestClientTracking;
+import vn.loitp.restapi.uiza.UizaService;
+import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.LToast;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -192,7 +196,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             public void onPlayThrough(int percent) {
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
-                ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
             }
 
             @Override
@@ -401,62 +405,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         updateDebugButtonVisibilities();
 
         mPlayerConfig = UizaData.getInstance().getPlayerConfig();
-        setConfigUIPlayer();
-    }
-
-    private void setConfigUIPlayer() {
-        //TODO freuss47 customize UI
-        PlaybackControlView playbackControlView = getPlayerView().getController();
-        if (playbackControlView == null) {
-            return;
-        }
-        playbackControlView.setTitle(inputModel.getTitle());
-
-        playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));
-        playbackControlView.setVisibilityShowQuality(mPlayerConfig.getSetting().getShowQuality().equals(Constants.T));
-        playbackControlView.setVisibilityDisplayPlaylist(mPlayerConfig.getSetting().getDisplayPlaylist().equals(Constants.T));
-
-        //set auto play video or not
-        if (mPlayerConfig.getSetting().getAutoStart().equals(Constants.T)) {
-            simpleExoPlayerView.getPlayer().setPlayWhenReady(true);
-        } else {
-            simpleExoPlayerView.getPlayer().setPlayWhenReady(false);
-        }
-
-        //set icon color
-        try {
-            int color = Color.parseColor(mPlayerConfig.getStyling().getIcons());
-            playbackControlView.setColorAllIcons(color);
-        } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setColorAllIcons " + e.toString());
-        }
-
-        //set buffer color
-        try {
-            int color = Color.parseColor(mPlayerConfig.getStyling().getBuffer());
-            playbackControlView.setBufferColor(color);
-        } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setBufferColor " + e.toString());
-        }
-
-        //set progress color
-        try {
-            int color = Color.parseColor(mPlayerConfig.getStyling().getProgress());
-            playbackControlView.setProgressColor(color);
-        } catch (Exception e) {
-            LLog.e(TAG, "setConfigUIPlayer Color.parseColor setProgressColor " + e.toString());
-        }
-
-        //TODO set background???
-        //mPlayerConfig.getStyling().getBackground()
-
-        //TODO show hide title
-        /*try {
-            playbackControlView.showOrHideTitleView(false);
-            //playbackControlView.showOrHideTitleView(mPlayerConfig.getStyling().getTitle().equals(UizaData.T));
-        } catch (NullPointerException e) {
-            LLog.e(TAG, "setConfigUIPlayer NullPointerException " + e.toString());
-        }*/
+        UizaUIUtil.setConfigUIPlayer(getPlayerView(), inputModel, mPlayerConfig);
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
@@ -618,17 +567,19 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             if (!isVideoStarted) {
                 isVideoStarted = true;
                 //track plays_requested
-                ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
+                trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
                 LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
-                ((UizaPlayerActivityV2) getActivity()).removeCoverVideo();
+                if (getActivity() instanceof UizaPlayerActivityV2) {
+                    ((UizaPlayerActivityV2) getActivity()).removeCoverVideo();
+                }
 
                 //track event view (after video is played 5s)
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
-                        ((UizaPlayerActivityV2) getActivity()).trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                        trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
                     }
                 };
                 mHandler.postDelayed(mRunnable, 5000);
@@ -992,4 +943,25 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             }
         }
     }*/
+
+    public void trackUiza(final UizaTracking uizaTracking) {
+        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackuiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
+        LLog.d(TAG, ">>>trackuiza object: " + gson.toJson(uizaTracking));
+        LLog.d(TAG, ">>>trackuiza endpoint: " + UizaData.getInstance().getApiTrackingEndPoint());
+        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
+        UizaService service = RestClientTracking.createService(UizaService.class);
+        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
+            @Override
+            public void onSuccess(Object tracking) {
+                LLog.d(TAG, "<<<<<<<<<<<<<<<trackuiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                //TODO send event fail? Try to send again
+                LLog.e(TAG, "trackuiza onFail " + e.toString());
+                handleException(e);
+            }
+        });
+    }
 }

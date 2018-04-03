@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
 import com.uiza.player.ui.player.v2.canslide.ClickCallback;
 import com.uiza.player.ui.player.v2.canslide.FrmBottomV2;
 import com.uiza.player.ui.player.v2.canslide.FrmTopV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -406,7 +406,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                     LLog.d(TAG, "getPlayerConfig onSuccess " + LSApplication.getInstance().getGson().toJson(playerConfig));
                     UizaData.getInstance().setPlayerConfig(playerConfig);
 
-                    inputModel = createInputModel(entityId, entityCover, entityTitle);
+                    inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);
                     UizaData.getInstance().setInputModel(inputModel);
                 }
 
@@ -418,35 +418,10 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             });
         } else {
             LLog.d(TAG, "UizaData.getInstance().getPlayerConfig() != null -> play new");
-            inputModel = createInputModel(entityId, entityCover, entityTitle);
+            inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);
             UizaData.getInstance().setInputModel(inputModel);
         }
         EventBusData.getInstance().sendClickVideoEvent(entityId);
-    }
-
-    private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
-        InputModel inputModel = new InputModel();
-        inputModel.setEntityID(entityId);
-
-        if (entityCover == null || entityCover.isEmpty()) {
-            inputModel.setUrlImg(Constants.URL_IMG_9x16);
-        } else {
-            inputModel.setUrlImg(Constants.PREFIXS + entityCover);
-        }
-        inputModel.setTitle(entityTitle + "");
-
-        inputModel.setExtension("mpd");
-        //inputModel.setDrmLicenseUrl("");
-        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideoV2.ACTION_VIEW : FrmUizaVideoV2.ACTION_VIEW_LIST);
-        inputModel.setPreferExtensionDecoders(false);
-
-        //TODO remove this code below
-        //inputModel.setUri("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
-        //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
-        //inputModel.setUri("http://cdn-broadcast.yuptv.vn/ba_dash/0c45905848ca4ec99d2ed7c11bc8f8ad-a1556c60605a4fe4a1a22eafb4e89b44/index.mpd");
-
-        //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
-        return inputModel;
     }
 
     private FrmTopV2 frmTopV2;

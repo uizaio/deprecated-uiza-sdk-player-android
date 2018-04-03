@@ -19,6 +19,7 @@ import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class UizaPlayerActivityV2 extends BaseActivity {
     private InputModel inputModel;
+    //TODO remove gson later
     private Gson gson = new Gson();
 
     public Gson getGson() {
@@ -86,44 +88,10 @@ public class UizaPlayerActivityV2 extends BaseActivity {
 
         RestClientV2.init(UizaData.getInstance().getApiEndPoint(), UizaData.getInstance().getToken());
 
-        inputModel = createInputModel(entityId, entityCover, entityTitle);
+        inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);
         UizaData.getInstance().setInputModel(inputModel);
 
         getPlayerConfig();
-
-        //track event eventype display
-        trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_DISPLAY));
-
-        //track event plays_requested
-        trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
-    }
-
-    private InputModel createInputModel(String entityId, String entityCover, String entityTitle) {
-        InputModel inputModel = new InputModel();
-        inputModel.setEntityID(entityId);
-
-        if (entityCover == null || entityCover.isEmpty()) {
-            inputModel.setUrlImg(Constants.URL_IMG_9x16);
-        } else {
-            if (!entityCover.contains(Constants.PREFIXS)) {
-                inputModel.setUrlImg(Constants.PREFIXS + entityCover);
-            }
-        }
-        inputModel.setTitle(entityTitle + "");
-
-        inputModel.setExtension("mpd");
-        //inputModel.setDrmLicenseUrl("");
-        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideoV2.ACTION_VIEW : FrmUizaVideoV2.ACTION_VIEW_LIST);
-        inputModel.setPreferExtensionDecoders(false);
-
-        //TODO remove this code below
-        //inputModel.setUri("http://www.youtube.com/api/manifest/dash/id/bf5bb2419360daf1/source/youtube?as=fmp4_audio_clear,fmp4_sd_hd_clear&sparams=ip,ipbits,expire,source,id,as&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=51AF5F39AB0CEC3E5497CD9C900EBFEAECCCB5C7.8506521BFC350652163895D4C26DEE124209AA9E&key=ik0");
-        //inputModel.setUri("http://d3euja3nh8q8x3.cloudfront.net/2d5a599d-ca5d-4bb4-a500-3f484b1abe8e/other/playlist.mpd");
-        //inputModel.setUri("http://cdn-broadcast.yuptv.vn/ba_dash/0c45905848ca4ec99d2ed7c11bc8f8ad-a1556c60605a4fe4a1a22eafb4e89b44/index.mpd");
-
-        //TODO freuss47 ad
-        //inputModel.setAdTagUri("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=");
-        return inputModel;
     }
 
     private void initContainerVideo() {
@@ -132,6 +100,12 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
+
+        //track event eventype display
+        frmUizaVideoV2.trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_DISPLAY));
+
+        //track event plays_requested
+        frmUizaVideoV2.trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_PLAYS_REQUESTED));
     }
 
     private void initContainerVideoInfo() {
@@ -407,27 +381,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             @Override
             public void onFail(Throwable e) {
                 LLog.e(TAG, "getPlayerConfig onFail: " + e.toString());
-                handleException(e);
-            }
-        });
-    }
-
-    public void trackUiza(final UizaTracking uizaTracking) {
-        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackuiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
-        LLog.d(TAG, ">>>trackuiza object: " + gson.toJson(uizaTracking));
-        LLog.d(TAG, ">>>trackuiza endpoint: " + UizaData.getInstance().getApiTrackingEndPoint());
-        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
-        UizaService service = RestClientTracking.createService(UizaService.class);
-        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
-            @Override
-            public void onSuccess(Object tracking) {
-                LLog.d(TAG, "<<<<<<<<<<<<<<<trackuiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                //TODO send event fail? Try to send again
-                LLog.e(TAG, "trackuiza onFail " + e.toString());
                 handleException(e);
             }
         });
