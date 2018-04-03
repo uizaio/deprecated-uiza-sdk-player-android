@@ -569,8 +569,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
                 updateUIStatusNavigationBar(true);
             }
-
-            frmTopV2.updateSize();
+            //frmTopV2.updateSize();
         }
     }
 
