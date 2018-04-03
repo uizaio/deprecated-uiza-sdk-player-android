@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.uiza.player.ui.data.UizaData;
@@ -18,6 +19,7 @@ import com.uiza.player.ui.views.PlaybackControlView;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;
 
+import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
@@ -207,5 +209,45 @@ public class UizaUIUtil {
         } catch (NullPointerException e) {
             LLog.e(TAG, "setConfigUIPlayer NullPointerException " + e.toString());
         }*/
+    }
+
+    private static int heightSizeOfExpPlayerViewInPortrait = 0;
+
+    public static void setSizeOfContainerVideo(final FrameLayout containerUizaVideo, final BaseFragment frmUizaVideoV2) {
+        if (containerUizaVideo != null && frmUizaVideoV2 != null) {
+            if (UizaData.getInstance().isLandscape()) {
+                LLog.d(TAG, "setSizeOfContainerVideo isLandscape");
+                //in landscape oritaion, width screen includes navigation bar height
+                int widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(frmUizaVideoV2.getActivity());
+                int heightScreen = UizaScreenUtil.getScreenHeight();
+                updateSizeOfContainerVideo(containerUizaVideo, widthScreen, heightScreen);
+            } else {
+                LLog.d(TAG, "setSizeOfContainerVideo !isLandscape");
+                if (frmUizaVideoV2 instanceof FrmUizaVideoV2) {
+                    ((FrmUizaVideoV2) frmUizaVideoV2).getPlayerView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            LLog.d(TAG, "setSizeOfContainerVideo run");
+                            //height screen includes statusbar and navigation bar's height
+                            if (heightSizeOfExpPlayerViewInPortrait == 0) {
+                                heightSizeOfExpPlayerViewInPortrait = ((FrmUizaVideoV2) frmUizaVideoV2).getPlayerView().getVideoSurfaceView().getHeight();
+                            }
+                            updateSizeOfContainerVideo(containerUizaVideo, UizaScreenUtil.getScreenWidth(), heightSizeOfExpPlayerViewInPortrait);
+                        }
+                    });
+                }
+            }
+        } else {
+            LLog.d(TAG, "setSizeOfContainerVideo else");
+        }
+    }
+
+    private static void updateSizeOfContainerVideo(FrameLayout containerUizaVideo, int widthScreen, int heightScreen) {
+        LLog.d(TAG, "setSizeOfContainerVideo after run");
+        UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
+        LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
+        containerUizaVideo.getLayoutParams().width = widthScreen;
+        containerUizaVideo.getLayoutParams().height = heightScreen;
+        containerUizaVideo.requestLayout();
     }
 }

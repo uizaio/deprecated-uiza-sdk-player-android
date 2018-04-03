@@ -31,11 +31,9 @@ import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
-import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV1;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.JsonBodyGetDetailEntity;
@@ -180,7 +178,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             LLog.d(TAG, "removeCoverVideo success");
 
             //when cover of video is removed, we need to set size of container video (simple exo player view, playback controller)
-            setSizeOfContainerVideo();
+            UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
         }
     }
 
@@ -214,51 +212,12 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         return R.layout.uiza_player_activity;
     }
 
-    //height screen includes statusbar and navigation bar's height
-    private int heightSizeOfExpPlayerViewInPortrait;
-
-    public void setSizeOfContainerVideo() {
-        if (containerUizaVideo != null && frmUizaVideoV2 != null) {
-            if (UizaData.getInstance().isLandscape()) {
-                LLog.d(TAG, "setSizeOfContainerVideo isLandscape");
-                //in landscape oritaion, width screen includes navigation bar height
-                int widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
-                int heightScreen = UizaScreenUtil.getScreenHeight();
-                updateSizeOfContainerVideo(widthScreen, heightScreen);
-            } else {
-                LLog.d(TAG, "setSizeOfContainerVideo !isLandscape");
-                frmUizaVideoV2.getPlayerView().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        LLog.d(TAG, "setSizeOfContainerVideo run");
-                        if (heightSizeOfExpPlayerViewInPortrait == 0) {
-                            heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getVideoSurfaceView().getHeight();
-                        }
-                        updateSizeOfContainerVideo(UizaScreenUtil.getScreenWidth(), heightSizeOfExpPlayerViewInPortrait);
-                    }
-                });
-            }
-        } else {
-            LLog.d(TAG, "setSizeOfContainerVideo else");
-        }
-    }
-
-    private void updateSizeOfContainerVideo(int widthScreen, int heightScreen) {
-        LLog.d(TAG, "setSizeOfContainerVideo after run");
-        UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
-        LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
-        containerUizaVideo.getLayoutParams().width = widthScreen;
-        containerUizaVideo.getLayoutParams().height = heightScreen;
-        containerUizaVideo.requestLayout();
-        //frmUizaVideoV2.updateSize();
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         LLog.d(TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
         UizaScreenUtil.toggleFullscreen(activity);
-        setSizeOfContainerVideo();
+        UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
     }
 
     @Override
