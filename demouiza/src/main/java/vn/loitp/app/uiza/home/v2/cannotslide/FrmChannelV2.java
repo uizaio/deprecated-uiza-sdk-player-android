@@ -230,6 +230,11 @@ public class FrmChannelV2 extends BaseFragment {
         intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
         intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
         startActivity(intent);
+
+        LLog.d(TAG, "onClickVideo " + item.getId());
+        LLog.d(TAG, "onClickVideo " + item.getThumbnail());
+        LLog.d(TAG, "onClickVideo " + item.getName());
+
         LActivityUtil.tranIn(getActivity());
     }
 

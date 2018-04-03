@@ -105,7 +105,9 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         if (entityCover == null || entityCover.isEmpty()) {
             inputModel.setUrlImg(Constants.URL_IMG_9x16);
         } else {
-            inputModel.setUrlImg(Constants.PREFIXS + entityCover);
+            if (!entityCover.contains(Constants.PREFIXS)) {
+                inputModel.setUrlImg(Constants.PREFIXS + entityCover);
+            }
         }
         inputModel.setTitle(entityTitle + "");
 
