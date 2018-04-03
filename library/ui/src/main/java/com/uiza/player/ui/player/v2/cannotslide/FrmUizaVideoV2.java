@@ -3,10 +3,12 @@ package com.uiza.player.ui.player.v2.cannotslide;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +81,7 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.views.LToast;
@@ -943,5 +946,58 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
         LToast.show(getActivity(), "onAdTapped");
+    }
+
+    private void logSize(final View view) {
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                LLog.d(TAG, "updateSize logSize " + view.getClass().getSimpleName() + " -> " + view.getWidth() + " x " + view.getHeight());
+            }
+        });
+    }
+
+    public void updateSize() {
+        /*LLog.d(TAG, "updateSize UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
+        if (rootView == null) {
+            LLog.d(TAG, "updateSize rootView == null");
+        } else {
+            logSize(rootView);
+        }
+
+        if (simpleExoPlayerView == null) {
+            LLog.d(TAG, "updateSize simpleExoPlayerView == null");
+        } else {
+            logSize(simpleExoPlayerView);
+
+            if (simpleExoPlayerView.getController() == null) {
+                LLog.d(TAG, "updateSize simpleExoPlayerView.getController() == null");
+            } else {
+                logSize(simpleExoPlayerView.getController());
+
+                if (avi != null) {
+                    Rect rectf = new Rect();
+                    avi.getLocalVisibleRect(rectf);
+                    avi.getGlobalVisibleRect(rectf);
+
+                    LLog.d(TAG, "updateSize isLandscape: " + UizaData.getInstance().isLandscape());
+                    LLog.d(TAG, "updateSize w " + String.valueOf(rectf.width()));
+                    LLog.d(TAG, "updateSize h " + String.valueOf(rectf.height()));
+                    LLog.d(TAG, "updateSize l " + String.valueOf(rectf.left));
+                    LLog.d(TAG, "updateSize r " + String.valueOf(rectf.right));
+                    LLog.d(TAG, "updateSize t " + String.valueOf(rectf.top));
+                    LLog.d(TAG, "updateSize b " + String.valueOf(rectf.bottom));
+
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
+                    params.gravity = Gravity.CENTER;
+                    avi.setLayoutParams(params);
+                }
+            }
+        }*/
+        if (avi != null) {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
+            params.gravity = Gravity.CENTER;
+            avi.setLayoutParams(params);
+        }
     }
 }

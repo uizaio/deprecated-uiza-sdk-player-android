@@ -243,30 +243,44 @@ public class UizaPlayerActivityV2 extends BaseActivity {
 
     public void setSizeOfContainerVideo() {
         if (containerUizaVideo != null && frmUizaVideoV2 != null) {
-            int widthScreen;
-            int heightScreen;
+            //int widthScreen;
+            //int heightScreen;
             if (UizaData.getInstance().isLandscape()) {
                 LLog.d(TAG, "setSizeOfContainerVideo isLandscape");
                 //in landscape oritaion, width screen includes navigation bar height
-                //widthScreen = UizaScreenUtil.getScreenWidth() + LScreenUtil.getBottomBarHeight(activity);
-                widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
-                heightScreen = UizaScreenUtil.getScreenHeight();
+                int  widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
+                int  heightScreen = UizaScreenUtil.getScreenHeight();
+                updateSizeOfContainerVideo(widthScreen, heightScreen);
             } else {
                 LLog.d(TAG, "setSizeOfContainerVideo !isLandscape");
-                widthScreen = UizaScreenUtil.getScreenWidth();
-                if (heightSizeOfExpPlayerViewInPortrait == 0) {
-                    heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getVideoSurfaceView().getHeight();
-                }
-                heightScreen = heightSizeOfExpPlayerViewInPortrait;
+                //widthScreen = UizaScreenUtil.getScreenWidth();
+                frmUizaVideoV2.getPlayerView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LLog.d(TAG, "setSizeOfContainerVideo run");
+                        if (heightSizeOfExpPlayerViewInPortrait == 0) {
+                            heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getVideoSurfaceView().getHeight();
+                        }
+                        //heightScreen = heightSizeOfExpPlayerViewInPortrait;
+                        //updateSizeOfContainerVideo(widthScreen, heightScreen);
+                        updateSizeOfContainerVideo(UizaScreenUtil.getScreenWidth(), heightSizeOfExpPlayerViewInPortrait);
+                    }
+                });
             }
-            UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
-            LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
-            containerUizaVideo.getLayoutParams().width = widthScreen;
-            containerUizaVideo.getLayoutParams().height = heightScreen;
-            containerUizaVideo.requestLayout();
         } else {
             LLog.d(TAG, "setSizeOfContainerVideo else");
         }
+    }
+
+    private void updateSizeOfContainerVideo(int widthScreen, int heightScreen) {
+        LLog.d(TAG, "setSizeOfContainerVideo after run");
+        UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
+        LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
+        containerUizaVideo.getLayoutParams().width = widthScreen;
+        containerUizaVideo.getLayoutParams().height = heightScreen;
+        containerUizaVideo.requestLayout();
+
+        frmUizaVideoV2.updateSize();
     }
 
     @Override

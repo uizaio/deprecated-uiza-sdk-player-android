@@ -543,12 +543,12 @@ public class LUIUtil {
         }
     }
 
-    public static void setMarginsInPixel(View view, int leftDp, int topDp, int rightDp, int bottomDp) {
+    public static void setMarginsInPixel(View view, int leftPx, int topPx, int rightPx, int bottomPx) {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            p.setMargins(leftDp, topDp, rightDp, bottomDp);
+            p.setMargins(leftPx, topPx, rightPx, bottomPx);
             view.requestLayout();
-            LLog.d(TAG, "setMarginsInPixel success with: " + leftDp + " - " + topDp + " - " + rightDp + " - " + bottomDp);
+            LLog.d(TAG, "setMarginsInPixel success with: " + leftPx + " - " + topPx + " - " + rightPx + " - " + bottomPx);
         }
     }
 
