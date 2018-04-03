@@ -104,7 +104,6 @@ import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.LToast;
-import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -146,7 +145,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
     private RelativeLayout rootView;
-    private AVLoadingIndicatorView avi;
     //TODO remove gson later
     private Gson gson = new Gson();
 
@@ -179,11 +177,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
 
-        //view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
-        view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
+        //view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
 
-        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        avi.smoothToShow();
         rootView = (RelativeLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
@@ -677,17 +673,13 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == Player.STATE_ENDED) {
             LLog.d(TAG, "STATE_ENDED");
-            avi.smoothToHide();
             showDebugControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
             LLog.d(TAG, "STATE_BUFFERING");
-            avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
             LLog.d(TAG, "STATE_IDLE");
-            avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "STATE_READY");
-            avi.smoothToHide();
 
             //only track video_starts once time
             if (!isVideoStarted) {
