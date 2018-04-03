@@ -2,6 +2,7 @@ package testlibuiza.uiza.com.demouiza2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
 import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivityV2;
+import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
@@ -79,5 +81,13 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         transaction.commit();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        LLog.d(TAG, "onConfigurationChanged");
+        super.onConfigurationChanged(newConfig);
+        UizaScreenUtil.toggleFullscreen(activity);
+        //setSizeOfContainerVideo();
     }
 }
