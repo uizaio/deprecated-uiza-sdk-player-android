@@ -54,6 +54,15 @@ public class MainActivity extends BaseActivity {
                 LActivityUtil.tranIn(activity);
             }
         });
+
+        findViewById(R.id.bt_simple).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, SimpleUizaPlayerActivity.class);
+                startActivity(intent);
+                LActivityUtil.tranIn(activity);
+            }
+        });
     }
 
     @Override
