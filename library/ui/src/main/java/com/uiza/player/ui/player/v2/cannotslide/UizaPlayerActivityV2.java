@@ -246,23 +246,26 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             int widthScreen;
             int heightScreen;
             if (UizaData.getInstance().isLandscape()) {
+                LLog.d(TAG, "setSizeOfContainerVideo isLandscape");
                 //in landscape oritaion, width screen includes navigation bar height
                 //widthScreen = UizaScreenUtil.getScreenWidth() + LScreenUtil.getBottomBarHeight(activity);
                 widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
                 heightScreen = UizaScreenUtil.getScreenHeight();
             } else {
+                LLog.d(TAG, "setSizeOfContainerVideo !isLandscape");
                 widthScreen = UizaScreenUtil.getScreenWidth();
                 if (heightSizeOfExpPlayerViewInPortrait == 0) {
-                    heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getHeight();
+                    heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getVideoSurfaceView().getHeight();
                 }
                 heightScreen = heightSizeOfExpPlayerViewInPortrait;
             }
             UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
-            LLog.d(TAG, "setSizeOfContainerVideo isLandscape: " + UizaData.getInstance().isLandscape());
             LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
             containerUizaVideo.getLayoutParams().width = widthScreen;
             containerUizaVideo.getLayoutParams().height = heightScreen;
             containerUizaVideo.requestLayout();
+        } else {
+            LLog.d(TAG, "setSizeOfContainerVideo else");
         }
     }
 
