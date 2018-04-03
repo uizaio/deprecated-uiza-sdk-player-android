@@ -274,7 +274,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         containerUizaVideo.getLayoutParams().width = widthScreen;
         containerUizaVideo.getLayoutParams().height = heightScreen;
         containerUizaVideo.requestLayout();
-        frmUizaVideoV2.updateSize();
+        //frmUizaVideoV2.updateSize();
     }
 
     @Override

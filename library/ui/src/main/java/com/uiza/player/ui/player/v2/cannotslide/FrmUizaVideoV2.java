@@ -954,7 +954,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         });
     }
 
-    public void updateSize() {
+    /*public void updateSize() {
         LLog.d(TAG, "updateSize UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         if (rootView == null) {
             LLog.d(TAG, "updateSize rootView == null");
@@ -972,7 +972,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             } else {
                 logSize(simpleExoPlayerView.getController());
 
-                /*if (avi != null) {
+                if (avi != null) {
                     Rect rectf = new Rect();
                     avi.getLocalVisibleRect(rectf);
                     avi.getGlobalVisibleRect(rectf);
@@ -988,8 +988,8 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                     FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
                     params.gravity = Gravity.CENTER;
                     avi.setLayoutParams(params);
-                }*/
+                }
             }
         }
-    }
+    }*/
 }

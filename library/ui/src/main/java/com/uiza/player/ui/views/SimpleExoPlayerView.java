@@ -26,6 +26,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -65,6 +66,7 @@ import java.util.List;
 
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
@@ -451,6 +453,15 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 @Override
                 public void onClickFullScreen(View view) {
                     UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
+
+                    //very import show hide avi here
+                    avLoadingIndicatorView.smoothToShow();
+                    LUIUtil.setDelay(100, new LUIUtil.DelayCallback() {
+                        @Override
+                        public void doAfter(int mls) {
+                            avLoadingIndicatorView.smoothToHide();
+                        }
+                    });
                 }
 
                 @Override
