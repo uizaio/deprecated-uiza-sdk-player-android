@@ -799,7 +799,7 @@ public class PlaybackControlView extends FrameLayout {
     public void hide() {
         LLog.d(TAG, "hide isVisible " + isVisible());
         if (isVisible()) {
-            setVisibility(GONE);
+            setVisibility(INVISIBLE);
             if (visibilityListener != null) {
                 visibilityListener.onVisibilityChange(getVisibility());
             }

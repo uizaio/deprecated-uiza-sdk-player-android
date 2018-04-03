@@ -562,13 +562,13 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LLog.d(TAG, "onConfigurationChanged");
         UizaScreenUtil.toggleFullscreen(activity);
         if (frmTopV2 != null) {
-            /*if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);
             } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
                 updateUIStatusNavigationBar(true);
-            }*/
+            }
 
             frmTopV2.updateSize();
         }
