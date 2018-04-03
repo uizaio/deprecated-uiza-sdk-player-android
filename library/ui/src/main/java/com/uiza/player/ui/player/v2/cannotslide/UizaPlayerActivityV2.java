@@ -243,17 +243,14 @@ public class UizaPlayerActivityV2 extends BaseActivity {
 
     public void setSizeOfContainerVideo() {
         if (containerUizaVideo != null && frmUizaVideoV2 != null) {
-            //int widthScreen;
-            //int heightScreen;
             if (UizaData.getInstance().isLandscape()) {
                 LLog.d(TAG, "setSizeOfContainerVideo isLandscape");
                 //in landscape oritaion, width screen includes navigation bar height
-                int  widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
-                int  heightScreen = UizaScreenUtil.getScreenHeight();
+                int widthScreen = UizaScreenUtil.getScreenHeightIncludeNavigationBar(activity);
+                int heightScreen = UizaScreenUtil.getScreenHeight();
                 updateSizeOfContainerVideo(widthScreen, heightScreen);
             } else {
                 LLog.d(TAG, "setSizeOfContainerVideo !isLandscape");
-                //widthScreen = UizaScreenUtil.getScreenWidth();
                 frmUizaVideoV2.getPlayerView().post(new Runnable() {
                     @Override
                     public void run() {
@@ -261,8 +258,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
                         if (heightSizeOfExpPlayerViewInPortrait == 0) {
                             heightSizeOfExpPlayerViewInPortrait = frmUizaVideoV2.getPlayerView().getVideoSurfaceView().getHeight();
                         }
-                        //heightScreen = heightSizeOfExpPlayerViewInPortrait;
-                        //updateSizeOfContainerVideo(widthScreen, heightScreen);
                         updateSizeOfContainerVideo(UizaScreenUtil.getScreenWidth(), heightSizeOfExpPlayerViewInPortrait);
                     }
                 });
@@ -279,7 +274,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         containerUizaVideo.getLayoutParams().width = widthScreen;
         containerUizaVideo.getLayoutParams().height = heightScreen;
         containerUizaVideo.requestLayout();
-
         frmUizaVideoV2.updateSize();
     }
 

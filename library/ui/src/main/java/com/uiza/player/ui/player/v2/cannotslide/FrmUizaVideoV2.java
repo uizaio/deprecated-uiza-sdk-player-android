@@ -958,7 +958,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     }
 
     public void updateSize() {
-        /*LLog.d(TAG, "updateSize UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
+        LLog.d(TAG, "updateSize UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
         if (rootView == null) {
             LLog.d(TAG, "updateSize rootView == null");
         } else {
@@ -993,11 +993,12 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                     avi.setLayoutParams(params);
                 }
             }
-        }*/
-        if (avi != null) {
+        }
+        /*if (avi != null) {
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
             params.gravity = Gravity.CENTER;
             avi.setLayoutParams(params);
-        }
+            LLog.d(TAG, "updateSize avi CENTER");
+        }*/
     }
 }
