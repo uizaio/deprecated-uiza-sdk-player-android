@@ -6,7 +6,6 @@ package com.uiza.player.ui.player.v2.canslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,7 +62,6 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
-import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
@@ -1107,46 +1105,33 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private int widthSimpleExoPlayerView;
     private int heightSimpleExoPlayerView;
 
-    public void updateSize() {
-        LLog.d(TAG, "updateSize getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
-
-        /*if (simpleExoPlayerView != null) {
-            simpleExoPlayerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    widthSimpleExoPlayerView = simpleExoPlayerView.getMeasuredWidth();
-                    heightSimpleExoPlayerView = simpleExoPlayerView.getMeasuredHeight();
-                    LLog.d(TAG, "updateSize current simpleExoPlayerView size: " + widthSimpleExoPlayerView + " x " + heightSimpleExoPlayerView);
-                }
-            });
-            if (simpleExoPlayerView.getController() != null) {
-                simpleExoPlayerView.getController().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        int widthSimpleExoPlayerViewController = simpleExoPlayerView.getController().getMeasuredWidth();
-                        int heightSimpleExoPlayerViewController = simpleExoPlayerView.getController().getMeasuredHeight();
-                        LLog.d(TAG, "updateSize current getController size: " + widthSimpleExoPlayerViewController + " x " + heightSimpleExoPlayerViewController);
-
-                        if (widthSimpleExoPlayerViewController != widthSimpleExoPlayerView && heightSimpleExoPlayerViewController != heightSimpleExoPlayerView) {
-                            LLog.d(TAG, "updateSize size different :(");
-                            LUIUtil.resizeView(simpleExoPlayerView.getController(), widthSimpleExoPlayerView, heightSimpleExoPlayerView);
-                            LLog.d(TAG, "updateSize size setSizeOfPlaybackControlView success with new value: " + simpleExoPlayerView.getController().getMeasuredHeight());
-                        }
-                    }
-                });
+    private void logSize(final View view) {
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                LLog.d(TAG, "updateSize logSize " + view.getClass().getSimpleName() + " -> " + view.getWidth() + " x " + view.getHeight());
             }
-        }*/
+        });
     }
 
-    /*@Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        UizaScreenUtil.toggleFullscreen(getActivity());
-        if (simpleExoPlayerView != null) {
-            LLog.d(TAG, "onConfigurationChanged: " + simpleExoPlayerView.getWidth() + " x " + simpleExoPlayerView.getHeight());
-            if (simpleExoPlayerView.getController() != null) {
-                LLog.d(TAG, "onConfigurationChanged: " + simpleExoPlayerView.getController().getWidth() + " x " + simpleExoPlayerView.getController().getHeight());
+    public void updateSize() {
+        LLog.d(TAG, "updateSize UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
+        if (rootView == null) {
+            LLog.d(TAG, "rootView == null");
+        } else {
+            logSize(rootView);
+        }
+
+        if (simpleExoPlayerView == null) {
+            LLog.d(TAG, "simpleExoPlayerView == null");
+        } else {
+            logSize(simpleExoPlayerView);
+
+            if (simpleExoPlayerView.getController() == null) {
+                LLog.d(TAG, "simpleExoPlayerView.getController() == null");
+            } else {
+                logSize(simpleExoPlayerView.getController());
             }
         }
-    }*/
+    }
 }
