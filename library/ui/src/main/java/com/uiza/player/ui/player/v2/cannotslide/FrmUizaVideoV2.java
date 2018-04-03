@@ -127,8 +127,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
     private FrameLayout rootView;
-    private AVLoadingIndicatorView avi;
-    private boolean isVideoStarted;//detect video is has ready state or not
+    private boolean isVideoStarted;//detect video is has ready started or not
 
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
@@ -164,8 +163,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         //view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
         view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
 
-        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
-        avi.smoothToShow();
         rootView = (FrameLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
@@ -605,17 +602,17 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == Player.STATE_ENDED) {
             LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
-            avi.smoothToHide();
+            //avi.smoothToHide();
             showDebugControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
             LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
-            avi.smoothToShow();
+            //avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
             LLog.d(TAG, "onPlayerStateChanged STATE_IDLE");
-            avi.smoothToShow();
+            //avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "onPlayerStateChanged STATE_READY");
-            avi.smoothToHide();
+            //avi.smoothToHide();
 
             //only track video_starts once time
             if (!isVideoStarted) {
@@ -975,7 +972,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             } else {
                 logSize(simpleExoPlayerView.getController());
 
-                if (avi != null) {
+                /*if (avi != null) {
                     Rect rectf = new Rect();
                     avi.getLocalVisibleRect(rectf);
                     avi.getGlobalVisibleRect(rectf);
@@ -991,14 +988,8 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                     FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
                     params.gravity = Gravity.CENTER;
                     avi.setLayoutParams(params);
-                }
+                }*/
             }
         }
-        /*if (avi != null) {
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
-            params.gravity = Gravity.CENTER;
-            avi.setLayoutParams(params);
-            LLog.d(TAG, "updateSize avi CENTER");
-        }*/
     }
 }

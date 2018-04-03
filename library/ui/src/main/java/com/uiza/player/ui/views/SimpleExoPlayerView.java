@@ -53,7 +53,9 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
+import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivityV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
+import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.views.view.language.LanguageCallback;
 import com.uiza.player.ui.views.view.language.LanguageViewDialog;
 import com.uiza.player.ui.views.view.playlist.PlayListCallback;
@@ -64,6 +66,7 @@ import java.util.List;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -222,6 +225,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private final ComponentListener componentListener;
     private final FrameLayout overlayFrameLayout;
     private final FrameLayout exoHelperFrameLayout;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private SimpleExoPlayer player;
     private boolean useController;
@@ -300,6 +304,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         // Content frame.
         contentFrame = (AspectRatioFrameLayout) findViewById(R.id.exo_content_frame);
+        avLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(R.id.avi);
 
         if (contentFrame != null) {
             setResizeModeRaw(contentFrame, resizeMode);
@@ -1108,16 +1113,19 @@ public final class SimpleExoPlayerView extends FrameLayout {
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             maybeShowController(false);
-            LLog.d(TAG, "onPlayerStateChanged playbackState " + playbackState);
-            /*if (playbackState == Player.STATE_IDLE) {
-                Log.d("loitp", TAG + "STATE_IDLE");
-                if (controller != null) {
-                    controller.getRootView().setVisibility(GONE);
-                }
-            }*/
-            /*if (playbackState == Player.STATE_READY) {
-                //Log.d(TAG, "onPlayerStateChanged STATE_READY");
-            }*/
+            if (playbackState == Player.STATE_ENDED) {
+                LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
+                avLoadingIndicatorView.smoothToShow();
+            } else if (playbackState == Player.STATE_BUFFERING) {
+                LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
+                avLoadingIndicatorView.smoothToShow();
+            } else if (playbackState == Player.STATE_IDLE) {
+                LLog.d(TAG, "onPlayerStateChanged STATE_IDLE");
+                avLoadingIndicatorView.smoothToShow();
+            } else if (playbackState == Player.STATE_READY) {
+                LLog.d(TAG, "onPlayerStateChanged STATE_READY");
+                avLoadingIndicatorView.smoothToHide();
+            }
         }
 
         @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.uiza.player.ui.views.AspectRatioFrameLayout
         android:id="@id/exo_content_frame"
@@ -18,12 +19,22 @@
             android:id="@id/exo_artwork"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
             android:scaleType="centerCrop" />
 
         <com.uiza.player.ui.views.SubtitleView
             android:id="@id/exo_subtitles"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="@dimen/w_20"
+            android:layout_height="@dimen/w_20"
+            android:layout_gravity="center"
+            app:indicatorColor="@color/White"
+            app:indicatorName="BallSpinFadeLoaderIndicator" />
 
     </com.uiza.player.ui.views.AspectRatioFrameLayout>
 
