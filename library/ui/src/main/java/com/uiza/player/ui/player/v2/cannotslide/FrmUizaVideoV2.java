@@ -586,6 +586,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             }
         }
         updateDebugButtonVisibilities();
+
+        if (wrapperCallback != null) {
+            wrapperCallback.onPlayerStateChanged(playWhenReady, playbackState);
+        }
     }
 
     //for track event view
@@ -963,5 +967,15 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 handleException(e);
             }
         });
+    }
+
+    public interface WrapperCallback {
+        public void onPlayerStateChanged(boolean playWhenReady, int playbackState);
+    }
+
+    private WrapperCallback wrapperCallback;
+
+    public void setWrapperCallback(WrapperCallback wrapperCallback) {
+        this.wrapperCallback = wrapperCallback;
     }
 }

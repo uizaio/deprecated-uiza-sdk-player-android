@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
@@ -27,6 +28,7 @@ import vn.loitp.core.utilities.LScreenUtil;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.Setting;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.Styling;
+import vn.loitp.views.LToast;
 
 /**
  * Created by www.muathu@gmail.com on 11/8/2017.
@@ -156,12 +158,7 @@ public class UizaUIUtil {
 
             mPlayerConfig.setStyling(styling);
 
-            LDialogUtil.showOne(simpleExoPlayerView.getContext(), "Warning", "You play video with default skin", "OK", new LDialogUtil.CallbackShowOne() {
-                @Override
-                public void onClick() {
-                    //do nothing
-                }
-            });
+            LToast.show(simpleExoPlayerView.getContext(), "You play video with default skin", Toast.LENGTH_LONG);
         }
 
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));

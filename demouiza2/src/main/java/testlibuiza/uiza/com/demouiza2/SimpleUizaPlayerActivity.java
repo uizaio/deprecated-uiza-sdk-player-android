@@ -1,17 +1,13 @@
 package testlibuiza.uiza.com.demouiza2;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
-import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivityV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.helper.InputModel;
@@ -20,20 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.core.base.BaseActivity;
-import vn.loitp.core.common.Constants;
-import vn.loitp.core.utilities.LActivityUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LPref;
-import vn.loitp.restapi.restclient.RestClientV2;
-import vn.loitp.restapi.uiza.model.v2.auth.Auth;
-
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
-import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_TITLE;
 
 public class SimpleUizaPlayerActivity extends BaseActivity {
 
     private FrameLayout containerUizaVideo;
+    private FrmUizaVideoV2 frmUizaVideoV2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +65,19 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         listLinkPlay.add("https://cdn-vn-cache-3.uiza.io:443/a204e9cdeca44948a33e0d012ef74e90/mx5Z5wIs/package/playlist.mpd");
         UizaData.getInstance().setLinkPlay(listLinkPlay);
 
-        FrmUizaVideoV2 frmUizaVideoV2 = new FrmUizaVideoV2();
+        frmUizaVideoV2 = new FrmUizaVideoV2();
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         transaction.commit();
+
+        frmUizaVideoV2.setWrapperCallback(new FrmUizaVideoV2.WrapperCallback() {
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                LLog.d(TAG, "onPlayerStateChanged " + playbackState);
+                //TODO set remover cover
+                // UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
+            }
+        });
     }
 
     @Override
@@ -88,6 +85,6 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         LLog.d(TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
         UizaScreenUtil.toggleFullscreen(activity);
-        //setSizeOfContainerVideo();
+        UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
     }
 }
