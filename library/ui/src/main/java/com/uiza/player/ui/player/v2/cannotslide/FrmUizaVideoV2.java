@@ -157,7 +157,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         }
 
         view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
-        //view.findViewById(R.id.ll_debug_view).setVisibility(View.INVISIBLE);
 
         rootView = (FrameLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
