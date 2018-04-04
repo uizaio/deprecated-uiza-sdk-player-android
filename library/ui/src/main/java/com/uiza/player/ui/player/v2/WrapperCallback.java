@@ -10,4 +10,8 @@ public interface WrapperCallback {
     public void onTrackVideoStart();
 
     public void onTrackVideoView();
+
+    public void onTrackPlayThrough(int percentOfVideoDuration);
+
+    public void onPlaybackControllerClickSetting();
 }

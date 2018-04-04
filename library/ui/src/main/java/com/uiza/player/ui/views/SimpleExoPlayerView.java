@@ -1126,7 +1126,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
             maybeShowController(false);
             if (playbackState == Player.STATE_ENDED) {
                 LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
-                avLoadingIndicatorView.smoothToShow();
+                avLoadingIndicatorView.smoothToHide();
             } else if (playbackState == Player.STATE_BUFFERING) {
                 LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
                 avLoadingIndicatorView.smoothToShow();

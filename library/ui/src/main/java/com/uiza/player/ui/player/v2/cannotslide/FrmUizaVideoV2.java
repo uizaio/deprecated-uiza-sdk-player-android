@@ -152,7 +152,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.uiza_video_player_frm, container, false);
-        //shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
         mainHandler = new Handler();
@@ -186,6 +185,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 if (getBtVideo() != null) {
                     getBtVideo().performClick();
                 }
+                if (wrapperCallback != null) {
+                    wrapperCallback.onPlaybackControllerClickSetting();
+                }
             }
 
             @Override
@@ -193,10 +195,14 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                if (wrapperCallback != null) {
+                    wrapperCallback.onTrackPlayThrough(percent);
+                }
             }
 
             @Override
             public void onClickItem(Item item, int position) {
+                //click item on playlist
                 LLog.d(TAG, "onClick " + position);
                 ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
             }

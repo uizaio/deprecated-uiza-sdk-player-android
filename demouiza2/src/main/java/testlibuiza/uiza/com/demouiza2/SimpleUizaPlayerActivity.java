@@ -87,6 +87,16 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
             public void onTrackVideoView() {
                 LLog.d(TAG, "setWrapperCallback onTrackVideoView");
             }
+
+            @Override
+            public void onTrackPlayThrough(int percentOfVideoDuration) {
+                LLog.d(TAG, "setWrapperCallback onTrackPlayThrough " + percentOfVideoDuration);
+            }
+
+            @Override
+            public void onPlaybackControllerClickSetting() {
+                LLog.d(TAG, "setWrapperCallback onPlaybackControllerClickSetting");
+            }
         });
     }
 
