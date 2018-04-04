@@ -178,6 +178,7 @@ You only call PlayerScreenActivity of UizaSDK, this screen will play video with 
     </activity>
 
 **Step 4: Open manifest**
+
 4.1: Add global variables:
 	
     private FrameLayout containerUizaVideo;  
