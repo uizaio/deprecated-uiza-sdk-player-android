@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +13,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.player.v2.canslide.ClickCallback;
 import com.uiza.player.ui.player.v2.canslide.FrmBottomV2;
 import com.uiza.player.ui.player.v2.canslide.FrmTopV2;
@@ -21,6 +27,7 @@ import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.SimpleExoPlayerView;
 import com.uiza.player.ui.views.helper.InputModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -434,21 +441,101 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             return;
         }
         frmTopV2 = new FrmTopV2();
-        /*frmTopV2.setVisibilityChange(new FrmTopV2.VisibilityChange() {
+        frmTopV2.setWrapperCallback(new WrapperCallback() {
+            @Override
+            public void initializePlayer(Uri[] uris) {
+                LLog.d(TAG, "setWrapperCallback initializePlayer ");
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                LLog.d(TAG, "setWrapperCallback onPlayerStateChanged ");
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+                LLog.d(TAG, "setWrapperCallback onTracksChanged ");
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+                LLog.d(TAG, "setWrapperCallback onLoadingChanged ");
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+                LLog.d(TAG, "setWrapperCallback onRepeatModeChanged ");
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+                LLog.d(TAG, "setWrapperCallback onPlaybackParametersChanged ");
+            }
+
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+                LLog.d(TAG, "setWrapperCallback onTimelineChanged ");
+            }
+
+            @Override
+            public void onTrackVideoStart() {
+                LLog.d(TAG, "setWrapperCallback onTrackVideoStart ");
+            }
+
+            @Override
+            public void onTrackVideoView() {
+                LLog.d(TAG, "setWrapperCallback onTrackVideoView ");
+            }
+
+            @Override
+            public void onTrackPlayThrough(int percentOfVideoDuration) {
+                LLog.d(TAG, "setWrapperCallback onTrackPlayThrough ");
+            }
+
+            @Override
+            public void onPlaybackControllerClickSetting() {
+                LLog.d(TAG, "setWrapperCallback onPlaybackControllerClickSetting ");
+            }
+
+            @Override
+            public void onClickItemPlayList(Item item, int position) {
+                LLog.d(TAG, "setWrapperCallback onClickItemPlayList onClick " + item.getName() + ", position: " + position);
+                onClickVideo(item, position);
+            }
+
             @Override
             public void onVisibilityChange(int visibility) {
-                if (visibility == View.VISIBLE) {
-                    LLog.d(TAG, ">>>onVisibilityChange VISIBLE " + visibility);
-                } else {
-                    LLog.d(TAG, ">>>onVisibilityChange !VISIBLE " + visibility);
-                }
+                LLog.d(TAG, "setWrapperCallback onVisibilityChange ");
             }
-        });*/
-        frmTopV2.setClickCallback(new ClickCallback() {
+
             @Override
-            public void onClick(Item item, int position) {
-                LLog.d(TAG, "onClick " + item.getName() + ", position: " + position);
-                onClickVideo(item, position);
+            public void onErrorNoLinkPlay() {
+                LLog.d(TAG, "setWrapperCallback onErrorNoLinkPlay ");
+            }
+
+            @Override
+            public void onErrorCannotPlayAnyLinkPlay() {
+                LLog.d(TAG, "setWrapperCallback onErrorCannotPlayAnyLinkPlay ");
+            }
+
+            @Override
+            public void onReleasePlayer() {
+                LLog.d(TAG, "setWrapperCallback onReleasePlayer ");
+            }
+
+            @Override
+            public void onAdLoadError(IOException error) {
+                LLog.d(TAG, "setWrapperCallback onAdLoadError ");
+            }
+
+            @Override
+            public void onAdClicked() {
+                LLog.d(TAG, "setWrapperCallback onAdClicked ");
+            }
+
+            @Override
+            public void onAdTapped() {
+                LLog.d(TAG, "setWrapperCallback onAdTapped ");
             }
         });
 
