@@ -1,3 +1,4 @@
+
 # Welcome to UizaSDK
 
 # Importing the Library
@@ -135,3 +136,7 @@ You only call PlayerScreenActivity of UizaSDK, this screen will play video with 
     intent.putExtra(Constants.KEY_UIZA_ENTITY_TITLE, "enter video name|title here");  
     startActivity(intent);  
     LActivityUtil.tranIn(activity);//go to PlayerScreenActivity with animation.
+
+```
+![alt text](https://github.com/uizaio/uiza-sdk-player-android/blob/master/gif/uiza_player_screen.gif?raw=true)
+```
