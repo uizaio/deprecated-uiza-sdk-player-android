@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -13,8 +14,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaScreenUtil;
@@ -22,6 +28,7 @@ import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +105,104 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
+
+        frmUizaVideoV2.setWrapperCallback(new WrapperCallback() {
+            @Override
+            public void initializePlayer(Uri[] uris) {
+                LLog.d(TAG, "setWrapperCallback initializePlayer");
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                LLog.d(TAG, "setWrapperCallback onPlayerStateChanged " + playbackState);
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+                LLog.d(TAG, "setWrapperCallback onTracksChanged");
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+                LLog.d(TAG, "setWrapperCallback onLoadingChanged");
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+                LLog.d(TAG, "setWrapperCallback onRepeatModeChanged");
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+                LLog.d(TAG, "setWrapperCallback onPlaybackParametersChanged");
+            }
+
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+                LLog.d(TAG, "setWrapperCallback onTimelineChanged");
+            }
+
+            @Override
+            public void onTrackVideoStart() {
+                LLog.d(TAG, "setWrapperCallback onTrackVideoStart");
+                UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
+            }
+
+            @Override
+            public void onTrackVideoView() {
+                LLog.d(TAG, "setWrapperCallback onTrackVideoView");
+            }
+
+            @Override
+            public void onTrackPlayThrough(int percentOfVideoDuration) {
+                LLog.d(TAG, "setWrapperCallback onTrackPlayThrough " + percentOfVideoDuration);
+            }
+
+            @Override
+            public void onPlaybackControllerClickSetting() {
+                LLog.d(TAG, "setWrapperCallback onPlaybackControllerClickSetting");
+            }
+
+            @Override
+            public void onClickItemPlayList(Item item, int position) {
+                LLog.d(TAG, "setWrapperCallback onClickItemPlayList");
+            }
+
+            @Override
+            public void onVisibilityChange(int visibility) {
+                LLog.d(TAG, "setWrapperCallback onVisibilityChange");
+            }
+
+            @Override
+            public void onErrorNoLinkPlay() {
+                LLog.d(TAG, "setWrapperCallback onErrorNoLinkPlay");
+            }
+
+            @Override
+            public void onErrorCannotPlayAnyLinkPlay() {
+                LLog.d(TAG, "setWrapperCallback onErrorCannotPlayAnyLinkPlay");
+            }
+
+            @Override
+            public void onReleasePlayer() {
+                LLog.d(TAG, "setWrapperCallback onReleasePlayer");
+            }
+
+            @Override
+            public void onAdLoadError(IOException error) {
+                LLog.d(TAG, "setWrapperCallback onAdLoadError");
+            }
+
+            @Override
+            public void onAdClicked() {
+                LLog.d(TAG, "setWrapperCallback onAdClicked");
+            }
+
+            @Override
+            public void onAdTapped() {
+                LLog.d(TAG, "setWrapperCallback onAdTapped");
+            }
+        });
 
         //track event eventype display
         frmUizaVideoV2.trackUiza(UizaTrackingUtil.createTrackingInput(activity, UizaTrackingUtil.EVENT_TYPE_DISPLAY));
