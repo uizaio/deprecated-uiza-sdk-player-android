@@ -310,8 +310,9 @@ import vn.loitp.core.utilities.LLog;
                     setOverride(groupIndex, getTracksAdding(override, trackIndex), enableRandomAdaptationView.isChecked());
                 }
             }
-            apply();
+            //apply();
         }
+        apply();
         // Update the views with the new state.
         updateViews();
     }
@@ -341,5 +342,4 @@ import vn.loitp.core.utilities.LLog;
         }
         return tracks;
     }
-
 }
