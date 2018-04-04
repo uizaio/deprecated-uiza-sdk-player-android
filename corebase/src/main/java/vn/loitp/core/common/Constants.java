@@ -4,6 +4,7 @@ package vn.loitp.core.common;
  * Created by loitp
  */
 public class Constants {
+    //TODO
     public final static boolean IS_DEBUG = true;
 
     public static final int NOT_FOUND = -6969;
@@ -12,6 +13,9 @@ public class Constants {
     //public final static String URL_IMG_LONG = "https://c2.staticflickr.com/6/5476/29412311793_8067369e64_b.jpg";
 
     //public static final String MAIN_LINK_TRUYENTRANHTUAN = "http://truyentranhtuan.com/danh-sach-truyen";
+
+    public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
+    public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
 
     public static int TYPE_ACTIVITY_TRANSITION_NO_ANIM = -1;
     public static int TYPE_ACTIVITY_TRANSITION_SYSTEM_DEFAULT = 0;

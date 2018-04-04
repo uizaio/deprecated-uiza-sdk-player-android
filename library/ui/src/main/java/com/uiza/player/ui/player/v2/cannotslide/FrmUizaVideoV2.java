@@ -92,9 +92,6 @@ import vn.loitp.views.LToast;
  */
 public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
-    public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
-    public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
-
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
 
@@ -355,7 +352,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         String action = inputModel.getAction();
         Uri[] uris;
         String[] extensions;
-        if (ACTION_VIEW.equals(action)) {
+        if (Constants.ACTION_VIEW.equals(action)) {
             uris = new Uri[]{inputModel.getUri(positionOfLinkPlayList)};
             LLog.d(TAG, "________________________initializePlayer positionOfLinkPlayList: " + positionOfLinkPlayList);
             LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
@@ -363,7 +360,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 wrapperCallback.initializePlayer(uris);
             }
             extensions = new String[]{inputModel.getExtension()};
-        } else if (ACTION_VIEW_LIST.equals(action)) {
+        } else if (Constants.ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
             uris = new Uri[uriStrings.length];
             for (int i = 0; i < uriStrings.length; i++) {

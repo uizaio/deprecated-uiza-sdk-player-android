@@ -119,7 +119,7 @@ public class UizaUIUtil {
 
         inputModel.setExtension("mpd");
         //inputModel.setDrmLicenseUrl("");
-        inputModel.setAction(inputModel.getPlaylist() == null ? FrmUizaVideoV2.ACTION_VIEW : FrmUizaVideoV2.ACTION_VIEW_LIST);
+        inputModel.setAction(inputModel.getPlaylist() == null ? Constants.ACTION_VIEW : Constants.ACTION_VIEW_LIST);
         inputModel.setPreferExtensionDecoders(false);
 
         //TODO remove this code below
