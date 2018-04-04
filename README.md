@@ -140,7 +140,7 @@ You only call PlayerScreenActivity of UizaSDK, this screen will play video with 
 
 ![alt text](https://github.com/uizaio/uiza-sdk-player-android/blob/master/gif/uiza_player_screen.gif?raw=true)
 
-# Simple Uiza Video Player:
+# Manual Simple Uiza Video Player:
 **Step 1: Create xml layout file (activity_simple_uiza_player.xml) and add this frame layout below**
 
     <FrameLayout  
