@@ -255,14 +255,12 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     public void onVisibilityChange(int visibility) {
         LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
-
         //dismiss dialog choose setting
         if (visibility != View.VISIBLE) {
             if (trackSelectionHelper != null) {
                 trackSelectionHelper.dissmissDialog();
             }
         }
-
         if (wrapperCallback != null) {
             wrapperCallback.onVisibilityChange(visibility);
         }
@@ -604,7 +602,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
                         trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
-
                         if (wrapperCallback != null) {
                             wrapperCallback.onTrackVideoView();
                         }

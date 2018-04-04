@@ -61,6 +61,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
@@ -109,9 +110,6 @@ import vn.loitp.views.LToast;
  */
 public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
-    public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
-    public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";
-
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
 
@@ -202,6 +200,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 if (getBtVideo() != null) {
                     getBtVideo().performClick();
                 }
+                if (wrapperCallback != null) {
+                    wrapperCallback.onPlaybackControllerClickSetting();
+                }
             }
 
             @Override
@@ -209,44 +210,19 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 //will be called if player play at 25%, 50%, 75%, 100% duration.
                 //track play_through
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), String.valueOf(percent), UizaTrackingUtil.EVENT_TYPE_PLAY_THROUGHT));
+                if (wrapperCallback != null) {
+                    wrapperCallback.onTrackPlayThrough(percent);
+                }
             }
 
             @Override
             public void onClickItem(Item item, int position) {
-                if (clickCallback != null) {
-                    clickCallback.onClick(item, position);
+                if (wrapperCallback != null) {
+                    wrapperCallback.onClickItemPlayList(item, position);
                 }
             }
         });
-        /*simpleExoPlayerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                LLog.d(TAG, "addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
-                if (oldBottom != bottom) {
-                    LLog.d(TAG, "addOnLayoutChangeListener -> setSizeOfPlaybackControlView");
-                    //UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(bottom);
-                    simpleExoPlayerView.getController().setSizeOfPlaybackControlView();
-                }
-            }
-        });*/
-        /*simpleExoPlayerView.getController().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                //LLog.d(TAG, "getController addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
-                if (oldBottom != bottom) {
-                    LLog.d(TAG, "->>>>>>>>>>>getController addOnLayoutChangeListener bottom: " + bottom + ", oldBottom: " + oldBottom);
-                    LLog.d(TAG, "addOnLayoutChangeListener rootView " + rootView.getWidth() + " x " + rootView.getHeight());
-                }
-            }
-        });*/
-
         return view;
-    }
-
-    private ClickCallback clickCallback;
-
-    public void setClickCallback(ClickCallback clickCallback) {
-        this.clickCallback = clickCallback;
     }
 
     //return button video in debug layout
@@ -292,26 +268,15 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     public void onVisibilityChange(int visibility) {
         LLog.d(TAG, "onVisibilityChange " + visibility);
         debugRootView.setVisibility(visibility);
-        if (visibilityChange != null) {
-            visibilityChange.onVisibilityChange(visibility);
-        }
-
         //dismiss dialog choose setting
         if (visibility != View.VISIBLE) {
             if (trackSelectionHelper != null) {
                 trackSelectionHelper.dissmissDialog();
             }
         }
-    }
-
-    public interface VisibilityChange {
-        public void onVisibilityChange(int visibility);
-    }
-
-    private VisibilityChange visibilityChange;
-
-    public void setVisibilityChange(VisibilityChange visibilityChange) {
-        this.visibilityChange = visibilityChange;
+        if (wrapperCallback != null) {
+            wrapperCallback.onVisibilityChange(visibility);
+        }
     }
 
     private void setInputModel(InputModel ip, boolean reloadData) {
@@ -338,13 +303,15 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
 
     public void initializePlayer() {
         if (inputModel == null) {
-            //ToastUtils.showShort("initializePlayer inputModel == null return");
             LLog.d(TAG, "initializePlayer inputModel == null return");
             return;
         }
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
             showDialogOne("No link play");
+            if (wrapperCallback != null) {
+                wrapperCallback.onErrorNoLinkPlay();
+            }
             return;
         }
 
@@ -407,13 +374,16 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         String action = inputModel.getAction();
         Uri[] uris;
         String[] extensions;
-        if (ACTION_VIEW.equals(action)) {
+        if (Constants.ACTION_VIEW.equals(action)) {
             uris = new Uri[]{inputModel.getUri(positionOfLinkPlayList)};
             LLog.d(TAG, "________________________initializePlayer positionOfLinkPlayList: " + positionOfLinkPlayList);
             LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
             //LLog.d("uris ", ">>>uris: " + LSApplication.getInstance().getGson().toJson(uris));
+            if (wrapperCallback != null) {
+                wrapperCallback.initializePlayer(uris);
+            }
             extensions = new String[]{inputModel.getExtension()};
-        } else if (ACTION_VIEW_LIST.equals(action)) {
+        } else if (Constants.ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
             uris = new Uri[uriStrings.length];
             for (int i = 0; i < uriStrings.length; i++) {
@@ -513,6 +483,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
             trackSelector = null;
             trackSelectionHelper = null;
             eventLogger = null;
+            if (wrapperCallback != null) {
+                wrapperCallback.onReleasePlayer();
+            }
         }
     }
 
@@ -611,6 +584,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     @Override
     public void onLoadingChanged(boolean isLoading) {
         LLog.d(TAG, "onLoadingChanged " + isLoading);
+        if (wrapperCallback != null) {
+            wrapperCallback.onLoadingChanged(isLoading);
+        }
     }
 
     @Override
@@ -635,18 +611,29 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 //track plays_requested
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
+                if (wrapperCallback != null) {
+                    wrapperCallback.onTrackVideoStart();
+                }
+
                 //track event view
                 mRunnable = new Runnable() {
                     @Override
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
                         trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+                        if (wrapperCallback != null) {
+                            wrapperCallback.onTrackVideoView();
+                        }
                     }
                 };
                 mHandler.postDelayed(mRunnable, 5000);
             }
         }
         updateDebugButtonVisibilities();
+
+        if (wrapperCallback != null) {
+            wrapperCallback.onPlayerStateChanged(playWhenReady, playbackState);
+        }
     }
 
     //for track event view
@@ -656,6 +643,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     @Override
     public void onRepeatModeChanged(int repeatMode) {
         LLog.d(TAG, "onRepeatModeChanged " + repeatMode);
+        if (wrapperCallback != null) {
+            wrapperCallback.onRepeatModeChanged(repeatMode);
+        }
     }
 
     @Override
@@ -671,11 +661,17 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
         LLog.d(TAG, "onPlaybackParametersChanged");
+        if (wrapperCallback != null) {
+            wrapperCallback.onPlaybackParametersChanged(playbackParameters);
+        }
     }
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
         LLog.d(TAG, "onTimelineChanged");
+        if (wrapperCallback != null) {
+            wrapperCallback.onTimelineChanged(timeline, manifest);
+        }
     }
 
     @Override
@@ -684,6 +680,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
 
         if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size() - 1) {
+            if (wrapperCallback != null) {
+                wrapperCallback.onErrorCannotPlayAnyLinkPlay();
+            }
             showDialogError(getString(R.string.cannot_play_any_videos), new LDialogUtil.CallbackShowOne() {
                 @Override
                 public void onClick() {
@@ -746,6 +745,9 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 }
             }
             lastSeenTrackGroupArray = trackGroups;
+        }
+        if (wrapperCallback != null) {
+            wrapperCallback.onTracksChanged(trackGroups, trackSelections);
         }
     }
 
@@ -939,20 +941,25 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     @Override
     public void onAdLoadError(IOException error) {
         LLog.d(TAG, "onAdLoadError");
+        if (wrapperCallback != null) {
+            wrapperCallback.onAdLoadError(error);
+        }
     }
 
     @Override
     public void onAdClicked() {
-        //TODO onAdClicked
         LLog.d(TAG, "onAdClicked");
-        LToast.show(getActivity(), "onAdClicked");
+        if (wrapperCallback != null) {
+            wrapperCallback.onAdClicked();
+        }
     }
 
     @Override
     public void onAdTapped() {
-        //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
-        LToast.show(getActivity(), "onAdTapped");
+        if (wrapperCallback != null) {
+            wrapperCallback.onAdTapped();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -1069,5 +1076,11 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
                 logSize(simpleExoPlayerView.getController());
             }
         }
+    }
+
+    private WrapperCallback wrapperCallback;
+
+    public void setWrapperCallback(WrapperCallback wrapperCallback) {
+        this.wrapperCallback = wrapperCallback;
     }
 }
