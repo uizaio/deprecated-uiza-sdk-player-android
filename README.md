@@ -1,4 +1,5 @@
 
+
 # Welcome to UizaSDK
 
 # Importing the Library
@@ -138,3 +139,160 @@ You only call PlayerScreenActivity of UizaSDK, this screen will play video with 
     LActivityUtil.tranIn(activity);//go to PlayerScreenActivity with animation.
 
 ![alt text](https://github.com/uizaio/uiza-sdk-player-android/blob/master/gif/uiza_player_screen.gif?raw=true)
+
+# Simple Uiza Video Player:
+**Step 1: Create xml layout file (activity_simple_uiza_player.xml) and add this frame layout below**
+
+    <FrameLayout  
+      android:id="@+id/container_uiza_video"  
+      android:layout_width="match_parent"  
+      android:layout_height="wrap_content" /> 
+
+**Step 2: In your Activity, must extends BaseActivity**
+
+    public class SimpleUizaPlayerActivity extends BaseActivity {
+    ...
+    }
+
+**Step 3: Open manifest**
+		
+
+    <activity  
+      android:name=".SimpleUizaPlayerActivity"  
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"  
+      android:screenOrientation="portrait">  
+        <intent-filter>  
+            <action android:name="com.google.android.exoplayer.demo.action.VIEW" />  
+            <category android:name="android.intent.category.DEFAULT" />  
+      
+            <data android:scheme="http" />  
+            <data android:scheme="https" />  
+            <data android:scheme="content" />  
+            <data android:scheme="asset" />  
+            <data android:scheme="file" />  
+        </intent-filter>  
+        <intent-filter>  
+            <action android:name="com.google.android.exoplayer.demo.action.VIEW_LIST" />  
+            <category android:name="android.intent.category.DEFAULT" />  
+        </intent-filter>  
+    </activity>
+
+**Step 4: Open manifest**
+4.1: Add global variables:
+	
+    private FrameLayout containerUizaVideo;  
+    private FrmUizaVideoV2 frmUizaVideoV2;
+4.2: Add onCreate():
+
+    containerUizaVideo = (FrameLayout) findViewById(io.uiza.sdk.ui.R.id.container_uiza_video);  
+    initContainerVideo();
+4.3: Config video:
+
+    private void initContainerVideo() {  
+        String entityId = "Enter entity id";  
+        String entityCover = "Enter url entity cover";  
+        String entityTitle = "Enter title's video";  
+      
+        InputModel inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);  
+        UizaData.getInstance().setInputModel(inputModel);  
+      
+        List<String> listLinkPlay = new ArrayList<>();  
+        listLinkPlay.add("Add your linkplay");    
+        UizaData.getInstance().setLinkPlay(listLinkPlay);  
+      
+        frmUizaVideoV2 = new FrmUizaVideoV2();  
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();  
+        transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);  
+        transaction.commit();  
+    }
+4.4: Override onConfigurationChanged and edit like below:
+
+    @Override  
+    public void onConfigurationChanged(Configuration newConfig) {  
+        LLog.d(TAG, "onConfigurationChanged");  
+        super.onConfigurationChanged(newConfig);  
+        UizaScreenUtil.toggleFullscreen(activity);  
+        UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);  
+    }
+
+4.5: Callback:
+
+    frmUizaVideoV2.setWrapperCallback(new WrapperCallback() {  
+        @Override  
+      public void initializePlayer(Uri[] uris) {  
+            LLog.d(TAG, "init video with array of linkplay");  
+        }  
+      
+        @Override  
+      public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {   
+        }  
+      
+        @Override  
+      public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {  
+        }  
+      
+        @Override  
+      public void onLoadingChanged(boolean isLoading) {  
+        }  
+      
+        @Override  
+      public void onRepeatModeChanged(int repeatMode) {     
+        }  
+      
+        @Override  
+      public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {  
+        }  
+      
+        @Override  
+      public void onTimelineChanged(Timeline timeline, Object manifest) {  
+        }  
+      
+        @Override  
+      public void onTrackVideoStart() {  
+            UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);  
+        }  
+      
+        @Override  
+      public void onTrackVideoView() {  
+        }  
+      
+        @Override  
+      public void onTrackPlayThrough(int percentOfVideoDuration) {  
+        }  
+      
+        @Override  
+      public void onPlaybackControllerClickSetting() {   
+        }  
+      
+        @Override  
+      public void onClickItemPlayList(Item item, int position) {  
+        }  
+      
+        @Override  
+      public void onVisibilityChange(int visibility) {  
+        }  
+      
+        @Override  
+      public void onErrorNoLinkPlay() {  
+        }  
+      
+        @Override  
+      public void onErrorCannotPlayAnyLinkPlay() {   
+        }  
+      
+        @Override  
+      public void onReleasePlayer() {  
+        }  
+      
+        @Override  
+      public void onAdLoadError(IOException error) {  
+        }  
+      
+        @Override  
+      public void onAdClicked() {  
+        }  
+      
+        @Override  
+      public void onAdTapped() {  
+        }  
+    });
