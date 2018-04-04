@@ -177,7 +177,7 @@ You only call PlayerScreenActivity of UizaSDK, this screen will play video with 
         </intent-filter>  
     </activity>
 
-**Step 4: Open manifest**
+**Step 4: Open main class**
 
 4.1: Add global variables:
 	
