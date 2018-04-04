@@ -2,10 +2,15 @@ package testlibuiza.uiza.com.demouiza2;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
@@ -13,11 +18,13 @@ import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.helper.InputModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 
 public class SimpleUizaPlayerActivity extends BaseActivity {
 
@@ -73,8 +80,38 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
 
         frmUizaVideoV2.setWrapperCallback(new WrapperCallback() {
             @Override
+            public void initializePlayer(Uri[] uris) {
+                LLog.d(TAG, "setWrapperCallback initializePlayer");
+            }
+
+            @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 LLog.d(TAG, "setWrapperCallback onPlayerStateChanged " + playbackState);
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+                LLog.d(TAG, "setWrapperCallback onTracksChanged");
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+                LLog.d(TAG, "setWrapperCallback onLoadingChanged");
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+                LLog.d(TAG, "setWrapperCallback onRepeatModeChanged");
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+                LLog.d(TAG, "setWrapperCallback onPlaybackParametersChanged");
+            }
+
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+                LLog.d(TAG, "setWrapperCallback onTimelineChanged");
             }
 
             @Override
@@ -96,6 +133,46 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
             @Override
             public void onPlaybackControllerClickSetting() {
                 LLog.d(TAG, "setWrapperCallback onPlaybackControllerClickSetting");
+            }
+
+            @Override
+            public void onClickItemPlayList(Item item, int position) {
+                LLog.d(TAG, "setWrapperCallback onClickItemPlayList");
+            }
+
+            @Override
+            public void onVisibilityChange(int visibility) {
+                LLog.d(TAG, "setWrapperCallback onVisibilityChange");
+            }
+
+            @Override
+            public void onErrorNoLinkPlay() {
+                LLog.d(TAG, "setWrapperCallback onErrorNoLinkPlay");
+            }
+
+            @Override
+            public void onErrorCannotPlayAnyLinkPlay() {
+                LLog.d(TAG, "setWrapperCallback onErrorCannotPlayAnyLinkPlay");
+            }
+
+            @Override
+            public void onReleasePlayer() {
+                LLog.d(TAG, "setWrapperCallback onReleasePlayer");
+            }
+
+            @Override
+            public void onAdLoadError(IOException error) {
+                LLog.d(TAG, "setWrapperCallback onAdLoadError");
+            }
+
+            @Override
+            public void onAdClicked() {
+                LLog.d(TAG, "setWrapperCallback onAdClicked");
+            }
+
+            @Override
+            public void onAdTapped() {
+                LLog.d(TAG, "setWrapperCallback onAdTapped");
             }
         });
     }

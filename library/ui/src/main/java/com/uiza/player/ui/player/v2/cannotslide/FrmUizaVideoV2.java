@@ -204,7 +204,12 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             public void onClickItem(Item item, int position) {
                 //click item on playlist
                 LLog.d(TAG, "onClick " + position);
-                ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
+                if (getActivity() instanceof UizaPlayerActivityV2) {
+                    ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
+                }
+                if (wrapperCallback != null) {
+                    wrapperCallback.onClickItemPlayList(item, position);
+                }
             }
         });
         return view;
@@ -260,6 +265,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 trackSelectionHelper.dissmissDialog();
             }
         }
+
+        if (wrapperCallback != null) {
+            wrapperCallback.onVisibilityChange(visibility);
+        }
     }
 
     public void setInputModel(InputModel ip, boolean reloadData) {
@@ -284,6 +293,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
             showDialogOne(getString(R.string.no_link_play));
+            if (wrapperCallback != null) {
+                wrapperCallback.onErrorNoLinkPlay();
+            }
             return;
         }
         boolean needNewPlayer = player == null;
@@ -347,6 +359,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             uris = new Uri[]{inputModel.getUri(positionOfLinkPlayList)};
             LLog.d(TAG, "________________________initializePlayer positionOfLinkPlayList: " + positionOfLinkPlayList);
             LLog.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>initializePlayer uris:" + gson.toJson(uris));
+            if (wrapperCallback != null) {
+                wrapperCallback.initializePlayer(uris);
+            }
             extensions = new String[]{inputModel.getExtension()};
         } else if (ACTION_VIEW_LIST.equals(action)) {
             String[] uriStrings = inputModel.getUriStrings();
@@ -448,6 +463,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             trackSelector = null;
             trackSelectionHelper = null;
             eventLogger = null;
+            if (wrapperCallback != null) {
+                wrapperCallback.onReleasePlayer();
+            }
         }
     }
 
@@ -547,6 +565,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     @Override
     public void onLoadingChanged(boolean isLoading) {
         //LLog.d(TAG, "onLoadingChanged " + isLoading);
+        if (wrapperCallback != null) {
+            wrapperCallback.onLoadingChanged(isLoading);
+        }
     }
 
     @Override
@@ -609,6 +630,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     @Override
     public void onRepeatModeChanged(int repeatMode) {
         LLog.d(TAG, "onRepeatModeChanged " + repeatMode);
+        if (wrapperCallback != null) {
+            wrapperCallback.onRepeatModeChanged(repeatMode);
+        }
     }
 
     @Override
@@ -625,11 +649,17 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
         LLog.d(TAG, "onPlaybackParametersChanged");
+        if (wrapperCallback != null) {
+            wrapperCallback.onPlaybackParametersChanged(playbackParameters);
+        }
     }
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
         LLog.d(TAG, "onTimelineChanged");
+        if (wrapperCallback != null) {
+            wrapperCallback.onTimelineChanged(timeline, manifest);
+        }
     }
 
     @Override
@@ -638,6 +668,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
 
         if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size() - 1) {
+            if (wrapperCallback != null) {
+                wrapperCallback.onErrorCannotPlayAnyLinkPlay();
+            }
             showDialogError(getString(R.string.cannot_play_any_videos), new LDialogUtil.CallbackShowOne() {
                 @Override
                 public void onClick() {
@@ -701,6 +734,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 }
             }
             lastSeenTrackGroupArray = trackGroups;
+        }
+        if (wrapperCallback != null) {
+            wrapperCallback.onTracksChanged(trackGroups, trackSelections);
         }
     }
 
@@ -894,20 +930,25 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     @Override
     public void onAdLoadError(IOException error) {
         LLog.e(TAG, "onAdLoadError");
+        if (wrapperCallback != null) {
+            wrapperCallback.onAdLoadError(error);
+        }
     }
 
     @Override
     public void onAdClicked() {
-        //TODO onAdClicked
         LLog.d(TAG, "onAdClicked");
-        LToast.show(getActivity(), "onAdClicked");
+        if (wrapperCallback != null) {
+            wrapperCallback.onAdClicked();
+        }
     }
 
     @Override
     public void onAdTapped() {
-        //TODO onAdTapped
         LLog.d(TAG, "onAdTapped");
-        LToast.show(getActivity(), "onAdTapped");
+        if (wrapperCallback != null) {
+            wrapperCallback.onAdTapped();
+        }
     }
 
     private void logSize(final View view) {
