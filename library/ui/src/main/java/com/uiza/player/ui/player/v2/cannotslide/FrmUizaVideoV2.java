@@ -2,13 +2,10 @@ package com.uiza.player.ui.player.v2.cannotslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +56,7 @@ import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
@@ -81,7 +79,6 @@ import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
@@ -89,7 +86,6 @@ import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.LToast;
-import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -569,6 +565,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 //track plays_requested
                 trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIDEO_STARTS));
 
+                if (wrapperCallback != null) {
+                    wrapperCallback.onTrackVideoStart();
+                }
+
                 LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
                 if (getActivity() instanceof UizaPlayerActivityV2) {
                     ((UizaPlayerActivityV2) getActivity()).removeCoverVideo();
@@ -580,6 +580,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                     public void run() {
                         //LLog.d(TAG, "Video is played about 5000mls");
                         trackUiza(UizaTrackingUtil.createTrackingInput(getActivity(), UizaTrackingUtil.EVENT_TYPE_VIEW));
+
+                        if (wrapperCallback != null) {
+                            wrapperCallback.onTrackVideoView();
+                        }
                     }
                 };
                 mHandler.postDelayed(mRunnable, 5000);
@@ -967,10 +971,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 handleException(e);
             }
         });
-    }
-
-    public interface WrapperCallback {
-        public void onPlayerStateChanged(boolean playWhenReady, int playbackState);
     }
 
     private WrapperCallback wrapperCallback;

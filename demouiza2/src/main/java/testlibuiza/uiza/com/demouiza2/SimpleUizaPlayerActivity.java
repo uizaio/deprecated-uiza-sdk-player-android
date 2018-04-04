@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
@@ -70,12 +71,21 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         transaction.commit();
 
-        frmUizaVideoV2.setWrapperCallback(new FrmUizaVideoV2.WrapperCallback() {
+        frmUizaVideoV2.setWrapperCallback(new WrapperCallback() {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-                LLog.d(TAG, "onPlayerStateChanged " + playbackState);
-                //TODO set remover cover
-                // UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
+                LLog.d(TAG, "setWrapperCallback onPlayerStateChanged " + playbackState);
+            }
+
+            @Override
+            public void onTrackVideoStart() {
+                LLog.d(TAG, "setWrapperCallback onTrackVideoStart");
+                UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
+            }
+
+            @Override
+            public void onTrackVideoView() {
+                LLog.d(TAG, "setWrapperCallback onTrackVideoView");
             }
         });
     }
