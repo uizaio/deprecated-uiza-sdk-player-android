@@ -297,3 +297,5 @@ You only call PlayerScreenActivity of UizaSDK, this screen will play video with 
       public void onAdTapped() {  
         }  
     });
+
+![alt text](https://github.com/uizaio/uiza-sdk-player-android/blob/master/gif/manual_video.gif?raw=true)
