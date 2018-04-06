@@ -603,9 +603,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 }
 
                 LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
-                /*if (getActivity() instanceof UizaPlayerActivityV2) {
-                    ((UizaPlayerActivityV2) getActivity()).removeCoverVideo();
-                }*/
                 removeCoverVideo();
 
                 //track event view (after video is played 5s)
@@ -1058,9 +1055,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             realtimeBlurView = null;
 
             LLog.d(TAG, "removeCoverVideo success");
-
-            //when cover of video is removed, we need to set size of container video (simple exo player view, playback controller)
-            //UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
         }
     }
 }
