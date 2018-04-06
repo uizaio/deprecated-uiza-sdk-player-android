@@ -60,8 +60,8 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
 
     private void initContainerVideo() {
         String entityId = "69af37f9-b5de-446a-bb58-44fe1e315ba2";
-        //String entityCover = "//dev-static.uiza.io/69af37f9-b5de-446a-bb58-44fe1e315ba2-thumbnail-1522730799619-1522730799098.jpeg";
-        String entityCover = "https://kenh14cdn.com/2018/2/25/photo-3-15195643072361674959682.jpg";
+        String entityCover = "//dev-static.uiza.io/69af37f9-b5de-446a-bb58-44fe1e315ba2-thumbnail-1522730799619-1522730799098.jpeg";
+        //String entityCover = "https://kenh14cdn.com/2018/2/25/photo-3-15195643072361674959682.jpg";
         String entityTitle = "Japan girl bikini part8!日本妹比堅尼戰鬥格!!";
 
         InputModel inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);

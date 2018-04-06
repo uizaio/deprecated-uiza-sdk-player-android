@@ -1034,7 +1034,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             avLoadingIndicatorView.setLayoutParams(aviLayout);
             flRootView.addView(avLoadingIndicatorView);
-            LLog.d(TAG, "setCoverVideo");
+            LLog.d(TAG, "setCoverVideo done");
         }
     }
 

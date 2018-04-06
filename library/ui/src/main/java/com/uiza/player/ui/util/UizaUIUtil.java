@@ -113,6 +113,10 @@ public class UizaUIUtil {
         } else {
             if (!entityCover.contains(Constants.PREFIXS)) {
                 inputModel.setUrlImg(Constants.PREFIXS + entityCover);
+            } else if (!entityCover.contains(Constants.PREFIXS_SHORT)) {
+                inputModel.setUrlImg(Constants.PREFIXS_SHORT + entityCover);
+            } else {
+                inputModel.setUrlImg(entityCover);
             }
         }
         inputModel.setTitle(entityTitle + "");
