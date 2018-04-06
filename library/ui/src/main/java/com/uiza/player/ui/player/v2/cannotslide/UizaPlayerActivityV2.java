@@ -110,6 +110,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             @Override
             public void initializePlayer(Uri[] uris) {
                 LLog.d(TAG, "setWrapperCallback initializePlayer");
+                UizaUIUtil.updateSizeOfContainerVideo(containerUizaVideo, UizaScreenUtil.getScreenWidth(), UizaScreenUtil.getScreenWidth() * 9 / 16);
             }
 
             @Override

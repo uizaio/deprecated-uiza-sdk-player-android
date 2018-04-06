@@ -228,6 +228,7 @@ public class UizaUIUtil {
                             //height screen includes statusbar and navigation bar's height
                             if (heightSizeOfExpPlayerViewInPortrait == 0) {
                                 heightSizeOfExpPlayerViewInPortrait = ((FrmUizaVideoV2) frmUizaVideoV2).getPlayerView().getVideoSurfaceView().getHeight();
+                                LLog.d(TAG, "~~~heightSizeOfExpPlayerViewInPortrait " + heightSizeOfExpPlayerViewInPortrait);
                             }
                             updateSizeOfContainerVideo(containerUizaVideo, UizaScreenUtil.getScreenWidth(), heightSizeOfExpPlayerViewInPortrait);
                         }
@@ -239,7 +240,7 @@ public class UizaUIUtil {
         }
     }
 
-    private static void updateSizeOfContainerVideo(FrameLayout containerUizaVideo, int widthScreen, int heightScreen) {
+    public static void updateSizeOfContainerVideo(FrameLayout containerUizaVideo, int widthScreen, int heightScreen) {
         LLog.d(TAG, "setSizeOfContainerVideo after run");
         UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
         LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);

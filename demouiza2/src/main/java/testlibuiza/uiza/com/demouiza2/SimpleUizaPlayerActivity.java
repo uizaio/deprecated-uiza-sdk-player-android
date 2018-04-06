@@ -35,7 +35,6 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         containerUizaVideo = (FrameLayout) findViewById(io.uiza.sdk.ui.R.id.container_uiza_video);
-
         initContainerVideo();
     }
 
@@ -82,6 +81,7 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
             @Override
             public void initializePlayer(Uri[] uris) {
                 LLog.d(TAG, "setWrapperCallback initializePlayer");
+                UizaUIUtil.updateSizeOfContainerVideo(containerUizaVideo, UizaScreenUtil.getScreenWidth(), UizaScreenUtil.getScreenWidth() * 9 / 16);
             }
 
             @Override
