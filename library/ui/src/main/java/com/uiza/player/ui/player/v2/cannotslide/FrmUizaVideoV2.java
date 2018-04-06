@@ -2,15 +2,19 @@ package com.uiza.player.ui.player.v2.cannotslide;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,6 +61,8 @@ import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.WrapperCallback;
+import com.uiza.player.ui.util.UizaAnimationUtil;
+import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
 import com.uiza.player.ui.views.DebugTextViewHelper;
@@ -86,6 +92,8 @@ import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.LToast;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
+import vn.loitp.views.realtimeblurview.RealtimeBlurView;
 
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
@@ -158,6 +166,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
 
         view.findViewById(R.id.ll_debug_view).setVisibility(Constants.IS_DEBUG ? View.VISIBLE : View.INVISIBLE);
 
+        flRootView = (FrameLayout) view.findViewById(R.id.fl_root_view);
         rootView = (FrameLayout) view.findViewById(R.id.root_view);
         rootView.setOnClickListener(this);
 
@@ -284,6 +293,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         if (inputModel == null) {
             inputModel = UizaData.getInstance().getInputModel();
         }
+
+        setCoverVideo();
+
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
             showDialogOne(getString(R.string.no_link_play));
@@ -591,9 +603,10 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
                 }
 
                 LLog.d(TAG, "onPlayerStateChanged STATE_READY removeCoverVideo");
-                if (getActivity() instanceof UizaPlayerActivityV2) {
+                /*if (getActivity() instanceof UizaPlayerActivityV2) {
                     ((UizaPlayerActivityV2) getActivity()).removeCoverVideo();
-                }
+                }*/
+                removeCoverVideo();
 
                 //track event view (after video is played 5s)
                 mRunnable = new Runnable() {
@@ -953,45 +966,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         });
     }
 
-    /*public void updateSize() {
-        LLog.d(TAG, "updateSize UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView: " + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView());
-        if (rootView == null) {
-            LLog.d(TAG, "updateSize rootView == null");
-        } else {
-            logSize(rootView);
-        }
-
-        if (simpleExoPlayerView == null) {
-            LLog.d(TAG, "updateSize simpleExoPlayerView == null");
-        } else {
-            logSize(simpleExoPlayerView);
-
-            if (simpleExoPlayerView.getController() == null) {
-                LLog.d(TAG, "updateSize simpleExoPlayerView.getController() == null");
-            } else {
-                logSize(simpleExoPlayerView.getController());
-
-                if (avi != null) {
-                    Rect rectf = new Rect();
-                    avi.getLocalVisibleRect(rectf);
-                    avi.getGlobalVisibleRect(rectf);
-
-                    LLog.d(TAG, "updateSize isLandscape: " + UizaData.getInstance().isLandscape());
-                    LLog.d(TAG, "updateSize w " + String.valueOf(rectf.width()));
-                    LLog.d(TAG, "updateSize h " + String.valueOf(rectf.height()));
-                    LLog.d(TAG, "updateSize l " + String.valueOf(rectf.left));
-                    LLog.d(TAG, "updateSize r " + String.valueOf(rectf.right));
-                    LLog.d(TAG, "updateSize t " + String.valueOf(rectf.top));
-                    LLog.d(TAG, "updateSize b " + String.valueOf(rectf.bottom));
-
-                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) avi.getLayoutParams();
-                    params.gravity = Gravity.CENTER;
-                    avi.setLayoutParams(params);
-                }
-            }
-        }
-    }*/
-
     public void trackUiza(final UizaTracking uizaTracking) {
         LLog.d(TAG, ">>>>>>>>>>>>>>>>trackuiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
         LLog.d(TAG, ">>>trackuiza object: " + gson.toJson(uizaTracking));
@@ -1017,5 +991,74 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
 
     public void setWrapperCallback(WrapperCallback wrapperCallback) {
         this.wrapperCallback = wrapperCallback;
+    }
+
+    private FrameLayout flRootView;
+    private ImageView ivCoverVideo;
+    private ImageView ivCoverLogo;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
+    private RealtimeBlurView realtimeBlurView;
+    private final int RADIUS_BLUR_VIEW = 15;
+
+    private void setCoverVideo() {
+        if (flRootView != null && inputModel != null) {
+            LLog.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
+            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null || realtimeBlurView != null) {
+                return;
+            }
+            ivCoverVideo = new ImageView(getActivity());
+            ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ivCoverVideo.setLayoutParams(layoutParams);
+            UizaImageUtil.load(getActivity(), inputModel.getUrlImg(), ivCoverVideo);
+            flRootView.addView(ivCoverVideo);
+
+            realtimeBlurView = new RealtimeBlurView(getActivity(), RADIUS_BLUR_VIEW, ContextCompat.getColor(getActivity(), R.color.black_35));
+            FrameLayout.LayoutParams layoutParamsBlur = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            realtimeBlurView.setLayoutParams(layoutParamsBlur);
+            flRootView.addView(realtimeBlurView);
+
+            ivCoverLogo = new ImageView(getActivity());
+            ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            FrameLayout.LayoutParams layoutParamsIvLogo = new FrameLayout.LayoutParams(150, 150);
+            ivCoverLogo.setLayoutParams(layoutParamsIvLogo);
+            ivCoverLogo.setImageResource(R.drawable.uiza_logo_512);
+            layoutParamsIvLogo.gravity = Gravity.CENTER;
+            flRootView.addView(ivCoverLogo);
+
+            avLoadingIndicatorView = new AVLoadingIndicatorView(getActivity());
+            avLoadingIndicatorView.setIndicatorColor(Color.WHITE);
+            avLoadingIndicatorView.setIndicator("BallSpinFadeLoaderIndicator");
+            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(75, 75);
+            aviLayout.setMargins(0, 0, 0, 100);
+            aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            avLoadingIndicatorView.setLayoutParams(aviLayout);
+            flRootView.addView(avLoadingIndicatorView);
+            LLog.d(TAG, "setCoverVideo");
+        }
+    }
+
+    public void removeCoverVideo() {
+        if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
+            UizaAnimationUtil.playFadeOut(getActivity(), realtimeBlurView, null);
+
+            avLoadingIndicatorView.smoothToHide();
+            ivCoverVideo.setVisibility(View.GONE);
+            flRootView.removeView(ivCoverVideo);
+            ivCoverVideo = null;
+
+            ivCoverLogo.setVisibility(View.GONE);
+            flRootView.removeView(ivCoverLogo);
+            ivCoverLogo = null;
+            avLoadingIndicatorView = null;
+
+            flRootView.removeView(realtimeBlurView);
+            realtimeBlurView = null;
+
+            LLog.d(TAG, "removeCoverVideo success");
+
+            //when cover of video is removed, we need to set size of container video (simple exo player view, playback controller)
+            //UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
+        }
     }
 }

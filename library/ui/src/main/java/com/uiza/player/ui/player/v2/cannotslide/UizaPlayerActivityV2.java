@@ -3,16 +3,10 @@ package com.uiza.player.ui.player.v2.cannotslide;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Timeline;
@@ -21,8 +15,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.WrapperCallback;
-import com.uiza.player.ui.util.UizaAnimationUtil;
-import com.uiza.player.ui.util.UizaImageUtil;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
@@ -50,8 +42,6 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
-import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
-import vn.loitp.views.realtimeblurview.RealtimeBlurView;
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
@@ -69,7 +59,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     private boolean isGetLinkPlayDone;
     private boolean isGetDetailEntityDone;
 
-    private FrameLayout flRootView;
     private FrameLayout containerUizaVideo;
     private FrameLayout containerUizaVideoInfo;
     private FrmUizaVideoV2 frmUizaVideoV2;
@@ -78,7 +67,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        flRootView = (FrameLayout) findViewById(R.id.fl_root_view);
         containerUizaVideo = (FrameLayout) findViewById(R.id.container_uiza_video);
         containerUizaVideoInfo = (FrameLayout) findViewById(R.id.container_uiza_video_info);
 
@@ -218,74 +206,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         transaction.replace(containerUizaVideoInfo.getId(), frmUizaVideoInfoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-    private ImageView ivCoverVideo;
-    private ImageView ivCoverLogo;
-    private AVLoadingIndicatorView avLoadingIndicatorView;
-    private RealtimeBlurView realtimeBlurView;
-    private final int RADIUS_BLUR_VIEW = 15;
-
-    private void setCoverVideo() {
-        if (flRootView != null && inputModel != null) {
-            //LLog.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
-            if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null || realtimeBlurView != null) {
-                return;
-            }
-            ivCoverVideo = new ImageView(activity);
-            ivCoverVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ivCoverVideo.setLayoutParams(layoutParams);
-            UizaImageUtil.load(activity, inputModel.getUrlImg(), ivCoverVideo);
-            flRootView.addView(ivCoverVideo);
-
-            realtimeBlurView = new RealtimeBlurView(activity, RADIUS_BLUR_VIEW, ContextCompat.getColor(activity, R.color.black_35));
-            FrameLayout.LayoutParams layoutParamsBlur = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            realtimeBlurView.setLayoutParams(layoutParamsBlur);
-            flRootView.addView(realtimeBlurView);
-
-            ivCoverLogo = new ImageView(activity);
-            ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            FrameLayout.LayoutParams layoutParamsIvLogo = new FrameLayout.LayoutParams(150, 150);
-            ivCoverLogo.setLayoutParams(layoutParamsIvLogo);
-            ivCoverLogo.setImageResource(R.drawable.uiza_logo_512);
-            layoutParamsIvLogo.gravity = Gravity.CENTER;
-            flRootView.addView(ivCoverLogo);
-
-            avLoadingIndicatorView = new AVLoadingIndicatorView(activity);
-            avLoadingIndicatorView.setIndicatorColor(Color.WHITE);
-            avLoadingIndicatorView.setIndicator("BallSpinFadeLoaderIndicator");
-            FrameLayout.LayoutParams aviLayout = new FrameLayout.LayoutParams(100, 100);
-            aviLayout.setMargins(0, 0, 0, 200);
-            aviLayout.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            avLoadingIndicatorView.setLayoutParams(aviLayout);
-            flRootView.addView(avLoadingIndicatorView);
-            LLog.d(TAG, "setCoverVideo");
-        }
-    }
-
-    public void removeCoverVideo() {
-        if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
-            UizaAnimationUtil.playFadeOut(activity, realtimeBlurView, null);
-
-            avLoadingIndicatorView.smoothToHide();
-            ivCoverVideo.setVisibility(View.GONE);
-            flRootView.removeView(ivCoverVideo);
-            ivCoverVideo = null;
-
-            ivCoverLogo.setVisibility(View.GONE);
-            flRootView.removeView(ivCoverLogo);
-            ivCoverLogo = null;
-            avLoadingIndicatorView = null;
-
-            flRootView.removeView(realtimeBlurView);
-            realtimeBlurView = null;
-
-            LLog.d(TAG, "removeCoverVideo success");
-
-            //when cover of video is removed, we need to set size of container video (simple exo player view, playback controller)
-            UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
-        }
     }
 
     private void init() {
@@ -430,7 +350,6 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             //LLog.d(TAG, "mInputModel == null -> return");
             return;
         }
-        setCoverVideo();
         RestClientV1.init(Constants.URL_DEV_UIZA_VERSION_1);
         UizaService service = RestClientV1.createService(UizaService.class);
         subscribe(service.getPlayerInfo(UizaData.getInstance().getPlayerId()), new ApiSubscriber<PlayerConfig>() {
