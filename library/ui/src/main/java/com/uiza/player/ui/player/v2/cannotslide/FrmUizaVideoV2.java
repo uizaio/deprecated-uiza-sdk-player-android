@@ -1018,6 +1018,8 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             realtimeBlurView.setLayoutParams(layoutParamsBlur);
             flRootView.addView(realtimeBlurView);
 
+            //realtimeBlurView.setVisibility(View.GONE);
+
             ivCoverLogo = new ImageView(getActivity());
             ivCoverLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
             FrameLayout.LayoutParams layoutParamsIvLogo = new FrameLayout.LayoutParams(150, 150);
