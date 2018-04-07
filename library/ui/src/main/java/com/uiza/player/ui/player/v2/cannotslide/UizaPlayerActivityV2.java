@@ -42,6 +42,7 @@ import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
+import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_COVER;
 import static vn.loitp.core.common.Constants.KEY_UIZA_ENTITY_ID;
@@ -63,10 +64,12 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     private FrameLayout containerUizaVideoInfo;
     private FrmUizaVideoV2 frmUizaVideoV2;
     private FrmUizaVideoInfoV2 frmUizaVideoInfoV2;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        avLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(R.id.avi);
         containerUizaVideo = (FrameLayout) findViewById(R.id.container_uiza_video);
         containerUizaVideoInfo = (FrameLayout) findViewById(R.id.container_uiza_video_info);
 
@@ -90,6 +93,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     private void initContainerVideo() {
         frmUizaVideoV2 = new FrmUizaVideoV2();
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_down_enter, R.anim.slide_up_exit);
         transaction.replace(containerUizaVideo.getId(), frmUizaVideoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
@@ -99,6 +103,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
             public void initializePlayer(Uri[] uris) {
                 LLog.d(TAG, "setWrapperCallback initializePlayer");
                 UizaUIUtil.updateSizeOfContainerVideo(containerUizaVideo, UizaScreenUtil.getScreenWidth(), UizaScreenUtil.getScreenWidth() * 9 / 16);
+                avLoadingIndicatorView.smoothToHide();
             }
 
             @Override
@@ -203,6 +208,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     private void initContainerVideoInfo() {
         frmUizaVideoInfoV2 = new FrmUizaVideoInfoV2();
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_up_enter, R.anim.slide_down_exit);
         transaction.replace(containerUizaVideoInfo.getId(), frmUizaVideoInfoV2);
         //transaction.addToBackStack(null);
         transaction.commit();
