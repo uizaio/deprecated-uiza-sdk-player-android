@@ -291,6 +291,9 @@ public class DraggablePanel extends FrameLayout {
      * @return true if the view is maximized.
      */
     public boolean isMaximized() {
+        if (draggableView == null) {
+            return false;
+        }
         return draggableView.isMaximized();
     }
 

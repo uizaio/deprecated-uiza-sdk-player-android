@@ -8,14 +8,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.util.RepeatModeUtil;
+import com.google.gson.Gson;
 import com.uiza.player.ui.data.UizaData;
 import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.player.v2.cannotslide.FrmUizaVideoV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
+import com.uiza.player.ui.views.AspectRatioFrameLayout;
 import com.uiza.player.ui.views.helper.InputModel;
 
 import java.io.IOException;
@@ -24,6 +28,8 @@ import java.util.List;
 
 import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
+import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 
 public class SimpleUizaPlayerActivity extends BaseActivity {
@@ -59,9 +65,11 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
     }
 
     private void initContainerVideo() {
+        //set theme
+        //UizaData.getInstance().setPlayerConfig(getDummyPlayerConfig());
+
         String entityId = "69af37f9-b5de-446a-bb58-44fe1e315ba2";
         String entityCover = "//dev-static.uiza.io/69af37f9-b5de-446a-bb58-44fe1e315ba2-thumbnail-1522730799619-1522730799098.jpeg";
-        //String entityCover = "https://kenh14cdn.com/2018/2/25/photo-3-15195643072361674959682.jpg";
         String entityTitle = "Japan girl bikini part8!日本妹比堅尼戰鬥格!!";
 
         InputModel inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);
@@ -78,10 +86,13 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         transaction.commit();
 
         frmUizaVideoV2.setWrapperCallback(new WrapperCallback() {
+            //when frmUizaVideoV2 is init success
             @Override
             public void initializePlayer(Uri[] uris) {
                 LLog.d(TAG, "setWrapperCallback initializePlayer");
                 UizaUIUtil.updateSizeOfContainerVideo(containerUizaVideo, UizaScreenUtil.getScreenWidth(), UizaScreenUtil.getScreenWidth() * 9 / 16);
+
+                testFunc();
             }
 
             @Override
@@ -183,5 +194,58 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
         UizaScreenUtil.toggleFullscreen(activity);
         UizaUIUtil.setSizeOfContainerVideo(containerUizaVideo, frmUizaVideoV2);
+    }
+
+    private PlayerConfig getDummyPlayerConfig() {
+        String json = "";
+        return new Gson().fromJson(json, PlayerConfig.class);
+    }
+
+    private void testFunc() {
+        //hide/show controller
+        //frmUizaVideoV2.getPlayerView().hideController();
+        //frmUizaVideoV2.getPlayerView().showController();
+
+        //use controller or not
+        //frmUizaVideoV2.getPlayerView().setUseController(false);
+
+        //frmUizaVideoV2.getPlayerView().setControllerAutoShow(true);
+        //boolean isControllerAutoShow = frmUizaVideoV2.getPlayerView().getControllerAutoShow();
+        //LLog.d(TAG, "testFunc isControllerAutoShow " + isControllerAutoShow);
+
+        //frmUizaVideoV2.getPlayerView().setControllerHideOnTouch(false);
+        //boolean getControllerHideOnTouch = frmUizaVideoV2.getPlayerView().getControllerHideOnTouch();
+        //LLog.d(TAG, "testFunc getControllerHideOnTouch " + getControllerHideOnTouch);
+
+        //frmUizaVideoV2.getPlayerView().setControllerShowTimeoutMs(10000);
+        //int getControllerShowTimeoutMs = frmUizaVideoV2.getPlayerView().getControllerShowTimeoutMs();
+        //LLog.d(TAG, "testFunc getControllerShowTimeoutMs " + getControllerShowTimeoutMs);
+
+        //frmUizaVideoV2.getPlayerView().getDefaultArtwork();
+        //frmUizaVideoV2.getPlayerView().getOverlayFrameLayout();
+        //frmUizaVideoV2.getPlayerView().getSubtitleView();
+
+        //pause and resume
+        /*LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+            @Override
+            public void doAfter(int mls) {
+                frmUizaVideoV2.getPlayerView().pausePlayVideo();
+                LUIUtil.setDelay(2000, new LUIUtil.DelayCallback() {
+                    @Override
+                    public void doAfter(int mls) {
+                        frmUizaVideoV2.getPlayerView().resumePlayVideo();
+                    }
+                });
+            }
+        });*/
+
+        //frmUizaVideoV2.getPlayerView().setFastForwardIncrementMs(10000);
+        //frmUizaVideoV2.getPlayerView().setRewindIncrementMs(10000);
+
+        //show repeat view in playbackcontroller
+        //frmUizaVideoV2.getPlayerView().setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
+        //frmUizaVideoV2.getPlayerView().getController().getRepeatToggleModes();
+
+        //frmUizaVideoV2.getPlayerView().setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
     }
 }

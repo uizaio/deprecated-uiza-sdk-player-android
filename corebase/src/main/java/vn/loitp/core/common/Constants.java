@@ -81,4 +81,9 @@ public class Constants {
     public final static String PLAYER_ID_SKIN_3 = "d1a9eca0-8bef-4985-8260-af3300191200";
     public final static String T = "true";
     public final static String F = "false";
+
+    public final static int PLAYTHROUGH_25 = 25;
+    public final static int PLAYTHROUGH_50 = 50;
+    public final static int PLAYTHROUGH_75 = 75;
+    public final static int PLAYTHROUGH_100 = 100;
 }

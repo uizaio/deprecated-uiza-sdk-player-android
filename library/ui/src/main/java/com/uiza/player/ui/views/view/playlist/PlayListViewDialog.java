@@ -57,8 +57,8 @@ public class PlayListViewDialog extends DialogFragment {
 
         ListAllEntityRelation listAllEntityRelation = UizaData.getInstance().getListAllEntityRelation(entityId);
         if (listAllEntityRelation == null) {
-            LLog.d(TAG, "listAllEntityRelation == null -> only support api v2");
-            tvMsg.setText(R.string.only_support_apiv2);
+            LLog.d(TAG, "listAllEntityRelation == null");
+            tvMsg.setText(R.string.err_list_relation_null);
             tvMsg.setVisibility(View.VISIBLE);
             return;
         }

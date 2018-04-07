@@ -289,7 +289,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         }
     }
 
-    public void initializePlayer() {
+    private void initializePlayer() {
         if (inputModel == null) {
             inputModel = UizaData.getInstance().getInputModel();
         }
@@ -428,7 +428,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         updateDebugButtonVisibilities();
 
         mPlayerConfig = UizaData.getInstance().getPlayerConfig();
-        UizaUIUtil.setConfigUIPlayer(getPlayerView(), inputModel, mPlayerConfig);
+        UizaUIUtil.setConfigUIPlayer(simpleExoPlayerView, inputModel, mPlayerConfig);
     }
 
     private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
@@ -1037,7 +1037,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         }
     }
 
-    public void removeCoverVideo() {
+    private void removeCoverVideo() {
         if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
             UizaAnimationUtil.playFadeOut(getActivity(), realtimeBlurView, null);
 

@@ -65,6 +65,7 @@ import com.uiza.player.ui.views.view.playlist.PlayListViewDialog;
 import java.util.List;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
@@ -236,11 +237,6 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private int controllerShowTimeoutMs;
     private boolean controllerAutoShow;
     private boolean controllerHideOnTouch;
-
-    public final static int PLAYTHROUGH_25 = 25;
-    public final static int PLAYTHROUGH_50 = 50;
-    public final static int PLAYTHROUGH_75 = 75;
-    public final static int PLAYTHROUGH_100 = 100;
     private int lastPercentPlayThrough;
 
     public SimpleExoPlayerView(Context context) {
@@ -482,28 +478,28 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     }
                     lastPercentPlayThrough = currentPlayThrough;
                     switch ((int) (progress * 100 / duration)) {
-                        case PLAYTHROUGH_25:
+                        case Constants.PLAYTHROUGH_25:
                             //LLog.d(TAG, ">>>>play_through 25");
                             if (callback != null) {
-                                callback.onPlayThrough(PLAYTHROUGH_25);
+                                callback.onPlayThrough(Constants.PLAYTHROUGH_25);
                             }
                             break;
-                        case PLAYTHROUGH_50:
+                        case Constants.PLAYTHROUGH_50:
                             //LLog.d(TAG, ">>>>play_through 50");
                             if (callback != null) {
-                                callback.onPlayThrough(PLAYTHROUGH_50);
+                                callback.onPlayThrough(Constants.PLAYTHROUGH_50);
                             }
                             break;
-                        case PLAYTHROUGH_75:
+                        case Constants.PLAYTHROUGH_75:
                             //LLog.d(TAG, ">>>>play_through 75");
                             if (callback != null) {
-                                callback.onPlayThrough(PLAYTHROUGH_75);
+                                callback.onPlayThrough(Constants.PLAYTHROUGH_75);
                             }
                             break;
-                        case PLAYTHROUGH_100 - 1://should -1 here
+                        case Constants.PLAYTHROUGH_100 - 1://should -1 here
                             //LLog.d(TAG, ">>>>play_through 100");
                             if (callback != null) {
-                                callback.onPlayThrough(PLAYTHROUGH_100);
+                                callback.onPlayThrough(Constants.PLAYTHROUGH_100);
                             }
                             break;
                     }
