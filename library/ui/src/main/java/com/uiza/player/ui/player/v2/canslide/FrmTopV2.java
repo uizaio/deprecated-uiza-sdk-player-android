@@ -57,10 +57,10 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
-import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.FrmBaseUiza;
 import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.util.UizaUIUtil;
@@ -86,16 +86,13 @@ import java.util.UUID;
 
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
-import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LPref;
 import vn.loitp.data.EventBusData;
-import vn.loitp.restapi.restclient.RestClientTracking;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
@@ -108,7 +105,7 @@ import vn.loitp.views.LToast;
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
-public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
+public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
@@ -133,7 +130,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private boolean inErrorState;
     private TrackGroupArray lastSeenTrackGroupArray;
 
-    //private boolean shouldAutoPlay;
     private int resumeWindow;
     private long resumePosition;
 
@@ -142,13 +138,10 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     private Uri loadedAdTagUri;
     private ViewGroup adOverlayViewGroup;
     private RelativeLayout rootView;
-    //TODO remove gson later
-    private Gson gson = new Gson();
 
     private boolean isVideoStarted;//detect video is has ready state or not
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
-    //freuss47 set userAgent
     private String userAgent = Constants.USER_AGENT;
 
     private int positionOfLinkPlayList = 0;
@@ -166,7 +159,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frm_top, container, false);
-        //shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = buildDataSourceFactory(true);
         mainHandler = new Handler();
@@ -288,7 +280,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         }
         if (reloadData) {
             releasePlayer();
-            //shouldAutoPlay = true;
             clearResumePosition();
 
             initializePlayer();
@@ -476,7 +467,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         if (player != null) {
             debugViewHelper.stop();
             debugViewHelper = null;
-            //shouldAutoPlay = player.getPlayWhenReady();
             updateResumePosition();
             player.release();
             player = null;
@@ -1025,28 +1015,6 @@ public class FrmTopV2 extends BaseFragment implements View.OnClickListener, Play
         });
         //End API v2
     }
-
-    public void trackUiza(final UizaTracking uizaTracking) {
-        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackUiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
-        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
-        UizaService service = RestClientTracking.createService(UizaService.class);
-        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
-            @Override
-            public void onSuccess(Object tracking) {
-                LLog.d(TAG, "<<<<<<<<<<<<<<<trackUiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                //TODO send event fail? Try to send again
-                LLog.d(TAG, "trackUiza onFail " + e.toString());
-                handleException(e);
-            }
-        });
-    }
-
-    private int widthSimpleExoPlayerView;
-    private int heightSimpleExoPlayerView;
 
     private void logSize(final View view) {
         view.post(new Runnable() {

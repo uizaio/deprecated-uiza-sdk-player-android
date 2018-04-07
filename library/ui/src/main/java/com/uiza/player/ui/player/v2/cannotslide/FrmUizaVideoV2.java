@@ -56,10 +56,10 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
-import com.google.gson.Gson;
 import com.uiza.player.ext.ima.ImaAdsLoader;
 import com.uiza.player.ext.ima.ImaAdsMediaSource;
 import com.uiza.player.ui.data.UizaData;
+import com.uiza.player.ui.player.FrmBaseUiza;
 import com.uiza.player.ui.player.v2.WrapperCallback;
 import com.uiza.player.ui.util.UizaAnimationUtil;
 import com.uiza.player.ui.util.UizaImageUtil;
@@ -81,16 +81,11 @@ import java.util.UUID;
 
 import io.uiza.sdk.ui.BuildConfig;
 import io.uiza.sdk.ui.R;
-import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.restapi.restclient.RestClientTracking;
-import vn.loitp.restapi.uiza.UizaService;
-import vn.loitp.restapi.uiza.model.tracking.UizaTracking;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
-import vn.loitp.rxandroid.ApiSubscriber;
 import vn.loitp.views.LToast;
 import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 import vn.loitp.views.realtimeblurview.RealtimeBlurView;
@@ -98,7 +93,7 @@ import vn.loitp.views.realtimeblurview.RealtimeBlurView;
 /**
  * Created by www.muathu@gmail.com on 7/26/2017.
  */
-public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
+public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener, Player.EventListener, PlaybackControlView.VisibilityListener, ImaAdsMediaSource.AdsListener {
     private final String TAG = getClass().getSimpleName();
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
@@ -135,13 +130,9 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
 
     private InputModel inputModel;
     private PlayerConfig mPlayerConfig;
-    //freuss47 set userAgent
     private String userAgent = Constants.USER_AGENT;
 
     private int positionOfLinkPlayList = 0;
-
-    //TODO remove gson
-    private Gson gson = new Gson();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -946,27 +937,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             @Override
             public void run() {
                 LLog.d(TAG, "updateSize logSize " + view.getClass().getSimpleName() + " -> " + view.getWidth() + " x " + view.getHeight());
-            }
-        });
-    }
-
-    public void trackUiza(final UizaTracking uizaTracking) {
-        LLog.d(TAG, ">>>>>>>>>>>>>>>>trackuiza getEventType: " + uizaTracking.getEventType() + ", getPlayThrough: " + uizaTracking.getPlayThrough());
-        LLog.d(TAG, ">>>trackuiza object: " + gson.toJson(uizaTracking));
-        LLog.d(TAG, ">>>trackuiza endpoint: " + UizaData.getInstance().getApiTrackingEndPoint());
-        RestClientTracking.init(UizaData.getInstance().getApiTrackingEndPoint());
-        UizaService service = RestClientTracking.createService(UizaService.class);
-        subscribe(service.track(uizaTracking), new ApiSubscriber<Object>() {
-            @Override
-            public void onSuccess(Object tracking) {
-                LLog.d(TAG, "<<<<<<<<<<<<<<<trackuiza onSuccess - " + uizaTracking.getEventType() + " -> " + gson.toJson(tracking));
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                //TODO send event fail? Try to send again
-                LLog.e(TAG, "trackuiza onFail " + e.toString());
-                handleException(e);
             }
         });
     }
