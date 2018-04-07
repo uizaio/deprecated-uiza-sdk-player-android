@@ -50,6 +50,7 @@ public class UizaData {
                 isLandscape = false;
                 languageObject = null;
                 sizeHeightOfSimpleExoPlayerView = 0;
+                playerConfig = null;
             }
         }, 100);
     }
