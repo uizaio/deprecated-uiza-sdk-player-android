@@ -149,16 +149,16 @@ public class UizaUIUtil {
             mPlayerConfig = new PlayerConfig();
 
             Setting setting = new Setting();
-            setting.setAllowFullscreen(Constants.T);
+            setting.setAllowFullscreen(Constants.F);
             setting.setShowQuality(Constants.T);
-            setting.setDisplayPlaylist(Constants.T);
+            setting.setDisplayPlaylist(Constants.F);
             setting.setAutoStart(Constants.T);
             mPlayerConfig.setSetting(setting);
 
             Styling styling = new Styling();
-            styling.setIcons("FF0000");
-            styling.setBuffer("FF0000");
-            styling.setProgress("00FF00");
+            styling.setIcons("#FF0000");
+            styling.setBuffer("#00FF00");
+            styling.setProgress("#0000FF");
 
             mPlayerConfig.setStyling(styling);
 

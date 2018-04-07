@@ -197,7 +197,7 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
     }
 
     private PlayerConfig getDummyPlayerConfig() {
-        String json = "";
+        String json = "{\"endscreen\":{},\"setting\":{\"allowFullscreen\":\"true\",\"autoStart\":\"true\",\"displayPlaylist\":\"true\",\"showQuality\":\"true\"},\"socialSharing\":{\"allow\":\"false\",\"controller\":{\"facebook\":\"true\",\"linkedin\":\"true\",\"pinterest\":\"true\",\"tumblr\":\"true\",\"twitter\":\"true\"}},\"styling\":{\"background\":\"#ffffff\",\"buffer\":\"#ffffff\",\"icons\":\"#ffffff\",\"name\":\"uiza\",\"progress\":\"#ffffff\",\"title\":\"true\"}}";
         return new Gson().fromJson(json, PlayerConfig.class);
     }
 
