@@ -123,7 +123,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     private boolean inErrorState;
     private TrackGroupArray lastSeenTrackGroupArray;
 
-    //private boolean shouldAutoPlay;
     private int resumeWindow;
     private long resumePosition;
 
@@ -283,7 +282,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         }
         if (reloadData) {
             releasePlayer();
-            //shouldAutoPlay = true;
             clearResumePosition();
             initializePlayer();
         }
@@ -351,7 +349,7 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             player.setAudioDebugListener(eventLogger);
             player.setVideoDebugListener(eventLogger);
             player.setRepeatMode(Player.REPEAT_MODE_OFF);
-            //player.setPlayWhenReady(shouldAutoPlay);
+            //player.setPlayWhenReady(false);
 
             //simpleExoPlayerView.setRepeatToggleModes(RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL);
             simpleExoPlayerView.setPlayer(player);
@@ -462,7 +460,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
         if (player != null) {
             debugViewHelper.stop();
             debugViewHelper = null;
-            //shouldAutoPlay = player.getPlayWhenReady();
             updateResumePosition();
             player.release();
             player = null;
@@ -580,18 +577,13 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == Player.STATE_ENDED) {
             LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
-            //avi.smoothToHide();
             showDebugControls();
         } else if (playbackState == Player.STATE_BUFFERING) {
             LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
-            //avi.smoothToShow();
         } else if (playbackState == Player.STATE_IDLE) {
             LLog.d(TAG, "onPlayerStateChanged STATE_IDLE");
-            //avi.smoothToShow();
         } else if (playbackState == Player.STATE_READY) {
             LLog.d(TAG, "onPlayerStateChanged STATE_READY");
-            //avi.smoothToHide();
-
             //only track video_starts once time
             if (!isVideoStarted) {
                 isVideoStarted = true;
@@ -620,7 +612,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
             }
         }
         updateDebugButtonVisibilities();
-
         if (wrapperCallback != null) {
             wrapperCallback.onPlayerStateChanged(playWhenReady, playbackState);
         }
@@ -669,7 +660,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     public void onPlayerError(ExoPlaybackException e) {
         LLog.d(TAG, "onPlayerError " + e.toString());
         LLog.d(TAG, "onPlayerError positionOfLinkPlayList: " + positionOfLinkPlayList);
-
         if (positionOfLinkPlayList >= inputModel.getListLinkPlay().size() - 1) {
             if (wrapperCallback != null) {
                 wrapperCallback.onErrorCannotPlayAnyLinkPlay();
@@ -855,9 +845,6 @@ public class FrmUizaVideoV2 extends BaseFragment implements View.OnClickListener
     public void onResume() {
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
-        }
-        if (player != null) {
-            player.setPlayWhenReady(true);
         }
 
         if (!UizaData.getInstance().getInputModel().getEntityID().equals(inputModel.getEntityID())) {
