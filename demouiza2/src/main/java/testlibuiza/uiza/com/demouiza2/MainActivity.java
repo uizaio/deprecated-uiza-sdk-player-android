@@ -47,7 +47,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, UizaPlayerActivityV2.class);
-                intent.putExtra(KEY_UIZA_ENTITY_ID, "69af37f9-b5de-446a-bb58-44fe1e315ba2");
+                //intent.putExtra(KEY_UIZA_ENTITY_ID, "69af37f9-b5de-446a-bb58-44fe1e315ba2");
+                intent.putExtra(KEY_UIZA_ENTITY_ID, "56a4f990-17e6-473c-8434-ef6c7e40bba1");
                 intent.putExtra(KEY_UIZA_ENTITY_COVER, "//dev-static.uiza.io/69af37f9-b5de-446a-bb58-44fe1e315ba2-thumbnail-1522730799619-1522730799098.jpeg");
                 intent.putExtra(KEY_UIZA_ENTITY_TITLE, "Japan girl bikini part8!日本妹比堅尼戰鬥格!!");
                 startActivity(intent);

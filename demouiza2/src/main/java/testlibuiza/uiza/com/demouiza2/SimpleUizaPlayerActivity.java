@@ -68,7 +68,9 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         //set theme
         //UizaData.getInstance().setPlayerConfig(getDummyPlayerConfig());
 
-        String entityId = "69af37f9-b5de-446a-bb58-44fe1e315ba2";
+
+        //TEST 1
+        /*String entityId = "69af37f9-b5de-446a-bb58-44fe1e315ba2";
         String entityCover = "//dev-static.uiza.io/69af37f9-b5de-446a-bb58-44fe1e315ba2-thumbnail-1522730799619-1522730799098.jpeg";
         String entityTitle = "Japan girl bikini part8!日本妹比堅尼戰鬥格!!";
 
@@ -78,6 +80,20 @@ public class SimpleUizaPlayerActivity extends BaseActivity {
         List<String> listLinkPlay = new ArrayList<>();
         listLinkPlay.add("https://dev-cdn.uiza.io:443/mx5Z5wIs/package/playlist.mpd");
         listLinkPlay.add("https://cdn-vn-cache-3.uiza.io:443/a204e9cdeca44948a33e0d012ef74e90/mx5Z5wIs/package/playlist.mpd");
+        UizaData.getInstance().setLinkPlay(listLinkPlay);*/
+
+
+        //TEST 2
+        String entityId = "56a4f990-17e6-473c-8434-ef6c7e40bba1";
+        String entityCover = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/GSXR1000_2003.jpg/800px-GSXR1000_2003.jpg";
+        String entityTitle = "Subtile";
+
+        InputModel inputModel = UizaUIUtil.createInputModel(entityId, entityCover, entityTitle);
+        UizaData.getInstance().setInputModel(inputModel);
+
+        List<String> listLinkPlay = new ArrayList<>();
+        listLinkPlay.add("https://dev-cdn.uiza.io:443/jPnMHRVr/package/playlist.mpd");
+        listLinkPlay.add("https://cdn-vn-cache-3.uiza.io:443/a204e9cdeca44948a33e0d012ef74e90/jPnMHRVr/package/playlist.mpd");
         UizaData.getInstance().setLinkPlay(listLinkPlay);
 
         frmUizaVideoV2 = new FrmUizaVideoV2();
