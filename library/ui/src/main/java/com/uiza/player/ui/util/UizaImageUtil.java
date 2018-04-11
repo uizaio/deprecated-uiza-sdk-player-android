@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import io.uiza.sdk.ui.R;
 
@@ -13,10 +14,24 @@ import io.uiza.sdk.ui.R;
 
 public class UizaImageUtil {
     public static void load(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.bkg).into(imageView);
+        Glide.with(context).load(url)
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.bkg)
+                        //.fitCenter()
+                        //.override(sizeW, sizeH)
+                        //.error(resError)
+                        .centerCrop()
+                ).into(imageView);
     }
 
     public static void load(Context context, String url, ImageView imageView, int sizeW, int sizeH) {
-        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.bkg).override(sizeW, sizeH).into(imageView);
+        Glide.with(context).load(url)
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.bkg)
+                        //.fitCenter()
+                        .override(sizeW, sizeH)
+                        //.error(resError)
+                        .centerCrop()
+                ).into(imageView);
     }
 }

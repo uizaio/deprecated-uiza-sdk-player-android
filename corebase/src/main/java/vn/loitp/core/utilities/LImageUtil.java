@@ -1,11 +1,15 @@
 package vn.loitp.core.utilities;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 import loitp.core.R;
@@ -23,7 +27,14 @@ public class LImageUtil {
     }
 
     public static void load(Activity activity, String url, ImageView imageView, int sizeW, int sizeH) {
-        Glide.with(activity).load(url).override(sizeW, sizeH).into(imageView);
+        Glide.with(activity).load(url)
+                .apply(new RequestOptions()
+                                //.placeholder(resPlaceHolder)
+                                //.fitCenter()
+                                .override(sizeW, sizeH)
+                        //.error(resError)
+                )
+                .into(imageView);
     }
 
     public static void load(Activity activity, final String[] url, ImageView imageView, final AVLoadingIndicatorView avLoadingIndicatorView) {
@@ -41,23 +52,30 @@ public class LImageUtil {
 
     public static void load(Activity activity, final String url, ImageView imageView, final AVLoadingIndicatorView avLoadingIndicatorView) {
         avLoadingIndicatorView.smoothToShow();
-        Glide.with(activity).load(url).error(R.drawable.err).listener(new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                if (avLoadingIndicatorView != null) {
-                    avLoadingIndicatorView.smoothToHide();
-                }
-                //LLog.d(TAG, "load onException " + url);
-                return false;
-            }
+        Glide.with(activity).load(url)
+                .apply(new RequestOptions()
+                        //.placeholder(resPlaceHolder)
+                        //.fitCenter()
+                        //.override(sizeW, sizeH)
+                        .error(R.drawable.err)
+                )
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        if (avLoadingIndicatorView != null) {
+                            avLoadingIndicatorView.smoothToHide();
+                        }
+                        return false;
+                    }
 
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                if (avLoadingIndicatorView != null) {
-                    avLoadingIndicatorView.smoothToHide();
-                }
-                return false;
-            }
-        }).into(imageView);
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        if (avLoadingIndicatorView != null) {
+                            avLoadingIndicatorView.smoothToHide();
+                        }
+                        return false;
+                    }
+                })
+                .into(imageView);
     }
 }
