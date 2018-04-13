@@ -172,7 +172,8 @@
                         android:text="STAG (API V1)"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <RadioButton
                         android:id="@+id/radio_environment_prod"
@@ -183,7 +184,8 @@
                         android:text="WEBTRETHO (API V1)"
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
                 </RadioGroup>
 
                 <View

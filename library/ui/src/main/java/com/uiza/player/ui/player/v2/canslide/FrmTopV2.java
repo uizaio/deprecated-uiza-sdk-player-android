@@ -94,8 +94,6 @@ import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
-import vn.loitp.restapi.uiza.model.v2.getlinkdownload.GetLinkDownload;
-import vn.loitp.restapi.uiza.model.v2.getlinkdownload.JsonBodyGetLinkDownload;
 import vn.loitp.restapi.uiza.model.v2.getlinkdownload.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;

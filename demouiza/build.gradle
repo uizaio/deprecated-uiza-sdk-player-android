@@ -93,7 +93,6 @@ repositories {
 }
 
 dependencies {
-    //compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(modulePrefix + 'library-ui')
     //compile 'com.github.tplloi:uiza-sdk-android:1.0.2'
 }
