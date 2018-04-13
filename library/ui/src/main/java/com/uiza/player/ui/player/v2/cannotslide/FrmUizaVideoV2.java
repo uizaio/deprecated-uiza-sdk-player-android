@@ -955,6 +955,9 @@ public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener,
     private final int RADIUS_BLUR_VIEW = 15;
 
     private void setCoverVideo() {
+        if (isRemovedCoverVideo) {
+            return;
+        }
         if (flRootView != null && inputModel != null) {
             LLog.d(TAG, "setCoverVideo " + inputModel.getUrlImg());
             if (ivCoverVideo != null || ivCoverLogo != null || avLoadingIndicatorView != null || realtimeBlurView != null) {
@@ -994,6 +997,8 @@ public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener,
         }
     }
 
+    private boolean isRemovedCoverVideo;
+
     private void removeCoverVideo() {
         if (flRootView != null && ivCoverVideo != null && ivCoverLogo != null && avLoadingIndicatorView != null && realtimeBlurView != null) {
             UizaAnimationUtil.playFadeOut(getActivity(), realtimeBlurView, null);
@@ -1011,6 +1016,7 @@ public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener,
             flRootView.removeView(realtimeBlurView);
             realtimeBlurView = null;
 
+            isRemovedCoverVideo = true;
             LLog.d(TAG, "removeCoverVideo success");
         }
     }
