@@ -173,7 +173,7 @@
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                     <RadioButton
                         android:id="@+id/radio_environment_prod"
@@ -185,7 +185,7 @@
                         android:textColor="@color/White"
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
                 </RadioGroup>
 
                 <View

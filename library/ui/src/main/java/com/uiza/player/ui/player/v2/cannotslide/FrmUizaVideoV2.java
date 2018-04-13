@@ -407,16 +407,16 @@ public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener,
         }
 
         //TODO freuss47 with subtitle vtt
-        Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
+        /*Format textFormat = Format.createTextSampleFormat(null, MimeTypes.TEXT_VTT, Format.NO_VALUE, "en", null);
         String urlSubtitle = "http://dev-static.uiza.io/subtitle_56a4f990-17e6-473c-8434-ef6c7e40bba1_vi_1522812445904.vtt";
         MediaSource textMediaSource = new SingleSampleMediaSource(Uri.parse(urlSubtitle)
                 , mediaDataSourceFactory
                 , textFormat
                 , C.TIME_UNSET);
         MediaSource mediaSourceWithText = new MergingMediaSource(mediaSource, textMediaSource);
-        player.prepare(mediaSourceWithText, !haveResumePosition, false);
+        player.prepare(mediaSourceWithText, !haveResumePosition, false);*/
 
-        //player.prepare(mediaSource, !haveResumePosition, false);
+        player.prepare(mediaSource, !haveResumePosition, false);
         inErrorState = false;
         updateDebugButtonVisibilities();
 
