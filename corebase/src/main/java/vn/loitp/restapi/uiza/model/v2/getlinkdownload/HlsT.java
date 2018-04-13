@@ -1,5 +1,5 @@
 
-package vn.loitp.restapi.uiza.model.v2.getlinkplay;
+package vn.loitp.restapi.uiza.model.v2.getlinkdownload;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -111,7 +111,7 @@ Using this codes below:*
   @ http://dev-api.uiza.io/resource/index.html#api-Entity-Get_Link_Download
   
 
-    subscribe(service.getLinkPlayV2(jsonBodyGetLinkPlay), new ApiSubscriber<...>() {  
+    subscribe(service.getLinkPlayV2(jsonBodyGetLinkDownload), new ApiSubscriber<...>() {  
      ...
     });
 

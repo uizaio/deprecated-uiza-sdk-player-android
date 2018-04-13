@@ -94,9 +94,9 @@ import vn.loitp.data.EventBusData;
 import vn.loitp.restapi.restclient.RestClientV2;
 import vn.loitp.restapi.uiza.UizaService;
 import vn.loitp.restapi.uiza.model.v2.auth.Auth;
-import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
-import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
-import vn.loitp.restapi.uiza.model.v2.getlinkplay.Mpd;
+import vn.loitp.restapi.uiza.model.v2.getlinkdownload.GetLinkDownload;
+import vn.loitp.restapi.uiza.model.v2.getlinkdownload.JsonBodyGetLinkDownload;
+import vn.loitp.restapi.uiza.model.v2.getlinkdownload.Mpd;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -975,27 +975,27 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         }
         LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getData().getAppId());
 
-        JsonBodyGetLinkPlay jsonBodyGetLinkPlay = new JsonBodyGetLinkPlay();
+        JsonBodyGetLinkDownload jsonBodyGetLinkDownload = new JsonBodyGetLinkDownload();
         List<String> listEntityIds = new ArrayList<>();
         listEntityIds.add(entityId);
-        jsonBodyGetLinkPlay.setListEntityIds(listEntityIds);
+        jsonBodyGetLinkDownload.setListEntityIds(listEntityIds);
 
         //API v2
-        subscribe(service.getLinkPlayV2(jsonBodyGetLinkPlay), new ApiSubscriber<GetLinkPlay>() {
+        subscribe(service.getLinkDownloadV2(jsonBodyGetLinkDownload), new ApiSubscriber<GetLinkDownload>() {
             @Override
-            public void onSuccess(vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay getLinkPlay) {
+            public void onSuccess(GetLinkDownload getLinkDownload) {
                 //LLog.d(TAG, "getLinkPlayV1 onSuccess " + gson.toJson(getLinkPlayV1));
                 //UizaData.getInstance().setLinkPlay("http://demos.webmproject.org/dash/201410/vp9_glass/manifest_vp9_opus.mpd");
                 //UizaData.getInstance().setLinkPlay("http://dev-preview.uiza.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJVSVpBIiwiYXVkIjoidWl6YS5pbyIsImlhdCI6MTUxNjMzMjU0NSwiZXhwIjoxNTE2NDE4OTQ1LCJlbnRpdHlfaWQiOiIzYWUwOWJhNC1jMmJmLTQ3MjQtYWRmNC03OThmMGFkZDY1MjAiLCJlbnRpdHlfbmFtZSI6InRydW5nbnQwMV8xMiIsImVudGl0eV9zdHJlYW1fdHlwZSI6InZvZCIsImFwcF9pZCI6ImEyMDRlOWNkZWNhNDQ5NDhhMzNlMGQwMTJlZjc0ZTkwIiwic3ViIjoiYTIwNGU5Y2RlY2E0NDk0OGEzM2UwZDAxMmVmNzRlOTAifQ.ktZsaoGA3Dp4J1cGR00bt4UIiMtcsjxgzJWSTnxnxKk/a204e9cdeca44948a33e0d012ef74e90-data/transcode-output/unzKBIUm/package/playlist.mpd");
 
                 List<String> listLinkPlay = new ArrayList<>();
-                List<Mpd> mpdList = getLinkPlay.getData().get(0).getMpd();
+                List<Mpd> mpdList = getLinkDownload.getData().get(0).getMpd();
                 for (Mpd mpd : mpdList) {
                     if (mpd.getUrl() != null) {
                         listLinkPlay.add(mpd.getUrl());
                     }
                 }
-                LLog.d(TAG, "getLinkPlayV2 toJson: " + gson.toJson(listLinkPlay));
+                LLog.d(TAG, "getLinkDownloadV2 toJson: " + gson.toJson(listLinkPlay));
 
                 if (listLinkPlay == null || listLinkPlay.isEmpty()) {
                     LLog.d(TAG, "listLinkPlay == null || listLinkPlay.isEmpty()");

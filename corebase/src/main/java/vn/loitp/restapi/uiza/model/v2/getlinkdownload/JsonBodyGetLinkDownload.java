@@ -1,4 +1,4 @@
-package vn.loitp.restapi.uiza.model.v2.getlinkplay;
+package vn.loitp.restapi.uiza.model.v2.getlinkdownload;
 
 /**
  * Created by LENOVO on 2/23/2018.
@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class JsonBodyGetLinkPlay {
+public class JsonBodyGetLinkDownload {
 
     @SerializedName("listEntityIds")
     @Expose

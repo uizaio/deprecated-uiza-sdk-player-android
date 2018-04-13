@@ -16,7 +16,8 @@ import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.auth.JsonBodyAuth;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.GetDetailEntity;
 import vn.loitp.restapi.uiza.model.v2.getdetailentity.JsonBodyGetDetailEntity;
-import vn.loitp.restapi.uiza.model.v2.getlinkplay.JsonBodyGetLinkPlay;
+import vn.loitp.restapi.uiza.model.v2.getlinkdownload.GetLinkDownload;
+import vn.loitp.restapi.uiza.model.v2.getlinkdownload.JsonBodyGetLinkDownload;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.JsonBodyListAllEntity;
 import vn.loitp.restapi.uiza.model.v2.listallentity.ListAllEntity;
@@ -36,7 +37,7 @@ public interface UizaService {
     Observable<GetPoster[]> getPoster(@Query("number") int number);
 
     @GET("api/public/v1/media/entity/get-link-play")
-    Observable<GetLinkPlay> getLinkPlayV1(@Query("entityId") String entityId);
+    Observable<GetLinkDownload> getLinkPlayV1(@Query("entityId") String entityId);
 
     @FormUrlEncoded
     @PUT("v1/room/follow")
@@ -83,12 +84,12 @@ public interface UizaService {
     //Observable<GetDetailEntity> getDetailEntityV2(@Field("id") String id);
     Observable<GetDetailEntity> getDetailEntityV2(@Body JsonBodyGetDetailEntity jsonBodyGetDetailEntity);
 
-    /*@GET("/api/public/v2/media/entity/get-link-play")
-    Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);*/
+    @GET("/api/resource/v1/media/entity/get-link-play")
+    Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Query("entityId") String entityId, @Query("appId") String appId);
 
     //@Headers("Content-Type: application/json")
     @POST("/api/resource/v1/media/entity/link-download")
-    Observable<vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay> getLinkPlayV2(@Body JsonBodyGetLinkPlay jsonBodyGetLinkPlay);
+    Observable<GetLinkDownload> getLinkDownloadV2(@Body JsonBodyGetLinkDownload jsonBodyGetLinkDownload);
 
     //@FormUrlEncoded
     @POST("/api/resource/v1/media/entity/related")

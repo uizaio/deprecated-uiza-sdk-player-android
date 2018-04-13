@@ -1,10 +1,10 @@
 
-package vn.loitp.restapi.uiza.model.v2.getlinkplay;
+package vn.loitp.restapi.uiza.model.v2.getlinkdownload;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Hl {
+public class Mpd {
 
     @SerializedName("name")
     @Expose
@@ -14,7 +14,7 @@ public class Hl {
     private String description;
     @SerializedName("url")
     @Expose
-    private Object url;
+    private String url;
 
     public String getName() {
         return name;
@@ -32,11 +32,11 @@ public class Hl {
         this.description = description;
     }
 
-    public Object getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(Object url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
