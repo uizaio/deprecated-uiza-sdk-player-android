@@ -97,6 +97,7 @@ import vn.loitp.restapi.uiza.model.v2.auth.Auth;
 import vn.loitp.restapi.uiza.model.v2.getlinkdownload.GetLinkDownload;
 import vn.loitp.restapi.uiza.model.v2.getlinkdownload.JsonBodyGetLinkDownload;
 import vn.loitp.restapi.uiza.model.v2.getlinkdownload.Mpd;
+import vn.loitp.restapi.uiza.model.v2.getlinkplay.GetLinkPlay;
 import vn.loitp.restapi.uiza.model.v2.getplayerinfo.PlayerConfig;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
 import vn.loitp.rxandroid.ApiSubscriber;
@@ -973,6 +974,46 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;
         }
+        //LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getData().getAppId());
+        String appId = auth.getData().getAppId();
+        //API v2
+        subscribe(service.getLinkPlayV2(entityId, appId), new ApiSubscriber<GetLinkPlay>() {
+            @Override
+            public void onSuccess(GetLinkPlay getLinkPlay) {
+                //LLog.d(TAG, "getLinkPlayV2 onSuccess " + gson.toJson(getLinkPlayV1));
+                List<String> listLinkPlay = new ArrayList<>();
+                List<Mpd> mpdList = getLinkPlay.getMpd();
+                for (Mpd mpd : mpdList) {
+                    if (mpd.getUrl() != null) {
+                        listLinkPlay.add(mpd.getUrl());
+                    }
+                }
+                LLog.d(TAG, "getLinkPlayV2 toJson: " + gson.toJson(listLinkPlay));
+                if (listLinkPlay == null || listLinkPlay.isEmpty()) {
+                    LLog.d(TAG, "listLinkPlay == null || listLinkPlay.isEmpty()");
+                    showDialogOne(getString(R.string.has_no_linkplay), true);
+                    return;
+                }
+                UizaData.getInstance().setLinkPlay(listLinkPlay);
+                setInputModel(null, true);
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                LLog.e(TAG, "getLinkPlay onFail " + e.toString());
+                handleException(e);
+            }
+        });
+        //End API v2
+    }
+
+    /*private void getLinkDownload(String entityId) {
+        UizaService service = RestClientV2.createService(UizaService.class);
+        Auth auth = LPref.getAuth(getActivity(), gson);
+        if (auth == null || auth.getData().getAppId() == null) {
+            showDialogError("Error auth == null || auth.getAppId() == null");
+            return;
+        }
         LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getData().getAppId());
 
         JsonBodyGetLinkDownload jsonBodyGetLinkDownload = new JsonBodyGetLinkDownload();
@@ -1014,7 +1055,7 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
             }
         });
         //End API v2
-    }
+    }*/
 
     private void logSize(final View view) {
         view.post(new Runnable() {

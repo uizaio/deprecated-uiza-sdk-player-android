@@ -265,23 +265,21 @@ public class UizaPlayerActivityV2 extends BaseActivity {
     }
 
     private void getLinkPlay() {
-        LLog.d(TAG, ">>>getLinkPlay entityId: " + inputModel.getEntityID());
+        //LLog.d(TAG, ">>>getLinkPlay entityId: " + inputModel.getEntityID());
         UizaService service = RestClientV2.createService(UizaService.class);
         Auth auth = LPref.getAuth(activity, gson);
         if (auth == null || auth.getData().getAppId() == null) {
             showDialogError("Error auth == null || auth.getAppId() == null");
             return;
         }
-        LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getData().getAppId());
-
+        //LLog.d(TAG, ">>>getLinkPlay appId: " + auth.getData().getAppId());
         String entityId = inputModel.getEntityID();
         String appId = auth.getData().getAppId();
-
         //API v2
         subscribe(service.getLinkPlayV2(entityId, appId), new ApiSubscriber<GetLinkPlay>() {
             @Override
             public void onSuccess(GetLinkPlay getLinkPlay) {
-                LLog.d(TAG, "getLinkPlayV2 onSuccess " + gson.toJson(getLinkPlay));
+                //LLog.d(TAG, "getLinkPlayV2 onSuccess " + gson.toJson(getLinkPlay));
                 List<String> listLinkPlay = new ArrayList<>();
                 List<Mpd> mpdList = getLinkPlay.getMpd();
                 for (Mpd mpd : mpdList) {
