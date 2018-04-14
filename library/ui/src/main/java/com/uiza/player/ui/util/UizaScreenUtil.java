@@ -314,7 +314,8 @@ public class UizaScreenUtil {
             UizaData.getInstance().setLandscape(false);
 
         } else {
-            ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            //((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             UizaData.getInstance().setLandscape(true);
 
         }

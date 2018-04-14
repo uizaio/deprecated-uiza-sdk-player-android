@@ -58,7 +58,7 @@ public class UizaUIUtil {
     }
 
     public static void setUIUizaDialogPlayControlView(Dialog dialog, final View view, final Activity activity) {
-        LLog.d(TAG, "setUIUizaDialogPlayControlView");
+        //LLog.d(TAG, "setUIUizaDialogPlayControlView");
         final Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -71,28 +71,28 @@ public class UizaUIUtil {
                     if (UizaData.getInstance().isVideoCanSlide()) {
                         //v2, video can slide
                         if (UizaData.getInstance().isLandscape()) {
-                            LLog.d(TAG, "isLandscape");
-                            LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
-                            LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                            //LLog.d(TAG, "isLandscape");
+                            //LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                            //LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                             param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                             window.setAttributes(param);
                             //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                         } else {
-                            LLog.d(TAG, "!isLandscape");
-                            LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                            //LLog.d(TAG, "!isLandscape");
+                            //LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
 
                             int actionbarSizePx = LScreenUtil.getActionbarSizePx(activity);
-                            LLog.d(TAG, "actionbarSizePx: " + actionbarSizePx);
-                            LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                            //LLog.d(TAG, "actionbarSizePx: " + actionbarSizePx);
+                            //LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                             param.y = actionbarSizePx + UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                             window.setAttributes(param);
                             //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                         }
                     } else {
                         //v1, no silde video
-                        LLog.d(TAG, "isLandscape");
-                        LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
-                        LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
+                        //LLog.d(TAG, "isLandscape");
+                        //LLog.d(TAG, "height size of dialog: " + view.getMeasuredHeight());
+                        //LLog.d(TAG, "param.y: " + (UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2));
                         param.y = UizaData.getInstance().getSizeHeightOfSimpleExoPlayerView() / 2 - view.getMeasuredHeight() / 2;
                         window.setAttributes(param);
                         //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
