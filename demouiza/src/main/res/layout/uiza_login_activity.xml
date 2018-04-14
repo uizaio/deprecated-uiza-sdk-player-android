@@ -135,7 +135,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/et_login"
+                    android:ellipsize="start"
                     android:hint="@string/enter_your_password"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textColorHint="@color/hint_color"
                     android:textSize="@dimen/txt_15" />
