@@ -200,9 +200,9 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
             return;
         }
 
-        LToast.show(activity, "getData keyword " + keyword);
-        LToast.show(activity, "getData limit " + limit);
-        LToast.show(activity, "getData page " + page);
+        //LToast.show(activity, "getData keyword " + keyword);
+        //LToast.show(activity, "getData limit " + limit);
+        LToast.show(activity, getString(R.string.load_page) + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
 

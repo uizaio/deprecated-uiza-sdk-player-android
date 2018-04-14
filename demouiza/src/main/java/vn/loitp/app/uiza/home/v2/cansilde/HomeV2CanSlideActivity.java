@@ -378,7 +378,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
         if (draggablePanel.isClosedAtLeft() || draggablePanel.isClosedAtRight()) {
             LLog.d(TAG, "isClosedAtLeft || isClosedAtRight");
-            draggablePanel.minimize();
+            draggablePanel.maximize();
             if (draggablePanel.getVisibility() != View.VISIBLE) {
                 draggablePanel.setVisibility(View.VISIBLE);
             }

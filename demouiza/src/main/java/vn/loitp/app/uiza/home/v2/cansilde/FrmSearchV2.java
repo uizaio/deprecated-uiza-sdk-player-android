@@ -216,8 +216,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             return;
         }
 
-        LToast.show(getActivity(), "getData page " + page);
-
+        LToast.show(getActivity(), getString(vn.loitp.uiza.R.string.load_page) + page);
         UizaService service = RestClientV2.createService(UizaService.class);
 
         JsonBodySearch jsonBodySearch = new JsonBodySearch();

@@ -231,7 +231,7 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
             return;
         }
 
-        LToast.show(getActivity(), "getData page " + page);
+        LToast.show(getActivity(), getString(R.string.load_page) + page);
         if (tvMsg.getVisibility() != View.GONE) {
             tvMsg.setVisibility(View.GONE);
         }

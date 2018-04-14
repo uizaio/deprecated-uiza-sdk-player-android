@@ -200,7 +200,7 @@ public class SearchV1Activity extends BaseActivity implements View.OnClickListen
             return;
         }
 
-        LToast.show(activity, "getData page " + page);
+        LToast.show(activity, getString(R.string.load_page) + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.searchEntityV1(keyword, limit, page), new ApiSubscriber<Search>() {

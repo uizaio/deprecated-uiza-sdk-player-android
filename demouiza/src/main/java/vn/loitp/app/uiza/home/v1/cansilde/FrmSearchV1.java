@@ -215,7 +215,7 @@ public class FrmSearchV1 extends BaseFragment implements IOnBackPressed, View.On
             return;
         }
 
-        //ToastUtils.showShort("getData page " + page);
+        //LToast.show(getActivity(), getString(R.string.load_page) + page);
 
         UizaService service = RestClientV2.createService(UizaService.class);
         subscribe(service.searchEntityV1(keyword, limit, page), new ApiSubscriber<Search>() {
