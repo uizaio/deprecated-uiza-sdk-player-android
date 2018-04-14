@@ -846,10 +846,12 @@ public class PlaybackControlView extends FrameLayout {
         boolean playing = player != null && player.getPlayWhenReady();
         if (playButton != null) {
             requestPlayPauseFocus |= playing && playButton.isFocused();
+            LLog.d(TAG, "loitpp playButton != null -> " + (playing ? "GONE" : "VISIBLE"));
             playButton.setVisibility(playing ? View.GONE : View.VISIBLE);
         }
         if (pauseButton != null) {
             requestPlayPauseFocus |= !playing && pauseButton.isFocused();
+            LLog.d(TAG, "loitpp pauseButton != null -> " + (!playing ? "GONE" : "VISIBLE"));
             pauseButton.setVisibility(!playing ? View.GONE : View.VISIBLE);
         }
         if (requestPlayPauseFocus) {
