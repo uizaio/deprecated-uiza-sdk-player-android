@@ -164,7 +164,11 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     @Override
     public boolean onBackPressed() {
         LLog.d(TAG, TAG + " onBackPressed");
-        getActivity().getSupportFragmentManager().popBackStack();
+        if (getActivity() == null || getActivity().getSupportFragmentManager() == null) {
+            return false;
+        } else {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
         return true;
     }
 

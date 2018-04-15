@@ -222,4 +222,16 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
         HomeDataV2.getInstance().setDatum(datumList.get(0));
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, new FrmChannelV2(), false);
     }
+
+    private long backPressed;
+
+    @Override
+    public void onBackPressed() {
+        if (backPressed + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            LToast.show(activity, getString(R.string.press_again_to_exit));
+        }
+        backPressed = System.currentTimeMillis();
+    }
 }

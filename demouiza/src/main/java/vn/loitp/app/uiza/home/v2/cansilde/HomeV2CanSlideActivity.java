@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -289,46 +290,52 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         UizaScreenUtil.replaceFragment(activity, R.id.fragment_container, currentFrm, true);
     }
 
+    private boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
-        LLog.d(TAG, TAG + " onBackPressed");
-
+        if (doubleBackToExitPressedOnce) {
+            LLog.d(TAG, "onBackPressed exit");
+            finish();
+            LActivityUtil.tranOut(activity);
+            return;
+        }
         if (UizaData.getInstance().isLandscape()) {
             if (frmTopV2 != null) {
                 SimpleExoPlayerView simpleExoPlayerView = frmTopV2.getPlayerView();
                 simpleExoPlayerView.getController().getFullscreenButton().performClick();
-                LLog.d(TAG, "isLandscape");
+                LLog.d(TAG, "onBackPressed isLandscape");
                 return;
             }
         } else {
-            LLog.d(TAG, "!isLandscape");
+            LLog.d(TAG, "onBackPressed !isLandscape");
             if (draggablePanel != null) {
-                LLog.d(TAG, "draggablePanel != null");
+                LLog.d(TAG, "onBackPressed draggablePanel != null");
                 if (draggablePanel.isMaximized()) {
-                    LLog.d(TAG, "isMaximized");
+                    LLog.d(TAG, "onBackPressed isMaximized");
                     if (draggablePanel.getVisibility() == View.VISIBLE) {
-                        LLog.d(TAG, "draggablePanel VISIBLE");
+                        LLog.d(TAG, "onBackPressed draggablePanel VISIBLE");
                         draggablePanel.minimize();
                         return;
                     } else {
-                        LLog.d(TAG, "draggablePanel !VISIBLE");
+                        LLog.d(TAG, "onBackPressed draggablePanel !VISIBLE");
                     }
                 }
             } else {
-                LLog.d(TAG, "draggablePanel == null");
+                LLog.d(TAG, "onBackPressed draggablePanel == null");
                 confirmExit();
                 return;
             }
         }
-
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+            LLog.d(TAG, "onBackPressed instanceof if");
             confirmExit();
         }
     }
 
     private void confirmExit() {
-        LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
+        /*LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
             @Override
             public void onClick() {
                 UizaData.getInstance().reset();
@@ -338,16 +345,26 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 finish();
                 LActivityUtil.tranOut(activity);
             }
-        });
+        });*/
+        this.doubleBackToExitPressedOnce = true;
+        LToast.show(activity, getString(R.string.press_again_to_exit));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     private FragmentManager.OnBackStackChangedListener onBackStackChangedListener() {
         FragmentManager.OnBackStackChangedListener result = new FragmentManager.OnBackStackChangedListener() {
             public void onBackStackChanged() {
+                if (doubleBackToExitPressedOnce) {
+                    return;
+                }
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 if (fragmentManager != null) {
                     BaseFragment currFrag = (BaseFragment) fragmentManager.findFragmentById(R.id.fragment_container);
-                    currFrag.onFragmentResume();
                     if (currentFrm != null) {
                         if (currentFrm == currFrag) {
                             //do nothing
@@ -366,9 +383,9 @@ public class HomeV2CanSlideActivity extends BaseActivity {
 
     private void releasePlayer() {
         if (frmTopV2 == null) {
-            LLog.d(TAG, "draggablePanel frmTopV2 == null");
+            //LLog.d(TAG, "draggablePanel frmTopV2 == null");
         } else {
-            LLog.d(TAG, "draggablePanel frmTopV2 != null");
+            //LLog.d(TAG, "draggablePanel frmTopV2 != null");
             frmTopV2.releasePlayer();
             frmTopV2.removeCallbacks();
         }
