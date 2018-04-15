@@ -168,21 +168,22 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             return false;
         } else {
             getActivity().getSupportFragmentManager().popBackStack();
+            ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
         }
         return true;
     }
 
-    @Override
+    /*@Override
     public void onFragmentResume() {
         super.onFragmentResume();
         LLog.d(TAG, TAG + " onFragmentResume");
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onFragmentPause() {
         super.onFragmentPause();
         LLog.d(TAG, TAG + " onFragmentPause");
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -290,16 +291,6 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
 
     private void onClickVideo(Item item, int position) {
         LLog.d(TAG, "onClickVideo at " + position + ": " + LSApplication.getInstance().getGson().toJson(item));
-
-        //v1
-        /*Intent intent = new Intent(getActivity(), UizaPlayerActivityV1.class);
-        intent.putExtra(KEY_UIZA_ENTITY_ID, item.getId());
-        intent.putExtra(KEY_UIZA_ENTITY_COVER, item.getThumbnail());
-        intent.putExtra(KEY_UIZA_ENTITY_TITLE, item.getName());
-        startActivity(intent);
-        LUIUtil.transActivityFadeIn(getActivity());*/
-
-        //v2
         ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
     }
 

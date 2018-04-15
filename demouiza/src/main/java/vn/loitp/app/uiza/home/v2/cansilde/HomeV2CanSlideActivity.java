@@ -190,6 +190,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     }
 
     public void setVisibilityOfActionBar(int visibilityOfActionBar) {
+        LLog.d(TAG, "setVisibilityOfActionBar " + visibilityOfActionBar);
         uizaActionBar.setVisibility(visibilityOfActionBar);
     }
 
@@ -210,8 +211,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                 if (draggablePanel.isMaximized()) {
                     draggablePanel.minimize();
                 }
-
-                uizaActionBar.setVisibility(View.GONE);
+                setVisibilityOfActionBar(View.GONE);
                 UizaScreenUtil.addFragment(activity, R.id.fragment_container, new FrmSearchV2(), true);
             }
         });
