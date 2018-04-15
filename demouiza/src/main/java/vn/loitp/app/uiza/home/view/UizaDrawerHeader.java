@@ -36,8 +36,8 @@ public class UizaDrawerHeader {
 
     @Resolve
     private void onResolved() {
-        tvName.setText("Bạn Chưa Đăng Nhập");
-
+        tvName.setText(R.string.login);
+        ivLogOut.setVisibility(android.view.View.INVISIBLE);
         /*if (Constants.IS_DEBUG) {
             tvSetting.setVisibility(android.view.View.VISIBLE);
         } else {

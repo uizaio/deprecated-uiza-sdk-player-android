@@ -31,4 +31,5 @@
     <string name="empty_list">Không có dữ liệu</string>
     <string name="confirm">Confirm</string>
     <string name="load_page">Tải trang</string>
+    <string name="login">Đăng Nhập</string>
 </resources>
