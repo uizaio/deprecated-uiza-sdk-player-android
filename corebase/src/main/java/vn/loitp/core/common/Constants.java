@@ -13,6 +13,7 @@ public class Constants {
     //public final static String URL_IMG_LONG = "https://c2.staticflickr.com/6/5476/29412311793_8067369e64_b.jpg";
 
     //public static final String MAIN_LINK_TRUYENTRANHTUAN = "http://truyentranhtuan.com/danh-sach-truyen";
+    public static final String SPACE = "   ";
 
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String ACTION_VIEW_LIST = "com.google.android.exoplayer.demo.action.VIEW_LIST";

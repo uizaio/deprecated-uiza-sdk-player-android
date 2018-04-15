@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -44,7 +45,9 @@ import com.uiza.player.ui.util.UizaUIUtil;
 import java.util.Arrays;
 
 import io.uiza.sdk.ui.R;
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
+import vn.loitp.core.utilities.LUIUtil;
 
 /**
  * Helper class for displaying track selection dialogs.
@@ -148,6 +151,7 @@ import vn.loitp.core.utilities.LLog;
         //root.setOrientation(LinearLayout.HORIZONTAL);
 
         HorizontalScrollView horizontalScrollView = new HorizontalScrollView(context);
+        LUIUtil.setPullLikeIOSVertical(horizontalScrollView);
         root.addView(horizontalScrollView);
 
         LinearLayout subRoot = new LinearLayout(context);
@@ -156,14 +160,14 @@ import vn.loitp.core.utilities.LLog;
 
         horizontalScrollView.addView(subRoot);
 
-        //TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
-        //int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
-        //attributeArray.recycle();
+        TypedArray attributeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
+        int selectableItemBackgroundResourceId = attributeArray.getResourceId(0, 0);
+        attributeArray.recycle();
 
         // View for disabling the renderer.
         disableView = (CheckedTextView) inflater.inflate(R.layout.view_setting_single_choice, root, false);
-        //disableView.setBackgroundResource(selectableItemBackgroundResourceId);
-        disableView.setText(R.string.selection_disabled);
+        disableView.setBackgroundResource(selectableItemBackgroundResourceId);
+        disableView.setText(context.getString(R.string.selection_disabled) + Constants.SPACE);
         disableView.setFocusable(true);
         disableView.setTextColor(Color.WHITE);
         disableView.setCheckMarkDrawable(R.drawable.default_checkbox);
@@ -172,8 +176,8 @@ import vn.loitp.core.utilities.LLog;
 
         // View for clearing the override to allow the selector to use its default selection logic.
         defaultView = (CheckedTextView) inflater.inflate(R.layout.view_setting_single_choice, root, false);
-        //defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
-        defaultView.setText(R.string.selection_default);
+        defaultView.setBackgroundResource(selectableItemBackgroundResourceId);
+        defaultView.setText(context.getString(R.string.selection_default) + Constants.SPACE);
         defaultView.setFocusable(true);
         defaultView.setOnClickListener(this);
         defaultView.setTextColor(Color.WHITE);
@@ -196,7 +200,7 @@ import vn.loitp.core.utilities.LLog;
                 //}
                 int trackViewLayoutId = groupIsAdaptive ? R.layout.view_setting_mutiple_choice : R.layout.view_setting_single_choice;
                 CheckedTextView trackView = (CheckedTextView) inflater.inflate(trackViewLayoutId, root, false);
-                //trackView.setBackgroundResource(selectableItemBackgroundResourceId);
+                trackView.setBackgroundResource(selectableItemBackgroundResourceId);
 
                 //LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
                 //trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
@@ -221,7 +225,7 @@ import vn.loitp.core.utilities.LLog;
         if (haveAdaptiveTracks) {
             // View for using random adaptation.
             enableRandomAdaptationView = (CheckedTextView) inflater.inflate(R.layout.view_setting_mutiple_choice, root, false);
-            //enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
+            enableRandomAdaptationView.setBackgroundResource(selectableItemBackgroundResourceId);
             enableRandomAdaptationView.setText(R.string.enable_random_adaptation);
             enableRandomAdaptationView.setOnClickListener(this);
             //root.addView(inflater.inflate(R.layout.list_divider, root, false));

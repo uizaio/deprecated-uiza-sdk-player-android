@@ -22,6 +22,7 @@ import com.google.android.exoplayer2.util.MimeTypes;
 
 import java.util.Locale;
 
+import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
 
 /**
@@ -56,8 +57,8 @@ import vn.loitp.core.utilities.LLog;
 
     public static String buildShortTrackName(Format format) {
         String trackName = buildResolutionString(format);
-        LLog.d("buildShortTrackName", "buildShortTrackName " + trackName);
-        return trackName.length() == 0 ? "unknown" : trackName;
+        //LLog.d("buildShortTrackName", "buildShortTrackName " + trackName);
+        return (trackName.length() == 0 ? "unknown" : trackName) + Constants.SPACE;
     }
 
     private static String buildResolutionString(Format format) {
