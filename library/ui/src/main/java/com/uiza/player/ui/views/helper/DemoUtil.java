@@ -22,6 +22,8 @@ import com.google.android.exoplayer2.util.MimeTypes;
 
 import java.util.Locale;
 
+import vn.loitp.core.utilities.LLog;
+
 /**
  * Utility methods for demo application.
  */
@@ -49,6 +51,12 @@ import java.util.Locale;
                     buildBitrateString(format)), buildTrackIdString(format)),
                     buildSampleMimeTypeString(format));
         }
+        return trackName.length() == 0 ? "unknown" : trackName;
+    }
+
+    public static String buildShortTrackName(Format format) {
+        String trackName = buildResolutionString(format);
+        LLog.d("buildShortTrackName", "buildShortTrackName " + trackName);
         return trackName.length() == 0 ? "unknown" : trackName;
     }
 

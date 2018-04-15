@@ -197,8 +197,12 @@ import vn.loitp.core.utilities.LLog;
                 int trackViewLayoutId = groupIsAdaptive ? R.layout.view_setting_mutiple_choice : R.layout.view_setting_single_choice;
                 CheckedTextView trackView = (CheckedTextView) inflater.inflate(trackViewLayoutId, root, false);
                 //trackView.setBackgroundResource(selectableItemBackgroundResourceId);
-                LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
-                trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
+
+                //LLog.d(TAG, "buildView: " + DemoUtil.buildTrackName(group.getFormat(trackIndex)));
+                //trackView.setText(DemoUtil.buildTrackName(group.getFormat(trackIndex)));
+
+                trackView.setText(DemoUtil.buildShortTrackName(group.getFormat(trackIndex)));
+
                 trackView.setTextColor(Color.WHITE);
                 trackView.setCheckMarkDrawable(R.drawable.default_checkbox);
                 if (trackInfo.getTrackFormatSupport(rendererIndex, groupIndex, trackIndex) == RendererCapabilities.FORMAT_HANDLED) {
@@ -249,7 +253,7 @@ import vn.loitp.core.utilities.LLog;
     // DialogInterface.OnClickListener
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        LLog.d(TAG, "onClick DialogInterface dialog");
+        //LLog.d(TAG, "onClick DialogInterface dialog");
         apply();
     }
 
