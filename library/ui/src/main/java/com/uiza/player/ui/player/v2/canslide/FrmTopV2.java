@@ -280,6 +280,7 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         if (reloadData) {
             releasePlayer();
             clearResumePosition();
+            isReleasedPlayer = false;
             initializePlayer();
         }
 
@@ -306,7 +307,6 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         if (isReleasedPlayer) {
             return;
         }
-        isReleasedPlayer = false;
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
