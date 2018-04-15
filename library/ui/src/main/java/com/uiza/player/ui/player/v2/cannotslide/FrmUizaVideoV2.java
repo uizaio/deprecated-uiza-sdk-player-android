@@ -291,7 +291,7 @@ public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener,
 
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
-            showDialogOne(getString(R.string.no_link_play));
+            showDialogOne(getString(R.string.has_no_linkplay));
             if (wrapperCallback != null) {
                 wrapperCallback.onErrorNoLinkPlay();
             }

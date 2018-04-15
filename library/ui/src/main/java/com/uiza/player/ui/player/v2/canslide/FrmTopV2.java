@@ -280,7 +280,6 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         if (reloadData) {
             releasePlayer();
             clearResumePosition();
-
             initializePlayer();
         }
 
@@ -298,13 +297,16 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         }
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
-            showDialogOne("No link play");
+            showDialogOne(getString(R.string.has_no_linkplay));
             if (wrapperCallback != null) {
                 wrapperCallback.onErrorNoLinkPlay();
             }
             return;
         }
-
+        if (isReleasedPlayer) {
+            return;
+        }
+        isReleasedPlayer = false;
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
@@ -462,6 +464,8 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback, null, mainHandler, eventLogger);
     }
 
+    private boolean isReleasedPlayer;
+
     public void releasePlayer() {
         if (player != null) {
             debugViewHelper.stop();
@@ -475,6 +479,7 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
             if (wrapperCallback != null) {
                 wrapperCallback.onReleasePlayer();
             }
+            isReleasedPlayer = true;
         }
     }
 

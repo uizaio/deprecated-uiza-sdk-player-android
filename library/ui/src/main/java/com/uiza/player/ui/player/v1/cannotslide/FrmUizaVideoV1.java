@@ -285,7 +285,7 @@ public class FrmUizaVideoV1 extends BaseFragment implements View.OnClickListener
         }
         if (inputModel.isNoLinkPlay()) {
             LLog.d(TAG, "inputModel.isNoLinkPlay -> return");
-            showDialogOne(getString(R.string.no_link_play));
+            showDialogOne(getString(R.string.has_no_linkplay));
             return;
         }
         boolean needNewPlayer = player == null;

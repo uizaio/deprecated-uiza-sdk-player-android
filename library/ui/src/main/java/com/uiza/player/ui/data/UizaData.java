@@ -80,7 +80,8 @@ public class UizaData {
 
     public InputModel getInputModel() {
         if (inputModel == null) {
-            throw new NullPointerException("inputModel cannot be null, pls init it first");
+            //throw new NullPointerException("inputModel cannot be null, pls init it first");
+            return null;
         }
         return inputModel;
     }
