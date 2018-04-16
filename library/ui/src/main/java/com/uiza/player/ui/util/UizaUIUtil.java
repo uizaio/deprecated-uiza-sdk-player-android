@@ -255,7 +255,7 @@ public class UizaUIUtil {
     }
 
     public static void setDuration(TextView textView, String duration) {
-        LLog.d(TAG, "duration: " + duration);
+        //LLog.d(TAG, "duration: " + duration);
         if (textView == null || duration == null || duration.isEmpty()) {
             return;
         }
@@ -265,7 +265,7 @@ public class UizaUIUtil {
             minutes = minutes.length() == 1 ? "0" + minutes : minutes;
             textView.setText((min / 60) + ":" + minutes);
         } catch (Exception e) {
-            LLog.e(TAG, "setDuration " + e.toString());
+            //LLog.e(TAG, "setDuration " + e.toString());
             textView.setText(" - ");
         }
     }
