@@ -1090,6 +1090,12 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
         }
     }
 
+    public void hideController() {
+        if (simpleExoPlayerView != null) {
+            simpleExoPlayerView.hideController();
+        }
+    }
+
     private WrapperCallback wrapperCallback;
 
     public void setWrapperCallback(WrapperCallback wrapperCallback) {

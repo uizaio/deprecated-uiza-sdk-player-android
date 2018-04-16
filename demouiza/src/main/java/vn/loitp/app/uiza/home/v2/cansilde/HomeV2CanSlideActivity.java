@@ -94,6 +94,9 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             @Override
             public void onMinimized() {
                 LLog.d(TAG, "setDraggableListener draggablePanel onMinimized");
+                if (frmTopV2 != null) {
+                    frmTopV2.hideController();
+                }
             }
 
             @Override
@@ -337,17 +340,6 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     }
 
     private void confirmExit() {
-        /*LDialogUtil.showOne(activity, getString(R.string.app_name), "Bạn muốn thoát ứng dụng đúng không?", getString(R.string.confirm), new LDialogUtil.CallbackShowOne() {
-            @Override
-            public void onClick() {
-                UizaData.getInstance().reset();
-                if (draggablePanel != null && draggablePanel.isMinimized()) {
-                    draggablePanel.closeToRight();
-                }
-                finish();
-                LActivityUtil.tranOut(activity);
-            }
-        });*/
         this.doubleBackToExitPressedOnce = true;
         LToast.show(activity, getString(R.string.press_again_to_exit));
         new Handler().postDelayed(new Runnable() {
@@ -524,7 +516,20 @@ public class HomeV2CanSlideActivity extends BaseActivity {
 
             @Override
             public void onVisibilityChange(int visibility) {
-                LLog.d(TAG, "setWrapperCallback onVisibilityChange ");
+                //LLog.d(TAG, "setWrapperCallback onVisibilityChange");
+                if (draggablePanel != null) {
+                    if (draggablePanel.isMaximized()) {
+                        if (visibility == View.VISIBLE) {
+                            LLog.d(TAG, TAG + " onVisibilityChange visibility == View.VISIBLE");
+                            draggablePanel.setEnableSlide(false);
+                        } else {
+                            LLog.d(TAG, TAG + " onVisibilityChange visibility != View.VISIBLE");
+                            draggablePanel.setEnableSlide(true);
+                        }
+                    } else {
+                        draggablePanel.setEnableSlide(true);
+                    }
+                }
             }
 
             @Override
@@ -582,7 +587,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         draggablePanel.setEnableHorizontalAlphaEffect(false);
         //draggablePanel.setTopFragmentMarginRight(topViewMarginRight);
         //draggablePanel.setTopFragmentMarginBottom(topViewMargnBottom);
-        draggablePanel.setClickToMaximizeEnabled(true);
+        draggablePanel.setClickToMaximizeEnabled(false);
         draggablePanel.setClickToMinimizeEnabled(false);
 
         draggablePanel.initializeView();
