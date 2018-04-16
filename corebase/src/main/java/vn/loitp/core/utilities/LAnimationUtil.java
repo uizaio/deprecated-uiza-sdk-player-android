@@ -106,13 +106,35 @@ public class LAnimationUtil {
         view.startAnimation(anim);
     }
 
-    public static void slideInDown(Context context, View view) {
+    public static void slideInDown(Context context, View view, Animation.AnimationListener animationListener) {
         Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down);
+        if (animationListener != null) {
+            slideDown.setAnimationListener(animationListener);
+        }
         view.startAnimation(slideDown);
     }
 
-    public static void slideInUp(Context context, View view) {
+    public static void slideInUp(Context context, View view, Animation.AnimationListener animationListener) {
         Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
+        if (animationListener != null) {
+            slideDown.setAnimationListener(animationListener);
+        }
+        view.startAnimation(slideDown);
+    }
+
+    public static void fadeIn(Context context, View view, Animation.AnimationListener animationListener) {
+        Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.fade_enter);
+        if (animationListener != null) {
+            slideDown.setAnimationListener(animationListener);
+        }
+        view.startAnimation(slideDown);
+    }
+
+    public static void fadeOut(Context context, View view, Animation.AnimationListener animationListener) {
+        Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.fade_exit);
+        if (animationListener != null) {
+            slideDown.setAnimationListener(animationListener);
+        }
         view.startAnimation(slideDown);
     }
 }

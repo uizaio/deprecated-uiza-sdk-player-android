@@ -346,7 +346,7 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
             @Override
             public void run() {
                 placeHolderView.addView(new LoadingView());
-                placeHolderView.smoothScrollToPosition(getListSize() - 1);
+                //placeHolderView.smoothScrollToPosition(getListSize() - 1);
                 page++;
                 LUIUtil.setDelay(1000, new LUIUtil.DelayCallback() {
                     @Override
