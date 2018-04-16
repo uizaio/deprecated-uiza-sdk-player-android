@@ -59,7 +59,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
 
-    private boolean hasKeyboard;
+    private Boolean hasKeyboard = null;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -165,6 +165,9 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                if (hasKeyboard == null) {
+                    return;
+                }
                 Rect r = new Rect();
                 view.getWindowVisibleDisplayFrame(r);
                 int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
@@ -186,10 +189,12 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     }
 
     private void setupUIWithKeyboardListener() {
-        //LLog.d(TAG, "setupUIWithKeyboardListener " + hasKeyboard);
+        LLog.d(TAG, "setupUIWithKeyboardListener " + hasKeyboard);
         if (getActivity() != null) {
-            //LLog.d(TAG, "->>>>>>>>>>>>>setupUIWithKeyboardListener " + hasKeyboard + ", isBackPressed: " + isBackPressed);
-            ((HomeV2CanSlideActivity) getActivity()).setupUIWithKeyboardListener(hasKeyboard, isBackPressed);
+            LLog.d(TAG, "->>>>>>>>>>>>>setupUIWithKeyboardListener " + hasKeyboard + ", isBackPressed: " + isBackPressed);
+            if (hasKeyboard != null) {
+                ((HomeV2CanSlideActivity) getActivity()).setupUIWithKeyboardListener(hasKeyboard, isBackPressed);
+            }
 
             if (isBackPressed) {
                 getActivity().getSupportFragmentManager().popBackStack();
@@ -210,6 +215,10 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             LKeyBoardUtil.hide(etSearch);
             isBackPressed = true;
             //end remove keyboard
+
+            if (hasKeyboard == null) {
+                setupUIWithKeyboardListener();
+            }
         }
         return true;
     }
