@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.uiza.player.ui.util.UizaImageUtil;
+import com.uiza.player.ui.util.UizaUIUtil;
 
 import java.util.List;
 
@@ -71,8 +73,11 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
     @Override
     public void onBindViewHolder(PlayListHolder playListHolder, final int position) {
         final Item item = itemList.get(position);
-
-        playListHolder.tvDuration.setText(item.getDuration());
+        LLog.d(TAG, "onBindViewHolder" + new Gson().toJson(item));
+        //playListHolder.tvDuration.setText(item.getDuration());
+        UizaUIUtil.setDuration(playListHolder.tvDuration, item.getDuration());
+        //LLog.d(TAG, "item.getDuration(): " + item.getDuration());
+        //playListHolder.tvDuration.setText("fuck");
         playListHolder.tvName.setText(item.getName());
 
         //TODO
@@ -95,13 +100,13 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         } else {
             thumbnail = Constants.PREFIXS_SHORT + item.getThumbnail();
         }
-        LLog.d(TAG, "getThumbnail " + thumbnail);
+        //LLog.d(TAG, "getThumbnail " + thumbnail);
         UizaImageUtil.load(context, thumbnail, playListHolder.ivCover);
 
         playListHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LLog.d(TAG, TAG + " click: " + item.getName() + ", position: " + position);
+                //LLog.d(TAG, TAG + " click: " + item.getName() + ", position: " + position);
                 if (playListCallback != null) {
                     playListCallback.onClickItem(item, position);
                 }

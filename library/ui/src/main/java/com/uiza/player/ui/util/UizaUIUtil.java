@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uiza.player.ui.data.UizaData;
@@ -245,11 +246,27 @@ public class UizaUIUtil {
     }
 
     public static void updateSizeOfContainerVideo(FrameLayout containerUizaVideo, int widthScreen, int heightScreen) {
-        LLog.d(TAG, "setSizeOfContainerVideo after run");
+        //LLog.d(TAG, "setSizeOfContainerVideo after run");
         UizaData.getInstance().setSizeHeightOfSimpleExoPlayerView(heightScreen);
-        LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
+        //LLog.d(TAG, "setSizeOfContainerVideo " + widthScreen + "x" + heightScreen);
         containerUizaVideo.getLayoutParams().width = widthScreen;
         containerUizaVideo.getLayoutParams().height = heightScreen;
         containerUizaVideo.requestLayout();
+    }
+
+    public static void setDuration(TextView textView, String duration) {
+        LLog.d(TAG, "duration: " + duration);
+        if (textView == null || duration == null || duration.isEmpty()) {
+            return;
+        }
+        try {
+            int min = (int) Double.parseDouble(duration) + 1;
+            String minutes = Integer.toString(min % 60);
+            minutes = minutes.length() == 1 ? "0" + minutes : minutes;
+            textView.setText((min / 60) + ":" + minutes);
+        } catch (Exception e) {
+            LLog.e(TAG, "setDuration " + e.toString());
+            textView.setText(" - ");
+        }
     }
 }
