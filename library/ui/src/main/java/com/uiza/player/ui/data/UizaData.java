@@ -80,8 +80,11 @@ public class UizaData {
 
     public InputModel getInputModel() {
         if (inputModel == null) {
-            //throw new NullPointerException("inputModel cannot be null, pls init it first");
-            return null;
+            if (Constants.IS_DEBUG) {
+                throw new NullPointerException("getInputModel zinputModel cannot be null, pls init it first");
+            } else {
+                return null;
+            }
         }
         return inputModel;
     }
@@ -93,7 +96,11 @@ public class UizaData {
 
     public void setLinkPlay(List<String> listLinkPlay) {
         if (inputModel == null) {
-            throw new NullPointerException("inputModel cannot be null, pls init it first");
+            if (Constants.IS_DEBUG) {
+                throw new NullPointerException("setLinkPlay inputModel cannot be null, pls init it first");
+            } else {
+                return;
+            }
         }
         inputModel.setListLinkPlay(listLinkPlay);
         if (Constants.IS_DEBUG) {
@@ -115,7 +122,11 @@ public class UizaData {
 
     public void setDetailEntityV1(vn.loitp.restapi.uiza.model.v1.getdetailentity.GetDetailEntity getDetailEntity) {
         if (inputModel == null) {
-            throw new NullPointerException("inputModel cannot be null, pls init it first");
+            if (Constants.IS_DEBUG) {
+                throw new NullPointerException("setDetailEntityV1 inputModel cannot be null, pls init it first");
+            } else {
+                return;
+            }
         }
         inputModel.setDetailEntityV1(getDetailEntity);
         //notifyObservers();
@@ -123,10 +134,13 @@ public class UizaData {
 
     public void setDetailEntityV2(GetDetailEntity getDetailEntity) {
         if (inputModel == null) {
-            throw new NullPointerException("inputModel cannot be null, pls init it first");
+            if (Constants.IS_DEBUG) {
+                throw new NullPointerException("setDetailEntityV2 inputModel cannot be null, pls init it first");
+            } else {
+                return;
+            }
         }
         inputModel.setDetailEntityV2(getDetailEntity);
-        //notifyObservers();
     }
 
     private boolean isVideoCanSlide;
@@ -145,28 +159,28 @@ public class UizaData {
 
     public String getApiEndPoint() {
         if (apiEndPoint == null || apiEndPoint.isEmpty()) {
-            throw new NullPointerException("Pls init apiEndPoint first");
+            throw new NullPointerException("Please init apiEndPoint first");
         }
         return apiEndPoint;
     }
 
     public String getApiTrackingEndPoint() {
         if (apiTrackingEndPoint == null || apiTrackingEndPoint.isEmpty()) {
-            throw new NullPointerException("Pls init apiTrackingEndPoint first");
+            throw new NullPointerException("Please init apiTrackingEndPoint first");
         }
         return apiTrackingEndPoint;
     }
 
     public String getToken() {
         if (token == null || token.isEmpty()) {
-            throw new NullPointerException("Pls init token first");
+            throw new NullPointerException("Please init token first");
         }
         return token;
     }
 
     public String getPlayerId() {
         if (playerId == null || playerId.isEmpty()) {
-            throw new NullPointerException("Pls init playerId first");
+            throw new NullPointerException("Please init playerId first");
         }
         return playerId;
     }
