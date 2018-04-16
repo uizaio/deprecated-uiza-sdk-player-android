@@ -50,7 +50,7 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
 
     private boolean isRefreshing;
     private boolean isLoadMoreCalling;
-    private final int limit = 50;
+    private final int limit = 49;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
     private final String orderBy = "createdAt";
@@ -119,7 +119,6 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
-                loadMore();
             }
         });
 
@@ -201,7 +200,11 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
 
                 @Override
                 public void onPosition(int position) {
-                    //do nothing
+                    LLog.d(TAG, "_____onPosition " + position + " ~ " + getListSize());
+                    if (position == getListSize() - 1) {
+                        LLog.d(TAG, "_____onLast");
+                        loadMore();
+                    }
                 }
             }));
         }
@@ -339,10 +342,20 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
             return;
         }
         isLoadMoreCalling = true;
-        placeHolderView.addView(new LoadingView());
-        placeHolderView.smoothScrollToPosition(getListSize() - 1);
-        page++;
-        getData(true);
+        placeHolderView.post(new Runnable() {
+            @Override
+            public void run() {
+                placeHolderView.addView(new LoadingView());
+                placeHolderView.smoothScrollToPosition(getListSize() - 1);
+                page++;
+                LUIUtil.setDelay(1000, new LUIUtil.DelayCallback() {
+                    @Override
+                    public void doAfter(int mls) {
+                        getData(true);
+                    }
+                });
+            }
+        });
     }
 
     @Override
