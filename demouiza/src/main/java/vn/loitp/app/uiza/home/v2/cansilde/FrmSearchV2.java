@@ -53,7 +53,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     private final int POSITION_OF_LOADING_REFRESH = 0;
     private boolean isRefreshing;
     private boolean isLoadMoreCalling;
-    private final int limit = 49;
+    private final int limit = 50;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
 
