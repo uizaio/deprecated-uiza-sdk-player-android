@@ -30,7 +30,7 @@
     <string name="log_in">Log in</string>
     <string name="empty_list">Không có dữ liệu</string>
     <string name="confirm">Confirm</string>
-    <string name="load_page">Tải trang</string>
+    <string name="load_page">Tải trang\u0020</string>
     <string name="login">Đăng Nhập</string>
     <string name="press_again_to_exit">Press once again to exit!</string>
 </resources>
