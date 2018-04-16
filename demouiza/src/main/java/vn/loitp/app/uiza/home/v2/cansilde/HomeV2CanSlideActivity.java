@@ -664,6 +664,12 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         return draggablePanel;
     }
 
+    public void minDraggablePanel() {
+        if (draggablePanel != null) {
+            draggablePanel.minimize();
+        }
+    }
+
     private void setDrawerLockMode(boolean isLock) {
         if (mDrawerLayout != null) {
             if (isLock) {

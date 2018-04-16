@@ -168,6 +168,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         } else {
             getActivity().getSupportFragmentManager().popBackStack();
             ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+            ((HomeV2CanSlideActivity) getActivity()).minDraggablePanel();
             LKeyBoardUtil.hide(etSearch);
         }
         return true;
