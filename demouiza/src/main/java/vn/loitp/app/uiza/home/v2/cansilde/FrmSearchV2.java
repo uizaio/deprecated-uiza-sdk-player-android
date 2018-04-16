@@ -59,7 +59,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
 
-    private Boolean hasKeyboard = null;
+    private boolean hasKeyboard;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -165,9 +165,6 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (hasKeyboard == null) {
-                    return;
-                }
                 Rect r = new Rect();
                 view.getWindowVisibleDisplayFrame(r);
                 int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
@@ -184,7 +181,6 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
                 }
             }
         });
-
         return view;
     }
 
@@ -192,15 +188,18 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         LLog.d(TAG, "setupUIWithKeyboardListener " + hasKeyboard);
         if (getActivity() != null) {
             LLog.d(TAG, "->>>>>>>>>>>>>setupUIWithKeyboardListener " + hasKeyboard + ", isBackPressed: " + isBackPressed);
-            if (hasKeyboard != null) {
-                ((HomeV2CanSlideActivity) getActivity()).setupUIWithKeyboardListener(hasKeyboard, isBackPressed);
-            }
-
+            ((HomeV2CanSlideActivity) getActivity()).setupUIWithKeyboardListener(hasKeyboard, isBackPressed);
             if (isBackPressed) {
-                getActivity().getSupportFragmentManager().popBackStack();
-                ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+                pop();
             }
+        } else {
+            LLog.d(TAG, "getActivity() == null");
         }
+    }
+
+    private void pop() {
+        getActivity().getSupportFragmentManager().popBackStack();
+        ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
     }
 
     private boolean isBackPressed;
@@ -216,24 +215,10 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             isBackPressed = true;
             //end remove keyboard
 
-            if (hasKeyboard == null) {
-                setupUIWithKeyboardListener();
-            }
+            LLog.d(TAG, TAG + " onBackPressed else");
         }
         return true;
     }
-
-    /*@Override
-    public void onFragmentResume() {
-        super.onFragmentResume();
-        LLog.d(TAG, TAG + " onFragmentResume");
-    }*/
-
-    /*@Override
-    public void onFragmentPause() {
-        super.onFragmentPause();
-        LLog.d(TAG, TAG + " onFragmentPause");
-    }*/
 
     @Override
     public void onClick(View v) {
