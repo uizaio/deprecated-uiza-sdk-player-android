@@ -198,6 +198,11 @@ public class FrmChannelV2 extends BaseFragment implements IOnBackPressed {
                 public void onClick(Item item, int position) {
                     ((HomeV2CanSlideActivity) getActivity()).onClickVideo(item, position);
                 }
+
+                @Override
+                public void onPosition(int position) {
+                    //do nothing
+                }
             }));
         }
         if (isCallFromLoadMore) {

@@ -367,7 +367,7 @@ public class LUIUtil {
                         //LLog.d(TAG, "________________STATE_IDLE" + lastOffset + " " + isUp);
                         if (isUp) {
                             //LLog.d(TAG, "________________ up " + lastOffset);
-                            if (lastOffset > 1.8f) {
+                            if (lastOffset > 1.5f) {
                                 callback.onUpOrLeftRefresh(lastOffset);
                                 LSoundUtil.startMusicFromAsset(viewPager.getContext(), "ting.ogg");
                             } else {
@@ -375,7 +375,7 @@ public class LUIUtil {
                             }
                         } else {
                             //LLog.d(TAG, "________________ down " + lastOffset);
-                            if (lastOffset < -1.8f) {
+                            if (lastOffset < -1.5f) {
                                 callback.onDownOrRightRefresh(lastOffset);
                             } else {
                                 callback.onDownOrRight(lastOffset);

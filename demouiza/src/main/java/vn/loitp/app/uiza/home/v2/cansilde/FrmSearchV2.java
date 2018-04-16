@@ -284,6 +284,11 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
                 }
+
+                @Override
+                public void onPosition(int position) {
+                    //do nothing
+                }
             }));
         }
         LKeyBoardUtil.hide(getActivity());

@@ -74,6 +74,10 @@ public class EntityItemV2 {
 
         tvName.setText(item.getName());
         LUIUtil.setTextShadow(tvName);
+
+        if (mCallback != null) {
+            mCallback.onPosition(mPosition);
+        }
     }
 
     /*@LongClick(R.id.imageView)
@@ -110,5 +114,7 @@ public class EntityItemV2 {
 
     public interface Callback {
         public void onClick(Item item, int position);
+
+        public void onPosition(int position);
     }
 }

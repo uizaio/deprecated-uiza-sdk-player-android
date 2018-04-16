@@ -56,7 +56,7 @@ public class FrmChannelV2 extends BaseFragment {
 
     private boolean isRefreshing;
     private boolean isLoadMoreCalling;
-    private final int limit = 50;
+    private final int limit = 49;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
     private final String orderBy = "createdAt";
@@ -122,7 +122,7 @@ public class FrmChannelV2 extends BaseFragment {
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
-                loadMore();
+                //loadMore();
             }
         });
 
@@ -204,6 +204,15 @@ public class FrmChannelV2 extends BaseFragment {
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
                 }
+
+                @Override
+                public void onPosition(int position) {
+                    LLog.d(TAG, "_____onPosition " + position + " ~ " + getListSize());
+                    if (position == getListSize() - 1) {
+                        LLog.d(TAG, "_____onLast");
+                        loadMore();
+                    }
+                }
             }));
         }
         if (!isCallFromLoadMore) {
@@ -240,7 +249,6 @@ public class FrmChannelV2 extends BaseFragment {
 
     private void getData(boolean isCallFromLoadMore) {
         LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
-
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
             LToast.show(getActivity(), "This is last page");
@@ -349,12 +357,23 @@ public class FrmChannelV2 extends BaseFragment {
 
     private void loadMore() {
         if (isLoadMoreCalling) {
+            LLog.d(TAG, "loadMore return");
             return;
         }
         isLoadMoreCalling = true;
-        placeHolderView.addView(new LoadingView());
-        placeHolderView.smoothScrollToPosition(getListSize() - 1);
-        page++;
-        getData(true);
+        placeHolderView.post(new Runnable() {
+            @Override
+            public void run() {
+                placeHolderView.addView(new LoadingView());
+                placeHolderView.smoothScrollToPosition(getListSize() - 1);
+                page++;
+                LUIUtil.setDelay(1000, new LUIUtil.DelayCallback() {
+                    @Override
+                    public void doAfter(int mls) {
+                        getData(true);
+                    }
+                });
+            }
+        });
     }
 }

@@ -50,7 +50,7 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
     private final int POSITION_OF_LOADING_REFRESH = 0;
     private boolean isRefreshing;
     private boolean isLoadMoreCalling;
-    private final int limit = 50;
+    private final int limit = 49;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
 
@@ -105,7 +105,6 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
             @Override
             public void onDownOrRightRefresh(float offset) {
                 LLog.d(TAG, "onDownOrRightRefresh");
-                loadMore();
             }
         });
 
@@ -266,6 +265,15 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
                 public void onClick(Item item, int position) {
                     onClickVideo(item, position);
                 }
+
+                @Override
+                public void onPosition(int position) {
+                    LLog.d(TAG, "_____onPosition " + position + " ~ " + getListSize());
+                    if (position == getListSize() - 1) {
+                        LLog.d(TAG, "_____onLast");
+                        loadMore();
+                    }
+                }
             }));
         }
         LKeyBoardUtil.hide(activity);
@@ -302,10 +310,15 @@ public class SearchV2Activity extends BaseActivity implements View.OnClickListen
             return;
         }
         isLoadMoreCalling = true;
-        placeHolderView.addView(new LoadingView());
-        placeHolderView.smoothScrollToPosition(getListSize() - 1);
-        page++;
-        search(etSearch.getText().toString().trim(), true);
+        placeHolderView.post(new Runnable() {
+            @Override
+            public void run() {
+                placeHolderView.addView(new LoadingView());
+                placeHolderView.smoothScrollToPosition(getListSize() - 1);
+                page++;
+                search(etSearch.getText().toString().trim(), true);
+            }
+        });
     }
 
     private int getListSize() {
