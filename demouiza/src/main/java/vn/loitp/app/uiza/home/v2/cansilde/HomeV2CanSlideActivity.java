@@ -43,7 +43,6 @@ import vn.loitp.core.base.BaseActivity;
 import vn.loitp.core.base.BaseFragment;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LActivityUtil;
-import vn.loitp.core.utilities.LDialogUtil;
 import vn.loitp.core.utilities.LDisplayUtils;
 import vn.loitp.core.utilities.LLog;
 import vn.loitp.core.utilities.LUIUtil;
@@ -382,12 +381,12 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     private BaseFragment currentFrm;
 
     private void releasePlayer() {
-        if (frmTopV2 == null) {
-            //LLog.d(TAG, "draggablePanel frmTopV2 == null");
-        } else {
-            //LLog.d(TAG, "draggablePanel frmTopV2 != null");
+        if (frmTopV2 != null) {
             frmTopV2.releasePlayer();
             frmTopV2.removeCallbacks();
+        }
+        if (frmBottomV2 != null) {
+            frmBottomV2.setRootViewVisibility(View.GONE);
         }
     }
 

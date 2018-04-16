@@ -4,6 +4,7 @@ package com.uiza.player.ui.player.v2.canslide;
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -57,6 +59,8 @@ public class FrmBottomV2 extends BaseFragment {
     private TextView tvVideoGenres;
     private TextView tvDebug;
     private TextView tvMoreLikeThisMsg;
+    private RelativeLayout rootView;
+    //TODO remove
     private Gson gson = new Gson();
 
     //private NestedScrollView nestedScrollView;
@@ -79,6 +83,7 @@ public class FrmBottomV2 extends BaseFragment {
         View view = inflater.inflate(R.layout.frm_bottom, container, false);
         //nestedScrollView = (NestedScrollView) view.findViewById(R.id.scroll_view);
         //nestedScrollView.setNestedScrollingEnabled(false);
+        rootView = (RelativeLayout) view.findViewById(R.id.root_view);
         avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
         avLoadingIndicatorView.smoothToShow();
         recyclerView = (RecyclerView) view.findViewById(R.id.rv);
@@ -222,6 +227,7 @@ public class FrmBottomV2 extends BaseFragment {
     }
 
     private void getDetailEntity(String entityId) {
+        setRootViewVisibility(View.VISIBLE);
         LLog.d(TAG, ">>>getDetailEntityV2 entityId " + entityId);
         tvVideoName.setText("");
         tvVideoTime.setText("");
@@ -270,5 +276,11 @@ public class FrmBottomV2 extends BaseFragment {
     private void loadMore() {
         //TODO
         LLog.d(TAG, "loadMore");
+    }
+
+    public void setRootViewVisibility(int visibility) {
+        if (rootView != null && rootView.getVisibility() != visibility) {
+            rootView.setVisibility(visibility);
+        }
     }
 }
