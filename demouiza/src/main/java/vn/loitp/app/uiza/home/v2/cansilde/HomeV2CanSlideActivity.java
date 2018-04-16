@@ -665,9 +665,28 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         return draggablePanel;
     }
 
-    public void minDraggablePanel() {
-        if (draggablePanel != null) {
-            draggablePanel.minimize();
+    public void setupUIWithKeyboardListener(boolean hasKeyboard, boolean isBackpressedFrmSearch) {
+        if (draggablePanel == null) {
+            return;
+        }
+        LLog.d(TAG, "has keyboard: " + hasKeyboard + " - " + isBackpressedFrmSearch);
+        if (draggablePanel.getVisibility() == View.VISIBLE && !draggablePanel.isClosedAtLeft() && !draggablePanel.isClosedAtRight()) {
+            if (hasKeyboard) {
+                if (draggablePanel.isMaximized()) {
+                    LLog.d(TAG, "has keyboard if");
+                } else {
+                    LLog.d(TAG, "has keyboard else");
+                    draggablePanel.minimize();
+                }
+            } else {
+                //LLog.d(TAG, "has no keyboard");
+                if (draggablePanel.isMaximized()) {
+                    LLog.d(TAG, "has no keyboard if");
+                } else {
+                    LLog.d(TAG, "has no keyboard else");
+                    draggablePanel.minimize();
+                }
+            }
         }
     }
 

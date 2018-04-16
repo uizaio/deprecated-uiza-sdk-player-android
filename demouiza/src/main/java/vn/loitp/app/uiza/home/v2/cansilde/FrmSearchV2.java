@@ -4,6 +4,7 @@ package vn.loitp.app.uiza.home.v2.cansilde;
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,6 +58,8 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     private final int limit = 50;
     private int page = 0;
     private int totalPage = Integer.MAX_VALUE;
+
+    private boolean hasKeyboard;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -157,8 +161,44 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
                 search(etSearch.getText().toString(), false);
             }
         });
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                view.getWindowVisibleDisplayFrame(r);
+                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
+                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
+                    if (!hasKeyboard) {
+                        hasKeyboard = true;
+                        setupUIWithKeyboardListener();
+                    }
+                } else {
+                    if (hasKeyboard) {
+                        hasKeyboard = false;
+                        setupUIWithKeyboardListener();
+                    }
+                }
+            }
+        });
+
         return view;
     }
+
+    private void setupUIWithKeyboardListener() {
+        //LLog.d(TAG, "setupUIWithKeyboardListener " + hasKeyboard);
+        if (getActivity() != null) {
+            //LLog.d(TAG, "->>>>>>>>>>>>>setupUIWithKeyboardListener " + hasKeyboard + ", isBackPressed: " + isBackPressed);
+            ((HomeV2CanSlideActivity) getActivity()).setupUIWithKeyboardListener(hasKeyboard, isBackPressed);
+
+            if (isBackPressed) {
+                getActivity().getSupportFragmentManager().popBackStack();
+                ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
+            }
+        }
+    }
+
+    private boolean isBackPressed;
 
     @Override
     public boolean onBackPressed() {
@@ -166,10 +206,10 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         if (getActivity() == null || getActivity().getSupportFragmentManager() == null) {
             return false;
         } else {
-            getActivity().getSupportFragmentManager().popBackStack();
-            ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
-            ((HomeV2CanSlideActivity) getActivity()).minDraggablePanel();
+            //remove keyboard
             LKeyBoardUtil.hide(etSearch);
+            isBackPressed = true;
+            //end remove keyboard
         }
         return true;
     }
