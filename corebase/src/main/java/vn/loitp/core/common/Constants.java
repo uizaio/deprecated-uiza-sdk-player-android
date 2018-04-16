@@ -49,8 +49,6 @@ public class Constants {
     public final static String URL_IMG_9x16 = "https://c1.staticflickr.com/5/4771/38893576530_b585463c07_b.jpg";
     public final static String URL_IMG_LONG = "https://c2.staticflickr.com/6/5476/29412311793_8067369e64_b.jpg";
 
-    public final static String KEY_UIZA = "KEY_UIZA";
-
     public final static String TOKEN_DEV_V1 = "zHiQCup9CzTr1eP5ZQsbPK5sYNYa8kRL-1517457089350";
     public final static String TOKEN_WTT = "lsn9LZdm0MBrhGlyrFYqJYSjJfIXX27e-1512986583784";
     public final static String TOKEN_STAG = "zHiQCup9CzTr1eP5ZQsbPK5sYNYa8kRL-1517457089350";
@@ -71,11 +69,18 @@ public class Constants {
     public final static String URL_DEV_UIZA_VERSION_2_STAG = "https://uqc-api.uiza.io/";
     public final static String URL_WTT = "https://wtt-api.uiza.io";
 
+    //UQC
+    //token aa4da628-a58a-49a1-b79b-94c1b02c5809
+    /*{
+ “accessKeyId”:“S2O8JGAPI3OICRTHR2DS”,
+ “secretKeyId”:“UHf9LWrTHuQ5Zy99foX36IavJ4NRQhpo411sFYry”
+    }*/
+
     public final static int ENVIRONMENT_DEV = 1;
     public final static int ENVIRONMENT_STAG = 2;
     public final static int ENVIRONMENT_PROD = 3;
 
-    public final static String USER_AGENT = "LoitpSDKDummy";
+    public final static String USER_AGENT = "AndroidUserAgent";
 
     public final static String PLAYER_ID_SKIN_1 = "b825c07e-2ed2-48a8-a8ee-012baf8614e8";
     public final static String PLAYER_ID_SKIN_2 = "29c2bb31-e1f9-4992-ac89-e7d2759a2d6b";

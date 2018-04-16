@@ -35,7 +35,6 @@ import loitp.core.R;
  * @author Pedro Vicente Gómez Sánchez.
  */
 public class DraggablePanel extends FrameLayout {
-
     private static final int DEFAULT_TOP_FRAGMENT_HEIGHT = 200;
     private static final int DEFAULT_TOP_FRAGMENT_MARGIN = 0;
     private static final float DEFAULT_SCALE_FACTOR = 2;
@@ -371,8 +370,7 @@ public class DraggablePanel extends FrameLayout {
      */
     private void checkFragmentConsistency() {
         if (topFragment == null || bottomFragment == null) {
-            throw new IllegalStateException(
-                    "You have to set top and bottom fragment before initialize DraggablePanel");
+            throw new IllegalStateException("You have to set top and bottom fragment before initialize DraggablePanel");
         }
     }
 }

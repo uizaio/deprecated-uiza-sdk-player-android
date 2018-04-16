@@ -160,9 +160,7 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
         }
     }
 
-    private void getListAllMetadata() {
-        LLog.d(TAG, "getListAllMetadata");
-
+    private void genHomeMenu() {
         //add home menu
         Datum item = new Datum();
         item.setName("Home");
@@ -170,7 +168,11 @@ public class HomeV2CannotSlideActivity extends BaseActivity {
         item.setType("folder");
         datumList.add(0, item);
         //emd add home menu
+    }
 
+    private void getListAllMetadata() {
+        LLog.d(TAG, "getListAllMetadata");
+        genHomeMenu();
         UizaService service = RestClientV2.createService(UizaService.class);
         int limit = 999;
         String orderBy = "name";
