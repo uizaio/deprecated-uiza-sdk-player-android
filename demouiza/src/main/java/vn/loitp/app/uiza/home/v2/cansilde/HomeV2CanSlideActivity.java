@@ -651,15 +651,26 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);
+                setDrawerLockMode(true);
             } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
                 updateUIStatusNavigationBar(true);
+                setDrawerLockMode(false);
             }
-            //frmTopV2.updateSize();
         }
     }
 
     public DraggablePanel getDraggablePanel() {
         return draggablePanel;
+    }
+
+    private void setDrawerLockMode(boolean isLock) {
+        if (mDrawerLayout != null) {
+            if (isLock) {
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            } else {
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            }
+        }
     }
 }
