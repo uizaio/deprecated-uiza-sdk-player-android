@@ -517,7 +517,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
             @Override
             public void onVisibilityChange(int visibility) {
                 //LLog.d(TAG, "setWrapperCallback onVisibilityChange");
-                if (draggablePanel != null) {
+                if (draggablePanel != null && !UizaData.getInstance().isLandscape()) {
                     if (draggablePanel.isMaximized()) {
                         if (visibility == View.VISIBLE) {
                             LLog.d(TAG, TAG + " onVisibilityChange visibility == View.VISIBLE");
