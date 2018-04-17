@@ -676,7 +676,17 @@ public class HomeV2CanSlideActivity extends BaseActivity {
                     LLog.d(TAG, "has keyboard if");
                 } else {
                     LLog.d(TAG, "has keyboard else");
-                    draggablePanel.minimize();
+                    if (isBackpressedFrmSearch) {
+                        LUIUtil.setDelay(100, new LUIUtil.DelayCallback() {
+                            @Override
+                            public void doAfter(int mls) {
+                                draggablePanel.maximize();
+                                LLog.d(TAG, "has keyboard else done");
+                            }
+                        });
+                    } else {
+                        draggablePanel.minimize();
+                    }
                 }
             } else {
                 //LLog.d(TAG, "has no keyboard");

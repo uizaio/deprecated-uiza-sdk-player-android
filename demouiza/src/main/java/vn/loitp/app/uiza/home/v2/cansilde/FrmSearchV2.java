@@ -198,6 +198,9 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     }
 
     private void pop() {
+        if (getActivity() == null || getActivity().getSupportFragmentManager() == null) {
+            return;
+        }
         getActivity().getSupportFragmentManager().popBackStack();
         ((HomeV2CanSlideActivity) getActivity()).setVisibilityOfActionBar(View.VISIBLE);
     }
@@ -216,6 +219,11 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             //end remove keyboard
 
             LLog.d(TAG, TAG + " onBackPressed else");
+
+            if (!this.isDetached()) {
+                LLog.d(TAG, "!this.isDetached()");
+                setupUIWithKeyboardListener();
+            }
         }
         return true;
     }
