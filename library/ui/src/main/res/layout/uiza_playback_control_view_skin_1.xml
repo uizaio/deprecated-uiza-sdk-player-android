@@ -104,17 +104,6 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/padding_5">
 
-                <ImageButton
-                    android:id="@+id/exo_volume"
-                    android:layout_width="@dimen/size_icon"
-                    android:layout_height="@dimen/size_icon"
-                    android:background="@color/transparent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerInside"
-                    android:soundEffectsEnabled="false"
-                    android:src="@drawable/ic_volume_up_white_48dp"
-                    android:tint="@color/White" />
-
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -141,6 +130,17 @@
                         android:src="@drawable/ic_play_arrow_black_48dp"
                         android:tint="@color/White" />
                 </FrameLayout>
+
+                <ImageButton
+                    android:id="@+id/exo_volume"
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:soundEffectsEnabled="false"
+                    android:src="@drawable/ic_volume_up_white_48dp"
+                    android:tint="@color/White" />
 
                 <View
                     android:layout_width="0dp"
