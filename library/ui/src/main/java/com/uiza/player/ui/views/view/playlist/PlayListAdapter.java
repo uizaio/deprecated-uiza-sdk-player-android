@@ -81,16 +81,18 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
         playListHolder.tvName.setText(item.getName());
 
         //TODO
-        playListHolder.tvYear.setText("-");
+        playListHolder.tvYear.setText("2018");
         UizaUIUtil.setDuration(playListHolder.tvDuration2, item.getDuration());
 
         //TODO
         playListHolder.tvRate.setText("18+");
         if (item.getShortDescription() == null || item.getShortDescription().isEmpty()) {
             if (item.getDescription() == null || item.getDescription().isEmpty()) {
-                playListHolder.tvDescription.setText("No description");
+                //playListHolder.tvDescription.setText("No description");
+                playListHolder.tvDescription.setVisibility(View.INVISIBLE);
             } else {
                 playListHolder.tvDescription.setText(item.getDescription());
+                playListHolder.tvDescription.setVisibility(View.VISIBLE);
             }
         } else {
             playListHolder.tvDescription.setText(item.getShortDescription());

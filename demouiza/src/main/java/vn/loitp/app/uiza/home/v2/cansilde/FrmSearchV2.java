@@ -4,6 +4,7 @@ package vn.loitp.app.uiza.home.v2.cansilde;
  * Created by www.muathu@gmail.com on 12/24/2017.
  */
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -81,8 +82,8 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         //avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         //avi.hide();//dont smoothToHide();
 
-        //etSearch.requestFocus();
-        //LKeyBoardUtil.show(getActivity());
+        etSearch.requestFocus();
+        LKeyBoardUtil.show(getActivity());
 
         placeHolderView = (PlaceHolderView) view.findViewById(vn.loitp.uiza.R.id.place_holder_view);
 
@@ -252,11 +253,11 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             totalPage = Integer.MAX_VALUE;
         }
 
-        LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
+        //LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
 
         if (page >= totalPage) {
-            LLog.d(TAG, "page >= totalPage -> return");
-            LToast.show(getActivity(), "This is last page");
+            //LLog.d(TAG, "page >= totalPage -> return");
+            //LToast.show(getActivity(), getString(R.string.this_is_last_page));
             if (isCallFromLoadMore) {
                 placeHolderView.removeView(getListSize() - 1);//remove loading view
                 isLoadMoreCalling = false;
@@ -264,7 +265,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
             return;
         }
 
-        LToast.show(getActivity(), getString(vn.loitp.uiza.R.string.load_page) + page);
+        //LToast.show(getActivity(), getString(vn.loitp.uiza.R.string.load_page) + page);
         UizaService service = RestClientV2.createService(UizaService.class);
 
         JsonBodySearch jsonBodySearch = new JsonBodySearch();
@@ -275,12 +276,12 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
         subscribe(service.searchEntityV2(jsonBodySearch), new ApiSubscriber<Search>() {
             @Override
             public void onSuccess(Search search) {
-                LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
+                //LLog.d(TAG, "search onSuccess " + LSApplication.getInstance().getGson().toJson(search));
 
                 if (totalPage == Integer.MAX_VALUE) {
                     int totalItem = (int) search.getMetadata().getTotal();
                     float ratio = (float) (totalItem / limit);
-                    LLog.d(TAG, "ratio: " + ratio);
+                    //LLog.d(TAG, "ratio: " + ratio);
                     if (ratio == 0) {
                         totalPage = (int) ratio;
                     } else if (ratio > 0) {
@@ -288,7 +289,7 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
                     } else {
                         totalPage = (int) ratio;
                     }
-                    LLog.d(TAG, ">>>totalPage: " + totalPage);
+                    //LLog.d(TAG, ">>>totalPage: " + totalPage);
                 }
 
                 if (search == null || search.getItemList().isEmpty()) {
@@ -382,5 +383,17 @@ public class FrmSearchV2 extends BaseFragment implements IOnBackPressed, View.On
     private int getListSize() {
         LLog.d(TAG, "getListSize " + placeHolderView.getAllViewResolvers().size());
         return placeHolderView.getAllViewResolvers().size();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        ((HomeV2CanSlideActivity) getActivity()).setDrawerLockMode(true);
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        ((HomeV2CanSlideActivity) getActivity()).setDrawerLockMode(false);
+        super.onDetach();
     }
 }

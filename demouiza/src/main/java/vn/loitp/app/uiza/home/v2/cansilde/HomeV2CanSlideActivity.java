@@ -700,7 +700,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
     }
 
-    private void setDrawerLockMode(boolean isLock) {
+    public void setDrawerLockMode(boolean isLock) {
         if (mDrawerLayout != null) {
             if (isLock) {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
