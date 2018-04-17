@@ -3,7 +3,7 @@
     <string name="exo_controls_repeat_off_description">Repeat none</string>
     <string name="exo_controls_repeat_one_description">Repeat one</string>
     <string name="exo_controls_repeat_all_description">Repeat all</string>
-    <string name="_10s">10s</string>
+    <string name="_10s">\u002010s\u0020</string>
     <string name="quality_setting">Quality setting</string>
     <string name="subtitle">Subtitle</string>
     <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
