@@ -378,7 +378,7 @@ public class HomeV2CanSlideActivity extends BaseActivity {
     private void releasePlayer() {
         if (frmTopV2 != null) {
             frmTopV2.releasePlayer();
-            //frmTopV2.setReleasedPlayer();
+            frmTopV2.setReleasedPlayerWhenGraggableLeftOrRight();
             frmTopV2.removeCallbacks();
         }
         if (frmBottomV2 != null) {

@@ -303,8 +303,13 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
             }
             return;
         }
+        if (isReleasedPlayerWhenGraggableLeftOrRight) {
+            LLog.d(TAG, "isReleasedPlayerWhenGraggableLeftOrRight return");
+            return;
+        }
         boolean needNewPlayer = player == null;
         if (needNewPlayer) {
+            LLog.d(TAG, "needNewPlayer");
             TrackSelection.Factory adaptiveTrackSelectionFactory = new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
             trackSelector = new DefaultTrackSelector(adaptiveTrackSelectionFactory);
             trackSelectionHelper = new TrackSelectionHelper(trackSelector, adaptiveTrackSelectionFactory);
@@ -458,6 +463,12 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
             }
         }
         return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback, null, mainHandler, eventLogger);
+    }
+
+    private boolean isReleasedPlayerWhenGraggableLeftOrRight;
+
+    public void setReleasedPlayerWhenGraggableLeftOrRight() {
+        isReleasedPlayerWhenGraggableLeftOrRight = true;
     }
 
     public void releasePlayer() {
@@ -850,6 +861,7 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
 
     @Override
     public void onResume() {
+        LLog.d(TAG, "onResume");
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
@@ -956,6 +968,7 @@ public class FrmTopV2 extends FrmBaseUiza implements View.OnClickListener, Playe
             if (simpleExoPlayerView != null) {
                 LLog.d(TAG, "clickVideoEvent if");
                 isVideoStarted = false;
+                isReleasedPlayerWhenGraggableLeftOrRight = false;
                 getLinkPlay(clickVideoEvent.getEntityId());
             } else {
                 LLog.d(TAG, "clickVideoEvent else");
