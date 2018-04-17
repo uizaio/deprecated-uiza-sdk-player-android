@@ -23,7 +23,7 @@
     <dimen name="w_300">300dp</dimen>
     <dimen name="w_80">80dp</dimen>
     <dimen name="padding_50">50dp</dimen>
-    <dimen name="size_icon">30dp</dimen>
+    <dimen name="size_icon">40dp</dimen>
 
     <!--<dimen name="exo_media_button_width">71dp</dimen>
     <dimen name="exo_media_button_height">52dp</dimen>-->
