@@ -94,11 +94,17 @@ public class FrmChannelV2 extends BaseFragment {
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (position) {
-                    case POSITION_OF_LOADING_REFRESH:
-                        return isRefreshing ? NUMBER_OF_COLUMN_2 : NUMBER_OF_COLUMN_1;
-                    default:
+                if (position == POSITION_OF_LOADING_REFRESH) {
+                    return isRefreshing ? NUMBER_OF_COLUMN_2 : NUMBER_OF_COLUMN_1;
+                } else if (position == getListSize() - 1) {
+                    //LLog.d(TAG, "isLastPage " + isLastPage);
+                    if (isLastPage) {
                         return NUMBER_OF_COLUMN_1;
+                    } else {
+                        return NUMBER_OF_COLUMN_2;
+                    }
+                } else {
+                    return NUMBER_OF_COLUMN_1;
                 }
             }
         });
@@ -247,15 +253,18 @@ public class FrmChannelV2 extends BaseFragment {
         LActivityUtil.tranIn(getActivity());
     }
 
+    private boolean isLastPage;
+
     private void getData(boolean isCallFromLoadMore) {
         LLog.d(TAG, ">>>getData " + page + "/" + totalPage);
         if (page >= totalPage) {
             LLog.d(TAG, "page >= totalPage -> return");
-            LToast.show(getActivity(), "This is last page");
+            LToast.show(getActivity(), getString(R.string.this_is_last_page));
             placeHolderView.removeView(getListSize() - 1);//remove loading view
             if (isCallFromLoadMore) {
                 isLoadMoreCalling = false;
             }
+            isLastPage = true;
             return;
         }
 

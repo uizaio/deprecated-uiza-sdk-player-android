@@ -33,4 +33,5 @@
     <string name="load_page">Tải trang\u0020</string>
     <string name="login">Đăng Nhập</string>
     <string name="press_again_to_exit">Press once again to exit!</string>
+    <string name="this_is_last_page">This is last page</string>
 </resources>
