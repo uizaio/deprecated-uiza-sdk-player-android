@@ -18,7 +18,6 @@ package com.uiza.player.ui.views;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -26,7 +25,6 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -54,9 +52,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
-import com.uiza.player.ui.player.v2.cannotslide.UizaPlayerActivityV2;
 import com.uiza.player.ui.util.UizaScreenUtil;
-import com.uiza.player.ui.util.UizaTrackingUtil;
 import com.uiza.player.ui.views.view.language.LanguageCallback;
 import com.uiza.player.ui.views.view.language.LanguageViewDialog;
 import com.uiza.player.ui.views.view.playlist.PlayListCallback;
@@ -238,6 +234,8 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private boolean controllerAutoShow;
     private boolean controllerHideOnTouch;
     private int lastPercentPlayThrough;
+
+    private float currentVolume;
 
     public SimpleExoPlayerView(Context context) {
         this(context, null);
@@ -464,6 +462,22 @@ public final class SimpleExoPlayerView extends FrameLayout {
                 public void onClickExit(View view) {
                     ((Activity) getContext()).onBackPressed();
                 }
+
+                @Override
+                public void onClickVolume(View view) {
+                    if (player != null && controller != null) {
+                        if (player.getVolume() == 0) {
+                            //off -> on
+                            player.setVolume(currentVolume);
+                            controller.setUIVolumeButton(false);
+                        } else {
+                            //on -> off
+                            currentVolume = player.getVolume();
+                            player.setVolume(0f);
+                            controller.setUIVolumeButton(true);
+                        }
+                    }
+                }
             });
             controller.setOnProgressEvent(new PlaybackControlView.OnProgressEvent() {
                 @Override
@@ -471,9 +485,9 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     long duration = player.getDuration();
                     //LLog.d(TAG, "onProgressChange progress progress " + progress + " - " + progress + ", duration: " + duration + ", play_through: " + (int) (progress * 100 / duration));
                     int currentPlayThrough = (int) (progress * 100 / duration);
-                    LLog.d(TAG, "lastPercentPlayThrough " + lastPercentPlayThrough + ", currentPlayThrough: " + currentPlayThrough);
+                    //LLog.d(TAG, "lastPercentPlayThrough " + lastPercentPlayThrough + ", currentPlayThrough: " + currentPlayThrough);
                     if (lastPercentPlayThrough == currentPlayThrough) {
-                        LLog.d(TAG, "lastPercentPlayThrough == currentPlayThrough -> return");
+                        //LLog.d(TAG, "lastPercentPlayThrough == currentPlayThrough -> return");
                         return;
                     }
                     lastPercentPlayThrough = currentPlayThrough;

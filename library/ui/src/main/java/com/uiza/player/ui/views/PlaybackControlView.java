@@ -305,6 +305,7 @@ public class PlaybackControlView extends FrameLayout {
     private final ImageButton settingButton;
     private final ImageButton fullscreenButton;
     private final ImageButton exitButton;
+    private final ImageButton exoVolume;
 
     private final ImageView repeatToggleButton;
     private final TextView tvDuration;
@@ -510,6 +511,10 @@ public class PlaybackControlView extends FrameLayout {
         exitButton = (ImageButton) findViewById(R.id.exo_exit);
         if (exitButton != null) {
             exitButton.setOnClickListener(componentListener);
+        }
+        exoVolume = (ImageButton) findViewById(R.id.exo_volume);
+        if (exoVolume != null) {
+            exoVolume.setOnClickListener(componentListener);
         }
 
         Resources resources = context.getResources();
@@ -1402,10 +1407,24 @@ public class PlaybackControlView extends FrameLayout {
                     if (playbackControlViewOnClickEvent != null) {
                         playbackControlViewOnClickEvent.onClickExit(exitButton);
                     }
+                } else if (exoVolume == view) {
+                    if (playbackControlViewOnClickEvent != null) {
+                        playbackControlViewOnClickEvent.onClickVolume(exitButton);
+                    }
                 }
             }
             //hideAfterTimeout();
             removeCallbackHideAction();
+        }
+    }
+
+    public void setUIVolumeButton(boolean isMute) {
+        if (exoVolume != null) {
+            if (isMute) {
+                exoVolume.setImageResource(R.drawable.ic_volume_off_white_48dp);
+            } else {
+                exoVolume.setImageResource(R.drawable.ic_volume_up_white_48dp);
+            }
         }
     }
 
@@ -1425,6 +1444,8 @@ public class PlaybackControlView extends FrameLayout {
         public void onClickFullScreen(View view);
 
         public void onClickExit(View view);
+
+        public void onClickVolume(View view);
     }
 
     private PlaybackControlViewOnClickEvent playbackControlViewOnClickEvent;
