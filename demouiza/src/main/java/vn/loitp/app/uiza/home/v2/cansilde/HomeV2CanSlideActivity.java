@@ -643,21 +643,29 @@ public class HomeV2CanSlideActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        LLog.d(TAG, "onConfigurationChanged");
+    private void updateUIConfigurationChanged(boolean isLandscapeScreen) {
+        LLog.d(TAG, "onConfigurationChanged isLandscapeScreen " + isLandscapeScreen);
         UizaScreenUtil.toggleFullscreen(activity);
         if (frmTopV2 != null) {
-            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (isLandscapeScreen) {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_LANDSCAPE");
                 updateUIStatusNavigationBar(false);
                 setDrawerLockMode(true);
-            } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            } else {
                 LLog.d(TAG, "onConfigurationChanged ORIENTATION_PORTRAIT");
                 updateUIStatusNavigationBar(true);
                 setDrawerLockMode(false);
             }
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            updateUIConfigurationChanged(true);
+        } else {
+            updateUIConfigurationChanged(false);
         }
     }
 

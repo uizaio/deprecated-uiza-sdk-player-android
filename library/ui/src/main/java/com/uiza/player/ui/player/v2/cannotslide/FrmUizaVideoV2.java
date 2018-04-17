@@ -203,6 +203,9 @@ public class FrmUizaVideoV2 extends FrmBaseUiza implements View.OnClickListener,
             public void onClickItem(Item item, int position) {
                 //click item on playlist
                 LLog.d(TAG, "onClick " + position);
+                if (simpleExoPlayerView != null) {
+                    simpleExoPlayerView.setFullScreen();
+                }
                 if (getActivity() instanceof UizaPlayerActivityV2) {
                     ((UizaPlayerActivityV2) getActivity()).playOnClickItem(item, position);
                 }

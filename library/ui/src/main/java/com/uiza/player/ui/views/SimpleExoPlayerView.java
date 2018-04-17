@@ -224,7 +224,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     private final ComponentListener componentListener;
     private final FrameLayout overlayFrameLayout;
     private final FrameLayout exoHelperFrameLayout;
-    private AVLoadingIndicatorView avLoadingIndicatorView;
+    //private AVLoadingIndicatorView avLoadingIndicatorView;
 
     private SimpleExoPlayer player;
     private boolean useController;
@@ -300,7 +300,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
         // Content frame.
         contentFrame = (AspectRatioFrameLayout) findViewById(R.id.exo_content_frame);
-        avLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        //avLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(R.id.avi);
 
         if (contentFrame != null) {
             setResizeModeRaw(contentFrame, resizeMode);
@@ -374,7 +374,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
                     playListViewDialog.setPlayListAdapterCallback(new PlayListCallback() {
                         @Override
                         public void onClickItem(Item item, int position) {
-                            LLog.d(TAG, "onClickItem " + item.getName() + ", position: " + position);
+                            //LLog.d(TAG, "onClickItem " + item.getName() + ", position: " + position);
                             if (playListViewDialog != null) {
                                 playListViewDialog.dismiss();
                             }
@@ -446,16 +446,16 @@ public final class SimpleExoPlayerView extends FrameLayout {
 
                 @Override
                 public void onClickFullScreen(View view) {
-                    UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
+                    setFullScreen();
 
                     //very import show hide avi here
-                    avLoadingIndicatorView.smoothToShow();
+                    /*avLoadingIndicatorView.smoothToShow();
                     LUIUtil.setDelay(100, new LUIUtil.DelayCallback() {
                         @Override
                         public void doAfter(int mls) {
                             avLoadingIndicatorView.smoothToHide();
                         }
-                    });
+                    });*/
                 }
 
                 @Override
@@ -528,6 +528,10 @@ public final class SimpleExoPlayerView extends FrameLayout {
             });
         }
         hideController();
+    }
+
+    public void setFullScreen() {
+        UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
     }
 
     public interface Callback {
@@ -1136,16 +1140,16 @@ public final class SimpleExoPlayerView extends FrameLayout {
             maybeShowController(false);
             if (playbackState == Player.STATE_ENDED) {
                 LLog.d(TAG, "onPlayerStateChanged STATE_ENDED");
-                avLoadingIndicatorView.smoothToHide();
+                //avLoadingIndicatorView.smoothToHide();
             } else if (playbackState == Player.STATE_BUFFERING) {
                 LLog.d(TAG, "onPlayerStateChanged STATE_BUFFERING");
-                avLoadingIndicatorView.smoothToShow();
+                //avLoadingIndicatorView.smoothToShow();
             } else if (playbackState == Player.STATE_IDLE) {
                 LLog.d(TAG, "onPlayerStateChanged STATE_IDLE");
-                avLoadingIndicatorView.smoothToShow();
+                //avLoadingIndicatorView.smoothToShow();
             } else if (playbackState == Player.STATE_READY) {
                 LLog.d(TAG, "onPlayerStateChanged STATE_READY");
-                avLoadingIndicatorView.smoothToHide();
+                //avLoadingIndicatorView.smoothToHide();
             }
         }
 
