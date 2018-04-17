@@ -257,7 +257,7 @@ public class UizaPlayerActivityV2 extends BaseActivity {
         LLog.d(TAG, "onBackPressed");
         UizaData.getInstance().reset();
         if (UizaData.getInstance().isLandscape()) {
-            UizaScreenUtil.setFullScreen(activity, UizaScreenUtil.isFullScreen(activity));
+            UizaScreenUtil.rotateScreen(activity, UizaScreenUtil.isFullScreen(activity));
         }
         super.onBackPressed();
     }

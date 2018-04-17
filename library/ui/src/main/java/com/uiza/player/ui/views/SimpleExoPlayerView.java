@@ -63,9 +63,7 @@ import java.util.List;
 import io.uiza.sdk.ui.R;
 import vn.loitp.core.common.Constants;
 import vn.loitp.core.utilities.LLog;
-import vn.loitp.core.utilities.LUIUtil;
 import vn.loitp.restapi.uiza.model.v2.listallentity.Item;
-import vn.loitp.views.progressloadingview.avloadingindicatorview.lib.avi.AVLoadingIndicatorView;
 
 /**
  * A high level view for {@link SimpleExoPlayer} media playbacks. It displays video, subtitles and
@@ -531,7 +529,7 @@ public final class SimpleExoPlayerView extends FrameLayout {
     }
 
     public void setFullScreen() {
-        UizaScreenUtil.setFullScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
+        UizaScreenUtil.rotateScreen(getContext(), UizaScreenUtil.isFullScreen(getContext()));
     }
 
     public interface Callback {

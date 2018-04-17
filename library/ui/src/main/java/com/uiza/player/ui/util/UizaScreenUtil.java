@@ -308,7 +308,7 @@ public class UizaScreenUtil {
     }*/
 
     //rotate screen
-    public static void setFullScreen(Context context, boolean isFullScreen) {
+    public static void rotateScreen(Context context, boolean isFullScreen) {
         if (isFullScreen) {
             ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             UizaData.getInstance().setLandscape(false);
