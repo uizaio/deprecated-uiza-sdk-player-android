@@ -49,8 +49,8 @@ public class UizaData {
                 currentPosition = 0;
                 isLandscape = false;
                 languageObject = null;
-                sizeHeightOfSimpleExoPlayerView = 0;
-                playerConfig = null;
+                //sizeHeightOfSimpleExoPlayerView = 0;
+                //playerConfig = null;
             }
         }, 100);
     }

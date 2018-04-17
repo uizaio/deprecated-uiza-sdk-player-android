@@ -157,13 +157,13 @@ public class UizaUIUtil {
             mPlayerConfig.setSetting(setting);
 
             Styling styling = new Styling();
-            styling.setIcons("#FF0000");
-            styling.setBuffer("#00FF00");
-            styling.setProgress("#0000FF");
+            styling.setIcons("#FFFFFF");
+            styling.setBuffer("#FFFFFF");
+            styling.setProgress("#FFFFFF");
 
             mPlayerConfig.setStyling(styling);
 
-            LToast.show(simpleExoPlayerView.getContext(), "You play video with default skin", Toast.LENGTH_LONG);
+            //LToast.show(simpleExoPlayerView.getContext(), "You play video with default skin", Toast.LENGTH_LONG);
         }
 
         playbackControlView.setVisibilityFullscreenButton(mPlayerConfig.getSetting().getAllowFullscreen().equals(Constants.T));
