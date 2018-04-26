@@ -12,14 +12,9 @@
           }   }
 **Step 2. Add the dependency**  
 
-    defaultConfig {  
-      ...  
-      multiDexEnabled  true  
-    }
     ...
     dependencies {  
-      compile 'com.github.tplloi:basemaster:1.0.3'  
-      compile 'com.android.support:multidex:1.0.3'  
+      	  compile 'com.github.uizaio.uiza-sdk-player-android:corebase:1.0.0'
     }
 
 # Init:
