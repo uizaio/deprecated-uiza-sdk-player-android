@@ -94,5 +94,5 @@ repositories {
 
 dependencies {
     compile project(modulePrefix + 'library-ui')
-    //compile 'com.github.uizaio:uiza-sdk-player-android:1.0.0'
+    //compile 'com.github.uizaio:uiza-sdk-player-android:1.0.2'
 }
