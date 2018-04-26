@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 4
-        versionName "1.0.4"
+        versionCode 5
+        versionName "1.0.5"
 
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
@@ -48,7 +48,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.3'
     compile 'org.greenrobot:eventbus:3.0.0'
 
-    compile('com.github.bumptech.glide:glide:4.4.0@aar') {
+    //compile 'com.github.bumptech.glide:glide:4.4.0'
+    compile('com.github.bumptech.glide:glide:4.5.0@aar') {
         transitive = true;
         exclude group: "com.android.support"
     }
